@@ -1,0 +1,164 @@
+[
+  {
+    "title": "Veriflow: B2B Revenue Leakage & Invoice Auditing System",
+    "description": "A production-oriented dual-model machine learning platform for enterprise financial compliance, comparing invoices against POs to detect price variances and flag shipping overcharges.",
+    "thumbnail": "/assets/images/projects/veriflow/dashboard_overview.png",
+    "url": "/projects/side/veriflow.html",
+    "github": "https://github.com/MuhammadTahaNasir/Veriflow",
+    "web": "",
+    "date": "2026-05-30",
+    "tab": "side",
+    "subcategory": "Machine Learning",
+    "features": [
+      "Streamlit",
+      "Python",
+      "SQLite",
+      "Scikit-learn",
+      "Random Forest",
+      "Feature Engineering"
+    ],
+    "hideWebLink": true
+  },
+  {
+    "title": "NEGO BOTS: AI-Driven Negotiation Simulator",
+    "description": "An interactive web-based simulator where you can watch AI models battle over pricing, or test your haggling skills against a mathematically ruthless AI Seller powered by Reinforcement Learning (PPO).",
+    "thumbnail": "/assets/images/projects/ai-negotiation-bot/landing_top.png",
+    "url": "/projects/featured/nego-bots.html",
+    "github": "https://github.com/MuhammadTahaNasir/AI-Negotiation-Bot",
+    "web": "",
+    "date": "2026-04-30",
+    "tab": "featured",
+    "subcategory": "Artificial Intelligence",
+    "features": [
+      "Python",
+      "Flask",
+      "PyTorch",
+      "Gymnasium",
+      "Reinforcement Learning",
+      "PPO"
+    ],
+    "hideWebLink": true
+  },
+  {
+    "title": "RescueAI: AI Emergency Response Platform",
+    "description": "RescueAI: A bilingual (English/Urdu) AI emergency response platform for Pakistan. Features instant GPS-SOS alerts, live responder tracking, and ARIA, a real-time AI assistant for critical emergency guidance via voice or text.",
+    "thumbnail": "/assets/images/projects/rescue-ai/1.png",
+    "url": "/projects/featured/rescue-ai.html",
+    "github": "https://github.com/MuhammadTahaNasir/RescueAI",
+    "web": "https://rescueai-pakistan.vercel.app/",
+    "date": "2026-05-03",
+    "tab": "featured",
+    "subcategory": "Artificial Intelligence",
+    "features": [
+      "React",
+      "FastAPI",
+      "Python",
+      "Groq LLaMA",
+      "Whisper",
+      "gTTS",
+      "Tailwind CSS",
+      "RTL",
+      "Voice AI",
+      "Urdu NLP"
+    ],
+    "hideWebLink": false
+  },
+  {
+    "title": "Genetron: 5G Tower Placement Optimizer",
+    "description": "Genetron: A spatial AI and optimization platform that leverages multi-objective NSGA-II genetic algorithms and high-fidelity spectral modeling to determine mathematically optimal 5G base station placements in dense urban environments.",
+    "thumbnail": "/assets/images/projects/genetron-5G_tower_optimzation/1.png",
+    "url": "/projects/academic/genetron.html",
+    "github": "https://github.com/Aleesha-hayat20/5g-Tower-Optimizer",
+    "web": "",
+    "date": "2026-03-09",
+    "tab": "academic",
+    "subcategory": "Artificial Intelligence",
+    "features": [
+      "React",
+      "FastAPI",
+      "Python",
+      "NSGA-II",
+      "Genetic Algorithm",
+      "NumPy",
+      "D3.js",
+      "OpenStreetMap"
+    ],
+    "hideWebLink": true
+  },
+  {
+    "title": "Terrag AI: AI-Powered Data Analytics Platform",
+    "description": "Terrag AI: A Streamlit-based AI-powered data analytics app for intelligent insights from business datasets like customers, feedback, and sales data.",
+    "thumbnail": "/assets/images/projects/terrag-ai/terrag-ai-preview.png",
+    "url": "/projects/side/terrag-ai.html",
+    "github": "https://github.com/MuhammadTahaNasir/advtrix-learning/tree/main/streamlit_app",
+    "web": "",
+    "date": "2025-07-23",
+    "tab": "side",
+    "subcategory": "Data Science",
+    "features": [
+      "Streamlit",
+      "Python",
+      "Pandas",
+      "Scikit-learn",
+      "Sentiment Analysis",
+      "KMeans Clustering"
+    ],
+    "hideWebLink": true
+  },
+  {
+    "title": "ThinkBoard: Data Analytics Dashboard",
+    "description": "ThinkBoard: A Flask-based web application for uploading CSV files, performing statistical analysis, and visualizing data with interactive charts, featuring a modern glassmorphism design and responsive layout.",
+    "thumbnail": "/assets/images/projects/think-board/preview.png",
+    "url": "/projects/side/think-board.html",
+    "github": "https://github.com/MuhammadTahaNasir/ThinkBoard",
+    "web": "https://think-board.up.railway.app",
+    "date": "2025-07-09",
+    "tab": "side",
+    "subcategory": "Web Development",
+    "features": [
+      "Flask",
+      "JavaScript",
+      "Pandas",
+      "Chart.js",
+      "Glassmorphism"
+    ],
+    "hideWebLink": false
+  },
+  {
+    "title": "Dishly: Modern Recipe Management System",
+    "description": "Dishly: A modern recipe management system with pantry tracking, social features, and an admin panel, built with PHP, MySQL, and modern CSS for a responsive UI.",
+    "thumbnail": "/assets/images/projects/dishly/signup.png",
+    "url": "/projects/academic/dishly.html",
+    "github": "",
+    "web": "",
+    "date": "2025-05-30",
+    "tab": "academic",
+    "subcategory": "Database Management Systems",
+    "features": [
+      "PHP",
+      "MySQL",
+      "CSS",
+      "Recipe Management",
+      "Pantry Tracking"
+    ],
+    "hideWebLink": true
+  },
+  {
+    "title": "Filesystem Time Machine: File System Monitoring & OS Visualization",
+    "description": "Filesystem Time Machine: A powerful file system monitoring and version control application with interactive OS concepts visualization, built with React and FastAPI.",
+    "thumbnail": "/assets/images/projects/filesystem-time-machine/preview.png",
+    "url": "/projects/academic/filesystem-time-machine.html",
+    "github": "https://github.com/MuhammadTahaNasir/fast-chronicles/tree/main/projects/operating-system/filesystem-time-machine",
+    "web": "",
+    "date": "2025-04-10",
+    "tab": "academic",
+    "subcategory": "Operating Systems",
+    "features": [
+      "React",
+      "FastAPI",
+      "Python",
+      "File System Monitoring"
+    ],
+    "hideWebLink": true
+  }
+]

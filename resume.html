@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
+  <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="Terry" />
+  <link rel="manifest" href="/assets/images/site.webmanifest" />
+
+  <!-- ---------- 1. Meta Tags ---------- -->
+  <meta charset="UTF-8"> <!-- Set character encoding to UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensure responsive viewport -->
+  <title>Resume | Muhammad Taha Nasir</title> <!-- Page title -->
+
+  <!-- ---------- 2. Stylesheets ---------- -->
+  <link rel="stylesheet" href="assets/css/resume.css" />
+  <link rel="stylesheet" href="assets/css/bottom-nav.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <style>
+    /* Critical to avoid black flash before external CSS arrives */
+    .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+    .loader.hidden{opacity:0;visibility:hidden}
+  </style>
+
+  <!-- ---------- 3. Theme Initialization Script ---------- -->
+  <script>
+    // Apply saved theme immediately to prevent flash
+    const savedTheme = localStorage.getItem('pref-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  </script>
+</head>
+
+<body>
+  <!-- ---------- 4. Loader Animation ---------- -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="terry-animation">
+      <span class="letter">t</span>
+      <span class="letter">e</span>
+      <span class="letter">r</span>
+      <span class="letter">r</span>
+      <span class="letter">y</span>
+    </div>
+  </div>
+
+  <!-- ---------- 5. Header Navigation ---------- -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <!-- Left: Logo -->
+      <div class="nav-left">
+        <a href="index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+
+      <!-- Center: Pills Navigation -->
+      <div class="nav-center">
+                <div class="pill-nav" role="tablist">
+          <a href="projects.html" role="tab">Projects</a>
+          <a href="archives.html" role="tab">Archives</a>
+          <a href="resume.html" class="active" role="tab" aria-selected="true">Resume</a>
+          <a href="search.html" role="tab">Search</a>
+        </div>
+      </div>
+
+      
+
+      <!-- Right: Theme toggle -->
+      <div class="nav-right">
+        <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+          <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ---------- 6. Main Content ---------- -->
+  <main class="post-container" role="main">
+    
+    <!-- ---------- 7. Resume Header ---------- -->
+    <div class="header-bar">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span aria-hidden="true">»</span>
+        <a href="resume.html" aria-current="page">Resume</a>
+      </nav>
+      <h1>Resume</h1>
+      <p class="subtitle">My professional experience and skills</p>
+    </div>
+
+    <!-- ---------- 8. Download Section ---------- -->
+    <div class="download-section">
+      <a href="/resume/muhammadtahanasir.pdf" download class="resume-download">
+        <i class="fas fa-download"></i> Curriculum Vitae
+      </a>
+    </div>
+
+    <!-- ---------- 9. Toggle Switch ---------- -->
+    <div class="toggle-container" role="tablist" aria-label="Resume section selector">
+      <button class="toggle-btn active" id="show-skills" role="tab" aria-selected="true" aria-controls="resume-content">
+        <i class="fas fa-code" aria-hidden="true"></i>
+        Skills
+      </button>
+      <button class="toggle-btn" id="show-experience" role="tab" aria-selected="false" aria-controls="resume-content">
+        <i class="fas fa-briefcase" aria-hidden="true"></i>
+        Experience
+      </button>
+      <button class="toggle-btn" id="show-education" role="tab" aria-selected="false" aria-controls="resume-content">
+        <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+        Education
+      </button>
+      <button class="toggle-btn" id="show-projects" role="tab" aria-selected="false" aria-controls="resume-content">
+        <i class="fas fa-folder" aria-hidden="true"></i>
+        Projects
+      </button>
+    </div>
+
+    <!-- ---------- 10. Resume Content ---------- -->
+    <div class="resume-content" id="resume-content" role="tabpanel" aria-label="Resume content">
+      <!-- Skills Section -->
+      <div id="skills-section" class="content-section active">
+        <!-- ---------- 11. Technical Skills Section ---------- -->
+        <section class="resume-section"> <!-- Technical skills section -->
+          <h2><i class="fas fa-code"></i> Technical Skills</h2> <!-- Section title -->
+          <div class="skills-icon-grid"> <!-- Unified Comprehensive Skills Grid -->
+            <!-- Programming Languages -->
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"></div>
+              <p>Python</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript"></div>
+              <p>JavaScript</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript"></div>
+              <p>TypeScript</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++"></div>
+              <p>C/C++</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="SQL"></div>
+              <p>SQL / MySQL</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP"></div>
+              <p>PHP</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" alt="Bash"></div>
+              <p>Bash</p>
+            </div>
+
+            <!-- Machine Learning & Data -->
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow"></div>
+              <p>TensorFlow</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch"></div>
+              <p>PyTorch</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" alt="Scikit-learn"></div>
+              <p>Scikit-learn</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas"></div>
+              <p>Pandas</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" alt="NumPy"></div>
+              <p>NumPy</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" alt="OpenCV"></div>
+              <p>OpenCV</p>
+            </div>
+
+            <!-- Full Stack & Web -->
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React.js"></div>
+              <p>React.js</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js"></div>
+              <p>Next.js</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="FastAPI"></div>
+              <p>FastAPI</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="Express.js" class="dark-invert"></div>
+              <p>Express.js</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB"></div>
+              <p>MongoDB</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL"></div>
+              <p>PostgreSQL</p>
+            </div>
+
+            <!-- Mobile Development -->
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter"></div>
+              <p>Flutter</p>
+            </div>
+
+            <!-- Big Data -->
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hadoop/hadoop-original.svg" alt="Hadoop"></div>
+              <p>Hadoop / HDFS</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachespark/apachespark-original.svg" alt="Apache Spark"></div>
+              <p>Spark / MLlib</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachekafka/apachekafka-original.svg" alt="Kafka" class="dark-invert"></div>
+              <p>Kafka</p>
+            </div>
+
+            <!-- Infrastructure & Cloud -->
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker"></div>
+              <p>Docker</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="GCP"></div>
+              <p>Google Cloud (GCP)</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS Basics" class="dark-invert"></div>
+              <p>AWS Basics</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="Git & GitHub" class="dark-invert"></div>
+              <p>Git & GitHub</p>
+            </div>
+            <div>
+              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux"></div>
+              <p>Linux</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------- 12. Additional Technologies Section ---------- -->
+        <section class="resume-section"> <!-- Additional technologies section -->
+          <h2>Additional Technologies</h2> <!-- Section title -->
+          <div class="tech-tags"> <!-- Modern Curated Tech Tags -->
+            <!-- AI & Agents -->
+            <span>Generative AI</span> 
+            <span>LLMs</span> 
+            <span>RAG</span> 
+            <span>Prompt Engineering</span> 
+            <span>Agentic AI (CrewAI)</span>
+            <span>LlamaIndex</span>
+            <span>LangGraph</span>
+            <span>Hugging Face</span> 
+            <span>LangChain</span> 
+            
+            <!-- AI Infrastructure -->
+            <span>Vector DBs (Pinecone, Chroma)</span> 
+            <span>Weaviate</span> 
+            <span>MLflow</span> 
+            <span>CUDA</span>
+            <span>Model Quantization</span>
+            <span>Streamlit</span>
+
+            <!-- Modern Web & DevOps -->
+            <span>ShadCN UI</span> 
+            <span>DaisyUI</span> 
+            <span>Zustand</span>
+            <span>Supabase</span>
+            <span>GitHub Actions / Jenkins</span> 
+            <span>Vercel / Railway</span> 
+            <span>Docker / Podman</span>
+            <span>n8n (Automation)</span>
+            <span>Docker Compose</span>
+          </div>
+        </section>
+      </div>
+
+      <!-- Experience Section -->
+      <div id="experience-section" class="content-section">
+        <!-- ---------- 11. Work Experience Section ---------- -->
+        <div class="resume-section"> <!-- Work experience section -->
+          <h2><i class="fas fa-briefcase"></i> Work Experience</h2> <!-- Section title -->
+          <div class="timeline"> <!-- Timeline container -->
+            <div class="milestone"></div> <!-- Timeline marker -->
+            <div class="timeline-card left"> <!-- Timeline entry (left-aligned) -->
+              <div class="year"><i class="fas fa-calendar-alt"></i> Jul 2024 – Sep 2024</div> <!-- Date range -->
+              <div class="card-header">
+                <h3><i class="fas fa-code"></i> Software Engineering Fellow</h3>
+                <span class="company">Headstarter AI</span>
+              </div>
+              <p>Built 5 AI projects in 5 weeks with React JS, Next.js, and CI/CD. Created a support agent and SaaS app
+                using RAG and AI APIs.</p> <!-- Job description -->
+              <div class="tags"> <!-- Tags container -->
+                <span><i class="fab fa-react"></i> React JS</span> <!-- Tag -->
+                <span><i class="fab fa-node-js"></i> Next.js</span> <!-- Tag -->
+                <span><i class="fas fa-robot"></i> AI</span> <!-- Tag -->
+                <span><i class="fas fa-brain"></i> RAG</span> <!-- Tag -->
+                <span><i class="fas fa-cogs"></i> CI/CD</span> <!-- Tag -->
+              </div>
+            </div>
+            <div class="milestone"></div> <!-- Timeline marker -->
+            <div class="timeline-card right"> <!-- Timeline entry (right-aligned) -->
+              <div class="year"><i class="fas fa-calendar-alt"></i> Apr 2025 – Jul 2025</div> <!-- Date range -->
+              <div class="card-header">
+                <h3><i class="fas fa-chalkboard-teacher"></i> Private Tutor (Online)</h3>
+                <span class="company">Guangxi Medical University</span>
+              </div>
+              <p>Tutored 3-4 MBBS students online in medical physics and calculus, enhancing their academic performance.
+              </p> <!-- Job description -->
+              <div class="tags"> <!-- Tags container -->
+                <span><i class="fas fa-graduation-cap"></i> Tutoring</span> <!-- Tag -->
+                <span><i class="fas fa-atom"></i> Medical Physics</span> <!-- Tag -->
+                <span><i class="fas fa-calculator"></i> Calculus</span> <!-- Tag -->
+                <span><i class="fas fa-globe"></i> Online</span> <!-- Tag -->
+              </div>
+            </div>
+            <div class="milestone"></div> <!-- Timeline marker -->
+            <div class="timeline-card left"> <!-- Timeline entry (left-aligned) -->
+              <div class="year"><i class="fas fa-calendar-alt"></i> Jun 2025 – Aug 2025</div> <!-- Date range -->
+              <div class="card-header">
+                <h3><i class="fas fa-brain"></i> AI/ML Intern</h3>
+                <span class="company">Advrtix</span>
+              </div>
+              <p>Supported marketing with AI insights, built models for campaign performance, automated segmentation,
+                and analyzed data trends.</p> <!-- Job description -->
+              <div class="tags"> <!-- Tags container -->
+                <span><i class="fas fa-robot"></i> AI/ML</span> <!-- Tag -->
+                <span><i class="fas fa-chart-line"></i> Marketing</span> <!-- Tag -->
+                <span><i class="fas fa-magic"></i> Automation</span> <!-- Tag -->
+                <span><i class="fas fa-chart-bar"></i> Data Analysis</span> <!-- Tag -->
+              </div>
+            </div>
+            <div class="milestone"></div> <!-- Timeline marker -->
+            <div class="timeline-card right"> <!-- Timeline entry (right-aligned) -->
+              <div class="year"><i class="fas fa-calendar-alt"></i> Aug 2025 – Sep 2025</div> <!-- Date range -->
+              <div class="card-header">
+                <h3><i class="fas fa-laptop-code"></i> Frontend Developer Intern</h3>
+                <span class="company">hwhelp.me</span>
+              </div>
+              <p>Designed, developed, and maintained web applications using HTML, CSS, JavaScript, Bootstrap, PHP, and MySQL. Created responsive designs and assisted in debugging, testing, and deploying projects.</p> <!-- Job description -->
+              <div class="tags"> <!-- Tags container -->
+                <span><i class="fab fa-html5"></i> HTML/CSS</span> <!-- Tag -->
+                <span><i class="fab fa-js"></i> JavaScript</span> <!-- Tag -->
+                <span><i class="fab fa-bootstrap"></i> Bootstrap</span> <!-- Tag -->
+                <span><i class="fab fa-php"></i> PHP</span> <!-- Tag -->
+                <span><i class="fas fa-database"></i> MySQL</span> <!-- Tag -->
+              </div>
+            </div>
+            <div class="milestone"></div> <!-- Timeline marker -->
+            <div class="timeline-card left"> <!-- Timeline entry (left-aligned) -->
+              <div class="year"><i class="fas fa-calendar-alt"></i> Oct 2025 – Nov 2025</div> <!-- Date range -->
+              <div class="card-header">
+                <h3><i class="fas fa-network-wired"></i> Information Technology Intern</h3>
+                <span class="company">UBL Insurers Ltd</span>
+              </div>
+              <p>Supported core operational systems, SQL-based data workflows, and Active Directory-based access controls in a regulated corporate insurance IT environment. Assisted in multi-branch IT helpdesk operations and identified opportunities where AI and automation could streamline claims and underwriting workflows.</p> <!-- Job description -->
+              <div class="tags"> <!-- Tags container -->
+                <span><i class="fas fa-database"></i> SQL</span> <!-- Tag -->
+                <span><i class="fas fa-users-gear"></i> Active Directory</span> <!-- Tag -->
+                <span><i class="fas fa-file-invoice-dollar"></i> Core Insurance Systems</span> <!-- Tag -->
+                <span><i class="fas fa-shield-halved"></i> Cybersecurity</span> <!-- Tag -->
+                <span><i class="fas fa-robot"></i> IT Automation</span> <!-- Tag -->
+              </div>
+            </div>
+            <div class="milestone"></div> <!-- Timeline marker -->
+            <div class="timeline-card right"> <!-- Timeline entry (right-aligned) -->
+              <div class="year"><i class="fas fa-calendar-alt"></i> Feb 2026 – May 2026</div> <!-- Date range -->
+              <div class="card-header">
+                <h3><i class="fas fa-chalkboard-user"></i> Teaching Assistant</h3>
+                <span class="company">National University of Computer and Emerging Sciences</span>
+              </div>
+              <p>Assisted undergraduate students in Expository Writing to develop structured thinking, argument development, clarity of expression, and analytical communication. Conducted support sessions for academic writing, evaluated assignments with technical feedback, and reinforced software documentation and structured communication principles.</p> <!-- Job description -->
+              <div class="tags"> <!-- Tags container -->
+                <span><i class="fas fa-pen-nib"></i> Expository Writing</span> <!-- Tag -->
+                <span><i class="fas fa-brain"></i> Critical Thinking</span> <!-- Tag -->
+                <span><i class="fas fa-file-signature"></i> Technical Writing</span> <!-- Tag -->
+                <span><i class="fas fa-graduation-cap"></i> Academic Support</span> <!-- Tag -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education Section -->
+      <div id="education-section" class="content-section">
+        <!-- ---------- 13. Education Section ---------- -->
+        <section class="resume-section"> <!-- Education section -->
+          <h2><i class="fas fa-graduation-cap"></i> Education</h2> <!-- Section title -->
+          <div class="timeline"> <!-- Timeline container -->
+            <div class="milestone"></div> <!-- Timeline marker -->
+            <div class="timeline-card left"> <!-- Timeline entry (left-aligned) -->
+              <div class="year"><i class="fas fa-calendar-alt"></i> Class of 2021</div> <!-- Year -->
+              <div class="card-header">
+                <h3><i class="fas fa-microscope"></i> Intermediate (Pre-Engineering)</h3>
+                <span class="company">Bahria College Karachi</span>
+              </div>
+              <p>Focused on core subjects like Physics and Mathematics, building a solid foundation for higher studies
+                in technology.</p> <!-- Description -->
+              <div class="tags"> <!-- Tags container -->
+                <span><i class="fas fa-atom"></i> Physics</span> <!-- Tag -->
+                <span><i class="fas fa-calculator"></i> Mathematics</span> <!-- Tag -->
+                <span><i class="fas fa-cogs"></i> Pre-Engineering</span> <!-- Tag -->
+              </div>
+            </div>
+            <div class="milestone"></div> <!-- Timeline marker -->
+            <div class="timeline-card right"> <!-- Timeline entry (right-aligned) -->
+              <div class="year"><i class="fas fa-calendar-alt"></i> Class of 2023 – Present</div> <!-- Year range -->
+              <div class="card-header">
+                <h3><i class="fas fa-laptop-code"></i> Bachelor of Science in Computer Science</h3>
+                <span class="company">FAST NUCES</span>
+              </div>
+              <p>Currently enrolled, exploring areas like artificial intelligence, system design, and software
+                engineering.</p> <!-- Description -->
+              <div class="tags"> <!-- Tags container -->
+                <span><i class="fas fa-robot"></i> AI</span> <!-- Tag -->
+                <span><i class="fas fa-code"></i> Software Engineering</span> <!-- Tag -->
+                <span><i class="fas fa-desktop"></i> Computer Science</span> <!-- Tag -->
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Projects Section -->
+      <div id="projects-section" class="content-section">
+        <!-- ---------- 14. Projects Section ---------- -->
+        <div class="resume-section"> <!-- Projects section -->
+          <h2><i class="fas fa-folder"></i> Top Projects</h2> <!-- Section title -->
+          <div class="project-grid" id="project-grid-container">
+            <!-- Top 3 projects will be injected here -->
+            <div class="carousel-loading">Loading projects...</div>
+          </div>
+          <div class="view-all-projects">
+            <p>Want to see more? <a href="projects.html">View all projects</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  
+
+  <!-- Bottom Nav injected by shared-bottom-nav.js -->
+
+  <!-- ---------- 15. Footer ---------- -->
+  <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+    <div class="social-icons" style="margin-bottom:25px;">
+      <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+        style="margin:0 5px; font-size:1.6em;">
+        <i class="fab fa-github" aria-hidden="true"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+        aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+        <i class="fab fa-linkedin" aria-hidden="true"></i>
+      </a>
+      <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+        style="margin:0 5px; font-size:1.6em;">
+        <i class="fas fa-envelope" aria-hidden="true"></i>
+      </a>
+    </div>
+    <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+  </footer>
+
+  <!-- ---------- 16. Scroll to Top Button ---------- -->
+  <button id="scrollTop" aria-label="Scroll to top" title="Scroll to top" type="button">
+    <i class="fas fa-chevron-up" aria-hidden="true"></i>
+  </button>
+
+  <!-- ---------- 17. JavaScript Includes ---------- -->
+
+  <script src="assets/js/resume.js"></script> <!-- Resume page JavaScript -->
+  <script src="assets/js/header-scroll.js"></script>
+  <script src="assets/js/shared-bottom-nav.js"></script>
+  <script src="assets/js/nav-active.js"></script>
+  <script src="assets/js/instant-loader.js"></script>
+</body>
+
+</html>

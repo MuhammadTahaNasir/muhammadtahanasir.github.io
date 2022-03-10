@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Terry" />
+    <link rel="manifest" href="/assets/images/site.webmanifest" />
+    <!-- ---------- 1. Meta Tags ---------- -->
+    <meta charset="UTF-8"> <!-- Set character encoding to UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensure responsive viewport -->
+    <title>Projects | Muhammad Taha Nasir</title> <!-- Page title -->
+
+    <!-- ---------- 2. Stylesheets ---------- -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="./assets/css/projects.css" />
+    <link rel="stylesheet" href="assets/css/bottom-nav.css" />
+    <!-- ---------- 3. Theme Initialization Script ---------- -->
+    <script>
+        // Apply theme immediately on page load to prevent flash
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+</head>
+
+<body>
+    <!-- ---------- 4. Loader Animation ---------- -->
+    <div class="loader" id="loader"> <!-- Loader overlay -->
+        <div class="terry-animation"> <!-- Animated "terry" text -->
+            <span class="letter">t</span> <!-- Individual letter -->
+            <span class="letter">e</span> <!-- Individual letter -->
+            <span class="letter">r</span> <!-- Individual letter -->
+            <span class="letter">r</span> <!-- Individual letter -->
+            <span class="letter">y</span> <!-- Individual letter -->
+        </div>
+    </div>
+
+    <!-- ---------- 5. Header Navigation ---------- -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <!-- Left: Logo -->
+      <div class="nav-left">
+        <a href="index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+
+      <!-- Center: Pills Navigation -->
+      <div class="nav-center">
+                <div class="pill-nav" role="tablist">
+          <a href="projects.html" class="active" role="tab" aria-selected="true">Projects</a>
+          <a href="archives.html" role="tab">Archives</a>
+          <a href="resume.html" role="tab">Resume</a>
+          <a href="search.html" role="tab">Search</a>
+        </div>
+      </div>
+
+
+      <!-- Right: Theme toggle -->
+      <div class="nav-right">
+        <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+          <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+
+    <!-- Bottom Nav injected by shared-bottom-nav.js -->
+
+
+
+    <!-- ---------- 6. Main Content ---------- -->
+    <main class="post-container page-fade-in" role="main">
+        <!-- ---------- 7. Archive Header ---------- -->
+    <div class="header-bar">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span aria-hidden="true">»</span>
+        <a href="projects.html" aria-current="page">Projects</a>
+      </nav>
+      <h1>Projects</h1>
+      <p class="subtitle">Explore all my projects, side hustles, and academic work</p>
+    </div>
+
+            <!-- ---------- 9. Toggle Container ---------- -->
+            <div class="toggle-container">
+                <button class="toggle-btn active" data-tab="all">All Projects</button>
+                <button class="toggle-btn" data-tab="side">Side</button>
+                <button class="toggle-btn" data-tab="academic">Academic</button>
+                <button class="toggle-btn" data-tab="featured">Featured</button>
+            </div>
+
+            <!-- ---------- Mobile Project Type Dropdown ---------- -->
+            <div class="mobile-project-type">
+                <div class="mobile-toggle-container">
+                    <button class="mobile-toggle-btn active" data-tab="all">All Projects</button>
+                    <button class="mobile-toggle-btn" data-tab="side">Side</button>
+                    <button class="mobile-toggle-btn" data-tab="academic">Academic</button>
+                    <button class="mobile-toggle-btn" data-tab="featured">Featured</button>
+                </div>
+            </div>
+
+            <!-- ---------- 8. Filter Bar ---------- -->
+            <div class="filter-bar">
+                <input id="searchInput" type="text" placeholder="Search projects..." />
+                <div class="dropdowns-row">
+                    <div class="dropdown-container">
+                        <select id="categorySelect">
+                        </select>
+                        <div class="arrow">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="dropdown-container">
+                        <select id="sortSelect">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="a-z">Name ↗</option>
+                            <option value="z-a">Name ↘</option>
+                        </select>
+                        <div class="arrow">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="view-toggle">
+                        <button id="gridViewBtn" class="active" title="Grid View">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button id="listViewBtn" title="List View">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ---------- 10. Project Results ---------- -->
+            <div id="projects-grid" class="projects-grid">
+                <div class="skeleton-post-card">
+                    <div class="skeleton-content">
+                        <div class="skeleton-title"></div>
+                        <div class="skeleton-meta"></div>
+                    </div>
+                </div>
+                <div class="skeleton-post-card">
+                    <div class="skeleton-content">
+                        <div class="skeleton-title"></div>
+                        <div class="skeleton-meta"></div>
+                    </div>
+                </div>
+            </div>
+    </main>
+
+    <!-- ---------- 11. Footer ---------- -->
+    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+        <div class="social-icons" style="margin-bottom:25px;">
+            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"
+                aria-label="GitHub profile" style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+        </div>
+        <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+    </footer>
+
+    <!-- ---------- 12. Scroll to Top Button ---------- -->
+    <button id="scrollTop" aria-label="Scroll to top" title="Scroll to top" type="button">
+        <i class="fas fa-chevron-up" aria-hidden="true"></i>
+    </button>
+
+
+    <script src="./assets/js/projects.js"></script>
+    <script src="./assets/js/header-scroll.js"></script>
+    <script src="./assets/js/shared-bottom-nav.js"></script>
+    <script src="./assets/js/nav-active.js"></script>
+    <script src="./assets/js/instant-loader.js"></script>
+</body>
+
+</html>

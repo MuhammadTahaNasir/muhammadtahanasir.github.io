@@ -1,0 +1,14 @@
+# Python automation scripts (Keep backend code private)
+*.py
+__pycache__/
+
+# Node.js dependencies
+node_modules/
+
+# Editor/IDE configurations
+.vscode/
+.idea/
+
+# System junk files
+.DS_Store
+Thumbs.db

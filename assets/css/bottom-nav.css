@@ -1,0 +1,147 @@
+/* ---------- Master Shared Navigation (Mobile & Desktop) ---------- */
+
+/* Desktop Pill Navigation Active States */
+.pill-nav a.active {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3) !important;
+}
+
+/* Hide any non-premium bottom nav immediately to prevent flash */
+.bottom-nav:not(.premium-nav) {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Mobile Bottom Navigation Redesign - Premium Sliding Logic */
+@media (min-width: 769px) {
+  .bottom-nav { display: none !important; }
+}
+
+@media (max-width: 768px) {
+  .header .bottom-nav { display: none !important; }
+  body { padding-bottom: 90px !important; }
+
+  .bottom-nav.premium-nav {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    position: fixed !important;
+    bottom: 20px !important; /* Floating style */
+    left: 20px !important;
+    right: 20px !important;
+    width: auto !important;
+    height: 70px !important;
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: 35px !important;
+    z-index: 99999 !important;
+    padding: 0 10px;
+    box-sizing: border-box;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .nav-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    align-items: center;
+  }
+
+  /* Sliding Indicator */
+  .nav-indicator {
+    position: absolute;
+    width: 20%; /* 100% / 5 items */
+    height: 56px;
+    background: var(--accent);
+    border-radius: 30px;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+    z-index: 1;
+    box-shadow: 0 8px 20px rgba(0, 122, 255, 0.4);
+    top: 50%;
+    margin-top: -28px;
+  }
+
+  .nav-item {
+    color: var(--secondary);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.3s ease;
+    flex: 1;
+    z-index: 2;
+    height: 100%;
+  }
+
+  .nav-item i {
+    font-size: 22px;
+    margin-bottom: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .nav-item span {
+    font-size: 9px;
+    font-weight: 600;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+  }
+
+  /* Active Tab State */
+  .nav-item.active {
+    color: #ffffff !important;
+  }
+
+  .nav-item.active i {
+    transform: translateY(-2px);
+    color: #ffffff !important;
+  }
+
+  .nav-item.active span {
+    opacity: 1;
+    color: #ffffff !important;
+  }
+
+  /* Remove any forced borders or lime colors */
+  .action-btn { display: none; }
+}
+
+@media (max-width: 480px) {
+  .nav-item span { display: none !important; }
+  .nav-item i { font-size: 26px !important; }
+  .bottom-nav.premium-nav {
+    left: 15px !important;
+    right: 15px !important;
+    height: 65px !important;
+    bottom: 15px !important;
+  }
+}
+
+/* Light mode high-contrast overrides for premium bottom-nav */
+[data-theme="light"] .bottom-nav.premium-nav {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+[data-theme="light"] .bottom-nav.premium-nav .nav-item {
+  color: #515154 !important; /* Darker gray for inactive items */
+}
+
+[data-theme="light"] .bottom-nav.premium-nav .nav-item.active {
+  color: #ffffff !important; /* Active item text/icon remains white */
+}
+
+[data-theme="light"] .bottom-nav.premium-nav .nav-item.active i {
+  color: #ffffff !important;
+}
+
+[data-theme="light"] .bottom-nav.premium-nav .nav-item.active span {
+  color: #ffffff !important;
+}
