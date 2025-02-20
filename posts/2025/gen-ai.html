@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+
+<html dir="auto" lang="en">
+<head>
+<link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/assets/images/favicon.ico" rel="shortcut icon"/>
+<link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<meta content="Terry" name="apple-mobile-web-app-title"/>
+<link href="/assets/images/site.webmanifest" rel="manifest"/>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<meta content="noindex, nofollow" name="robots"/>
+<meta content="This post covers Generative AI and learning how Large Language Models (LLMs) like GPT understand and generate text, code, images, and more. From writing smarter prompts to understanding how these models think, this experience opened my eyes to how AI is reshaping creativity, productivity, and problem-solving." name="description"/>
+<meta content="Muhammad Taha Nasir" name="author"/>
+<meta content="Generative AI" name="tags"/>
+<meta content="/assets/images/posts/gen-ai.JPG" name="thumbnail"/>
+<title>Generative AI &amp; Prompt Engineering: The New Skillset for the AI Age</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+<link href="../../assets/css/each-post.css" rel="stylesheet"/>
+<link href="../../assets/css/bottom-nav.css" rel="stylesheet"/>
+<style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+    </style>
+<script>
+        // Apply theme immediately on page load
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+</head>
+<body class="dark" id="top" post-date="2025-02-20">
+<!-- Loader Animation -->
+<div aria-hidden="true" class="loader" id="loader">
+<div class="terry-animation">
+<span class="letter">t</span>
+<span class="letter">e</span>
+<span class="letter">r</span>
+<span class="letter">r</span>
+<span class="letter">y</span>
+</div>
+</div>
+<header class="header">
+<nav class="nav">
+<!-- Left: Logo -->
+<div class="nav-left">
+<a class="logo" href="/index.html">&lt;terry/&gt;</a>
+</div>
+<!-- Center: Pills Navigation -->
+<div class="nav-center">
+<div class="pill-nav">
+<a href="/projects.html">Projects</a>
+<a href="/archives.html">Archives</a>
+<a href="/resume.html">Resume</a>
+<a href="/search.html">Search</a>
+</div>
+</div>
+<!-- Right: Theme toggle -->
+<div class="nav-right">
+<button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
+<svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="5"></circle>
+<line x1="12" x2="12" y1="1" y2="3"></line>
+<line x1="12" x2="12" y1="21" y2="23"></line>
+<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+<line x1="1" x2="3" y1="12" y2="12"></line>
+<line x1="21" x2="23" y1="12" y2="12"></line>
+<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+</svg>
+<svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+</svg>
+</button>
+</div>
+</nav>
+</header>
+<div class="container">
+<nav class="breadcrumb">
+<a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
+</nav>
+<main class="post-content">
+<header class="post-header">
+<h1 class="post-title">Generative AI &amp; Prompt Engineering: The New Skillset for the AI Age</h1>
+<div class="post-meta">Feb 20 2025 • 4 min • Muhammad Taha Nasir</div>
+</header>
+<aside class="table-of-contents">
+<details>
+<summary>Table of Contents</summary>
+<ul>
+<li><a href="#welcome-back">Back with Some AI Magic</a></li>
+<li><a href="#llms-genai">What Are LLMs and Generative AI?</a></li>
+<li><a href="#experiments">My 2024 AI Adventures</a></li>
+<li><a href="#prompt-tips">Prompt Engineering Hacks</a></li>
+<li><a href="#hype-reality">2024’s AI Hype vs Reality</a></li>
+<li><a href="#future-ai">What’s Next for AI in 2025</a></li>
+</ul>
+</details>
+</aside>
+<!-- Social Sharing Floating Toolbar -->
+<div class="social-sharing-toolbar">
+<button class="social-btn subscribe-btn" title="Subscribe to newsletter">
+<i class="fas fa-envelope"></i>
+</button>
+<button class="social-btn share-btn" title="Share">
+<i class="fas fa-share-alt"></i>
+</button>
+</div>
+<section id="welcome-back">
+<h2>Back with Some AI Magic</h2>
+<p>Hey tech fam! It’s been a month, but I’m back, chai in hand, ready to spill the beans on 2024’s AI
+                    craze. Large language models and generative AI were everywhere, from X posts to my laptop screen. I
+                    dove headfirst into experimenting with tools like ChatGPT and Grok 3, messing with prompts and
+                    learning the ropes.</p>
+</section>
+<img alt="Gen-AI" src="/assets/images/posts/gen-ai.JPG" style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;"/>
+<section id="llms-genai">
+<h2>What Are LLMs and Generative AI?</h2>
+<p>Large language models, or LLMs, are like super-smart digital librarians who can read tons of books
+                    and write their own. They process huge piles of text to chat, code, or explain stuff like you’re
+                    talking to a friend. In 2024, models like GPT-4 and Grok 3 were the stars, helping with everything
+                    from debugging code to writing essays. I used GPT-4 to fix a machine learning project, and it was
+                    like having a nerdy sidekick who never sleeps.</p>
+<p>Generative AI is the bigger picture, including LLMs and tools that create new stuff like text,
+                    images, even music. It’s like giving AI a blank canvas and watching it go wild. In 2024, it powered
+                    things like medical imaging and weather forecasting, as noted by <a href="https://research.aimultiple.com/future-of-large-language-models/">[AI Multiple]</a>. But
+                    it’s not perfect, it can churn out nonsense or biased stuff, so you’ve got to keep an eye on it.
+                    Still, it’s a game-changer.</p>
+</section>
+<section id="prompt-tips">
+<h2>Prompt Engineering Hacks</h2>
+<p>Getting AI to listen is an art. My early prompts were a mess, but here’s what I learned to make them
+                    work:</p>
+<ul>
+<li><strong>Be Clear:</strong> Don’t say “tell me about AI.” Try “explain neural networks like I’m a
+                        gamer.” Context is everything.</li>
+<li><strong>Show Examples:</strong> Want code? Give a sample, like “write a function like this:
+                        [sample code].” It nails the format.</li>
+<li><strong>Keep Tweaking:</strong> My first prompts were garbage. Refine them until they click.
+                    </li>
+<li><strong>Ask for Steps:</strong> For coding or math, say “think step by step.” It’s like giving
+                        AI a roadmap.</li>
+</ul>
+<p>These tricks turned my AI chats from meh to magic. Prompt engineering is a must in 2025, like knowing
+                    how to code.
+                </p>
+</section>
+<section id="hype-reality">
+<h2>2024’s AI Hype vs Reality</h2>
+<p>2024 was AI’s time to shine, fam! Everywhere you looked on X, people were hyping up large language
+                    models like GPT-4, LLaMA, and Grok 3, claiming they’d replace coders, writers. I gave Grok 3 a spin
+                    on <a href="https://x.com">X</a> and loved its nerdy, know-it-all vibe ,like chatting with a friend
+                    who’s read the entire internet. But let’s cut the fluff. AI is legit awesome: it helped me debug a
+                    tricky Python script and brainstorm blog ideas that didn’t totally suck. It’s making waves in cool
+                    fields like medical imaging. Still, it’s not the superhero X makes it out to be. It can spit out
+                    fake facts (like when it gave me a totally made-up research paper citation yikes), chugs energy like
+                    there’s no tomorrow, and doesn’t think like us humans, no matter how clever it seems. The “AI will
+                    rule the world” talk? Total overkill. It’s a tool, not Tony Stark. Want to dig into what AI’s really
+                    doing? Check out these resources that helped me sort the hype from the truth:
+                </p>
+<ul style="list-style: none; padding: 0;">
+<li style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+<strong>AI Multiple’s Deep Dive</strong><br/>
+                        Breaks down how AI’s shaking up industries like healthcare with real examples. Click here: <a href="https://research.aimultiple.com/future-of-large-language-models/">research.aimultiple.com</a>
+</li>
+<li style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+<strong>Vamsi’s Tech Insights</strong><br/>
+                        Gets into the nitty-gritty of AI’s limits, like its energy use and fake facts. Click here: <a href="https://www.vamsitalkstech.com/ai/the-evolution-of-large-language-models-in-2024-and-where-we-are-headed-in-2025-a-technical-review/">vamsitalkstech.com</a>
+</li>
+</ul>
+</section>
+<section id="future-ai">
+<h2>What’s Next for AI in 2025</h2>
+<p>2025 is shaping up to be a wild ride for AI! After scrolling through X and sites like <a href="https://hatchworks.com/blog/gen-ai/large-language-models-guide/">HatchWorks AI</a>, I’m
+                    seeing a clear trend: AI’s getting more focused and efficient. Think models tailored for doctors or
+                    lawyers, and new tech like GPT-4.5 that might use 30% less energy, as mentioned in <a href="https://www.vamsitalkstech.com/ai/the-evolution-of-large-language-models-in-2024-and-where-we-are-headed-in-2025-a-technical-review/">Vamsi
+                        Talks Tech</a>. But there’s chatter on X about issues like bias and fake info, and I get
+                    it and all those are real worries. I’m hopeful open-source models and better rules will keep things
+                    fair. I’m even planning an AI-powered study notes app, fingers crossed! See you in next post! Bye:)
+                </p>
+</section>
+<div class="tags-container" id="dynamic-tags">
+<!-- Tags will be dynamically generated here -->
+</div>
+<hr class="divider"/>
+<section class="related-articles" id="related-series">
+<h2 class="series-title">Article Series</h2>
+<a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+<div id="related-posts-container"></div>
+</section>
+</main>
+<!-- Newsletter Subscription Section -->
+<div class="newsletter-section">
+<div class="newsletter-content">
+<h3>Subscribe to our newsletter</h3>
+<p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+<p>Subscribe to the newsletter, and don't miss out.</p>
+<div class="newsletter-form">
+<input class="newsletter-input" placeholder="Enter your email address" type="email"/>
+<button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+</div>
+</div>
+</div>
+</div>
+<footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+<div class="social-icons" style="margin-bottom:25px;">
+<a aria-label="GitHub profile" href="https://github.com/MuhammadTahaNasir" style="margin:0 5px; font-size:1.6em;" target="_blank" title="GitHub">
+<i aria-hidden="true" class="fab fa-github"></i>
+</a>
+<a aria-label="LinkedIn profile" href="https://www.linkedin.com/in/muhammadtahanasir/" style="margin:0 5px; font-size:1.6em;" target="_blank" title="LinkedIn">
+<i aria-hidden="true" class="fab fa-linkedin"></i>
+</a>
+<a aria-label="Send email" href="mailto:m.tahanasir.cs@gmail.com" style="margin:0 5px; font-size:1.6em;" title="Email">
+<i aria-hidden="true" class="fas fa-envelope"></i>
+</a>
+</div>
+<p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+</footer>
+<button aria-label="Scroll to top" id="scrollTop">
+<i class="fas fa-chevron-up"></i>
+</button>
+<script src="../../assets/js/each-post.js"></script>
+<script src="../../assets/js/shared-bottom-nav.js"></script>
+<script src="../../assets/js/nav-active.js"></script>
+</body>
+</html>
