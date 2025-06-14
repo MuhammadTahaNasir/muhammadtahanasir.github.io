@@ -1,0 +1,15 @@
+/* Add your custom styles here */
+body {
+    font-family: Arial, sans-serif;
+}
+.header {
+    background: #333;
+    color: white;
+    padding: 1rem;
+}
+.footer {
+    background: #222;
+    color: #ddd;
+    text-align: center;
+    padding: 1rem;
+}
