@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description"
+        content="From C++ classes to LeetCode battles, my DSA journey boosts ML speed. Arrays, stacks, and a not-so-scary grind!">
+    <meta name="author" content="Muhammad Taha Nasir">
+    <meta name="tags" content="Data Structures, LeetCode, C++, Machine Learning, Algorithms, university">
+    <title>DSA Finally Clicked!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/each-post.css">
+</head>
+
+<body class="dark" id="top" post-date="2024-09-21T00:00:00Z">
+    <header class="header">
+        <nav class="nav">
+            <div class="logo"><a href="../index.html" style="color:inherit;text-decoration:none">&lt;terry/&gt;</a>
+            </div>
+            <div>
+                <a href="../resources.html">Resources</a>
+                <a href="../archives.html">Archives</a>
+                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Home</a> » <a href="../posts.html">Posts</a>
+        </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">DSA Finally Clicked!</h1>
+                <div class="post-meta">September 21, 2024 • 3 min • Muhammad Taha Nasir</div>
+            </header>
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#back-at-it">Back at It with DSA</a></li>
+                        <li><a href="#uni-cplusplus">C++ and Data Structures at Uni</a></li>
+                        <li><a href="#leetcode-grind">LeetCode and My Go-To Resources</a></li>
+                        <li><a href="#not-so-tough">Not as Tough as They Say</a></li>
+                        <li><a href="#why-it-matters">Why Data Structures Matter</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <section id="back-at-it">
+                <h2>Back at It with DSA</h2>
+                <p>Yo, remember my 2022 LeetCode meltdown? (Peep my <a
+                        href="../posts/learning-dsa-leetcode.html">earlier post</a> for the full drama.) I’m back, and
+                    this time, I’m diving headfirst into Data Structures and Algorithms (DSA). Arrays, linked lists,
+                    stacks, they’re not just interview prep; they’re like rocket fuel for my ML code. Thanks to my uni
+                    classes and some clutch resources, I’m finally on the right path. Let’s break down how I’m tackling
+                    this beast.</p>
+            </section>
+            <section id="uni-cplusplus">
+                <h2>C++ and Data Structures at Uni</h2>
+                <p>At uni, we’re grinding through data structures in C++, and it’s like switching from a bike to a
+                    spaceship. Our professor (big props to Zia Sir from my Python days) has us coding arrays, linked
+                    lists, and stacks from the ground up. C++ is intense pointers and memory management are no joke, but
+                    it’s making me see how data structures actually work. Check out this C++ linked list node I coded
+                    for class:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-cpp" data-lang="C++"><code>
+#include <iostream>
+struct Node {
+    int data;
+    Node* next;
+    Node(int val) : data(val), next(nullptr) {}
+};
+class LinkedList {
+public:
+    Node* head;
+    LinkedList() : head(nullptr) {}
+    void insert(int val) {
+        Node* newNode = new Node(val);
+        newNode->next = head;
+        head = newNode;
+    }
+};
+                    </code></pre>
+                </div>
+                <p>This code was my “aha” moment, linked lists are like a chain of treasure chests, each pointing to the
+                    next. C++’s raw power helped me get why DSA is the backbone of efficient ML code.</p>
+            </section>
+            <section id="leetcode-grind">
+                <h2>LeetCode and My Go-To Resources</h2>
+                <p>With uni giving me a DSA foundation, I jumped back into LeetCode, and it’s less scary this time. I’ve
+                    tackled problems like Two Sum and Valid Parentheses, and each green checkmark feels like hitting a
+                    boundary in cricket. I’m no DSA rockstar yet but arrays still mess with my head but I’m making
+                    progress.
+                    To stay on track, I’ve been leaning on some awesome resources that break down DSA like a pro. Here’s
+                    what’s been saving me:</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>Striver’s A-Z DSA Sheet</strong><br>
+                        A structured guide with curated LeetCode problems to master DSA step-by-step. Check it out: <a
+                            href="https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2">takeuforward.org</a>
+                    </li>
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>Coder Army’s YouTube Tutorials</strong><br>
+                        Beginner-friendly DSA videos with clear explanations in English. Watch here: <a
+                            href="https://www.youtube.com/@CoderArmy9">youtube.com/@CoderArmy9</a>
+                    </li>
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>Abdul Bari’s YouTube Videos</strong><br>
+                        In-depth DSA concepts explained like a pro, perfect for uni students. Start here: <a
+                            href="https://www.youtube.com/@abdul_bari">youtube.com/@abdul_bari</a>
+                    </li>
+                </ul>
+            </section>
+            <section id="not-so-tough">
+                <h2>Not as Tough as They Say</h2>
+                <p>People hype up DSA like it’s the final boss of computer science. I bought into that fear, thinking
+                    I’d be lost in a maze of pointers forever. But after uni classes and some LeetCode practice, I’m
+                    like, “Bro, it’s not *that* bad!” Maybe I’m a bit cocky, but arrays, linked lists, and stacks are
+                    starting to feel like squad mates. The trick? Chip away daily, lean on resources like Striver and
+                    Coder Army, and laugh off those “Time Limit Exceeded” errors. It’s just LeetCode saying, “C’mon, you
+                    got this!”</p>
+            </section>
+            <section id="why-it-matters">
+                <h2>Why Data Structures Matter</h2>
+                <p>Data structures are the backbone of efficient programming, especially in fields like machine learning
+                    and AI. They help organize and manage data, making code faster and more scalable. Mastering arrays,
+                    linked lists, trees, and stacks builds a solid foundation for solving real-world problems. With
+                    resources like Striver's DSA sheet, Abdul Bari’s explanations, and platforms like LeetCode and
+                    GeeksforGeeks, anyone can level up their problem-solving skills and become a better developer.</p>
+            </section>
+            <div class="tags-container" id="dynamic-tags">
+                <!-- Tags will be dynamically generated here -->
+            </div>
+        </main>
+        <footer class="footer">
+            <div class="social-icons">
+                <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:example@email.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>© 2024 – Muhammad Taha Nasir</p>
+        </footer>
+    </div>
+    <button id="scrollTop" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../assets/js/each-post.js"></script>
+    <script>
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.innerText = "Copied!";
+                    setTimeout(() => button.innerText = "Copy", 1500);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

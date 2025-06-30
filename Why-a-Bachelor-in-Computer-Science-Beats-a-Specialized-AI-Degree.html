@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Why a Bachelor in Computer Science Beats a Specialized AI Degree | <taha/></title>
+  <meta name="keywords" content="computer science, AI, education">
+  <meta name="description" content="Exploring why a Computer Science degree offers more flexibility and value compared to a specialized AI degree.">
+  <meta name="author" content="Muhammad Taha Nasir">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2e2e33;
+      --secondary: #666;
+      --tertiary: #f5f5f5;
+      --background: #fff;
+      --border: #ddd;
+      --theme: #fff;
+      --entry: #fff;
+      --content: #333;
+      --code-block-bg: #f5f5f5;
+      --code-bg: #e5e7eb;
+    }
+    body.dark {
+      --primary: #fff;
+      --secondary: #aaa;
+      --tertiary: #333;
+      --background: #2e2e33;
+      --border: #555;
+      --theme: #1a1a1a;
+      --entry: #2e2e33;
+      --content: #f9fafb;
+      --code-block-bg: #2e2e33;
+      --code-bg: #37404e;
+    }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background: var(--background);
+      color: var(--primary);
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    /* Navigation bar */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+    }
+    .logo {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.2em;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .nav a {
+      margin: 0 15px;
+      font-size: 1em;
+      color: var(--secondary);
+      text-decoration: none;
+    }
+    .nav a:hover { color: #3b82f6; }
+    #theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 5px;
+      color: var(--primary);
+    }
+    #theme-toggle svg { width: 24px; height: 18px; fill: currentColor; }
+    #moon { display: none; }
+    .dark #sun { display: none; }
+    .dark #moon { display: block; }
+    /* Breadcrumb */
+    .breadcrumb {
+      margin: 20px 0;
+      font-size: 0.95em;
+      color: var(--secondary);
+      text-align: left;
+    }
+    .breadcrumb a {
+      color: var(--secondary);
+      text-decoration: none;
+    }
+    .breadcrumb a:hover {
+      color: #3b82f6;
+    }
+    /* Post styles */
+    .post-header {
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+    .post-title {
+      font-size: 2rem;
+      margin: 0.5rem 0;
+      color: var(--primary);
+    }
+    .post-meta {
+      font-size: 0.9em;
+      color: var(--secondary);
+    }
+    .post-content {
+      font-size: 1.1em;
+      text-align: left;
+    }
+    .post-content h2 {
+      font-size: 1.5rem;
+      margin: 1.5rem 0 0.5rem;
+      color: var(--primary);
+    }
+    .post-content p, .post-content ul, .post-content ol {
+      margin: 0.5rem 0;
+    }
+    .table-of-contents {
+      background: var(--tertiary);
+      border-radius: 10px;
+      padding: 1rem;
+      margin: 1rem 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      text-align: left;
+    }
+    .table-of-contents {
+      background: var(--tertiary);
+      border-radius: 10px;
+      padding: 1rem;
+      margin: 1rem 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    .table-of-contents summary {
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      color: var(--primary);
+    }
+    .table-of-contents ul {
+      list-style: none;
+      padding: 0;
+    }
+    .table-of-contents li {
+      margin: 0.5rem 0;
+    }
+    .table-of-contents a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .table-of-contents a:hover {
+      color: #3b82f6;
+    }
+    /* Footer styles */
+    .footer {
+      margin-top: 40px;
+      font-size: .9em;
+      color: var(--secondary);
+      text-align: center;
+      padding: 20px 0;
+    }
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 32px auto 0;
+      max-width: 500px;
+    }
+    .social-icons a {
+      font-size: 24px;
+      color: var(--primary);
+      text-decoration: none;
+      transition: color .3s;
+    }
+    .social-icons a:hover { color: #3b82f6; }
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--tertiary);
+      color: var(--primary);
+      padding: 10px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .3s, transform .3s;
+    }
+    .button:hover {
+      background: #6b7280;
+      transform: translateY(-3px);
+    }
+    .dropdown {
+      display: none;
+      position: absolute;
+      background: var(--tertiary);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,.3);
+      padding: 10px;
+      text-align: left;
+      z-index: 1000;
+    }
+    .dropdown button {
+      width: 100%;
+      background: none;
+      border: none;
+      font-size: 14px;
+      color: var(--primary);
+      margin: 5px 0;
+      cursor: pointer;
+    }
+    .dropdown button:hover { background: #6b7280; }
+    /* Top link */
+    .top-link {
+      visibility: hidden;
+      opacity: 0;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--primary);
+      color: var(--background);
+      padding: 10px;
+      border-radius: 5px;
+      transition: visibility 0s, opacity 0.3s;
+    }
+    .top-link.visible {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="dark" id="top">
+  <header class="header">
+    <nav class="nav">
+      <div class="logo"><a href="../index.html" style="color:inherit;text-decoration:none">&lt;terry/&gt;</a></div>
+      <div>
+        <a href="#projects" onclick="showSection('projects')">Projects</a>
+        <a href="../archives.html">Archives</a>
+        <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+          <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="../index.html">Home</a> » <a href="../posts.html">Posts</a>
+    </nav>
+    <main class="post-content">
+      <header class="post-header">
+        <h1 class="post-title">Why a Bachelor in Computer Science Beats a Specialized AI Degree</h1>
+        <div class="post-meta">June 20, 2025 • 5 min • Muhammad Taha Nasir</div>
+      </header>
+      <aside class="table-of-contents">
+        <details>
+          <summary>Table of Contents</summary>
+          <ul>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#misconceptions">The Software Engineering vs. Computer Science Misconception</a></li>
+            <li><a href="#specialization">The Pitfall of Narrow Specialization</a></li>
+            <li><a href="#careers">What Truly Matters in AI & ML Careers</a></li>
+            <li><a href="#approach">Your Smart Approach</a></li>
+            <li><a href="#summary">TL;DR</a></li>
+          </ul>
+        </details>
+      </aside>
+      <section id="introduction">
+        <h2>Introduction</h2>
+        <p>Let’s face it: when folks talk about computing degrees...</p>
+      </section>
+      <section id="misconceptions">
+        <h2>The Software Engineering vs. Computer Science Misconception</h2>
+        <ul>
+          <li><strong>Job Postings Mislead</strong> – Fresh grads often see job listings that discourage them...</li>
+          <li><strong>Why core CS matters</strong> – CS helps you understand systems, debug problems, and grow.</li>
+        </ul>
+      </section>
+      <section id="specialization">
+        <h2>The Pitfall of Narrow Specialization</h2>
+        <ul>
+          <li><strong>Lock-in problem</strong> – AI-specific BS can limit future career switches.</li>
+          <li><strong>Overlap</strong> – Most CS and AI programs overlap by 80%.</li>
+        </ul>
+      </section>
+      <section id="careers">
+        <h2>What Truly Matters in AI & ML Careers</h2>
+        <ul>
+          <li><strong>System skills</strong> – Real-world ML is about deployment, not model-building.</li>
+          <li><strong>DevOps + CS</strong> – Building real AI apps needs full-stack skill, not just theory.</li>
+        </ul>
+      </section>
+      <section id="approach">
+        <h2>Your Smart Approach</h2>
+        <ol>
+          <li>Do a CS degree with AI electives/projects.</li>
+          <li>Ensure your college covers core AI: Probabilities, RL, etc.</li>
+        </ol>
+      </section>
+      <section id="summary">
+        <h2>TL;DR</h2>
+        <ul
+          <li>CS > overly specialized BS in AI</li>
+          <li>You can specialize via electives/projects without locking yourself.</li>
+        </ul>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="social-icons">
+        <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://twitter.com" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="mailto:example@email.com" title="Email"><i class="fas fa-envelope"></i></a>
+      </div>
+      <div class="action-buttons">
+        <a href="#about" class="button">About Me</a>
+        <a href="#posts" class="button">Posts</a>
+        <a href="#projects" class="button">Projects</a>
+        <a href="#skills" class="button">Skills</a>
+        <a href="#tags" class="button">Tags</a>
+        <div class="button" id="more-button">⋯</div>
+        <div class="dropdown" id="dropdown">
+          <button>Settings</button>
+          <button>Logout</button>
+        </div>
+      </div>
+      <p>© 2025 – Powered by Hugo & PaperMod</p>
+    </footer>
+  </div>
+  <a href="#top" aria-label="go to top" title="Go to Top" class="top-link" id="top-link">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+      <path d="M12 6H0l6-6z" />
+    </svg>
+  </a>
+  <script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      localStorage.setItem("pref-theme", document.body.classList.contains("dark") ? "dark" : "light");
+    });
+    if (localStorage.getItem("pref-theme") === "light") {
+      document.body.classList.remove("dark");
+    }
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+      if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+        mybutton.classList.add("visible");
+      } else {
+        mybutton.classList.remove("visible");
+      }
+    };
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute("href")).scrollIntoView({ behavior: "smooth" });
+      });
+    });
+    // Dropdown toggle functionality
+    const moreButton = document.getElementById("more-button");
+    const dropdown = document.getElementById("dropdown");
+    moreButton.addEventListener("click", () => {
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    });
+    document.addEventListener("click", (e) => {
+      if (!moreButton.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Posts by Tag</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="../assets/css/each-tag.css" />
+</head>
+
+<body>
+    <div class="loader" id="loader">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo"><a href="../index.html" style="color:inherit;text-decoration:none">&lt;terry/&gt;</a>
+            </div>
+            <div>
+                <a href="../resources.html">Resources</a>
+                <a href="../archives.html">Archives</a>
+                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="post-container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Home</a> » <a href="../tags.html">Tags</a>
+        </nav>
+
+        <div class="header-bar">
+            <h1 id="tagTitle">Loading...</h1>
+            <a href="../tags.html" class="view-all-tags">Other Tags</a>
+        </div>
+
+        <main id="post-container"></main>
+        <div class="pagination" id="pagination"></div>
+    </div>
+
+    <footer class="footer">
+        <div class="social-icons">
+            <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:m.tahanasir65@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p>© 2025 – Muhammad Taha Nasir</p>
+    </footer>
+    <button id="scrollTop" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script src="../assets/js/each-tag.js"></script>
+</body>
+
+</html>

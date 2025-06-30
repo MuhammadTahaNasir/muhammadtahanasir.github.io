@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+<head>
+  <!-- ---------- 1. Meta Tags ---------- -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Archives</title>
+
+  <!-- ---------- 2. Stylesheets ---------- -->
+  <link rel="stylesheet" href="assets/css/stylesheet.css" />
+  <link rel="stylesheet" href="assets/css/archives.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <!-- ---------- 3. Theme Initialization Script ---------- -->
+  <script>
+    // Apply saved theme immediately to prevent flash
+    const savedTheme = localStorage.getItem('pref-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  </script>
+</head>
+
+<body>
+  <!-- ---------- 4. Loader Animation ---------- -->
+  <div class="loader" id="loader">
+    <div class="terry-animation">
+      <span class="letter">t</span>
+      <span class="letter">e</span>
+      <span class="letter">r</span>
+      <span class="letter">r</span>
+      <span class="letter">y</span>
+    </div>
+  </div>
+
+  <!-- ---------- 5. Header Navigation ---------- -->
+  <header class="header">
+    <nav class="nav">
+      <div class="logo"><a href="../index.html" style="color:inherit;text-decoration:none">&lt;terry/&gt;</a></div>
+      <div>
+        <a href="resources.html">Resources</a>
+        <a href="archives.html" class="active">Archives</a>
+        <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+          <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ---------- 6. Main Content ---------- -->
+  <div class="post-container">
+    <!-- ---------- 7. Archive Header ---------- -->
+    <div class="header-bar">
+      <nav class="breadcrumb">
+        <a href="index.html">Home</a> » <a href="archives.html">Archives</a>
+      </nav>
+      <h1>Archives</h1>
+    </div>
+
+    <!-- ---------- 8. Sublink ---------- -->
+    <p class="sublink">Browse all posts by years</p>
+
+    <!-- ---------- 9. Archive List ---------- -->
+    <div class="archive-container" id="archive-content">
+      <!-- Content will be dynamically generated -->
+    </div>
+  </div>
+
+  <!-- ---------- 10. Footer ---------- -->
+  <footer class="footer">
+    <div class="social-icons">
+      <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="mailto:m.tahanasir65@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+    <p>© 2025 – Muhammad Taha Nasir</p>
+  </footer>
+
+  <!-- ---------- 11. Scroll to Top Button ---------- -->
+  <button id="scrollTop" aria-label="Scroll to top" title="Scroll to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- ---------- 12. JavaScript Include ---------- -->
+  <script src="assets/js/archives.js"></script>
+</body>
+
+</html>

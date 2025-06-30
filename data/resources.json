@@ -1,0 +1,51 @@
+[
+    {
+        "thumbnail": "fas fa-file",
+        "title": "Machine Learning Notes",
+        "desc": "Comprehensive ML notes",
+        "link": "ml_notes.pdf"
+    },
+    {
+        "thumbnail": "fas fa-table",
+        "title": "Data Structures Cheat Sheet",
+        "desc": "Quick reference guide",
+        "link": "ds_cheat.pdf"
+    },
+    {
+        "thumbnail": "fas fa-code",
+        "title": "Python Basics",
+        "desc": "Beginner Python guide",
+        "link": "python_basics.pdf"
+    },
+    {
+        "thumbnail": "fas fa-chart-line",
+        "title": "Data Visualization",
+        "desc": "Visualization techniques",
+        "link": "viz_techniques.pdf"
+    },
+    {
+        "thumbnail": "fas fa-database",
+        "title": "SQL Guide",
+        "desc": "SQL fundamentals",
+        "link": "sql_guide.pdf"
+    },
+    {
+        "thumbnail": "fas fa-file-pdf",
+        "title": "Machine Learning Notes",
+        "desc": "Comprehensive ML notes",
+        "link": "ml_notes.pdf"
+    },
+    {
+        "thumbnail": "fas fa-table",
+        "title": "Data Structures Cheat Sheet",
+        "desc": "Quick reference guide",
+        "link": "ds_cheat.pdf"
+    },
+    {
+        "thumbnail": "fas fa-link",
+        "title": "Python Crash Course (External)",
+        "type": "Link",
+        "link": "https://realpython.com/python-basics/",
+        "desc": "Interactive Python course online."
+    }
+]

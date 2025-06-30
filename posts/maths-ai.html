@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description"
+        content="From dodging math to loving it: How linear algebra, calculus, and stats power ML, explained with simple examples.">
+    <meta name="author" content="Muhammad Taha Nasir">
+    <meta name="tags" content="Machine Learning, Linear Algebra, Calculus, Statistics, Probability, AI">
+    <title>The Importance of Math in Machine Learning</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/each-post.css">
+</head>
+
+<body class="dark" id="top" post-date="2024-12-20T00:00:00Z">
+    <header class="header">
+        <nav class="nav">
+            <div class="logo"><a href="../index.html" style="color:inherit;text-decoration:none">&lt;terry/&gt;</a>
+            </div>
+            <div>
+                <a href="../resources.html">Resources</a>
+                <a href="../archives.html">Archives</a>
+                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Home</a> » <a href="../posts.html">Posts</a>
+        </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">The Importance of Math in Machine Learning</h1>
+                <div class="post-meta">December 20, 2024 • 3 min • Muhammad Taha Nasir</div>
+            </header>
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#math-avoidance">From Running Away from Math</a></li>
+                        <li><a href="#linear-algebra">Linear Algebra: The ML Backbone</a></li>
+                        <li><a href="#calculus">Multivariable Calculus: Gradients and Optimization</a></li>
+                        <li><a href="#stats-prep">Prepping for Stats and Probability</a></li>
+                        <li><a href="#resources">Resources That Made It Click</a></li>
+                        <li><a href="#why-it-matters">Why Math Matters for ML</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <section id="math-avoidance">
+                <h2>From Running Away from Math</h2>
+                <p>Yo, I used to sprint from math like it was a horror movie. Equations? Matrices? Nope, not my vibe.
+                    This year, my uni courses in linear algebra and multivariable calculus showed me math isn’t just
+                    numbers, it’s the secret sauce behind ML models. Here’s how I went from math hater to math
+                    appreciator, with simple examples that made it click.</p>
+            </section>
+            <section id="linear-algebra">
+                <h2>Linear Algebra: The ML Backbone</h2>
+                <p>This semester, linear algebra at uni was like unlocking a cheat code for ML. Matrices and vectors?
+                    They’re everywhere think neural network weights or image data in CNNs. Imagine a matrix as a
+                    spreadsheet organizing your data, like test scores for 100 students. I coded a simple matrix
+                    operation in Python to get it:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-python" data-lang="Python"><code>
+import numpy as np
+# Matrix multiplication for a neural network layer
+weights = np.array([[0.5, 0.2], [0.1, 0.8]])
+inputs = np.array([[1], [2]])
+output = np.dot(weights, inputs)
+print(output)  # [[0.9], [1.7]]
+                    </code></pre>
+                </div>
+                <p>This snippet mimics how weights transform inputs in Machine Learning linear algebra in action!
+                    Learning this in C++ at uni (pointers, ugh) made me see how matrices power models.</p>
+            </section>
+            <section id="calculus">
+                <h2>Multivariable Calculus: Gradients and Optimization</h2>
+                <p>Last semester’s multivariable calculus course was a wake-up call. Gradients and loss functions are
+                    the heart of training ML models. Picture a hill: the gradient tells you the steepest path down to
+                    minimize error (the loss). I visualized it like adjusting my study time to ace a test small tweaks
+                    lead to better scores. Here’s a basic gradient descent in Python:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-python" data-lang="Python"><code>
+import numpy as np
+x = 10  # Starting point
+learning_rate = 0.1
+for _ in range(10):
+    gradient = 2 * x  # Derivative of x^2
+    x = x - learning_rate * gradient
+print(x)  # Converges near 0, minimizing x^2
+                    </code></pre>
+                </div>
+                <p>This code shows how calculus optimizes models by nudging weights to reduce errors, like fine-tuning
+                    my ML projects.</p>
+            </section>
+            <section id="stats-prep">
+                <h2>Prepping for Stats and Probability</h2>
+                <p>Next semester, I’m diving into statistics and probability at uni, and I’ve already started self-prep
+                    because AI lives on stats. Mean, median, mode? Easy. But probability like flipping a coin to predict
+                    heads is key for models like Naive Bayes. Imagine guessing if it’ll rain based on past days: that’s
+                    probability in AI. I’m brushing up with basics, like calculating the odds of acing a test (50-50,
+                    let’s be real), to get ready for Bayesian networks and more.</p>
+            </section>
+            <section id="resources">
+                <h2>Resources That Made It Click</h2>
+                <p>Math for ML can feel like climbing K2, but these resources are my sherpas. They break down complex
+                    concepts into bite sized chunks, perfect for beginners like me:</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>3Blue1Brown’s Linear Algebra Series</strong><br>
+                        Visuals that make matrices and vectors feel like a Pixar movie. Watch here: <a
+                            href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">youtube.com</a>
+                    </li>
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>StatQuest by Josh Starmer</strong><br>
+                        Fun, clear stats and ML videos for beginners. Start here: <a
+                            href="https://www.youtube.com/@statquest">youtube.com</a>
+                    </li>
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>Khan Academy’s Calculus Course</strong><br>
+                        Free lessons on gradients and multivariable calculus. Check it out: <a
+                            href="https://www.khanacademy.org/math/multivariable-calculus">khanacademy.org</a>
+                    </li>
+                </ul>
+            </section>
+            <section id="why-it-matters">
+                <h2>Why Math Matters for ML</h2>
+                <p>Math isn’t just a uni hurdle, it’s the engine of ML. Linear algebra organizes data, calculus
+                    optimizes
+                    models, and stats handle uncertainty. In my prev projects, matrices processed inputs, and gradients
+                    tweaked predictions. I used to dodge math, but now I see it’s like the rules of cricket you gotta
+                    know ‘em to play. As I prep for stats next semester, I’m hyped to keep leveling up my ML game.</p>
+            </section>
+            <div class="tags-container" id="dynamic-tags">
+                <!-- Tags will be dynamically generated here -->
+            </div>
+        </main>
+        <footer class="footer">
+            <div class="social-icons">
+                <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:example@email.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>© 2024 – Muhammad Taha Nasir</p>
+        </footer>
+    </div>
+    <button id="scrollTop" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../assets/js/each-post.js"></script>
+    <script>
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.innerText = "Copied!";
+                    setTimeout(() => button.innerText = "Copy", 1500);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

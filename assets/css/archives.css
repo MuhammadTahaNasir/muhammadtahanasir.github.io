@@ -1,0 +1,253 @@
+/* ---------- 1. Root Variables ---------- */
+:root {
+  --theme: #f9fafc;
+  --entry: #fff;
+  --primary: #333;
+  --secondary: #555;
+  --tertiary: #f3f4f6;
+  --content: #333;
+  --code-block-bg: #f3f4f6;
+  --code-bg: #e5e7eb;
+  --border: #d1d5db;
+  --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ---------- 2. Dark Mode Variables ---------- */
+[data-theme="dark"] {
+  --theme: #1a1a1a;
+  --entry: #2e2e33;
+  --primary: #d1d5db;
+  --secondary: #9ca3af;
+  --tertiary: #4b5563;
+  --content: #f9fafb;
+  --code-block-bg: #2e2e33;
+  --code-bg: #37404e;
+  --border: #333;
+  --shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* ---------- 3. Body Styles ---------- */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--theme);
+  color: var(--primary);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ---------- 4. Header Styles ---------- */
+.header {
+  background: var(--theme);
+  transition: background 0.3s ease;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.logo {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.2em;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.nav a {
+  margin: 0 15px;
+  font-size: 1em;
+  color: var(--secondary);
+  text-decoration: none;
+}
+
+.nav a:hover {
+  color: #3b82f6;
+}
+
+.nav a.active {
+  font-weight: 700;
+  font-size: 1.15em;
+  color: var(--primary);
+}
+
+/* ---------- 5. Theme Toggle ---------- */
+#theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  color: var(--primary);
+}
+
+#theme-toggle svg {
+  width: 24px;
+  height: 18px;
+  fill: currentColor;
+}
+
+#moon {
+  display: none;
+}
+
+[data-theme="dark"] #sun {
+  display: none;
+}
+
+[data-theme="dark"] #moon {
+  display: block;
+}
+
+/* ---------- 6. Post Container ---------- */
+.post-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ---------- 7. Breadcrumb Styles ---------- */
+.breadcrumb {
+  font-size: 0.9em;
+  color: var(--secondary);
+  margin: 5px 0; /* Tighter spacing in header-bar */
+}
+
+.breadcrumb a {
+  color: var(--secondary);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: #3b82f6;
+}
+
+.breadcrumb a:last-child {
+  font-weight: bold;
+  color: var(--primary);
+}
+
+/* ---------- 8. Header Bar ---------- */
+.header-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 10px 0; /* Adjusted for balanced spacing */
+  padding-left: 16px; /* Align with archive-year h2 and sublink */
+}
+
+.header-bar h1 {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+/* ---------- 9. Sublink Styles ---------- */
+.sublink {
+  font-size: 0.9em;
+  color: var(--secondary);
+  margin: 5px 0 20px;
+  padding-left: 16px; /* Align with header-bar and archive-year h2 */
+}
+
+/* ---------- 10. Archive Year ---------- */
+.archive-year h2 {
+  border-left: 4px solid var(--primary);
+  padding-left: 12px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 2rem 0 1rem;
+  color: var(--primary);
+  text-align: left;
+}
+
+.archive-count {
+  font-size: 0.8em;
+  color: var(--secondary);
+  vertical-align: super;
+}
+
+/* ---------- 11. Details Block ---------- */
+details {
+  background: var(--tertiary);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  box-shadow: var(--shadow);
+  transition: background 0.3s;
+}
+
+[data-theme="dark"] details {
+  background: var(--code-block-bg);
+}
+
+/* ---------- 12. Summary (Month Heading) ---------- */
+details summary {
+  font-weight: 500; /* Less bold than year */
+  font-size: 1rem; /* Smaller than year */
+  color: var(--primary);
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  text-align: left;
+  list-style: none;
+}
+
+/* ---------- 13. Post List ---------- */
+.archive-post {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+.archive-post:last-child {
+  border-bottom: none;
+}
+
+.archive-post a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.archive-post a:hover {
+  color: #3b82f6;
+}
+
+.meta {
+  color: var(--secondary);
+  font-size: 0.9em;
+}
+
+/* ---------- 14. Footer ---------- */
+.footer {
+  margin: 40px 0;
+  text-align: center;
+  font-size: 0.9em;
+  color: var(--secondary);
+}
+
+/* ---------- 15. Scroll to Top Button ---------- */
+#scrollTop {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  width: 40px;
+  height: 40px;
+  background: var(--entry);
+  color: var(--primary);
+  border: none;
+  border-radius: 50%;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+#scrollTop:hover {
+  background: var(--secondary);
+  color: var(--theme);
+}

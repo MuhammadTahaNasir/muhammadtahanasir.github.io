@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description"
+        content="A beginner’s guide to building a neural network with TensorFlow and a classifier with PyTorch, plus my take on which to choose.">
+    <meta name="author" content="Muhammad Taha Nasir">
+    <meta name="tags" content="TensorFlow, PyTorch, Neural Network, Classifier, Machine Learning">
+    <meta name="thumbnail" content="/assets/images/posts/pytorch-vs-tensorflow.png">
+    <title>TensorFlow vs PyTorch: Building My First Models and Choosing One</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/each-post.css">
+</head>
+
+<body class="dark" id="top" post-date="2024-06-23T00:00:00Z">
+    <header class="header">
+        <nav class="nav">
+            <div class="logo"><a href="../index.html" style="color:inherit;text-decoration:none">&lt;terry/&gt;</a>
+            </div>
+            <div>
+                <a href="../resources.html">Resources</a>
+                <a href="../archives.html">Archives</a>
+                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Home</a> » <a href="../posts.html">Posts</a>
+        </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">TensorFlow vs PyTorch: Building My First Models and Choosing One</h1>
+                <div class="post-meta">June 23, 2024 • 4 min • Muhammad Taha Nasir</div>
+            </header>
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#my-ml-adventure">My Machine Learning Adventure</a></li>
+                        <li><a href="#tensorflow-nn">Building a Neural Network with TensorFlow</a></li>
+                        <li><a href="#pytorch-classifier">Training a Classifier with PyTorch</a></li>
+                        <li><a href="#tf-vs-pytorch">TensorFlow vs PyTorch: My Beginner’s Take</a></li>
+                        <li><a href="#what-to-choose">Which Should You Choose?</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <section id="my-ml-adventure">
+                <h2>My Machine Learning Adventure</h2>
+                <p>I’m a uni student diving into machine learning with TensorFlow and PyTorch, using the MNIST dataset
+                    to build a neural network and classifier. As a beginner, I’m exploring which tool suits me best.</p>
+            </section>
+            <img src="/assets/images/posts/pytorch-vs-tensorflow.png" alt="TensorFlow and PyTorch Code on Screen"
+                style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;">
+            <section id="tensorflow-nn">
+                <h2>Building a Neural Network with TensorFlow</h2>
+                <p>TensorFlow, backed by Google, feels like a massive toolbox that's powerful but intimidating. I
+                    started with installing it on my Python 3.8 setup using <code>pip install tensorflow==2.12.0</code>.
+                    Fair warning: it’s a heavy install, and I hit a wall with version mismatches and dependency errors.
+                    After some Stack Overflow heroics, I got it running. TensorFlow’s Keras API is a lifesaver for
+                    beginners,making the code feel less like rocket science.</p>
+                <p>I built a neural network to classify MNIST digits. First, I loaded and prepped the data:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-python" data-lang="Python"><code>
+import tensorflow as tf
+from tensorflow import keras
+(x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
+x_train, x_test = x_train / 255.0, x_test / 255.0  # Normalize pixel values
+                    </code></pre>
+                </div>
+                <p>Normalizing the data (dividing by 255) scales the pixel values from 0-255 to 0-1, which helps the
+                    model train better. Skipping this step? Big mistake my first model was a disaster because of it.</p>
+                <p>Next, I created a Sequential model with three layers: a Flatten layer to turn 28x28 images into a
+                    784-length vector, a Dense layer with 128 neurons and ReLU activation (to add non-linearity), and a
+                    Dense output layer with 10 neurons (one per digit) and softmax for classification probabilities:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-python" data-lang="Python"><code>
+model = keras.Sequential([
+    keras.layers.Flatten(input_shape=(28, 28)),
+    keras.layers.Dense(128, activation='relu'),
+    keras.layers.Dense(10, activation='softmax')
+])
+                    </code></pre>
+                </div>
+                <p>I compiled the model with the Adam optimizer, sparse categorical crossentropy loss (great for
+                    multi-class problems), and accuracy metrics:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-python" data-lang="Python"><code>
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+                    </code></pre>
+                </div>
+                <p>Then, I trained it with <code>model.fit(x_train, y_train, epochs=5)</code> for five passes through
+                    the data, hitting ~97% accuracy. Testing with <code>model.evaluate(x_test, y_test)</code> gave me
+                    ~96%. I used <code>model.predict(x_test)</code> to check some predictions, and Matplotlib to
+                    visualize them. Some digits (like 7s looking like 2s) tripped it up, but it was a solid start.</p>
+                <p>The process wasn’t smooth—I spent hours debugging a shape mismatch error and learning about batch
+                    sizes. TensorFlow’s structure is rigid, but its tools like TensorBoard for visualizing training are
+                    awesome for understanding what’s happening under the hood.</p>
+            </section>
+            <section id="pytorch-classifier">
+                <h2>Training a Classifier with PyTorch</h2>
+                <p>PyTorch, backed by Meta AI, feels more like coding with a friend Pythonic and flexible. Installing it
+                    was easier than TensorFlow: <code>pip install torch</code> worked without much drama. PyTorch’s
+                    dynamic computation graph makes debugging feel like a conversation, not a lecture, which is great
+                    for beginners like me.</p>
+                <p>I built a simple classifier for MNIST using torchvision:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-python" data-lang="Python"><code>
+import torch
+import torchvision
+import torchvision.transforms as transforms
+transform = transforms.Compose([transforms.ToTensor()])
+train_dataset = torchvision.datasets.MNIST(root='./data', train=True, transform=transform, download=True)
+test_dataset = torchvision.datasets.MNIST(root='./data', train=False, transform=transform, download=True)
+train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=64, shuffle=True)
+test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=64, shuffle=False)
+                    </code></pre>
+                </div>
+                <p>The <code>ToTensor()</code> transform normalizes the pixel values to 0-1, similar to TensorFlow. I
+                    defined a simple neural network with two linear layers (flattening is handled differently in
+                    PyTorch):</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-python" data-lang="Python"><code>
+import torch.nn as nn
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.flatten = nn.Flatten()
+        self.linear1 = nn.Linear(28 * 28, 128)
+        self.relu = nn.ReLU()
+        self.linear2 = nn.Linear(128, 10)
+    def forward(self, x):
+        x = self.flatten(x)
+        x = self.linear1(x)
+        x = self.relu(x)
+        x = self.linear2(x)
+        return x
+model = Net()
+                    </code></pre>
+                </div>
+                <p>I used the cross-entropy loss and SGD optimizer with momentum:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-python" data-lang="Python"><code>
+criterion = nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
+                    </code></pre>
+                </div>
+                <p>Training involved looping through the data loader for DOF5 epochs:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-python" data-lang="Python"><code>
+for epoch in range(5):
+    for data in train_loader:
+        images, labels = data
+        optimizer.zero_grad()
+        outputs = model(images)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
+                    </code></pre>
+                </div>
+                <p>I got ~96% accuracy on the test set after training. Debugging was easier than TensorFlow because
+                    PyTorch’s dynamic graphs let me print intermediate outputs. I visualized predictions with
+                    Matplotlib, spotting similar errors (e.g., 9s confused with 4s). PyTorch felt intuitive, but I
+                    missed TensorFlow’s polished visualization tools.</p>
+            </section>
+            <section id="tf-vs-pytorch">
+                <h2>TensorFlow vs PyTorch: My Beginner’s Take</h2>
+                <p>TensorFlow is like a corporate office structured, powerful, but complex. Its Keras API simplifies
+                    things, but the setup and static computation graphs can feel rigid. It’s got a huge ecosystem:
+                    TensorBoard for visualizations, TensorFlow Hub for pre-trained models, and support for
+                    production ready deployments. It’s great for big projects, but the learning curve is steep, like
+                    climbing a mountain in sandals. I struggled with installation and shape errors, but once it clicked,
+                    it felt rewarding.</p>
+                <p>PyTorch is like your chill coding buddy flexible, Pythonic, and forgiving. Its dynamic graphs make
+                    debugging feel like a breeze, and I could tweak the model on the fly. It’s a favorite in research
+                    because you can experiment quickly, but it lacks TensorFlow’s production polish. I found PyTorch
+                    easier to start with, especially since my Python skills are still wobbly, but it felt less
+                    enterprise-ready.</p>
+                <p>Both frameworks got me to ~96-97% accuracy on MNIST, but TensorFlow took more setup effort, while
+                    PyTorch let me jump in faster. TensorFlow’s tools are better for scaling up; PyTorch’s simplicity is
+                    better for learning and prototyping.</p>
+            </section>
+            <section id="what-to-choose">
+                <h2>Which Should You Choose?</h2>
+                <p>As a beginner, I found PyTorch easier to start with due to its flexibility. It’s great for small
+                    projects or learning. TensorFlow suits deployment and larger projects. I’m sticking with PyTorch for
+                    now but plan to use TensorFlow later.</p>
+            </section>
+            <div class="tags-container" id="dynamic-tags">
+                <!-- Tags will be dynamically generated here -->
+            </div>
+        </main>
+        <footer class="footer">
+            <div class="social-icons">
+                <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:example@email.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>© 2024 – Muhammad Taha Nasir</p>
+        </footer>
+    </div>
+    <button id="scrollTop" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../assets/js/each-post.js"></script>
+    <script>
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.innerText = "Copied!";
+                    setTimeout(() => button.innerText = "Copy", 1500);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

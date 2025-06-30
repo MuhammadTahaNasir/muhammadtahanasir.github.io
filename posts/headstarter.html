@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description"
+        content="A student’s journey building an AI Roadmap Generator with Streamlit during the Headstarter AI SWE Fellowship, plus lessons learned and related fellowship projects.">
+    <meta name="author" content="Muhammad Taha Nasir">
+    <meta name="tags" content="Streamlit, AI, python, Machine Learning, WebDev">
+    <title>How I Built My First Streamlit App in 3 Days: My Headstarter Fellowship Journey</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/each-post.css">
+</head>
+
+<body class="dark" id="top" post-date="2024-07-27T00:00:00Z">
+    <header class="header">
+        <nav class="nav">
+            <div class="logo"><a href="../index.html" style="color:inherit;text-decoration:none">&lt;terry/&gt;</a>
+            </div>
+            <div>
+                <a href="../resources.html">Resources</a>
+                <a href="../archives.html">Archives</a>
+                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Home</a> » <a href="../posts.html">Posts</a>
+        </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">How I Built My First Streamlit App in 3 Days: My Headstarter Fellowship
+                    Journey</h1>
+                <div class="post-meta">July 27, 2024 • 4 min • Muhammad Taha Nasir</div>
+            </header>
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#fellowship-start">Joining the Headstarter Fellowship</a></li>
+                        <li><a href="#streamlit-app">Building the AI Roadmap Generator</a></li>
+                        <li><a href="#challenges">Last-Minute Bugs and Fixes</a></li>
+                        <li><a href="#teamwork">Teamwork and Deployment</a></li>
+                        <li><a href="#other-projects">Other Fellowship Projects</a></li>
+                        <li><a href="#whats-next">What’s Next</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <section id="fellowship-start">
+                <h2>Joining the Headstarter Fellowship</h2>
+                <p>This summer, I got accepted into the Headstarter AI SWE Fellowship, a New York-based program that was
+                    a game-changer for me, even though I’m based in Pakistan. The time difference meant late-night
+                    meetings and conferences, but it was worth it. I connected with amazing teammates from other
+                    universities, learned a ton about AI and web development, and built some cool projects. One of my
+                    favorites was the AI Roadmap Generator, a Streamlit app we created as a team.</p>
+            </section>
+            <section id="streamlit-app">
+                <h2>Building the AI Roadmap Generator</h2>
+                <p>The AI Roadmap Generator (<a href="https://ai-roadmap-generator.streamlit.app/">try it here</a>) is a
+                    web app that uses Google’s Gemma2-9b open-source model to generate personalized AI learning
+                    roadmaps. We integrated Firebase for user authentication and data storage, all built with Streamlit
+                    for a quick and clean frontend. Streamlit made it so easy to turn my Python skills into a functional
+                    web app without diving too deep into complex web dev.</p>
+                <p>Here’s a snippet of how we set up the basic Streamlit interface:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-python" data-lang="Python"><code>
+import streamlit as st
+
+st.title("AI Roadmap Generator")
+st.write("Generate a personalized AI learning roadmap with Gemma2-9b!")
+user_input = st.text_input("Enter your AI learning goals:")
+if st.button("Generate Roadmap"):
+    # Placeholder for Gemma2-9b model integration
+    st.write("Your roadmap is being generated...")
+                    </code></pre>
+                </div>
+                <p>This code sets up a simple interface where users input their goals, and the app (with backend logic)
+                    generates a roadmap. The real magic happens with the Gemma2-9b model and Firebase, but Streamlit’s
+                    simplicity let us focus on functionality over frontend fuss.</p>
+            </section>
+            <section id="challenges">
+                <h2>Last-Minute Bugs and Fixes</h2>
+                <p>Building the app wasn’t all smooth sailing. We hit a nasty bug with Firebase authentication where
+                    sessions weren’t persisting across page refreshes. After hours of debugging, we found a
+                    misconfigured Firebase SDK call. Another headache was the Gemma2-9b model’s response time, it was
+                    sluggish on initial loads. We optimized the backend to cache common queries, which sped things up.
+                    These late-night fixes taught me how critical testing and iteration are in real-world projects.</p>
+            </section>
+            <section id="teamwork">
+                <h2>Teamwork and Deployment</h2>
+                <p>I worked with an awesome team, and I have to shout out Awwab, who handled the deployment like a pro.
+                    We met through the fellowship and collaborated. Awwab set up the Streamlit app on
+                    their hosting platform, ensuring it was live at <a
+                        href="https://ai-roadmap-generator.streamlit.app/">ai-roadmap-generator.streamlit.app</a>. The
+                    teamwork aspect of the fellowship pairing with folks from different unis—was a highlight and showed
+                    me how diverse skill sets come together in software engineering.</p>
+            </section>
+            <section id="other-projects">
+                <h2>Other Fellowship Projects</h2>
+                <p>The Headstarter Fellowship had us cranking out projects weekly. Here’s a rundown of what I worked on:
+                </p>
+                <ul>
+                    <li><strong>Week 1: Personal Portfolio Website</strong> – Built with HTML, CSS, JavaScript, and
+                        SvelteKit, hosted on Firebase. Included sections for About, Skills, Projects, and a Contact
+                        panel. (I alraedy had this one. Lol! That's why you are reading this post)</li>
+                    <li><strong>Week 2: PantryTracker.ai</strong> – A smart pantry tool using Next.js, React,
+                        TypeScript, and Supabase. It tracks inventory, suggests recipes, and manages shopping lists. (<a
+                            href="https://ai-pantry-management.vercel.app/">Try here</a>)</li>
+                    <li><strong>Week 3: AI Customer Support Chatbot</strong> – Powered by OpenAI and Next.js, hosted on
+                        AWS EC2 with Firebase Authentication. (<a
+                            href="https://github.com/MuhammadTahaNasir/facebook-support-chatbot"> Facebook Support
+                            Ai-Chatbot</a>)
+                    </li>
+                    <li><strong>Week 4: AI Flashcards with Stripe</strong> – A flashcard app with OpenAI-generated cards
+                        and Stripe payments, built with React and Node.js.</li>
+                    <li><strong>Week 5: AI “Rate My Professor” App</strong> – Used RAG and vector search with OpenAI for
+                        course feedback.</li>
+                    <li><strong>Weeks 6–7: AI Health App</strong> – Our team’s final project, a capstone AI health app
+                        focused on growth and user acquisition. Details coming soon!</li>
+                </ul>
+                <p>These projects pushed my coding and collaboration skills to the next level. Check out my portfolio
+                    for more details!</p>
+            </section>
+            <section id="whats-next">
+                <h2>What’s Next</h2>
+                <p>The fellowship was intense but rewarding. I’m hooked on Streamlit for quick prototyping and plan to
+                    explore more AI-driven web apps. The AI Health App from our final project is something I’m excited
+                    to polish and share soon. I’ll keep posting about my progress, so stay tuned for more!</p>
+            </section>
+            <div class="tags-container" id="dynamic-tags">
+                <!-- Tags will be dynamically generated here -->
+            </div>
+        </main>
+        <footer class="footer">
+            <div class="social-icons">
+                <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:example@email.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>© 2024 – Muhammad Taha Nasir</p>
+        </footer>
+    </div>
+    <button id="scrollTop" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../assets/js/each-post.js"></script>
+    <script>
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.innerText = "Copied!";
+                    setTimeout(() => button.innerText = "Copy", 1500);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

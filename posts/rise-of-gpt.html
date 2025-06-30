@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description"
+        content="A student’s take on ChatGPT’s rise in 2023, exploring NLP with Python, preparing for university entrance tests, and thinking about AI’s future.">
+    <meta name="author" content="Muhammad Taha Nasir">
+    <meta name="tags" content="ChatGPT, NLP, python, programming, student life">
+    <meta name="thumbnail" content="/assets/images/posts/chatgpt.jpeg">
+    <title>The Rise of ChatGPT: A Student’s Take</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/each-post.css">
+</head>
+
+<body class="dark" id="top" post-date="2023-06-20T00:00:00Z">
+    <header class="header">
+        <nav class="nav">
+            <div class="logo"><a href="../index.html" style="color:inherit;text-decoration:none">&lt;terry/&gt;</a>
+            </div>
+            <div>
+                <a href="../resources.html">Resources</a>
+                <a href="../archives.html">Archives</a>
+                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Home</a> » <a href="../posts.html">Posts</a>
+        </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">The Rise of ChatGPT: A Student’s Take</h1>
+                <div class="post-meta">June 20, 2023 • 3 min • Muhammad Taha Nasir</div>
+            </header>
+            <img src="../assets/images/posts/chatgpt.jpeg" alt="ChatGPT Journey 2023"
+                style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;">
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#why-the-gap">Why the Blogging Gap?</a></li>
+                        <li><a href="#chatgpt-impact">How ChatGPT Changed My Game</a></li>
+                        <li><a href="#nlp-experiments">Messing with NLP in Python</a></li>
+                        <li><a href="#ai-future">Thinking About AI’s Future</a></li>
+                        <li><a href="#whats-next">What’s Coming Up</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <section id="why-the-gap">
+                <h2>Why the Blogging Gap?</h2>
+                <p>Yo, it’s June 2023, and I’m finally back with a post after months of silence. Since February, I’ve
+                    been buried in board exams and prepping for my university entrance tests, which are happening in
+                    July. Between cramming math and logic problems, I barely had time to breathe, let alone blog. That’s
+                    why I’ve been inconsistent, but I’m here now, ready to talk about something that’s kept me going:
+                    ChatGPT.</p>
+            </section>
+            <section id="chatgpt-impact">
+                <h2>How ChatGPT Changed My Game</h2>
+                <p>When ChatGPT hit in November 2022, it was a total mind-blow. I’d throw my messy Python code at it,
+                    and it’d fix it like it was no big deal, explaining stuff clearly without making me feel dumb. It
+                    even helped me come up with ideas for a college project on recommendation systems. AI went from this
+                    far-off concept to something I could actually work with. It’s built on GPT-3.5, from what I’ve read,
+                    which makes sense given how smart it is <a href="https://openai.com/blog/chatgpt">OpenAI Blog</a>.
+                </p>
+            </section>
+            <section id="nlp-experiments">
+                <h2>Messing with NLP in Python</h2>
+                <p>ChatGPT got me curious about how it understands my questions, so I started playing with Natural
+                    Language Processing (NLP). I used Python with NLTK and Scikit-learn to build a basic text classifier
+                    that sorts movie reviews into positive or negative. It’s not fancy, but seeing it work felt like I
+                    was cracking some secret code. Python’s libraries make this stuff doable, even for a guy like me
+                    who’s still dodging calculus.</p>
+                <p>Here’s a bit of the code I messed with:</p>
+                <div class="code-block">
+                    <pre class="language-python" data-lang="Python"><code>
+import nltk
+from nltk.corpus import movie_reviews
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
+
+# Basic NLP text classifier
+nltk.download('movie_reviews')
+documents = [(list(movie_reviews.words(fileid)), category)
+             for category in movie_reviews.categories()
+             for fileid in movie_reviews.fileids(category)]
+texts = [' '.join(doc) for doc, _ in documents]
+labels = [cat for _, cat in documents]
+vectorizer = TfidfVectorizer(max_features=1000)
+X = vectorizer.fit_transform(texts)
+clf = MultinomialNB().fit(X, labels)
+print("Classifier trained!")
+</code></pre>
+                </div>
+            </section>
+            <section id="ai-future">
+                <h2>Thinking About AI’s Future</h2>
+                <p>ChatGPT’s got me wondering where AI’s headed. It could do amazing things, like help doctors spot
+                    diseases faster or make education more personal. But there’s a catch what if AI starts making
+                    choices we don’t fully get? It’s a bit unnerving, but it makes me want to learn more about how to
+                    keep AI on the right track. I’m reading up on transformers, the tech behind ChatGPT, and it’s a lot,
+                    but it’s cool to see how it all fits together <a
+                        href="https://huggingface.co/docs/transformers">Transformers Explained</a>.</p>
+            </section>
+            <section id="whats-next">
+                <h2>What’s Coming Up</h2>
+                <p>Right now, I’m grinding for those July entrance tests, but I’m still sneaking in some coding. I want
+                    to build a small chatbot, maybe using Hugging Face’s transformers, just to see if I can pull it off.
+                    Once I’m in uni, I’ll be dealing with lectures and side projects, so I’ll write about how that goes.
+                    I’m also thinking about how AI needs to be used carefully to avoid problems down the line. More
+                    posts coming, so stick around!</p>
+            </section>
+            <div class="tags-container" id="dynamic-tags">
+                <!-- Tags will be dynamically generated here -->
+            </div>
+        </main>
+        <footer class="footer">
+            <div class="social-icons">
+                <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:example@email.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>© 2023 – Muhammad Taha Nasir</p>
+        </footer>
+    </div>
+    <button id="scrollTop" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../assets/js/each-post.js"></script>
+    <script>
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.innerText = "Copied!";
+                    setTimeout(() => button.innerText = "Copy", 1500);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

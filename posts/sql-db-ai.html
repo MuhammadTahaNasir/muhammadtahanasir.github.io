@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description"
+        content="This semester, I got into databases and learned a ton. I started with MySQL and SQLite, figuring out how to write queries to manage data. Then, I tried Neo4j and saw how it connects things like a web. I also checked out vector databases and how they help apps find stuff fast. Working on projects and seeing real examples made it clear how data is stored and used in apps today.">
+    <meta name="author" content="Muhammad Taha Nasir">
+    <meta name="tags" content="SQL, MySQL, SQLite, Neo4j, Vector Databases, Machine Learning, AI, Databases">
+    <meta name="thumbnail" content="/assets/images/posts/sql-db-ai.png">
+    <title>The Future of Data: What I Learned from SQL to Vector Databases</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/each-post.css">
+</head>
+
+<body class="dark" id="top" post-date="2025-04-14T00:00:00Z">
+    <header class="header">
+        <nav class="nav">
+            <div class="logo"><a href="../index.html" style="color:inherit;text-decoration:none">&lt;terry/&gt;</a>
+            </div>
+            <div>
+                <a href="../resources.html">Resources</a>
+                <a href="../archives.html">Archives</a>
+                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Home</a> » <a href="../posts.html">Posts</a>
+        </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">The Future of Data: What I Learned from SQL to Vector Databases</h1>
+                <div class="post-meta">April 14, 2025 • 4 min • Muhammad Taha Nasir</div>
+            </header>
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#database-journey">My Database Journey Begins</a></li>
+                        <li><a href="#mysql-sqlite">MySQL and SQLite: The Relational Roots</a></li>
+                        <li><a href="#neo4j-graphs">Neo4j: Grappling with Graphs</a></li>
+                        <li><a href="#vector-databases">Vector Databases: The AI Game-Changer</a></li>
+                        <li><a href="#assignments">Assignments That Leveled Me Up</a></li>
+                        <li><a href="#resources">Resources That Kept Me Sane</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <section id="database-journey">
+                <h2>My Database Journey Begins</h2>
+                <p>Yo, back in the day, I’d dodge anything with “data” in it like it was a bouncer in cricket. But this
+                    semester at FAST NUCES under Sir Shoaib’s guidance,flipped the script. My database
+                    course threw me into MySQL, SQLite, Neo4j, and even discovered vector databases, which are
+                    straight-up crucial for AI. From building schemas to querying graphs, I learned how data powers
+                    everything.</p>
+            </section>
+            <img src="/assets/images/posts/sql-db-ai.png" alt="Database Code on Screen"
+                style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;">
+            <section id="mysql-sqlite">
+                <h2>MySQL and SQLite: The Relational Roots</h2>
+                <p>MySQL and SQLite were my first stop. MySQL is like the captain of relational databases structured,
+                    reliable, perfect for business apps like e-commerce. SQLite, its lightweight cousin, is the go-to
+                    for mobile apps or IoT, no server needed. I learned to design tables, normalize data (1NF, 2NF,
+                    3NF), and write SQL queries with joins and aggregates. Think of it like organizing your cricket
+                    team’s stats runs, wickets, averages all in neat tables. Here’s a sample SQL query I wrote:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-sql" data-lang="SQL"><code>
+SELECT p.player_name, AVG(s.runs) as avg_runs
+FROM players p
+JOIN scores s ON p.player_id = s.player_id
+GROUP BY p.player_name
+HAVING AVG(s.runs) > 50;
+                    </code></pre>
+                </div>
+                <p>This query finds players averaging over 50 runs clean and efficient, just like a well-placed cover
+                    drive.</p>
+            </section>
+            <section id="neo4j-graphs">
+                <h2>Neo4j: Grappling with Graphs</h2>
+                <p>Then came Neo4j, the graph database king. Unlike tables, it’s all about nodes (e.g., people, movies)
+                    and relationships (e.g., friends, acted in) think your social media network, where friends are
+                    connected. We can say it's like mapping your WhatsApp group’s connections. It’s all about nodes and
+                    relationships. I learned Cypher, Neo4j’s query language, to model stuff like recommendation systems.
+                    It’s perfect for AI apps where relationships matter, like suggesting friends or products. Here’s a
+                    Cypher query to find friends of friends:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-cypher" data-lang="Cypher"><code>
+MATCH (user:Person {name: "Taha"})-[:FRIEND]->(friend)-[:FRIEND]->(fof)
+RETURN fof.name
+                    </code></pre>
+                </div>
+                <p>This query is like asking, “Who’s in my extended squad?” Neo4j made me see how AI can leverage
+                    connections for smarter predictions.</p>
+            </section>
+            <section id="vector-databases">
+                <h2>Vector Databases: The AI Game-Changer</h2>
+                <p>Here’s where it got wild: vector databases. These bad boys store high-dimensional vectors, think
+                    numerical representations of words, images, or user preferences. They’re the backbone of AI apps
+                    like ChatGPT or image search. Instead of exact matches, they find *similar* items using approximate
+                    nearest neighbor (ANN) search. Picture searching “biryani” and getting recipes with similar vibes,
+                    not just exact matches. Vector DBs like Pinecone or Weaviate power semantic search and Retrieval
+                    Augmented Generation (RAG) in LLMs. They’re why AI feels so smart.</p>
+            </section>
+            <section id="assignments">
+                <h2>Assignments That Leveled Me Up</h2>
+                <p>My two assignments were like batting practice against spinners means tough but rewarding. Check them
+                    out on my <a href="https://github.com/yourusername/database-assignments" target="_blank">GitHub</a>!
+                </p>
+                <p><strong>Assignment 2: Expense Tracker (SQLite)</strong><br>I built a desktop app using Python,
+                    Tkinter, SQLite, and Matplotlib. It lets users track expenses and income, with a dark-themed GUI,
+                    user authentication, and charts (pie for expense breakdown, bar for income vs. expense). The SQLite
+                    database had tables for users, expenses, and income, with foreign keys for integrity. I learned to
+                    design schemas and query data, like tracking my biryani budget!</p>
+                <p><strong>Assignment 3: Movie Graph (Neo4j)</strong><br>I created a movie graph using Neo4j, loading
+                    data from movies.csv. I wrote Cypher queries to create nodes (Movie, Director, Actor, Genre,
+                    Country) and relationships (DIRECTED_BY, ACTED_IN, IN_GENRE, PRODUCED_IN). For example, I linked
+                    movies to genres and actors to films, perfect for a Netflix-style recommendation system. This showed
+                    me how graphs shine in AI for finding patterns.</p>
+            </section>
+            <section id="resources">
+                <h2>Resources That Kept Me Sane</h2>
+                <p>Databases can feel like a googly, but these resources were my coaches, breaking it down for a newbie
+                    like me:</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>MySQL Tutorial by W3Schools</strong><br>
+                        Clear, beginner-friendly SQL lessons with examples. Start here: <a
+                            href="https://www.w3schools.com/mysql">w3schools.com</a>
+                    </li>
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>Neo4j Sandbox</strong><br>
+                        Free playground to practice Cypher and graph modeling. Try it: <a
+                            href="https://neo4j.com/sandbox">neo4j.com/sandbox</a>
+                    </li>
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>Weaviate’s Vector Database Guide</strong><br>
+                        Intro to vector DBs and AI applications. Check it out: <a
+                            href="https://weaviate.io/developers/weaviate">weaviate.io</a>
+                    </li>
+                </ul>
+            </section>
+            <section id="why-it-matters">
+                <h2>Why Databases Matter for AI</h2>
+                <p>Databases are the backbone of AI. MySQL and SQLite handle structured data like user profiles in my
+                    upcoming Database Semester's Project , <a
+                        href="https://github.com/yourusername/database-assignments" target="_blank">Dishly</a> - (Smart
+                    Resources Management System). Neo4j powers recommendation systems by mapping relationships. Vector
+                    databases like Pinecone or Weaviate make AI smart by finding patterns in embeddings, semantic search
+                    or RAG in LLMs. This semester showed me databases aren’t just storage; they’re the engine for
+                    real-world AI.</p>
+            </section>
+            <div class="tags-container" id="dynamic-tags">
+                <!-- Tags will be dynamically generated here -->
+            </div>
+        </main>
+        <footer class="footer">
+            <div class="social-icons">
+                <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:example@email.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>© 2025 – Muhammad Taha Nasir</p>
+        </footer>
+    </div>
+    <button id="scrollTop" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../assets/js/each-post.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"></script>
+    <script>
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.innerText = "Copied!";
+                    setTimeout(() => button.innerText = "Copy", 1500);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

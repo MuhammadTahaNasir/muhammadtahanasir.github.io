@@ -1,0 +1,346 @@
+[
+  {
+    "title": "The Future of Data: What I Learned from SQL to Vector Databases",
+    "summary": "This semester, I got into databases and learned a ton. I started with MySQL and SQLite, figuring out how to write queries to manage data. Then, I tried Neo4j and saw how it connects things like a web. I also checked out vector databases and how they help apps find stuff fast. Working on projects and seeing real examples made it clear how data is stored and used in apps today.",
+    "url": "posts/sql-db-ai.html",
+    "thumbnail": "/assets/images/posts/sql-db-ai.png",
+    "tags": [
+      "SQL",
+      "MySQL",
+      "SQLite",
+      "Neo4j",
+      "Vector Databases",
+      "Machine Learning",
+      "AI",
+      "Databases"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "4 min",
+    "date": "2025-04-14T00:00:00Z"
+  },
+  {
+    "title": "Lost My LinkedIn, Found My Strength in Makkah 🌙🕋✨",
+    "summary": "While performing Umrah in Makkah this Ramadan, I found out all my accounts including LinkedIn, GitHub, and Instagram were hacked and wiped clean. Years of effort vanished. But in this sacred place, I found clarity, resilience, and a reminder that Allah’s plans are always greater. This is not the end. It’s the restart of something even better, Inshallah.",
+    "url": "posts/ramzan-2025.html",
+    "thumbnail": "",
+    "tags": [
+      "Umrah",
+      "Ramadan",
+      "AI",
+      "Machine Learning",
+      "hacking",
+      "personal growth",
+      "faith"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "3 min",
+    "date": "2025-03-07T00:00:00Z"
+  },
+  {
+    "title": "Generative AI & Prompt Engineering: The New Skillset for the AI Age",
+    "summary": "This post covers Generative AI and learning how Large Language Models (LLMs) like GPT understand and generate text, code, images, and more. From writing smarter prompts to understanding how these models think, this experience opened my eyes to how AI is reshaping creativity, productivity, and problem-solving.",
+    "url": "posts/gen-ai.html",
+    "thumbnail": "",
+    "tags": [
+      "Generative AI",
+      "Large Language Models",
+      "Prompt Engineering",
+      "GPT-4",
+      "Tech Trends"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "4 min",
+    "date": "2025-02-20T00:00:00Z"
+  },
+  {
+    "title": "Docker, AWS & DevOps for AI Engineers: Should You Care?",
+    "summary": "AI ≠ Just Models.\nThis semester, I got a bouncer from Operating Systems and realized: building AI is just 20% of the job. The rest? DevOps, Docker, AWS, MLOps and all the stuff that takes your model from laptop to live app. From running Flask in Docker to deploying models on AWS SageMaker, I’ve been learning how the real-world AI game is played. If you’re into AI, here’s why DevOps isn’t optional.",
+    "url": "posts/devops.html",
+    "thumbnail": "/assets/images/posts/docker.jpg",
+    "tags": [
+      "Docker",
+      "AWS",
+      "DevOps",
+      "MLOps",
+      "AI",
+      "Machine Learning",
+      "Linux",
+      "Deployment"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "4 min",
+    "date": "2025-01-20T00:00:00Z"
+  },
+  {
+    "title": "The Importance of Math in Machine Learning",
+    "summary": "From dodging math to loving it: How linear algebra, calculus, and stats power ML, explained with simple examples.",
+    "url": "posts/maths-ai.html",
+    "thumbnail": "",
+    "tags": [
+      "Machine Learning",
+      "Linear Algebra",
+      "Calculus",
+      "Statistics",
+      "Probability",
+      "AI"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "3 min",
+    "date": "2024-12-20T00:00:00Z"
+  },
+  {
+    "title": "DSA Finally Clicked!",
+    "summary": "From C++ classes to LeetCode battles, my DSA journey boosts ML speed. Arrays, stacks, and a not-so-scary grind!",
+    "url": "posts/cracking-dsa.html",
+    "thumbnail": "",
+    "tags": [
+      "Data Structures",
+      "LeetCode",
+      "C++",
+      "Machine Learning",
+      "Algorithms",
+      "university"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "3 min",
+    "date": "2024-09-21T00:00:00Z"
+  },
+  {
+    "title": "Deploying AI Projects: Flask vs Streamlit vs Vercel",
+    "summary": "A beginner’s hilarious dive into deploying AI projects with Flask, Streamlit, and Vercel, with tales of bugs, late-night coding, and my Headstarter Fellowship adventures.",
+    "url": "posts/deploy-ai-proj.html",
+    "thumbnail": "/assets/images/posts/ai-deployment.png",
+    "tags": [
+      "Flask",
+      "Streamlit",
+      "Vercel",
+      "AI Deployment",
+      "python",
+      "WebDev"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "4 min",
+    "date": "2024-08-12T00:00:00Z"
+  },
+  {
+    "title": "How I Built My First Streamlit App in 3 Days: My Headstarter Fellowship Journey",
+    "summary": "A student’s journey building an AI Roadmap Generator with Streamlit during the Headstarter AI SWE Fellowship, plus lessons learned and related fellowship projects.",
+    "url": "posts/headstarter.html",
+    "thumbnail": "",
+    "tags": [
+      "Streamlit",
+      "AI",
+      "python",
+      "Machine Learning",
+      "WebDev"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "4 min",
+    "date": "2024-07-27T00:00:00Z"
+  },
+  {
+    "title": "TensorFlow vs PyTorch: Building My First Models and Choosing One",
+    "summary": "A beginner’s guide to building a neural network with TensorFlow and a classifier with PyTorch, plus my take on which to choose.",
+    "url": "posts/pytorch-vs-tensorflow.html",
+    "thumbnail": "/assets/images/posts/pytorch-vs-tensorflow.png",
+    "tags": [
+      "TensorFlow",
+      "PyTorch",
+      "Neural Network",
+      "Classifier",
+      "Machine Learning"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "4 min",
+    "date": "2024-06-23T00:00:00Z"
+  },
+  {
+    "title": "April 2024: Code, Clouds, and Crazy Days",
+    "summary": "My April 2024 story: joining the AWS Cloud Club, surviving my first hackathon at GIKI, and tackling competitive programming prep.",
+    "url": "posts/first-hackathon.html",
+    "thumbnail": "",
+    "tags": [
+      "AWS",
+      "Hackathon",
+      "Competitive Programming",
+      "Cloud"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "2 min",
+    "date": "2024-04-25T00:00:00Z"
+  },
+  {
+    "title": "NLP Struggles: My First Chatbot Attempt",
+    "summary": "It's about the challenges of building a chatbot with NLTK during Ramzan, blending coding struggles",
+    "url": "posts/2024-ramzan.html",
+    "thumbnail": "/assets/images/posts/nlp-hard.png",
+    "tags": [
+      "NLP",
+      "Chatbot",
+      "NLTK"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "2 min",
+    "date": "2024-03-12T00:00:00Z"
+  },
+  {
+    "title": "Discovering Web Development: My Journey Starts with MLSA Session",
+    "summary": "I'd be my start in web development after an MLSA session, exploring beginner courses, technologies, and AI integration.",
+    "url": "posts/webdev-intro.html",
+    "thumbnail": "/assets/images/posts/webdev-journey.png",
+    "tags": [
+      "WebDev",
+      "MLSA"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "3 min",
+    "date": "2024-01-14T00:00:00Z"
+  },
+  {
+    "title": "Wrapping Up 2023: ML Lessons and Exam Chaos",
+    "summary": "A tech blogger wraps up 2023 with ML flops, linear regression wins, and exam madness as Semester 1 ends.",
+    "url": "posts/2023-end.html",
+    "thumbnail": "/assets/images/posts/ML-2023.png",
+    "tags": [
+      "Machine Learning",
+      "coding",
+      "DataScience",
+      "student life"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "3 min",
+    "date": "2023-12-20T00:00:00Z"
+  },
+  {
+    "title": "Ethical AI: Why It’s More Than Hype",
+    "summary": "A tech blogger’s reflection on AI ethics after a 1.5-hour session, exploring bias, responsibility, and personal growth with humor and insights.",
+    "url": "posts/ethical-ai.html",
+    "thumbnail": "/assets/images/posts/ethical-ai.jpg",
+    "tags": [
+      "AI ethics",
+      "university",
+      "programming",
+      "Machine Learning",
+      "bias",
+      "research"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "3 min",
+    "date": "2023-11-15T00:00:00Z"
+  },
+  {
+    "title": "Surviving My First Semester: Coding Challenges in Uni",
+    "summary": "A student’s survival log of the first semester at a reputed Pakistani institution, tackling coding challenges, sessional exams, and a language switch from Python to C while exploring ML and NLP.",
+    "url": "posts/surviving-first-semester.html",
+    "thumbnail": "",
+    "tags": [
+      "programming",
+      "python",
+      "C",
+      "Machine Learning",
+      "NLP",
+      "university life"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "3 min",
+    "date": "2023-10-22T00:00:00Z"
+  },
+  {
+    "title": "The Rise of ChatGPT: A Student’s Take",
+    "summary": "A student’s take on ChatGPT’s rise in 2023, exploring NLP with Python, preparing for university entrance tests, and thinking about AI’s future.",
+    "url": "posts/rise-of-gpt.html",
+    "thumbnail": "/assets/images/posts/chatgpt.jpeg",
+    "tags": [
+      "ChatGPT",
+      "NLP",
+      "python",
+      "programming",
+      "student life"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "3 min",
+    "date": "2023-06-20T00:00:00Z"
+  },
+  {
+    "title": "2023 Kickoff: Chasing Uni Dreams, AI Vibes, and Python Magic",
+    "summary": "My first post of 2023 as a tech blogger, navigating university entrance test prep, college studies, and self-learning. Exploring AI’s inspiration from ChatGPT, Python’s role in my journey, and balancing it all.",
+    "url": "posts/kickoff-2023.html",
+    "thumbnail": "",
+    "tags": [
+      "tech journey",
+      "python",
+      "AI",
+      "ChatGPT",
+      "university prep",
+      "self-learning",
+      "programming",
+      "pandas"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "3 min",
+    "date": "2023-02-18T00:00:00Z"
+  },
+  {
+    "title": "2022 Recap: The Year I Chased Logic and Found Myself",
+    "summary": "My 2022 tech journey as a student and tech blog writer, learning Python, Java, grinding LeetCode, and using ChatGPT to tackle coding and college assignments.",
+    "url": "posts/wrapup-2022.html",
+    "thumbnail": "/assets/images/posts/wrapup-2022.png",
+    "tags": [
+      "tech journey",
+      "python",
+      "java",
+      "LeetCode",
+      "ChatGPT",
+      "programming"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "3 min",
+    "date": "2022-12-31T00:00:00Z"
+  },
+  {
+    "title": "Breaking into DSA with LeetCode: The Real Struggle Behind the Grind",
+    "summary": "My entry point into real problem-solving: LeetCode, Python, and the unexpected depth of DSA that made me rethink how I code.",
+    "url": "posts/learning-dsa-leetcode.html",
+    "thumbnail": "/assets/images/posts/leetcode.jpg",
+    "tags": [
+      "Data Structures",
+      "LeetCode",
+      "python"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "3 min",
+    "date": "2022-09-20T00:00:00Z"
+  },
+  {
+    "title": "Why Python Stole My Heart Over Java",
+    "summary": "Why I switched to Python over Java after taking courses in both, inspired by my teacher Sir Zia, with a focus on ease and libraries like Pandas and NumPy.",
+    "url": "posts/python-over-java.html",
+    "thumbnail": "/assets/images/posts/python-vs-java.jpg",
+    "tags": [
+      "python",
+      "java",
+      "coding",
+      "programming",
+      "projects"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "4 min",
+    "date": "2022-05-10T00:00:00Z"
+  },
+  {
+    "title": "Why I Chose CS Over AI",
+    "summary": "Why I chose a Computer Science degree over a specialized AI path in 2022 for a strong foundation and more options.",
+    "url": "posts/cs-vs-ai.html",
+    "thumbnail": "",
+    "tags": [
+      "computer science",
+      "AI",
+      "education",
+      "coding",
+      "career"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "3 min",
+    "date": "2022-03-15T00:00:00Z"
+  }
+]

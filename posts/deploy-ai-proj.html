@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description"
+        content="A beginner’s hilarious dive into deploying AI projects with Flask, Streamlit, and Vercel, with tales of bugs, late-night coding, and my Headstarter Fellowship adventures.">
+    <meta name="author" content="Muhammad Taha Nasir">
+    <meta name="tags" content="Flask, Streamlit, Vercel, AI Deployment, python, WebDev">
+    <meta name="thumbnail" content="/assets/images/posts/ai-deployment.png">
+    <title>Deploying AI Projects: Flask vs Streamlit vs Vercel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/each-post.css">
+</head>
+
+<body class="dark" id="top" post-date="2024-08-12T00:00:00Z">
+    <header class="header">
+        <nav class="nav">
+            <div class="logo"><a href="../index.html" style="color:inherit;text-decoration:none">&lt;terry/&gt;</a>
+            </div>
+            <div>
+                <a href="../resources.html">Resources</a>
+                <a href="../archives.html">Archives</a>
+                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Home</a> » <a href="../posts.html">Posts</a>
+        </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">Deploying AI Projects: Flask vs Streamlit vs Vercel</h1>
+                <div class="post-meta">August 12, 2024 • 4 min • Muhammad Taha Nasir</div>
+            </header>
+            <img src="/assets/images/posts/ai-deployment.png" alt="AI Deployment Chaos"
+                style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;">
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#the-deployment-rollercoaster">The Deployment Rollercoaster</a></li>
+                        <li><a href="#flask-fiasco">Flask: The Overachiever’s Framework</a></li>
+                        <li><a href="#streamlit-saves">Streamlit: My Python Pal</a></li>
+                        <li><a href="#vercel-vibes">Vercel: The Cool Kid’s Deployment</a></li>
+                        <li><a href="#my-verdict">My Verdict: Who Wins?</a></li>
+                        <li><a href="#where-headed">Where I’m Headed</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <section id="the-deployment-rollercoaster">
+                <h2>The Deployment Rollercoaster</h2>
+                <p>Building AI models? That’s the easy part, like acing a math quiz. Getting them online? Bro, that’s
+                    like juggling flaming torches while riding a unicycle blindfolded. During the Headstarter AI SWE
+                    Fellowship in July 2024, I dove into the wild world of deployment, fueled by chai and late-night
+                    Zoom calls from Pakistan to New York. I wrestled with Flask, Streamlit, and Vercel to get my AI
+                    projects live, including a pretty dope <a href="https://ai-roadmap-generator.streamlit.app/">AI
+                        Roadmap Generator</a>. Here’s my newbie take on the deployment game, with a few laughs and
+                    plenty of facepalms.</p>
+            </section>
+            <section id="flask-fiasco">
+                <h2>Flask: The Overachiever’s Framework</h2>
+                <p>Flask is like that friend who insists on baking a cake from scratch when you just want cupcakes. It’s
+                    a Python framework that’s super flexible but expects you to be a web dev guru. I used Flask to
+                    deploy a text classifier during the fellowship. Installing it was chill with
+                    <code>pip install flask</code>, but then came the HTML templates and routes, and I was like, “Yo, I
+                    just want my model to say hi on the internet!”
+                </p>
+                <p>Here’s a quick Flask app to serve an AI model:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-python" data-lang="Python"><code>
+from flask import Flask, request, render_template
+app = Flask(__name__)
+
+@app.route('/', methods=['GET', 'POST'])
+def predict():
+    if request.method == 'POST':
+        input_text = request.form['text']
+        # Your AI model would strut its stuff here
+        prediction = "Positive vibe detected!"
+        return render_template('index.html', prediction=prediction)
+    return render_template('index.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
+                    </code></pre>
+                </div>
+                <p>Deploying on Heroku was like teaching a cat to fetch possible, but painful. The <code>Procfile</code>
+                    was fussier than my auntie at a wedding, and my model’s dependencies made the app slower than a
+                    Karachi traffic jam. After some Stack Overflow marathons, I trimmed the fat, but Flask taught me:
+                    you get control, but you gotta earn it.</p>
+            </section>
+            <section id="streamlit-saves">
+                <h2>Streamlit: My Python Pal</h2>
+                <p>Streamlit is the homie who says, “You know Python? You’re basically a web dev!” It’s made for folks
+                    like me who’d rather debug a neural net than a CSS file. I used it for our <a
+                        href="https://ai-roadmap-generator.streamlit.app/">AI Roadmap Generator</a>, and bro, it was
+                    like finding biryani after a long day. Install with <code>pip install streamlit</code>, write a few
+                    lines, and bam, you’ve got a web app.</p>
+                <p>Here’s a simple Streamlit app for an AI model:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-python" data-lang="Python"><code>
+import streamlit as st
+
+st.title("AI Magic Box")
+user_input = st.text_input("Drop some text, fam:")
+if st.button("Hit Me With a Prediction"):
+    # Your AI model would flex here
+    st.write("Prediction: You’re gonna love Streamlit!")
+                    </code></pre>
+                </div>
+                <p>Deploying on Streamlit’s platform was smoother than my best cricket swing, thanks to my teammate
+                    Awwab, the deployment king. We hit a Firebase auth bug sessions vanishing like my Wi-Fi during load
+                    shedding but a quick SDK tweak fixed it. Streamlit’s perfect for quick AI apps, but don’t expect it
+                    to let you redesign the whole UI.</p>
+            </section>
+            <section id="vercel-vibes">
+                <h2>Vercel: The Cool Kid’s Deployment</h2>
+                <p>Vercel is the TikTok star of deployment means flashy, user-friendly, and obsessed with Next.js. I
+                    used it
+                    for my fellowship portfolio and an AI Flashcards app. With <code>npm install -g vercel</code> and a
+                    Git push, your app’s live faster than you can say “viral.” It’s a dream for frontend-heavy projects
+                    but gets a bit cranky with beefy Python AI models.</p>
+                <p>Here’s a sample <code>vercel.json</code> for a Next.js AI app:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-json" data-lang="JSON"><code>
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "next.config.js",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    }
+  ]
+}
+                    </code></pre>
+                </div>
+                <p>Vercel’s auto-scaling is slicker than my cousin’s new haircut, but I hit a snag with serverless
+                    function timeouts for my AI backend. Vercel was like, “Bro, I’m for shiny UIs, not your chunky
+                    models.” Still, for non-Python-heavy apps, it’s a total flex.</p>
+            </section>
+            <section id="my-verdict">
+                <h2>My Verdict: Who Wins?</h2>
+                <p>Flask is the control freak who demands you code every pixel, it's great if you’re a web dev ninja,
+                    but I’m
+                    still a padawan. Streamlit is my ride-or-die for Python-based AI apps; it’s fast, simple, and got
+                    our AI Roadmap Generator live without me pulling my hair out. Vercel’s the cool kid, perfect for
+                    flashy frontends but not your go-to for Python-heavy AI. As a beginner, I’m vibing with
+                    Streamlit, it’s like coding with training wheels. Flask and Vercel? I’ll hit you up when I level up.
+                </p>
+            </section>
+            <section id="where-headed">
+                <h2>Where I’m Headed</h2>
+                <p>Deployment’s like trying to land a spaceship in a storm seems tricky, but I’m hooked. I’m diving
+                    deeper
+                    into AI and web dev, chasing more projects that make people go, “Yo, that’s dope!”. Stick around for
+                    more coding chaos. Taddaaa!</p>
+            </section>
+            <div class="tags-container" id="dynamic-tags">
+                <!-- Tags will be dynamically generated here -->
+            </div>
+        </main>
+        <footer class="footer">
+            <div class="social-icons">
+                <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:example@email.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>© 2024 – Muhammad Taha Nasir</p>
+        </footer>
+    </div>
+    <button id="scrollTop" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../assets/js/each-post.js"></script>
+    <script>
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.innerText = "Copied!";
+                    setTimeout(() => button.innerText = "Copy", 1500);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
