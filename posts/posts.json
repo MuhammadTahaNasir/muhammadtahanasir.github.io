@@ -2,7 +2,7 @@
   {
     "title": "The Future of Data: What I Learned from SQL to Vector Databases",
     "summary": "This semester, I got into databases and learned a ton. I started with MySQL and SQLite, figuring out how to write queries to manage data. Then, I tried Neo4j and saw how it connects things like a web. I also checked out vector databases and how they help apps find stuff fast. Working on projects and seeing real examples made it clear how data is stored and used in apps today.",
-    "url": "posts/sql-db-ai.html",
+    "url": "posts/2025/sql-db-ai.html",
     "thumbnail": "/assets/images/posts/sql-db-ai.png",
     "tags": [
       "SQL",
@@ -21,7 +21,7 @@
   {
     "title": "Lost My LinkedIn, Found My Strength in Makkah 🌙🕋✨",
     "summary": "While performing Umrah in Makkah this Ramadan, I found out all my accounts including LinkedIn, GitHub, and Instagram were hacked and wiped clean. Years of effort vanished. But in this sacred place, I found clarity, resilience, and a reminder that Allah’s plans are always greater. This is not the end. It’s the restart of something even better, Inshallah.",
-    "url": "posts/ramzan-2025.html",
+    "url": "posts/2025/ramzan-2025.html",
     "thumbnail": "",
     "tags": [
       "Umrah",
@@ -39,7 +39,7 @@
   {
     "title": "Generative AI & Prompt Engineering: The New Skillset for the AI Age",
     "summary": "This post covers Generative AI and learning how Large Language Models (LLMs) like GPT understand and generate text, code, images, and more. From writing smarter prompts to understanding how these models think, this experience opened my eyes to how AI is reshaping creativity, productivity, and problem-solving.",
-    "url": "posts/gen-ai.html",
+    "url": "posts/2025/gen-ai.html",
     "thumbnail": "",
     "tags": [
       "Generative AI",
@@ -55,7 +55,7 @@
   {
     "title": "Docker, AWS & DevOps for AI Engineers: Should You Care?",
     "summary": "AI ≠ Just Models.\nThis semester, I got a bouncer from Operating Systems and realized: building AI is just 20% of the job. The rest? DevOps, Docker, AWS, MLOps and all the stuff that takes your model from laptop to live app. From running Flask in Docker to deploying models on AWS SageMaker, I’ve been learning how the real-world AI game is played. If you’re into AI, here’s why DevOps isn’t optional.",
-    "url": "posts/devops.html",
+    "url": "posts/2025/devops.html",
     "thumbnail": "/assets/images/posts/docker.jpg",
     "tags": [
       "Docker",
@@ -74,7 +74,7 @@
   {
     "title": "The Importance of Math in Machine Learning",
     "summary": "From dodging math to loving it: How linear algebra, calculus, and stats power ML, explained with simple examples.",
-    "url": "posts/maths-ai.html",
+    "url": "posts/2024/maths-for-ml.html",
     "thumbnail": "",
     "tags": [
       "Machine Learning",
@@ -91,7 +91,7 @@
   {
     "title": "DSA Finally Clicked!",
     "summary": "From C++ classes to LeetCode battles, my DSA journey boosts ML speed. Arrays, stacks, and a not-so-scary grind!",
-    "url": "posts/cracking-dsa.html",
+    "url": "posts/2024/cracking-dsa.html",
     "thumbnail": "",
     "tags": [
       "Data Structures",
@@ -108,7 +108,7 @@
   {
     "title": "Deploying AI Projects: Flask vs Streamlit vs Vercel",
     "summary": "A beginner’s hilarious dive into deploying AI projects with Flask, Streamlit, and Vercel, with tales of bugs, late-night coding, and my Headstarter Fellowship adventures.",
-    "url": "posts/deploy-ai-proj.html",
+    "url": "posts/2024/deploy-ai-proj.html",
     "thumbnail": "/assets/images/posts/ai-deployment.png",
     "tags": [
       "Flask",
@@ -125,7 +125,7 @@
   {
     "title": "How I Built My First Streamlit App in 3 Days: My Headstarter Fellowship Journey",
     "summary": "A student’s journey building an AI Roadmap Generator with Streamlit during the Headstarter AI SWE Fellowship, plus lessons learned and related fellowship projects.",
-    "url": "posts/headstarter.html",
+    "url": "posts/2024/streamlit-app.html",
     "thumbnail": "",
     "tags": [
       "Streamlit",
@@ -141,7 +141,7 @@
   {
     "title": "TensorFlow vs PyTorch: Building My First Models and Choosing One",
     "summary": "A beginner’s guide to building a neural network with TensorFlow and a classifier with PyTorch, plus my take on which to choose.",
-    "url": "posts/pytorch-vs-tensorflow.html",
+    "url": "posts/2024/pytorch-vs-tensorflow.html",
     "thumbnail": "/assets/images/posts/pytorch-vs-tensorflow.png",
     "tags": [
       "TensorFlow",
@@ -157,7 +157,7 @@
   {
     "title": "April 2024: Code, Clouds, and Crazy Days",
     "summary": "My April 2024 story: joining the AWS Cloud Club, surviving my first hackathon at GIKI, and tackling competitive programming prep.",
-    "url": "posts/first-hackathon.html",
+    "url": "posts/2024/first-hackathon.html",
     "thumbnail": "",
     "tags": [
       "AWS",
@@ -172,7 +172,7 @@
   {
     "title": "NLP Struggles: My First Chatbot Attempt",
     "summary": "It's about the challenges of building a chatbot with NLTK during Ramzan, blending coding struggles",
-    "url": "posts/2024-ramzan.html",
+    "url": "posts/2024/2024-ramzan.html",
     "thumbnail": "/assets/images/posts/nlp-hard.png",
     "tags": [
       "NLP",
@@ -186,7 +186,7 @@
   {
     "title": "Discovering Web Development: My Journey Starts with MLSA Session",
     "summary": "I'd be my start in web development after an MLSA session, exploring beginner courses, technologies, and AI integration.",
-    "url": "posts/webdev-intro.html",
+    "url": "posts/2024/webdev-intro.html",
     "thumbnail": "/assets/images/posts/webdev-journey.png",
     "tags": [
       "WebDev",
@@ -199,7 +199,7 @@
   {
     "title": "Wrapping Up 2023: ML Lessons and Exam Chaos",
     "summary": "A tech blogger wraps up 2023 with ML flops, linear regression wins, and exam madness as Semester 1 ends.",
-    "url": "posts/2023-end.html",
+    "url": "posts/2023/2023-end.html",
     "thumbnail": "/assets/images/posts/ML-2023.png",
     "tags": [
       "Machine Learning",
@@ -214,7 +214,7 @@
   {
     "title": "Ethical AI: Why It’s More Than Hype",
     "summary": "A tech blogger’s reflection on AI ethics after a 1.5-hour session, exploring bias, responsibility, and personal growth with humor and insights.",
-    "url": "posts/ethical-ai.html",
+    "url": "posts/2023/ethical-ai.html",
     "thumbnail": "/assets/images/posts/ethical-ai.jpg",
     "tags": [
       "AI ethics",
@@ -231,7 +231,7 @@
   {
     "title": "Surviving My First Semester: Coding Challenges in Uni",
     "summary": "A student’s survival log of the first semester at a reputed Pakistani institution, tackling coding challenges, sessional exams, and a language switch from Python to C while exploring ML and NLP.",
-    "url": "posts/surviving-first-semester.html",
+    "url": "posts/2023/surviving-first-semester.html",
     "thumbnail": "",
     "tags": [
       "programming",
@@ -248,7 +248,7 @@
   {
     "title": "The Rise of ChatGPT: A Student’s Take",
     "summary": "A student’s take on ChatGPT’s rise in 2023, exploring NLP with Python, preparing for university entrance tests, and thinking about AI’s future.",
-    "url": "posts/rise-of-gpt.html",
+    "url": "posts/2023/rise-of-gpt.html",
     "thumbnail": "/assets/images/posts/chatgpt.jpeg",
     "tags": [
       "ChatGPT",
@@ -264,7 +264,7 @@
   {
     "title": "2023 Kickoff: Chasing Uni Dreams, AI Vibes, and Python Magic",
     "summary": "My first post of 2023 as a tech blogger, navigating university entrance test prep, college studies, and self-learning. Exploring AI’s inspiration from ChatGPT, Python’s role in my journey, and balancing it all.",
-    "url": "posts/kickoff-2023.html",
+    "url": "posts/2023/kickoff-2023.html",
     "thumbnail": "",
     "tags": [
       "tech journey",
@@ -283,7 +283,7 @@
   {
     "title": "2022 Recap: The Year I Chased Logic and Found Myself",
     "summary": "My 2022 tech journey as a student and tech blog writer, learning Python, Java, grinding LeetCode, and using ChatGPT to tackle coding and college assignments.",
-    "url": "posts/wrapup-2022.html",
+    "url": "posts/2022/wrapup-2022.html",
     "thumbnail": "/assets/images/posts/wrapup-2022.png",
     "tags": [
       "tech journey",
@@ -300,7 +300,7 @@
   {
     "title": "Breaking into DSA with LeetCode: The Real Struggle Behind the Grind",
     "summary": "My entry point into real problem-solving: LeetCode, Python, and the unexpected depth of DSA that made me rethink how I code.",
-    "url": "posts/learning-dsa-leetcode.html",
+    "url": "posts/2022/learning-dsa-leetcode.html",
     "thumbnail": "/assets/images/posts/leetcode.jpg",
     "tags": [
       "Data Structures",
@@ -314,7 +314,7 @@
   {
     "title": "Why Python Stole My Heart Over Java",
     "summary": "Why I switched to Python over Java after taking courses in both, inspired by my teacher Sir Zia, with a focus on ease and libraries like Pandas and NumPy.",
-    "url": "posts/python-over-java.html",
+    "url": "posts/2022/python-over-java.html",
     "thumbnail": "/assets/images/posts/python-vs-java.jpg",
     "tags": [
       "python",
@@ -330,7 +330,7 @@
   {
     "title": "Why I Chose CS Over AI",
     "summary": "Why I chose a Computer Science degree over a specialized AI path in 2022 for a strong foundation and more options.",
-    "url": "posts/cs-vs-ai.html",
+    "url": "posts/2022/cs-vs-ai.html",
     "thumbnail": "",
     "tags": [
       "computer science",

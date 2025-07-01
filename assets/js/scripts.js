@@ -1,7 +1,7 @@
 /* ---------- 1. Section navigation ---------- */
 let allPosts = [];
 let currentStartIndex = 0;
-const postsPerPage = 3;
+const postsPerPage = 4;
 const loader = document.getElementById('loader');
 let activeTimeout = null; // Track active timeout to cancel previous loads
 
@@ -12,25 +12,44 @@ function updateVisiblePosts(posts, startIndex) {
   const visiblePosts = posts.slice(startIndex, startIndex + postsPerPage);
 
   visiblePosts.forEach(post => {
-    const thumbnailPath = post.thumbnail || 'https://via.placeholder.com/150';
+    const thumbnailPath = post.thumbnail || null;
     const postTitle = post.title || 'Untitled Post'; // Fallback if no title
     if (!post.thumbnail) {
-      console.warn(`Thumbnail missing for post: ${postTitle}`);
+      console.warn(`Thumbnail missing for post: ${postTitle}, image section hidden`);
     }
-    // Format date to show only the date part (e.g., "2025-06-25")
-    const formattedDate = new Date(post.date).toISOString().split('T')[0];
+    // Format date to "Day Month Year" (e.g., "1 July 2025")
+    const date = new Date(post.date);
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const formattedDate = `${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+    // Use time from posts.json without emoji
+    const readTime = post.time || '1 min';
+
+    // Short description (first sentence of summary)
+    const shortDescription = post.summary ? post.summary.split('. ')[0] + '.' : 'No description available.';
+
     const postCard = document.createElement('div');
     postCard.className = 'post-card';
-    postCard.innerHTML = `
-      <img src="${thumbnailPath}" alt="${postTitle}" class="post-image">
+    let cardContent = `
+      ${thumbnailPath ? `<img src="${thumbnailPath}" alt="${postTitle}" class="post-image">` : ''}
       <h3 class="post-title">${postTitle}</h3>
-      <p class="post-author">By ${post.author || 'Anonymous'}</p>
-      <p class="post-date">${formattedDate}</p>
-      <p class="post-summary">${post.summary || 'No summary available.'}</p>
+      <div class="post-meta">${formattedDate} · ${readTime}</div>
+    `;
+    if (!thumbnailPath) {
+      cardContent += `<p class="post-summary">${shortDescription}</p>`; // Show summary only for non-image posts
+    }
+    cardContent += `
       <a class="read-more" href="${post.url}" target="_blank">Read More</a>
     `;
+    postCard.innerHTML = cardContent;
     postsContainer.appendChild(postCard);
   });
+
+  // Add View More link inside posts-container, below post cards
+  const viewMore = document.createElement('a');
+  viewMore.className = 'view-more';
+  viewMore.href = 'posts.html';
+  viewMore.textContent = 'View More';
+  postsContainer.appendChild(viewMore);
 }
 
 function showSection(section) {
@@ -51,6 +70,20 @@ function showSection(section) {
   const askBar = document.getElementById('ask-bar');
   const skillsIntro = document.getElementById('skills-intro');
 
+  // Remove any existing dynamically added headings or containers
+  const existingAboutHeading = document.querySelector('h2');
+  if (existingAboutHeading) {
+    existingAboutHeading.remove();
+  }
+  const existingSkillsContainer = document.querySelector('.skills-container');
+  if (existingSkillsContainer) {
+    existingSkillsContainer.remove();
+  }
+  const existingViewMore = document.querySelector('.view-more');
+  if (existingViewMore) {
+    existingViewMore.remove();
+  }
+
   // Reset all sections and remove dynamic elements immediately
   content.style.display = 'none';
   projects.style.display = 'none';
@@ -60,11 +93,33 @@ function showSection(section) {
   title.style.display = 'none';
   subtitle.style.display = 'none';
   skillsIntro.style.display = 'none';
-  const existingSkillsContainer = document.querySelector('.skills-container');
-  if (existingSkillsContainer) {
-    existingSkillsContainer.remove();
+  askBar.classList.remove('posts'); // Remove posts class on section switch
+
+  // Use consistent initial ask bar design for all sections
+  askBar.innerHTML = `<input type="text" placeholder="Ask me anything…" autocomplete="off"><button aria-label="Send">➡</button><div class="posts-container"></div>`;
+
+  // Customize for posts section
+  if (section === 'posts') {
+    const searchInput = askBar.querySelector('input');
+    searchInput.placeholder = 'Search for posts…';
+    searchInput.value = ''; // Clear input immediately
+    const searchButton = askBar.querySelector('button');
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        const query = searchInput.value.trim();
+        if (query) {
+          window.location.href = `posts.html?search=${encodeURIComponent(query)}`;
+        }
+      }
+    });
+    searchButton.addEventListener('click', () => {
+      const query = searchInput.value.trim();
+      if (query) {
+        window.location.href = `posts.html?search=${encodeURIComponent(query)}`;
+      }
+    });
   }
-  askBar.innerHTML = `<input type="text" placeholder="Ask me anything…"><button aria-label="Send">➡</button>`;
+
   img.style.transform = 'translateY(-50px)';
 
   // Show prompt with animation
@@ -146,26 +201,14 @@ function showSection(section) {
             generateProjects();
             break;
 
-          case 'tags':
-            loader.classList.add('active');
-            title.style.display = 'block';
-            title.textContent = 'Tags';
-            title.style.fontWeight = 'bold';
-            title.style.fontSize = '1.5em';
-            tags.style.display = 'block';
-            generateTags();
-            break;
-
           case 'posts':
             loader.classList.add('active');
             title.style.display = 'block';
             title.textContent = 'Latest Posts';
             title.style.fontWeight = 'bold';
             title.style.fontSize = '1.5em';
-            askBar.innerHTML = `
-              <div class="posts-container" style="max-height: 300px; overflow-y: auto;"></div>
-              <a class="view-more" href="posts.html">View More</a>
-            `;
+            const postsContainer = askBar.querySelector('.posts-container');
+            postsContainer.style.display = 'flex';
             fetch('posts/posts.json')
               .then(response => {
                 if (!response.ok) throw new Error('File not found');
@@ -176,7 +219,7 @@ function showSection(section) {
                 updateVisiblePosts(allPosts, currentStartIndex);
               })
               .catch(error => {
-                askBar.innerHTML = '<p>Error loading posts. Please try again later.</p>';
+                postsContainer.innerHTML = '<p>Error loading posts. Please try again later.</p>';
                 console.error('Error fetching posts:', error);
               })
               .finally(() => {
@@ -188,6 +231,16 @@ function showSection(section) {
                   loader.classList.remove('active');
                 }, 1200);
               });
+            break;
+
+          case 'tags':
+            loader.classList.add('active');
+            title.style.display = 'block';
+            title.textContent = 'Tags';
+            title.style.fontWeight = 'bold';
+            title.style.fontSize = '1.5em';
+            tags.style.display = 'block';
+            generateTags();
             break;
 
           case 'skills':
@@ -355,15 +408,25 @@ if (toggleBtn) {
       return;
     }
     isToggling = true;
-    const current = document.body.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-    const next = current === 'dark' ? 'light' : 'dark';
-    document.body.setAttribute('data-theme', next);
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
     try {
-      localStorage.setItem('pref-theme', next);
+      localStorage.setItem('pref-theme', newTheme);
     } catch (e) {
       console.error('Failed to save theme to localStorage:', e);
     }
-    console.log(`Theme switched to: ${next}`);
+    console.log(`Theme switched to: ${newTheme}`);
+    // Ensure all elements update their styles
+    document.querySelectorAll('[style*="color: var(--primary)"]').forEach(el => {
+      el.style.color = getComputedStyle(document.documentElement).getPropertyValue('--primary');
+    });
+    document.querySelectorAll('[style*="color: var(--secondary)"]').forEach(el => {
+      el.style.color = getComputedStyle(document.documentElement).getPropertyValue('--secondary');
+    });
+    document.querySelectorAll('[style*="background: var(--tertiary)"]').forEach(el => {
+      el.style.background = getComputedStyle(document.documentElement).getPropertyValue('--tertiary');
+    });
     setTimeout(() => { isToggling = false; }, 300); // Match CSS transition duration
   });
 } else {
@@ -377,10 +440,20 @@ window.addEventListener('DOMContentLoaded', () => {
     if (!savedTheme) {
       savedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
-    document.body.setAttribute('data-theme', savedTheme || 'light');
+    document.documentElement.setAttribute('data-theme', savedTheme || 'light');
+    // Ensure initial theme styles are applied correctly
+    document.querySelectorAll('[style*="color: var(--primary)"]').forEach(el => {
+      el.style.color = getComputedStyle(document.documentElement).getPropertyValue('--primary');
+    });
+    document.querySelectorAll('[style*="color: var(--secondary)"]').forEach(el => {
+      el.style.color = getComputedStyle(document.documentElement).getPropertyValue('--secondary');
+    });
+    document.querySelectorAll('[style*="background: var(--tertiary)"]').forEach(el => {
+      el.style.background = getComputedStyle(document.documentElement).getPropertyValue('--tertiary');
+    });
   } catch (e) {
     console.error('Failed to load theme from localStorage:', e);
-    document.body.setAttribute('data-theme', 'light'); // Fallback to light theme
+    document.documentElement.setAttribute('data-theme', 'light'); // Fallback to light theme
   }
 
   loader.classList.add('active');
@@ -391,4 +464,30 @@ window.addEventListener('DOMContentLoaded', () => {
     loader.classList.add('hidden');
     loader.classList.remove('active');
   }, 1200);
+});
+
+// Handle browser back/forward navigation
+window.addEventListener('popstate', () => {
+  console.log('popstate event triggered');
+  const askBar = document.getElementById('ask-bar');
+  if (askBar && window.location.pathname.includes('index.html')) {
+    const searchInput = askBar.querySelector('input');
+    if (searchInput) {
+      console.log('Clearing input value:', searchInput.value);
+      searchInput.value = ''; // Force clear input on back navigation
+    }
+    askBar.innerHTML = `<input type="text" placeholder="Ask me anything…" autocomplete="off"><button aria-label="Send">➡</button><div class="posts-container"></div>`; // Reset to initial state
+    setTimeout(() => {
+      console.log('Calling showSection(\'posts\') after delay');
+      showSection('posts'); // Re-render posts section with delay
+    }, 100); // Small delay to ensure DOM stability
+  }
+});
+
+// Event listeners for navigation
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const section = item.getAttribute('data-section');
+    showSection(section);
+  });
 });

@@ -36,65 +36,91 @@ body {
 }
 
 .header {
-    background: var(--theme);
-    transition: background 0.3s ease;
+  background: var(--theme);
+  transition: background 0.3s ease;
 }
 
 .nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  max-width: 1200px;
+  margin: auto;
 }
 
-.logo {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 1.2em;
-    color: var(--primary);
-    text-decoration: none;
+.nav-left .logo {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  font-size: 1.2em;
+  color: var(--primary);
+  text-decoration: none;
 }
 
-.nav a {
-    margin: 0 15px;
-    font-size: 1em;
-    color: var(--secondary);
-    text-decoration: none;
+.nav-center {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center; /* Centered navigation pills as requested */
 }
 
-.nav a:hover {
-    color: #3b82f6;
+.pill-nav {
+  background: var(--entry);
+  padding: 8px 20px;
+  border-radius: 999px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  justify-content: center; /* Center the pills */
 }
 
-.nav a.active {
+.pill-nav a {
+  text-decoration: none;
+  font-size: 0.95em;
+  font-weight: 500;
+  color: var(--secondary);
+  transition: color 0.3s ease;
+}
+
+.pill-nav a.active {
     color: var(--primary);
     font-weight: 700;
     font-size: 1.15em;
 }
 
+.pill-nav a:hover {
+  color: #3b82f6;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
 #theme-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-    color: var(--primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  color: var(--primary);
 }
 
 #theme-toggle svg {
-    width: 24px;
-    height: 18px;
-    fill: currentColor;
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
 }
 
 #moon {
-    display: none;
+  display: none;
 }
 
-.dark #sun {
-    display: none;
+[data-theme="dark"] #sun {
+  display: none;
 }
 
-.dark #moon {
-    display: block;
+[data-theme="dark"] #moon {
+  display: block;
 }
 
 main {

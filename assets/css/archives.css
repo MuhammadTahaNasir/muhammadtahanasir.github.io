@@ -1,4 +1,4 @@
-/* ---------- 1. Root Variables ---------- */
+/* ---------- 1. Colour tokens & theme switch ---------- */
 :root {
   --theme: #f9fafc;
   --entry: #fff;
@@ -9,10 +9,9 @@
   --code-block-bg: #f3f4f6;
   --code-bg: #e5e7eb;
   --border: #d1d5db;
-  --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-/* ---------- 2. Dark Mode Variables ---------- */
 [data-theme="dark"] {
   --theme: #1a1a1a;
   --entry: #2e2e33;
@@ -23,19 +22,27 @@
   --code-block-bg: #2e2e33;
   --code-bg: #37404e;
   --border: #333;
-  --shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
-/* ---------- 3. Body Styles ---------- */
+/* ---------- 2. Global layout ---------- */
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Roboto', Arial, sans-serif;
+  text-align: center;
   background: var(--theme);
   color: var(--primary);
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* ---------- 4. Header Styles ---------- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px 20px;
+  min-height: 80vh;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ---------- 3. Header and Navigation bar ---------- */
 .header {
   background: var(--theme);
   transition: background 0.3s ease;
@@ -45,45 +52,70 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 16px 24px;
+  max-width: 1200px;
+  margin: auto;
 }
 
-.logo {
-  font-family: 'Courier New', Courier, monospace;
+.nav-left .logo {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
   font-size: 1.2em;
   color: var(--primary);
   text-decoration: none;
 }
 
-.nav a {
-  margin: 0 15px;
-  font-size: 1em;
-  color: var(--secondary);
-  text-decoration: none;
+.nav-center {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
 }
 
-.nav a:hover {
+.pill-nav {
+  background: var(--entry);
+  padding: 8px 20px;
+  border-radius: 999px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+}
+
+.pill-nav a {
+  text-decoration: none;
+  font-size: 0.95em;
+  font-weight: 500;
+  color: var(--secondary);
+  transition: color 0.3s ease;
+}
+
+.pill-nav a:hover {
   color: #3b82f6;
 }
 
-.nav a.active {
+.pill-nav a.active {
   font-weight: 700;
   font-size: 1.15em;
   color: var(--primary);
 }
 
-/* ---------- 5. Theme Toggle ---------- */
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
 #theme-toggle {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 5px;
+  padding: 6px;
   color: var(--primary);
 }
 
 #theme-toggle svg {
   width: 24px;
-  height: 18px;
+  height: 24px;
   fill: currentColor;
 }
 
@@ -99,18 +131,44 @@ body {
   display: block;
 }
 
-/* ---------- 6. Post Container ---------- */
+/* ---------- 4. Dropdown ---------- */
+.dropdown {
+  display: none;
+  position: absolute;
+  background: var(--tertiary);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  text-align: left;
+  z-index: 1000;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dropdown button {
+  width: 100%;
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: var(--primary);
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+.dropdown button:hover {
+  background: #6b7280;
+}
+
+/* ---------- 5. Archive-specific styles ---------- */
 .post-container {
   max-width: 800px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
-/* ---------- 7. Breadcrumb Styles ---------- */
 .breadcrumb {
   font-size: 0.9em;
   color: var(--secondary);
-  margin: 5px 0; /* Tighter spacing in header-bar */
+  margin: 5px 0;
 }
 
 .breadcrumb a {
@@ -127,13 +185,12 @@ body {
   color: var(--primary);
 }
 
-/* ---------- 8. Header Bar ---------- */
 .header-bar {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 10px 0; /* Adjusted for balanced spacing */
-  padding-left: 16px; /* Align with archive-year h2 and sublink */
+  margin: 10px 0;
+  padding-left: 16px;
 }
 
 .header-bar h1 {
@@ -141,15 +198,13 @@ body {
   margin: 0;
 }
 
-/* ---------- 9. Sublink Styles ---------- */
 .sublink {
   font-size: 0.9em;
   color: var(--secondary);
   margin: 5px 0 20px;
-  padding-left: 16px; /* Align with header-bar and archive-year h2 */
+  padding-left: 16px;
 }
 
-/* ---------- 10. Archive Year ---------- */
 .archive-year h2 {
   border-left: 4px solid var(--primary);
   padding-left: 12px;
@@ -166,13 +221,12 @@ body {
   vertical-align: super;
 }
 
-/* ---------- 11. Details Block ---------- */
 details {
   background: var(--tertiary);
   border-radius: 10px;
   padding: 1rem;
   margin-bottom: 0.75rem;
-  box-shadow: var(--shadow);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: background 0.3s;
 }
 
@@ -180,10 +234,9 @@ details {
   background: var(--code-block-bg);
 }
 
-/* ---------- 12. Summary (Month Heading) ---------- */
 details summary {
-  font-weight: 500; /* Less bold than year */
-  font-size: 1rem; /* Smaller than year */
+  font-weight: 500;
+  font-size: 1rem;
   color: var(--primary);
   cursor: pointer;
   margin-bottom: 0.5rem;
@@ -191,7 +244,6 @@ details summary {
   list-style: none;
 }
 
-/* ---------- 13. Post List ---------- */
 .archive-post {
   display: flex;
   justify-content: space-between;
@@ -219,7 +271,7 @@ details summary {
   font-size: 0.9em;
 }
 
-/* ---------- 14. Footer ---------- */
+/* ---------- 6. Footer ---------- */
 .footer {
   margin: 40px 0;
   text-align: center;
@@ -227,7 +279,7 @@ details summary {
   color: var(--secondary);
 }
 
-/* ---------- 15. Scroll to Top Button ---------- */
+/* ---------- 7. Scroll to Top Button ---------- */
 #scrollTop {
   position: fixed;
   bottom: 20px;
@@ -239,7 +291,7 @@ details summary {
   color: var(--primary);
   border: none;
   border-radius: 50%;
-  box-shadow: var(--shadow);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   display: none;
   align-items: center;
@@ -250,4 +302,62 @@ details summary {
 #scrollTop:hover {
   background: var(--secondary);
   color: var(--theme);
+}
+
+/* ---------- 8. Loader Styles ---------- */
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}
+
+.loader.active {
+  display: flex;
+}
+
+.loader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.terry-animation {
+  display: flex;
+  gap: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: var(--primary);
+  animation: shrinkLogo 0.3s ease-in-out 0.9s forwards;
+}
+
+.letter {
+  display: inline-block;
+  animation: spinLetter 0.5s ease-in-out forwards;
+}
+
+.letter:nth-child(1) { animation-delay: 0s; }
+.letter:nth-child(2) { animation-delay: 0.1s; }
+.letter:nth-child(3) { animation-delay: 0.2s; }
+.letter:nth-child(4) { animation-delay: 0.3s; }
+.letter:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes spinLetter {
+  0% { transform: rotate(0deg) scale(1); opacity: 0; }
+  50% { transform: rotate(360deg) scale(1.2); opacity: 1; }
+  100% { transform: rotate(360deg) scale(0.6); opacity: 1; }
+}
+
+@keyframes shrinkLogo {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.1); opacity: 0; }
 }

@@ -44,38 +44,66 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 16px 24px;
+  max-width: 1200px;
+  margin: auto;
 }
 
-.logo {
-  font-family: 'Courier New', Courier, monospace;
+.nav-left .logo {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
   font-size: 1.2em;
   color: var(--primary);
   text-decoration: none;
 }
 
-.nav a {
-  margin: 0 15px;
-  font-size: 1em;
-  color: var(--secondary);
-  text-decoration: none;
+.nav-center {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  /* Centered navigation pills as requested */
 }
 
-.nav a:hover {
+.pill-nav {
+  background: var(--entry);
+  padding: 8px 20px;
+  border-radius: 999px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  /* Center the pills */
+}
+
+.pill-nav a {
+  text-decoration: none;
+  font-size: 0.95em;
+  font-weight: 500;
+  color: var(--secondary);
+  transition: color 0.3s ease;
+}
+
+.pill-nav a:hover {
   color: #3b82f6;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
 }
 
 #theme-toggle {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 5px;
+  padding: 6px;
   color: var(--primary);
 }
 
 #theme-toggle svg {
   width: 24px;
-  height: 18px;
+  height: 24px;
   fill: currentColor;
 }
 
@@ -83,13 +111,14 @@ body {
   display: none;
 }
 
-.dark #sun {
+[data-theme="dark"] #sun {
   display: none;
 }
 
-.dark #moon {
+[data-theme="dark"] #moon {
   display: block;
 }
+
 
 .post-container {
   max-width: 800px;
@@ -409,10 +438,12 @@ body {
     transform: rotate(0deg) scale(1);
     opacity: 0;
   }
+
   50% {
     transform: rotate(360deg) scale(1.2);
     opacity: 1;
   }
+
   100% {
     transform: rotate(360deg) scale(0.6);
     opacity: 1;
@@ -424,6 +455,7 @@ body {
     transform: scale(1);
     opacity: 1;
   }
+
   100% {
     transform: scale(0.1);
     opacity: 0;
