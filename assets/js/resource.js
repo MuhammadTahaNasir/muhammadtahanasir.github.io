@@ -1,25 +1,87 @@
-// Loader and resource loading
 const loader = document.getElementById('loader');
 const resourcesGrid = document.getElementById('resourcesGrid');
+const pagination = document.getElementById('pagination');
+const searchInput = document.getElementById('searchInput');
 
-async function loadResources() {
+let currentPage = 1;
+const itemsPerPage = 8;
+let searchQuery = '';
+let debounceTimeout = null;
+
+function updateURL() {
+    const params = new URLSearchParams();
+    if (currentPage > 1) params.set('page', currentPage);
+    if (searchQuery) params.set('search', searchQuery);
+    const newURL = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
+    history.replaceState({ page: currentPage, search: searchQuery, path: window.location.pathname }, '', newURL);
+    console.log('Resource: Updated URL:', newURL, 'State:', history.state);
+}
+
+async function loadResources(page = 1) {
     loader.classList.add('active');
     try {
         const res = await fetch("data/resources.json");
         if (!res.ok) throw new Error("Failed to load resources");
         const resources = await res.json();
         resourcesGrid.innerHTML = ""; // Clear loading message
-        resources.forEach((r) => {
+
+        let filteredResources = resources.filter(resource => {
+            const searchLower = searchQuery.toLowerCase();
+            return (
+                resource.title.toLowerCase().includes(searchLower) ||
+                (resource.description || resource.desc || '').toLowerCase().includes(searchLower)
+            );
+        });
+
+        if (filteredResources.length === 0) {
+            resourcesGrid.innerHTML = `<p class="no-results">😕 No resources found.</p>`;
+            pagination.innerHTML = '';
+            updateURL();
+            return;
+        }
+
+        const totalPages = Math.ceil(filteredResources.length / itemsPerPage);
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const paginatedResources = filteredResources.slice(startIndex, endIndex);
+
+        paginatedResources.forEach((r) => {
             const card = document.createElement("div");
             card.className = "resource-card";
             card.innerHTML = `
-            <i class="${r.thumbnail} card-thumb"></i>
-            <h3 class="card-title">${r.title}</h3>
-            <p class="card-desc">${r.description || r.desc || 'No description available'}</p>
-            <a href="${r.link}" class="card-btn" ${r.type === "Link" ? 'target="_blank"' : ''}>View</a>
-          `;
+                <i class="${r.thumbnail} card-thumb"></i>
+                <h3 class="card-title">${r.title}</h3>
+                <p class="card-desc">${r.description || r.desc || 'No description available'}</p>
+                <a href="${r.link}" class="card-btn" ${r.type === "Link" ? 'target="_blank"' : ''}>View</a>
+            `;
             resourcesGrid.appendChild(card);
         });
+
+        let paginationHTML = '';
+        if (totalPages > 1) {
+            if (currentPage > 1) {
+                paginationHTML += `<button onclick="goToPage(${currentPage - 1})">Prev</button>`;
+            }
+            paginationHTML += '<div class="page-buttons">';
+            const maxPagesToShow = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+            let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+            if (endPage - startPage + 1 < maxPagesToShow) {
+                startPage = Math.max(1, endPage - maxPagesToShow + 1);
+            }
+            for (let i = startPage; i <= endPage; i++) {
+                paginationHTML += `<button class="${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            }
+            if (endPage < totalPages) {
+                paginationHTML += `<span>...</span>`;
+            }
+            paginationHTML += '</div>';
+            if (currentPage < totalPages) {
+                paginationHTML += `<button onclick="goToPage(${currentPage + 1})">Next</button>`;
+            }
+        }
+        pagination.innerHTML = paginationHTML;
+        updateURL();
     } catch (error) {
         console.error("Error loading resources:", error);
         resourcesGrid.innerHTML = "<p>Error loading resources. Please try again later.</p>";
@@ -34,13 +96,28 @@ async function loadResources() {
     }
 }
 
-// Theme toggle functionality
+function goToPage(page) {
+    currentPage = page;
+    loadResources(currentPage);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function debounceSearch() {
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(() => {
+        searchQuery = searchInput.value;
+        currentPage = 1;
+        loadResources(currentPage);
+    }, 500);
+}
+
+searchInput.addEventListener("input", debounceSearch);
+
 document.getElementById("theme-toggle").addEventListener("click", () => {
     document.body.classList.toggle("dark");
     localStorage.setItem("pref-theme", document.body.classList.contains("dark") ? "dark" : "light");
 });
 
-// Load saved theme preference or detect system preference
 const savedTheme = localStorage.getItem("pref-theme");
 if (savedTheme) {
     document.body.classList.toggle("dark", savedTheme === "dark");
@@ -48,7 +125,6 @@ if (savedTheme) {
     document.body.classList.add("dark");
 }
 
-// Scroll to top functionality
 window.addEventListener("scroll", () => {
     document.getElementById("scrollTop").style.display = window.scrollY > 200 ? "flex" : "none";
 });
@@ -57,5 +133,37 @@ document.getElementById("scrollTop").addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-// Load resources on page load
-window.addEventListener("DOMContentLoaded", loadResources);
+window.addEventListener('popstate', (event) => {
+    const state = event.state || {};
+    console.log('Resource: Popstate event:', state);
+    if (state.path && !state.path.includes('resources.html')) {
+        // Navigate to the correct page if the state is for another page
+        window.location.assign(state.path);
+        return;
+    }
+    currentPage = state.page || 1;
+    searchQuery = state.search || '';
+    searchInput.value = searchQuery;
+    loadResources(currentPage);
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    currentPage = parseInt(urlParams.get('page')) || 1;
+    searchQuery = urlParams.get('search') || '';
+    searchInput.value = searchQuery;
+    history.replaceState({ page: currentPage, search: searchQuery, path: window.location.pathname }, '', window.location.href);
+    console.log('Resource: Initial state:', history.state);
+    loadResources(currentPage);
+});
+
+// Navigation links
+document.querySelectorAll('.pill-nav a').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = link.href;
+        console.log('Resource: Navigating to:', href);
+        history.pushState({ page: 1, search: '', path: href }, '', href);
+        window.location.href = href; // Use href for cleaner navigation
+    });
+});
