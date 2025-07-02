@@ -7,23 +7,29 @@ let currentPage = 1;
 const itemsPerPage = 8;
 let searchQuery = '';
 let debounceTimeout = null;
+let isResourcesLoaded = false;
 
 function updateURL() {
     const params = new URLSearchParams();
     if (currentPage > 1) params.set('page', currentPage);
     if (searchQuery) params.set('search', searchQuery);
     const newURL = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
-    history.replaceState({ page: currentPage, search: searchQuery, path: window.location.pathname }, '', newURL);
-    console.log('Resource: Updated URL:', newURL, 'State:', history.state);
+    console.log('Updating URL:', newURL, 'State:', { page: currentPage, search: searchQuery, path: window.location.pathname });
+    // Use pushState instead of replaceState to create a new history entry for pagination
+    history.pushState({ page: currentPage, search: searchQuery, path: window.location.pathname }, '', newURL);
 }
 
-async function loadResources(page = 1) {
-    loader.classList.add('active');
+async function loadResources(page = 1, forceReload = false) {
+    if (!isResourcesLoaded || forceReload) {
+        loader.classList.add('active');
+    }
+
     try {
-        const res = await fetch("data/resources.json");
+        console.log('Loading resources: page=', page);
+        const res = await fetch("data/resources.json?t=" + Date.now());
         if (!res.ok) throw new Error("Failed to load resources");
         const resources = await res.json();
-        resourcesGrid.innerHTML = ""; // Clear loading message
+        resourcesGrid.innerHTML = "";
 
         let filteredResources = resources.filter(resource => {
             const searchLower = searchQuery.toLowerCase();
@@ -37,6 +43,7 @@ async function loadResources(page = 1) {
             resourcesGrid.innerHTML = `<p class="no-results">😕 No resources found.</p>`;
             pagination.innerHTML = '';
             updateURL();
+            isResourcesLoaded = true;
             return;
         }
 
@@ -59,44 +66,49 @@ async function loadResources(page = 1) {
 
         let paginationHTML = '';
         if (totalPages > 1) {
-            if (currentPage > 1) {
-                paginationHTML += `<button onclick="goToPage(${currentPage - 1})">Prev</button>`;
+            console.log('Generating pagination: currentPage=', page, 'totalPages=', totalPages);
+            if (page > 1) {
+                paginationHTML += `<button onclick="goToPage(${page - 1})">Prev</button>`;
             }
             paginationHTML += '<div class="page-buttons">';
             const maxPagesToShow = 5;
-            let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+            let startPage = Math.max(1, page - Math.floor(maxPagesToShow / 2));
             let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
             if (endPage - startPage + 1 < maxPagesToShow) {
                 startPage = Math.max(1, endPage - maxPagesToShow + 1);
             }
             for (let i = startPage; i <= endPage; i++) {
-                paginationHTML += `<button class="${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+                paginationHTML += `<button class="${i === page ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
             }
             if (endPage < totalPages) {
                 paginationHTML += `<span>...</span>`;
             }
             paginationHTML += '</div>';
-            if (currentPage < totalPages) {
-                paginationHTML += `<button onclick="goToPage(${currentPage + 1})">Next</button>`;
+            if (page < totalPages) {
+                paginationHTML += `<button onclick="goToPage(${page + 1})">Next</button>`;
             }
         }
         pagination.innerHTML = paginationHTML;
         updateURL();
+        isResourcesLoaded = true;
     } catch (error) {
         console.error("Error loading resources:", error);
         resourcesGrid.innerHTML = "<p>Error loading resources. Please try again later.</p>";
     } finally {
-        setTimeout(() => {
-            loader.classList.add('no-blur');
-        }, 900);
-        setTimeout(() => {
-            loader.classList.add('hidden');
-            loader.classList.remove('active');
-        }, 1200);
+        if (!isResourcesLoaded || forceReload) {
+            setTimeout(() => {
+                loader.classList.add('no-blur');
+            }, 900);
+            setTimeout(() => {
+                loader.classList.add('hidden');
+                loader.classList.remove('active');
+            }, 1200);
+        }
     }
 }
 
 function goToPage(page) {
+    console.log('Going to page:', page);
     currentPage = page;
     loadResources(currentPage);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -135,16 +147,17 @@ document.getElementById("scrollTop").addEventListener("click", () => {
 
 window.addEventListener('popstate', (event) => {
     const state = event.state || {};
-    console.log('Resource: Popstate event:', state);
+    console.log('Popstate event:', state, 'URL:', window.location.href);
     if (state.path && !state.path.includes('resources.html')) {
-        // Navigate to the correct page if the state is for another page
+        console.log('Redirecting to:', state.path);
         window.location.assign(state.path);
         return;
     }
     currentPage = state.page || 1;
     searchQuery = state.search || '';
     searchInput.value = searchQuery;
-    loadResources(currentPage);
+    isResourcesLoaded = false;
+    loadResources(currentPage, true);
 });
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -152,18 +165,27 @@ window.addEventListener("DOMContentLoaded", () => {
     currentPage = parseInt(urlParams.get('page')) || 1;
     searchQuery = urlParams.get('search') || '';
     searchInput.value = searchQuery;
+    console.log('Initial load: page=', currentPage, 'search=', searchQuery);
     history.replaceState({ page: currentPage, search: searchQuery, path: window.location.pathname }, '', window.location.href);
-    console.log('Resource: Initial state:', history.state);
-    loadResources(currentPage);
+    isResourcesLoaded = false;
+    loadResources(currentPage, true);
 });
 
-// Navigation links
 document.querySelectorAll('.pill-nav a').forEach(link => {
     link.addEventListener('click', (e) => {
         e.preventDefault();
-        const href = link.href;
-        console.log('Resource: Navigating to:', href);
-        history.pushState({ page: 1, search: '', path: href }, '', href);
-        window.location.href = href; // Use href for cleaner navigation
+        const href = link.getAttribute('href');
+        console.log('Navigating to:', href);
+        if (href && href !== '#' && !href.startsWith('#')) {
+            history.pushState({ page: 1, search: '', path: href }, '', href);
+            window.location.assign(href);
+        } else if (href.startsWith('#')) {
+            console.log('In-page action:', href);
+            if (href === '#search') {
+                document.getElementById('searchInput').focus();
+            }
+        } else {
+            console.error('Invalid href:', href);
+        }
     });
 });
