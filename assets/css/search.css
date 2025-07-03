@@ -398,3 +398,109 @@ body {
         opacity: 0;
     }
 }
+
+
+@media (max-width: 768px) {
+    .nav {
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: flex-start;
+        /* Changed from space-between to flex-start */
+        align-items: center;
+        padding: 10px 12px;
+        gap: 10px;
+    }
+
+    .nav-left {
+        flex: 1;
+        text-align: left;
+        /* Align logo to the left */
+    }
+
+    .nav-center {
+        width: 100%;
+        order: 3;
+        overflow-x: auto;
+        padding-bottom: 5px;
+    }
+
+    .pill-nav {
+        flex-wrap: nowrap;
+        gap: 18px;
+        padding: 6px 14px;
+        overflow-x: auto;
+        border-radius: 30px;
+        justify-content: flex-start;
+        margin: auto;
+        max-width: 100%;
+    }
+
+    .pill-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-right {
+        order: 2;
+        margin-left: auto;
+    }
+
+    .container {
+        padding-top: 10px;
+    }
+
+    .header-bar {
+        flex-direction: column;
+        gap: 15px;
+        /* Add space between h1 and search-box */
+        align-items: flex-start;
+        /* Align items to the left */
+    }
+
+    h1 {
+        margin: 0;
+        /* Remove default margin to avoid extra space */
+    }
+
+    .search-box {
+        flex: 1;
+        max-width: 100%;
+        /* Ensure it doesn't exceed screen width */
+        margin-left: 0;
+        /* Remove margin to fit within container */
+        width: 100%;
+        /* Full width of the container */
+    }
+
+    .search-box input {
+        padding: 8px 12px;
+        font-size: 14px;
+        border-radius: 6px;
+        border: none;
+        background-color: var(--entry);
+        color: var(--primary);
+        width: 100%;
+        /* Ensure input takes full width of search-box */
+        box-sizing: border-box;
+        /* Include padding in width calculation */
+    }
+
+    .terry-animation {
+        font-size: 2.2rem;
+        top: 0;
+        position: relative;
+        text-align: left;
+        /* Align the animation text to the left */
+    }
+
+    .header {
+        padding-bottom: 0;
+    }
+
+    .pill-nav {
+        scroll-snap-type: x mandatory;
+    }
+
+    .pill-nav a {
+        scroll-snap-align: start;
+    }
+}

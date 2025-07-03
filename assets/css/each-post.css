@@ -547,3 +547,65 @@ body.dark .token.class-name {
   font-size: 0.6em;
   font-weight: normal;
 }
+
+/* ---------- 15. Mobile Fixes ---------- */
+@media (max-width: 768px) {
+  .nav {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    /* Changed from space-between to flex-start */
+    align-items: center;
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  .nav-left {
+    flex: 1;
+    text-align: left;
+    /* Align logo to the left */
+  }
+
+  .nav-center {
+    width: 100%;
+    order: 3;
+    overflow-x: auto;
+    padding-bottom: 5px;
+  }
+
+  .pill-nav {
+    flex-wrap: nowrap;
+    gap: 18px;
+    padding: 6px 14px;
+    overflow-x: auto;
+    border-radius: 30px;
+    justify-content: flex-start;
+    margin: auto;
+    max-width: 100%;
+  }
+
+  .pill-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-right {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .container {
+    padding-top: 10px;
+  }
+  
+  .header {
+    padding-bottom: 0;
+  }
+
+  .pill-nav {
+    scroll-snap-type: x mandatory;
+  }
+
+  .pill-nav a {
+    scroll-snap-align: start;
+  }
+}

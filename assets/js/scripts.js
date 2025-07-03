@@ -67,8 +67,20 @@ function showSection(section) {
   const content = document.getElementById('content');
   const projects = document.getElementById('projects-container');
   const tags = document.getElementById('tags-container');
-  const askBar = document.getElementById('ask-bar');
   const skillsIntro = document.getElementById('skills-intro');
+  const askBar = document.getElementById('ask-bar');
+
+  if (!askBar) {
+    console.error('Ask-bar element not found');
+    return;
+  }
+
+  const searchInput = askBar.querySelector('input');
+  const searchButton = askBar.querySelector('button');
+  if (!searchInput || !searchButton) {
+    console.error('Search input or button not found in ask-bar');
+    return;
+  }
 
   // Remove any existing dynamically added headings or containers
   const existingAboutHeading = document.querySelector('h2');
@@ -95,32 +107,70 @@ function showSection(section) {
   skillsIntro.style.display = 'none';
   askBar.classList.remove('posts'); // Remove posts class on section switch
 
+  // Set placeholder based on section
+  let placeholderText = 'Look for resources/posts…';
+  if (section === 'tags') {
+    placeholderText = 'Search for tags…';
+  } else if (section === 'projects') {
+    placeholderText = 'Search for projects…';
+  } else if (section === 'posts') {
+    placeholderText = 'Search for posts…';
+  }
+
   // Use consistent initial ask bar design for all sections
-  askBar.innerHTML = `<input type="text" placeholder="Ask me anything…" autocomplete="off"><button aria-label="Send">➡</button><div class="posts-container"></div>`;
+  askBar.innerHTML = `
+    <input type="text" placeholder="${placeholderText}" autocomplete="off">
+    <button aria-label="Send"><i class="fas fa-chevron-right"></i></button>
+    <div class="posts-container"></div>
+  `;
+
+  // Re-query input and button after resetting askBar
+  const newSearchInput = askBar.querySelector('input');
+  const newSearchButton = askBar.querySelector('button');
+
+  // Handle search redirection based on section
+  function handleSearch() {
+    const query = newSearchInput.value.trim();
+    if (!query) return;
+    if (section === 'tags') {
+      window.location.href = `tags/tag.html?name=${encodeURIComponent(query)}`;
+    } else {
+      window.location.href = `search.html?search=${encodeURIComponent(query)}`;
+    }
+  }
+
+  // Enter key
+  newSearchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') handleSearch();
+  });
+
+  // Button click
+  newSearchButton.addEventListener('click', handleSearch);
 
   // Customize for posts section
   if (section === 'posts') {
-    const searchInput = askBar.querySelector('input');
-    searchInput.placeholder = 'Search for posts…';
-    searchInput.value = ''; // Clear input immediately
-    const searchButton = askBar.querySelector('button');
-    searchInput.addEventListener('keypress', (e) => {
+    newSearchInput.placeholder = 'Search for posts…';
+    newSearchInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
-        const query = searchInput.value.trim();
+        const query = newSearchInput.value.trim();
         if (query) {
           window.location.href = `posts.html?search=${encodeURIComponent(query)}`;
         }
       }
     });
-    searchButton.addEventListener('click', () => {
-      const query = searchInput.value.trim();
+    newSearchButton.addEventListener('click', () => {
+      const query = newSearchInput.value.trim();
       if (query) {
         window.location.href = `posts.html?search=${encodeURIComponent(query)}`;
       }
     });
   }
 
-  img.style.transform = 'translateY(-50px)';
+  if (window.innerWidth <= 768) {
+    img.style.transform = 'translateY(-20px)';
+  } else {
+    img.style.transform = 'translateY(-50px)';
+  }
 
   // Show prompt with animation
   let promptText = '';
@@ -456,6 +506,30 @@ window.addEventListener('DOMContentLoaded', () => {
     document.documentElement.setAttribute('data-theme', 'light'); // Fallback to light theme
   }
 
+  // Initialize search bar for initial state
+  const askBar = document.getElementById('ask-bar');
+  if (askBar) {
+    const searchInput = askBar.querySelector('input');
+    const searchButton = askBar.querySelector('button');
+    if (searchInput && searchButton) {
+      searchInput.placeholder = 'Look for resources/posts…'; // Set initial placeholder
+      function handleInitialSearch() {
+        const query = searchInput.value.trim();
+        if (query) {
+          window.location.href = `search.html?search=${encodeURIComponent(query)}`;
+        }
+      }
+      searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleInitialSearch();
+      });
+      searchButton.addEventListener('click', handleInitialSearch);
+    } else {
+      console.error('Search input or button not found in ask-bar');
+    }
+  } else {
+    console.error('Ask-bar element not found');
+  }
+
   loader.classList.add('active');
   setTimeout(() => {
     loader.classList.add('no-blur');
@@ -472,15 +546,35 @@ window.addEventListener('popstate', () => {
   const askBar = document.getElementById('ask-bar');
   if (askBar && window.location.pathname.includes('index.html')) {
     const searchInput = askBar.querySelector('input');
-    if (searchInput) {
-      console.log('Clearing input value:', searchInput.value);
-      searchInput.value = ''; // Force clear input on back navigation
+    const searchButton = askBar.querySelector('button');
+    if (searchInput && searchButton) {
+      searchInput.value = ''; // Force clear input
+      askBar.innerHTML = `
+        <input type="text" placeholder="Look for resources/posts…" autocomplete="off">
+        <button aria-label="Send"><i class="fas fa-chevron-right"></i></button>
+        <div class="posts-container"></div>
+      `;
+      const newSearchInput = askBar.querySelector('input');
+      const newSearchButton = askBar.querySelector('button');
+      if (newSearchInput && newSearchButton) {
+        function handleInitialSearch() {
+          const query = newSearchInput.value.trim();
+          if (query) {
+            window.location.href = `search.html?search=${encodeURIComponent(query)}`;
+          }
+        }
+        newSearchInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') handleInitialSearch();
+        });
+        newSearchButton.addEventListener('click', handleInitialSearch);
+      } else {
+        console.error('Search input or button not found in ask-bar during popstate');
+      }
+    } else {
+      console.error('Search input or button not found in ask-bar during popstate');
     }
-    askBar.innerHTML = `<input type="text" placeholder="Ask me anything…" autocomplete="off"><button aria-label="Send">➡</button><div class="posts-container"></div>`; // Reset to initial state
-    setTimeout(() => {
-      console.log('Calling showSection(\'posts\') after delay');
-      showSection('posts'); // Re-render posts section with delay
-    }, 100); // Small delay to ensure DOM stability
+  } else {
+    console.error('Ask-bar element not found or not on index.html during popstate');
   }
 });
 

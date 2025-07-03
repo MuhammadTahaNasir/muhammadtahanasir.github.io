@@ -15,7 +15,6 @@ function updateURL() {
     if (searchQuery) params.set('search', searchQuery);
     const newURL = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
     console.log('Updating URL:', newURL, 'State:', { page: currentPage, search: searchQuery, path: window.location.pathname });
-    // Use pushState instead of replaceState to create a new history entry for pagination
     history.pushState({ page: currentPage, search: searchQuery, path: window.location.pathname }, '', newURL);
 }
 
@@ -148,11 +147,8 @@ document.getElementById("scrollTop").addEventListener("click", () => {
 window.addEventListener('popstate', (event) => {
     const state = event.state || {};
     console.log('Popstate event:', state, 'URL:', window.location.href);
-    if (state.path && !state.path.includes('resources.html')) {
-        console.log('Redirecting to:', state.path);
-        window.location.assign(state.path);
-        return;
-    }
+
+    // Always handle state for resources.html
     currentPage = state.page || 1;
     searchQuery = state.search || '';
     searchInput.value = searchQuery;
@@ -176,14 +172,17 @@ document.querySelectorAll('.pill-nav a').forEach(link => {
         e.preventDefault();
         const href = link.getAttribute('href');
         console.log('Navigating to:', href);
+
         if (href && href !== '#' && !href.startsWith('#')) {
+            // Cross-page navigation
             history.pushState({ page: 1, search: '', path: href }, '', href);
             window.location.assign(href);
-        } else if (href.startsWith('#')) {
-            console.log('In-page action:', href);
-            if (href === '#search') {
-                document.getElementById('searchInput').focus();
-            }
+        } else if (href === '#search') {
+            // In-page search action
+            console.log('In-page action: Focusing search input');
+            document.getElementById('searchInput').focus();
+            // Push state to allow back/forward navigation for search focus
+            history.pushState({ page: currentPage, search: searchQuery, path: window.location.pathname }, '', window.location.href);
         } else {
             console.error('Invalid href:', href);
         }

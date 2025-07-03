@@ -24,13 +24,9 @@
     "url": "posts/2025/ramzan-2025.html",
     "thumbnail": "",
     "tags": [
-      "Umrah",
-      "Ramadan",
       "AI",
       "Machine Learning",
-      "hacking",
-      "personal growth",
-      "faith"
+      "personal growth"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "3 min",
@@ -189,8 +185,7 @@
     "url": "posts/2024/webdev-intro.html",
     "thumbnail": "/assets/images/posts/webdev-journey.png",
     "tags": [
-      "WebDev",
-      "MLSA"
+      "WebDev"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "3 min",
@@ -239,7 +234,7 @@
       "C",
       "Machine Learning",
       "NLP",
-      "university life"
+      "university"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "3 min",

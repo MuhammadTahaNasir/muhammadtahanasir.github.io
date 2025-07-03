@@ -24,7 +24,6 @@ themeToggle.addEventListener('click', () => {
     localStorage.setItem('pref-theme', document.body.classList.contains('dark') ? 'dark' : 'light');
 });
 
-// Listen for system theme changes
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
     if (!localStorage.getItem('pref-theme')) {
         document.body.classList.toggle('dark', e.matches);
@@ -44,8 +43,7 @@ function updateURL() {
     if (currentPage > 1) params.set('page', currentPage);
     if (searchQuery) params.set('search', searchQuery);
     const newURL = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
-    history.replaceState({ page: currentPage, search: searchQuery, path: window.location.pathname }, '', newURL);
-    console.log('Search: Updated URL:', newURL, 'State:', history.state);
+    return newURL;
 }
 
 async function loadPosts() {
@@ -107,6 +105,9 @@ function debounceSearch() {
         searchQuery = searchInput.value.trim();
         currentPage = 1;
         renderResults();
+        const newURL = updateURL();
+        history.pushState({ page: currentPage, search: searchQuery, path: window.location.pathname }, '', newURL);
+        console.log('Search: Updated URL (search):', newURL, 'State:', history.state);
     }, 500);
 }
 
@@ -115,6 +116,9 @@ searchInput.addEventListener('input', debounceSearch);
 function goToPage(page) {
     currentPage = page;
     renderResults();
+    const newURL = updateURL();
+    history.pushState({ page: currentPage, search: searchQuery, path: window.location.pathname }, '', newURL);
+    console.log('Search: Updated URL (page):', newURL, 'State:', history.state);
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -147,7 +151,6 @@ function renderResults() {
     if (filtered.length === 0 && searchQuery) {
         searchResults.innerHTML = '<li class="no-results">😕 No results found.</li>';
         pagination.innerHTML = '';
-        updateURL();
         return;
     }
 
@@ -188,41 +191,55 @@ function renderResults() {
         }
         pagination.innerHTML = paginationHTML;
     }
-    updateURL();
 }
 
 window.addEventListener('popstate', (event) => {
     const state = event.state || {};
-    console.log('Search: Popstate event:', state);
-    if (state.path && !state.path.includes('search.html')) {
-        // Navigate to the correct page if the state is for another page
-        window.location.assign(state.path);
-        return;
+    console.log('Search: Popstate event, state:', state, 'URL:', window.location.href);
+
+    if (state.path && state.path.includes('search.html')) {
+        // Handle in-page navigation for search.html
+        currentPage = state.page || 1;
+        searchQuery = state.search || '';
+        if (searchInput) {
+            searchInput.value = searchQuery;
+        }
+        renderResults();
+        window.scrollTo({ top: 0, behavior: 'instant' });
     }
-    currentPage = state.page || 1;
-    searchQuery = state.search || '';
-    searchInput.value = searchQuery;
-    renderResults();
+    // Do not redirect for other pages; let the target page's popstate handler manage it
 });
 
 window.addEventListener('DOMContentLoaded', () => {
+    if (!searchInput) {
+        console.error('Search input not found');
+        return;
+    }
+
     const urlParams = new URLSearchParams(window.location.search);
     currentPage = parseInt(urlParams.get('page')) || 1;
     searchQuery = urlParams.get('search') || '';
     searchInput.value = searchQuery;
+
     history.replaceState({ page: currentPage, search: searchQuery, path: window.location.pathname }, '', window.location.href);
-    console.log('Search: Initial state:', history.state);
+    console.log('Search: Initial state set:', history.state);
+
     initializeTheme();
     initializeData();
 });
 
-// Navigation links
 document.querySelectorAll('.pill-nav a').forEach(link => {
     link.addEventListener('click', (e) => {
         e.preventDefault();
-        const href = link.href;
+        const href = link.getAttribute('href');
         console.log('Search: Navigating to:', href);
-        history.pushState({ page: 1, search: '', path: href }, '', href);
-        window.location.href = href; // Use href for cleaner navigation
+
+        if (href && href !== '#' && !href.startsWith('#')) {
+            // Cross-page navigation
+            history.pushState({ page: 1, search: '', path: href }, '', href);
+            window.location.href = href;
+        } else {
+            console.error('Invalid href:', href);
+        }
     });
 });

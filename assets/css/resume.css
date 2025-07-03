@@ -168,19 +168,24 @@ body {
 }
 
 .resume-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     background-color: #3b82f6;
-    color: var(--theme);
+    color: white;
     padding: 0.6rem 1.2rem;
     border-radius: 8px;
     font-weight: 600;
     text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .resume-download:hover {
     background-color: #2563eb;
-    transform: scale(1.05);
+    transform: translateY(-2px);
 }
+
 
 .resume-section {
     margin-bottom: 3rem;
@@ -311,11 +316,6 @@ body.dark .skill-box img[alt="React"] {
 .timeline-card.reveal {
     opacity: 1;
     transform: translateY(0);
-}
-
-.timeline-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow);
 }
 
 .timeline-card.left {
@@ -573,5 +573,239 @@ body.dark .skill-box img[alt="React"] {
     100% {
         transform: scale(0.1);
         opacity: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav {
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 10px 12px;
+        gap: 10px;
+    }
+
+    .nav-left {
+        flex: 1;
+        text-align: left;
+    }
+
+    .nav-center {
+        width: 100%;
+        order: 3;
+        overflow-x: auto;
+        padding-bottom: 5px;
+    }
+
+    .pill-nav {
+        flex-wrap: nowrap;
+        gap: 12px;
+        padding: 6px 12px;
+        overflow-x: auto;
+        border-radius: 30px;
+        justify-content: flex-start;
+        margin: auto;
+        max-width: 100%;
+    }
+
+    .pill-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-right {
+        order: 2;
+        margin-left: auto;
+    }
+
+    .container {
+        padding-top: 10px;
+    }
+
+    .header-bar {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .terry-animation {
+        font-size: 2.2rem;
+        top: 0;
+        position: relative;
+        text-align: left;
+    }
+
+    .header {
+        padding-bottom: 0;
+    }
+
+    .pill-nav {
+        scroll-snap-type: x mandatory;
+    }
+
+    .pill-nav a {
+        scroll-snap-align: start;
+        font-size: 0.85em;
+    }
+
+    .resume-container {
+        padding: 0 10px;
+        width: 100%;
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .resume-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .resume-title {
+        font-size: 2rem;
+    }
+
+    .resume-download {
+        display: block;
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .skills-icon-grid p {
+        font-size: 0.55rem;
+        margin: 0.1rem 0 0;
+        padding: 0 1px;
+    }
+
+    .skill-box {
+        width: 60px;
+        height: 60px;
+        border-radius: 10px;
+    }
+
+    .skill-box img {
+        width: 35px;
+        height: 35px;
+        image-rendering: auto;
+    }
+
+    .skills-icon-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+        gap: 10px;
+        justify-items: center;
+    }
+
+    .tech-tags {
+        gap: 0.2rem;
+        padding: 0 2px;
+    }
+
+    .tech-tags span {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.7rem;
+    }
+
+    .timeline {
+        position: relative;
+        padding-left: 30px;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 14px;
+        width: 2px;
+        height: 100%;
+        background: var(--highlight);
+    }
+
+    /* Make all cards identical */
+    .timeline-card,
+    .timeline-card.left,
+    .timeline-card.right {
+        width: 100%;
+        max-width: 100%;
+        margin: 24px 0;
+        padding: 12px 16px 12px 28px;
+        /* enough left padding for dot */
+        background: var(--card-bg);
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        position: relative;
+        text-align: left;
+        box-sizing: border-box;
+        overflow-wrap: break-word;
+    }
+
+    .timeline-card {
+        position: relative;
+        margin: 20px 0;
+        padding: 12px 16px 12px 32px;
+        /* More left-padding for space */
+        background: var(--card-bg);
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        text-align: left;
+    }
+
+    .timeline-card .milestone {
+        position: absolute;
+        top: 16px;
+        left: -16px;
+        /* This pushes it outside the card */
+        width: 12px;
+        height: 12px;
+        background: var(--highlight);
+        border: 2px solid var(--theme);
+        border-radius: 50%;
+        z-index: 1;
+    }
+
+    /* Make sure text aligns with the left of the card */
+    .timeline-card .year {
+        display: block;
+        font-size: 0.7rem;
+        color: var(--secondary);
+        margin-bottom: 6px;
+    }
+
+    /* Text and tags inside card */
+    .timeline-card h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 5px 0;
+    }
+
+    .timeline-card p {
+        font-size: 0.85rem;
+        color: var(--secondary);
+    }
+
+    .timeline-card .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+        margin-top: 6px;
+    }
+
+    .timeline-card .tags span {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+        background: var(--tertiary);
+        color: var(--primary);
+        border-radius: 4px;
+    }
+
+
+    .project-box {
+        padding: 12px;
+        font-size: 0.85em;
+        width: 100%;
+        box-sizing: border-box;
     }
 }
