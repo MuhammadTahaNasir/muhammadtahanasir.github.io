@@ -73,16 +73,16 @@
         "type": "Link"
     },
     {
-        "thumbnail": "fas fa-brain",
+        "thumbnail": "fas fa-file-pdf",
         "title": "GPT4 Prompt Patterns",
         "desc": "Common prompt patterns guide",
         "link": "resources/gpt4_patterns.pdf"
     },
     {
-        "thumbnail": "fas fa-file-pdf",
+        "thumbnail": "fas fa-play-circle",
         "title": "LLM Fine-Tuning Guide",
         "desc": "Fine-tuning LLMs with HuggingFace",
-        "link": "resources/llm_finetuning_guide.pdf"
+        "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/blob/main/fine-tune-llm-hf/finetune_classification.ipynb"
     },
     {
         "thumbnail": "fas fa-link",
@@ -126,7 +126,7 @@
         "thumbnail": "fas fa-play-circle",
         "title": "RAG with Weaviate",
         "desc": "Vector DB RAG tutorial in Colab",
-        "link": "https://colab.research.google.com/drive/weaviate-rag",
+        "link": "https://colab.research.google.com/drive/1smATV2Lk0tkXvEJLptIXBsISI53s0C1D",
         "type": "Link"
     },
     {
@@ -441,13 +441,6 @@
         "type": "Link"
     },
     {
-        "thumbnail": "fas fa-play-circle",
-        "title": "LangChain QA Notebook",
-        "desc": "Colab with vectorstore demo",
-        "link": "https://colab.research.google.com/drive/langchain-qa",
-        "type": "Link"
-    },
-    {
         "thumbnail": "fas fa-book",
         "title": "Generative Deep Learning",
         "desc": "Keras book on GenAI",
@@ -518,12 +511,6 @@
         "desc": "HuggingFace - Full Course",
         "link": "https://www.youtube.com/playlist?list=PLo2EIpI_JMQvWfQndUesu0nPBAtZ9gP1o",
         "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-book",
-        "title": "Effective Python",
-        "desc": "Best practices for Python code",
-        "link": "resources/effective_python.pdf"
     },
     {
         "thumbnail": "fas fa-file-image",
