@@ -8,22 +8,22 @@
     },
     {
         "thumbnail": "fas fa-play-circle",
-        "title": "LangChain + Pinecone Notebook",
+        "title": "HuggingFace Transformers + FAISS Notebook",
         "desc": "RAG with vector DB",
-        "link": "https://colab.research.google.com/drive/langchain-pinecone",
+        "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/FreeRAG-LocalLLM-FAISS",
         "type": "Link"
     },
     {
         "thumbnail": "fas fa-brain",
         "title": "HuggingFace Transformers 101",
         "desc": "Quickstart using HF models",
-        "link": "resources/huggingface_quickstart.pdf"
+        "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/transformers-101"
     },
     {
         "thumbnail": "fas fa-network-wired",
         "title": "Prompt Engineering Cheatsheet",
         "desc": "Tips to design better prompts",
-        "link": "resources/prompt_cheatsheet.pdf"
+        "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/blob/main/prompt-engineering-cheatsheet/prompt_cheatsheet.ipynb"
     },
     {
         "thumbnail": "fas fa-book",
