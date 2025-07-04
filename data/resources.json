@@ -10,7 +10,7 @@
         "thumbnail": "fas fa-play-circle",
         "title": "HuggingFace Transformers + FAISS Notebook",
         "desc": "RAG with vector DB",
-        "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/FreeRAG-LocalLLM-FAISS",
+        "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/free-rag-faiss",
         "type": "Link"
     },
     {
