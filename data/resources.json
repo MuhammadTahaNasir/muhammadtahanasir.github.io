@@ -29,7 +29,7 @@
         "thumbnail": "fas fa-book",
         "title": "Deep Learning Book",
         "desc": "by Ian Goodfellow (PDF)",
-        "link": "resources/deep_learning_book.pdf"
+        "link": "resources/deeplearningbook.pdf"
     },
     {
         "thumbnail": "fas fa-robot",
@@ -152,7 +152,7 @@
         "thumbnail": "fas fa-database",
         "title": "ChromaDB + LangChain Example",
         "desc": "Using vector DBs with LangChain",
-        "link": "resources/chromadb_example.pdf"
+        "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/rag-langchain-chroma"
     },
     {
         "thumbnail": "fas fa-play-circle",
