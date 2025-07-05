@@ -546,10 +546,6 @@ body {
     /* Include padding in width calculation */
   }
 
-  .resources-grid {
-    grid-template-columns: repeat(1, minmax(200px, 1fr));
-  }
-
   .terry-animation {
     font-size: 2.2rem;
     top: 0;

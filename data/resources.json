@@ -73,10 +73,10 @@
         "type": "Link"
     },
     {
-        "thumbnail": "fas fa-file-pdf",
-        "title": "GPT4 Prompt Patterns",
-        "desc": "Common prompt patterns guide",
-        "link": "resources/gpt4_patterns.pdf"
+        "thumbnail": "fas fa-brain",
+        "title": "GPT4 Prompt Patterns by OpenAI",
+        "desc": "Common prompt patterns blog on Cookbook",
+        "link": "https://cookbook.openai.com/examples/gpt4-1_prompting_guide"
     },
     {
         "thumbnail": "fas fa-play-circle",
@@ -155,17 +155,10 @@
         "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/rag-langchain-chroma"
     },
     {
-        "thumbnail": "fas fa-play-circle",
-        "title": "YOLOv8 Object Detection",
-        "desc": "Colab notebook example",
-        "link": "https://colab.research.google.com/drive/yolov8-id",
-        "type": "Link"
-    },
-    {
         "thumbnail": "fas fa-cogs",
         "title": "Github Actions – YAML Snippets",
         "desc": "Useful workflow templates",
-        "link": "resources/github_actions_snippets.pdf"
+        "link": "https://github.com/MuhammadTahaNasir/actomatic"
     },
     {
         "thumbnail": "fas fa-cloud",
@@ -189,20 +182,13 @@
         "thumbnail": "fas fa-book",
         "title": "Python for Data Analysis",
         "desc": "Wes McKinney (PDF)",
-        "link": "resources/python_data_analysis.pdf"
+        "link": "https://datapot.vn/wp-content/uploads/2023/12/datapot.vn-Python-for-Data-Analysis.pdf?srsltid=AfmBOopaS49vybq4VI5qfnX1ItMgzIUCnRWCFlONMoEsMl2vpPrG4zal"
     },
     {
         "thumbnail": "fas fa-table",
         "title": "MongoDB vs PostgreSQL",
         "desc": "Differences for devs",
         "link": "resources/mongo_vs_postgres.pdf"
-    },
-    {
-        "thumbnail": "fas fa-play-circle",
-        "title": "Text Classification Notebook",
-        "desc": "Colab using scikit-learn",
-        "link": "https://colab.research.google.com/drive/sklearn-text",
-        "type": "Link"
     },
     {
         "thumbnail": "fas fa-video",
@@ -231,16 +217,17 @@
         "link": "https://testdriven.io/blog/fastapi-jwt-auth/"
     },
     {
-        "thumbnail": "fas fa-file-image",
-        "title": "FastAPI Architecture",
-        "desc": "System design of FastAPI app",
-        "link": "resources/fastapi_architecture.png"
-    },
-    {
         "thumbnail": "fas fa-video",
         "title": "Docker in 100 Seconds",
         "desc": "Fireship.io Docker explainer",
         "link": "https://youtube.com/watch?v=Gjnup-PuquQ",
+        "type": "Link"
+    },
+    {
+        "thumbnail": "fas fa-link",
+        "title": "Google Cloud AI Docs",
+        "desc": "Deploy ML with GCP",
+        "link": "https://cloud.google.com/products/ai",
         "type": "Link"
     },
     {
@@ -258,11 +245,10 @@
         "type": "Link"
     },
     {
-        "thumbnail": "fas fa-link",
-        "title": "Google Cloud AI Docs",
-        "desc": "Deploy ML with GCP",
-        "link": "https://cloud.google.com/products/ai",
-        "type": "Link"
+        "thumbnail": "fas fa-file-image",
+        "title": "FastAPI Architecture",
+        "desc": "System design of FastAPI app",
+        "link": "resources/fastapi_architecture.png"
     },
     {
         "thumbnail": "fas fa-cogs",
@@ -447,10 +433,11 @@
         "link": "resources/generative_dl_book.pdf"
     },
     {
-        "thumbnail": "fas fa-terminal",
-        "title": "Git Commands Cheatsheet",
-        "desc": "Common Git commands",
-        "link": "https://education.github.com/git-cheat-sheet-education.pdf"
+        "thumbnail": "fas fa-code",
+        "title": "n8n Workflows",
+        "desc": "Automate tasks with n8n",
+        "link": "https://github.com/n8n-io/n8n",
+        "type": "Link"
     },
     {
         "thumbnail": "fas fa-file-pdf",
@@ -459,11 +446,10 @@
         "link": "https://www.tutorialspoint.com/fastapi/fastapi_tutorial.pdf"
     },
     {
-        "thumbnail": "fas fa-code",
-        "title": "n8n Workflows",
-        "desc": "Automate tasks with n8n",
-        "link": "https://github.com/n8n-io/n8n",
-        "type": "Link"
+        "thumbnail": "fas fa-terminal",
+        "title": "Git Commands Cheatsheet",
+        "desc": "Common Git commands",
+        "link": "https://education.github.com/git-cheat-sheet-education.pdf"
     },
     {
         "thumbnail": "fas fa-file-pdf",
@@ -492,10 +478,16 @@
         "type": "Link"
     },
     {
-        "thumbnail": "fas fa-link",
-        "title": "Notion AI Workspace",
-        "desc": "My personal Notion AI setup",
-        "link": "https://notion.so/your-workspace-link",
+        "thumbnail": "fas fa-cloud",
+        "title": "AWS for ML",
+        "desc": "Guide to AWS ML services",
+        "link": "https://medium.com/@AlexanderObregon/a-beginners-introductory-guide-to-aws-machine-learning-services-92ae189ab1c4"
+    },
+    {
+        "thumbnail": "fas fa-video",
+        "title": "HuggingFace Playlist",
+        "desc": "HuggingFace - Full Course",
+        "link": "https://www.youtube.com/playlist?list=PLo2EIpI_JMQvWfQndUesu0nPBAtZ9gP1o",
         "type": "Link"
     },
     {
@@ -506,23 +498,17 @@
         "type": "Link"
     },
     {
-        "thumbnail": "fas fa-video",
-        "title": "HuggingFace Playlist",
-        "desc": "HuggingFace - Full Course",
-        "link": "https://www.youtube.com/playlist?list=PLo2EIpI_JMQvWfQndUesu0nPBAtZ9gP1o",
-        "type": "Link"
-    },
-    {
         "thumbnail": "fas fa-file-image",
         "title": "Data Science Workflow",
         "desc": "Visual guide to DS pipeline",
         "link": "resources/ds_workflow.png"
     },
     {
-        "thumbnail": "fas fa-cloud",
-        "title": "AWS for ML",
-        "desc": "Guide to AWS ML services",
-        "link": "https://medium.com/@AlexanderObregon/a-beginners-introductory-guide-to-aws-machine-learning-services-92ae189ab1c4"
+        "thumbnail": "fas fa-link",
+        "title": "Notion AI Workspace",
+        "desc": "My personal Notion AI setup",
+        "link": "https://notion.so/your-workspace-link",
+        "type": "Link"
     },
     {
         "thumbnail": "fas fa-file-pdf",
