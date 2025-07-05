@@ -66,13 +66,6 @@
         "type": "Link"
     },
     {
-        "thumbnail": "fas fa-play-circle",
-        "title": "Streamlit + LlamaIndex Demo",
-        "desc": "Build RAG apps in Colab",
-        "link": "https://colab.research.google.com/drive/llamaindex-streamlit",
-        "type": "Link"
-    },
-    {
         "thumbnail": "fas fa-brain",
         "title": "GPT4 Prompt Patterns by OpenAI",
         "desc": "Common prompt patterns blog on Cookbook",
@@ -101,7 +94,7 @@
         "thumbnail": "fas fa-code",
         "title": "PyTorch Lightning",
         "desc": "Simplified PyTorch for ML",
-        "link": "https://github.com/Lightening-AI/lightning",
+        "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/pytorch-lightning-intro",
         "type": "Link"
     },
     {
@@ -132,8 +125,8 @@
     {
         "thumbnail": "fas fa-chart-line",
         "title": "LLM Evaluation Guide",
-        "desc": "How to test LLM apps properly",
-        "link": "resources/llm_evaluation.pdf"
+        "desc": "BLEU, ROUGE, human feedback, hallucination detection",
+        "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/llm-evaluation"
     },
     {
         "thumbnail": "fas fa-file-pdf",
@@ -164,7 +157,7 @@
         "thumbnail": "fas fa-cloud",
         "title": "Cloud Services Comparison",
         "desc": "AWS vs GCP vs Azure PDF",
-        "link": "resources/cloud_comparison.pdf"
+        "link": "https://www.veritis.com/wp-content/uploads/2018/05/azure-vs-aws-vs-google-cloud-services-comparison.pdf"
     },
     {
         "thumbnail": "fas fa-file-pdf",
@@ -187,8 +180,8 @@
     {
         "thumbnail": "fas fa-table",
         "title": "MongoDB vs PostgreSQL",
-        "desc": "Differences for devs",
-        "link": "resources/mongo_vs_postgres.pdf"
+        "desc": "Blog on Dev Community",
+        "link": "https://dev.to/ben/postgresql-vs-mongodb-30b1"
     },
     {
         "thumbnail": "fas fa-video",
@@ -337,7 +330,7 @@
         "thumbnail": "fas fa-play-circle",
         "title": "Colab – Vision Detection",
         "desc": "YOLOv8 detection notebook",
-        "link": "https://colab.research.google.com/drive/vision-yolo",
+        "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/yolov8-vision-detection",
         "type": "Link"
     },
     {
@@ -351,12 +344,6 @@
         "title": "React Quickstart",
         "desc": "React + Tailwind crash notes",
         "link": "https://www.newline.co/fullstack-react/assets/media/sGEMe/MNzue/30-days-of-react-ebook-fullstackio.pdf"
-    },
-    {
-        "thumbnail": "fas fa-lightbulb",
-        "title": "AI Project Ideas",
-        "desc": "Ideas for side-projects in AI",
-        "link": "resources/ai_ideas.pdf"
     },
     {
         "thumbnail": "fas fa-book",
@@ -425,12 +412,6 @@
         "desc": "MLflow experiment tracking",
         "link": "https://github.com/mlflow/mlflow",
         "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-book",
-        "title": "Generative Deep Learning",
-        "desc": "Keras book on GenAI",
-        "link": "resources/generative_dl_book.pdf"
     },
     {
         "thumbnail": "fas fa-code",
