@@ -1,531 +1,617 @@
+/* ---------- 1. Color Tokens & Theme Switch ---------- */
 :root {
-    --theme: #f9fafc;
-    --entry: #fff;
-    --primary: #333;
-    --secondary: #555;
-    --tertiary: #f3f4f6;
-    --content: #333;
-    --code-block-bg: #f3f4f6;
-    --code-bg: #e5e7eb;
-    --border: #d1d5db;
-    --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --theme: #f9fafc; /* Background color for light theme */
+  --entry: #fff; /* Background for inputs and navigation in light theme */
+  --primary: #333; /* Primary text/icon color in light theme */
+  --secondary: #555; /* Secondary text/icon color in light theme */
+  --tertiary: #f3f4f6; /* Background for buttons and accents in light theme */
+  --content: #333; /* Content text color in light theme */
+  --code-block-bg: #f3f4f6; /* Code block background in light theme */
+  --code-bg: #e5e7eb; /* Inline code background in light theme */
+  --border: #d1d5db; /* Border color in light theme */
+  --shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for light theme */
 }
 
-body.dark {
-    --theme: #1a1a1a;
-    --entry: #2e2e33;
-    --primary: #d1d5db;
-    --secondary: #9ca3af;
-    --tertiary: #4b5563;
-    --content: #f9fafb;
-    --code-block-bg: #2e2e33;
-    --code-bg: #37404e;
-    --border: #333;
-    --shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+[data-theme="dark"] {
+  --theme: #1a1a1a; /* Background color for dark theme */
+  --entry: #2e2e33; /* Background for inputs and navigation in dark theme */
+  --primary: #d1d5db; /* Primary text/icon color in dark theme */
+  --secondary: #9ca3af; /* Secondary text/icon color in dark theme */
+  --tertiary: #4b5563; /* Background for buttons and accents in dark theme */
+  --content: #f9fafb; /* Content text color in dark theme */
+  --code-block-bg: #2e2e33; /* Code block background in dark theme */
+  --code-bg: #37404e; /* Inline code background in dark theme */
+  --border: #333; /* Border color in dark theme */
+  --shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Shadow for dark theme */
 }
 
+/* ---------- 2. Global Layout ---------- */
 body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: var(--theme);
-    color: var(--primary);
-    transition: background 0.3s ease, color 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  margin: 0; /* Remove default margin */
+  font-family: 'Segoe UI', sans-serif; /* Default font */
+  background: var(--theme); /* Apply theme background */
+  color: var(--primary); /* Apply primary text color */
+  transition: background 0.3s ease, color 0.3s ease; /* Smooth theme transitions */
+  display: flex; /* Flex layout for full height */
+  flex-direction: column; /* Stack content vertically */
+  min-height: 100vh; /* Ensure full viewport height */
 }
 
+/* ---------- 3. Header and Navigation Bar ---------- */
 .header {
-    background: var(--theme);
-    transition: background 0.3s ease;
+  background: var(--theme); /* Match header to theme background */
+  transition: background 0.3s ease; /* Smooth background transition */
 }
 
 .nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 24px;
-    max-width: 1200px;
-    margin: auto;
+  display: flex; /* Flex layout for nav items */
+  justify-content: space-between; /* Space out nav sections */
+  align-items: center; /* Vertically align items */
+  padding: 16px 24px; /* Add padding */
+  max-width: 1200px; /* Constrain width */
+  margin: auto; /* Center nav */
 }
 
 .nav-left .logo {
-    font-family: 'Courier New', monospace;
-    font-weight: bold;
-    font-size: 1.2em;
-    color: var(--primary);
-    text-decoration: none;
+  font-family: 'Courier New', monospace; /* Monospace font for logo */
+  font-weight: bold; /* Bold logo text */
+  font-size: 1.2em; /* Logo size */
+  color: var(--primary); /* Primary color for logo */
+  text-decoration: none; /* Remove underline */
 }
 
 .nav-center {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    /* Centered navigation pills as requested */
+  flex-grow: 1; /* Allow center to take available space */
+  display: flex; /* Flex layout for nav links */
+  justify-content: center; /* Center links */
 }
 
 .pill-nav {
-    background: var(--entry);
-    padding: 8px 20px;
-    border-radius: 999px;
-    display: flex;
-    gap: 24px;
-    align-items: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    justify-content: center;
-    /* Center the pills */
+  background: var(--entry); /* Background for pill navigation */
+  padding: 8px 20px; /* Padding for pill nav */
+  border-radius: 999px; /* Rounded pill shape */
+  display: flex; /* Flex layout for links */
+  gap: 24px; /* Space between links */
+  align-items: center; /* Vertically align links */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  justify-content: center; /* Center links */
 }
 
 .pill-nav a {
-    text-decoration: none;
-    font-size: 0.95em;
-    font-weight: 500;
-    color: var(--secondary);
-    transition: color 0.3s ease;
+  text-decoration: none; /* Remove underline */
+  font-size: 0.95em; /* Slightly smaller font */
+  font-weight: 500; /* Medium weight */
+  color: var(--secondary); /* Secondary color for links */
+  transition: color 0.3s ease; /* Smooth color transition */
 }
 
 .pill-nav a.active {
-    color: var(--primary);
-    font-weight: 700;
-    font-size: 1.15em;
+  color: var(--primary); /* Primary color for active link */
+  font-weight: 700; /* Bold active link */
+  font-size: 1.15em; /* Larger font for active link */
 }
 
 .pill-nav a:hover {
-    color: #3b82f6;
+  color: #3b82f6; /* Blue hover color */
 }
 
 .nav-right {
-    display: flex;
-    align-items: center;
+  display: flex; /* Flex layout for right-side elements */
+  align-items: center; /* Vertically align items */
 }
 
 #theme-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 6px;
-    color: var(--primary);
+  background: none; /* No background */
+  border: none; /* No border */
+  cursor: pointer; /* Pointer cursor */
+  padding: 6px; /* Padding for button */
+  color: var(--primary); /* Primary color for icon */
 }
 
 #theme-toggle svg {
-    width: 24px;
-    height: 24px;
-    fill: currentColor;
+  width: 24px; /* Icon size */
+  height: 24px; /* Icon size */
+  fill: currentColor; /* Match icon to button color */
 }
 
 #moon {
-    display: none;
+  display: none; /* Hide moon icon by default */
 }
 
 [data-theme="dark"] #sun {
-    display: none;
+  display: none; /* Hide sun icon in dark mode */
 }
 
 [data-theme="dark"] #moon {
-    display: block;
+  display: block; /* Show moon icon in dark mode */
 }
 
+/* ---------- 4. Main Content ---------- */
 main {
-    flex: 1;
-    padding: 0 20px;
+  flex: 1; /* Allow main to grow */
+  padding: 0 20px; /* Add padding */
 }
 
 .content {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px 0;
+  max-width: 800px; /* Constrain content width */
+  margin: 0 auto; /* Center content */
+  padding: 20px 0; /* Vertical padding */
 }
 
+/* ---------- 5. Breadcrumb Navigation ---------- */
 .breadcrumb {
-    font-size: 0.9em;
-    color: var(--secondary);
-    margin: 20px 0;
+  font-size: 0.9em; /* Smaller font for breadcrumbs */
+  color: var(--secondary); /* Secondary color */
+  margin: 20px 0; /* Vertical spacing */
 }
 
 .breadcrumb a {
-    color: var(--secondary);
-    text-decoration: none;
+  color: var(--secondary); /* Secondary color for links */
+  text-decoration: none; /* Remove underline */
 }
 
 .breadcrumb a:hover {
-    color: #3b82f6;
+  color: #3b82f6; /* Blue hover color */
 }
 
 .breadcrumb span {
-    font-weight: bold;
-    color: var(--primary);
+  font-weight: bold; /* Bold active breadcrumb */
+  color: var(--primary); /* Primary color for active */
 }
 
+/* ---------- 6. Header Bar ---------- */
 .header-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+  display: flex; /* Flex layout */
+  justify-content: space-between; /* Space out elements */
+  align-items: center; /* Vertically align */
+  margin-bottom: 20px; /* Space below */
 }
 
 h1 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
+  font-size: 1.5em; /* Title size */
+  margin-bottom: 10px; /* Space below */
 }
 
+/* ---------- 7. Search Input ---------- */
 .search-box {
-    flex: 1;
-    max-width: 500px;
-    margin-left: 20px;
+  flex: 1; /* Take available space */
+  max-width: 500px; /* Constrain width */
+  margin-left: 20px; /* Space from title */
 }
 
 .search-box input {
-    padding: 8px 12px;
-    font-size: 14px;
-    border-radius: 6px;
-    border: none;
-    background-color: var(--entry);
-    color: var(--primary);
-    width: 100%;
+  padding: 8px 12px; /* Input padding */
+  font-size: 14px; /* Font size */
+  border-radius: 6px; /* Rounded corners */
+  border: none; /* No border */
+  background-color: var(--entry); /* Entry background */
+  color: var(--primary); /* Primary text color */
+  width: 100%; /* Full width */
 }
 
+/* ---------- 8. Resources Grid ---------- */
 .resources-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(200px, 1fr));
-    gap: 1.5rem;
-    padding: 1rem 0;
+  display: grid; /* Grid layout */
+  grid-template-columns: repeat(4, minmax(200px, 1fr)); /* 4-column grid */
+  gap: 1.5rem; /* Space between cards */
+  padding: 1rem 0; /* Vertical padding */
 }
 
+/* ---------- 9. Resource Cards ---------- */
 .resource-card {
-    background: var(--entry);
-    border-radius: 12px;
-    padding: 1rem;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: var(--entry); /* Entry background */
+  border-radius: 12px; /* Rounded corners */
+  padding: 1rem; /* Padding */
+  text-align: center; /* Center text */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effects */
 }
 
 .resource-card:hover {
-    transform: scale(1.03);
-    box-shadow: var(--shadow);
+  transform: scale(1.03); /* Slight scale on hover */
+  box-shadow: var(--shadow); /* Apply theme shadow */
 }
 
 .card-thumb {
-    font-size: 40px;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    margin: 0 auto 0.5rem;
-    color: #3b82f6;
-    display: block;
+  font-size: 40px; /* Icon size */
+  width: 60px; /* Icon container width */
+  height: 60px; /* Icon container height */
+  line-height: 60px; /* Center icon vertically */
+  margin: 0 auto 0.5rem; /* Center and space below */
+  color: #3b82f6; /* Blue icon color */
+  display: block; /* Block display */
 }
 
 .card-title {
-    font-size: 1rem;
-    font-weight: bold;
-    margin: 0.5rem 0;
-    color: var(--primary);
+  font-size: 1rem; /* Title size */
+  font-weight: bold; /* Bold title */
+  margin: 0.5rem 0; /* Vertical spacing */
+  color: var(--primary); /* Primary color */
 }
 
 .card-desc {
-    font-size: 0.85rem;
-    margin: 0.3rem 0;
-    color: var(--secondary);
+  font-size: 0.85rem; /* Smaller font for description */
+  margin: 0.3rem 0; /* Vertical spacing */
+  color: var(--secondary); /* Secondary color */
 }
 
 .card-btn {
-    display: inline-block;
-    margin-top: 0.5rem;
-    padding: 0.4rem 1rem;
-    background-color: #3b82f6;
-    color: #ffffff;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 0.9rem;
+  display: inline-block; /* Inline-block display */
+  margin-top: 0.5rem; /* Space above */
+  padding: 0.4rem 1rem; /* Button padding */
+  background-color: #3b82f6; /* Blue background */
+  color: #ffffff; /* White text */
+  border-radius: 6px; /* Rounded corners */
+  text-decoration: none; /* Remove underline */
+  font-size: 0.9rem; /* Font size */
 }
 
 .card-btn:hover {
-    background-color: #2563eb;
+  background-color: #2563eb; /* Darker blue on hover */
 }
 
+/* ---------- 10. No Results Message ---------- */
+.no-results {
+  font-size: 1rem; /* Font size */
+  color: var(--secondary); /* Secondary color */
+  text-align: center; /* Center text */
+}
+
+/* ---------- 11. Skeleton UI ---------- */
+.skeleton-resource-card {
+  background: var(--entry); /* Entry background */
+  border-radius: 12px; /* Rounded corners */
+  padding: 1rem; /* Padding */
+  text-align: center; /* Center content */
+  opacity: 0.7; /* Slightly transparent */
+}
+
+.skeleton-thumb {
+  width: 60px; /* Placeholder icon width */
+  height: 60px; /* Placeholder icon height */
+  background: var(--tertiary); /* Tertiary background */
+  border-radius: 50%; /* Circular shape */
+  margin: 0 auto 0.5rem; /* Center and space below */
+  animation: pulse 1.5s infinite ease-in-out; /* Pulse animation */
+}
+
+.skeleton-title {
+  width: 80%; /* Title placeholder width */
+  height: 20px; /* Title placeholder height */
+  background: var(--tertiary); /* Tertiary background */
+  border-radius: 4px; /* Rounded corners */
+  margin: 0.5rem auto; /* Center and space */
+  animation: pulse 1.5s infinite ease-in-out; /* Pulse animation */
+}
+
+.skeleton-desc {
+  width: 90%; /* Description placeholder width */
+  height: 40px; /* Description placeholder height */
+  background: var(--tertiary); /* Tertiary background */
+  border-radius: 4px; /* Rounded corners */
+  margin: 0.3rem auto; /* Center and space */
+  animation: pulse 1.5s infinite ease-in-out; /* Pulse animation */
+}
+
+.skeleton-btn {
+  width: 60px; /* Button placeholder width */
+  height: 30px; /* Button placeholder height */
+  background: var(--tertiary); /* Tertiary background */
+  border-radius: 6px; /* Rounded corners */
+  margin: 0.5rem auto; /* Center and space */
+  animation: pulse 1.5s infinite ease-in-out; /* Pulse animation */
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.7; /* Start opacity */
+  }
+  50% {
+    opacity: 0.4; /* Midpoint opacity */
+  }
+  100% {
+    opacity: 0.7; /* End opacity */
+  }
+}
+
+/* ---------- 12. Footer ---------- */
 .footer {
-    font-size: 0.9em;
-    color: var(--secondary);
-    margin-top: 40px;
-    text-align: center;
+  font-size: 0.9em; /* Smaller font */
+  color: var(--secondary); /* Secondary color */
+  margin-top: 40px; /* Space above */
+  text-align: center; /* Center text */
 }
 
 .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin: 32px auto 0;
-    max-width: 500px;
+  display: flex; /* Flex layout */
+  justify-content: center; /* Center icons */
+  gap: 15px; /* Space between icons */
+  margin: 32px auto 0; /* Spacing */
+  max-width: 500px; /* Constrain width */
 }
 
 .social-icons a {
-    font-size: 24px;
-    color: var(--primary);
-    text-decoration: none;
-    transition: color .3s;
+  font-size: 24px; /* Icon size */
+  color: var(--primary); /* Primary color */
+  text-decoration: none; /* Remove underline */
+  transition: color .3s; /* Smooth color transition */
 }
 
 .social-icons a:hover {
-    color: #3b82f6;
+  color: #3b82f6; /* Blue hover color */
 }
 
+/* ---------- 13. Pagination ---------- */
 .pagination {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 20px 0;
-    gap: 5px;
+  display: flex; /* Flex layout */
+  align-items: center; /* Vertically align */
+  flex-wrap: wrap; /* Allow wrapping */
+  margin: 20px 0; /* Vertical spacing */
+  gap: 5px; /* Space between buttons */
 }
 
 .pagination .page-buttons {
-    display: flex;
-    gap: 5px;
+  display: flex; /* Flex layout for buttons */
+  gap: 5px; /* Space between buttons */
 }
 
 .pagination button {
-    background: var(--entry);
-    color: var(--primary);
-    border: none;
-    padding: 6px 10px;
-    border-radius: 6px;
-    cursor: pointer;
+  background: var(--entry); /* Entry background */
+  color: var(--primary); /* Primary text color */
+  border: none; /* No border */
+  padding: 6px 10px; /* Padding */
+  border-radius: 6px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor */
 }
 
 .pagination .active {
-    background: var(--tertiary);
-    color: var(--primary);
+  background: var(--tertiary); /* Tertiary background for active */
+  color: var(--primary); /* Primary text color */
 }
 
 .pagination button:hover:not(.active) {
-    background: var(--tertiary);
+  background: var(--tertiary); /* Tertiary background on hover */
 }
 
+/* ---------- 14. Scroll to Top Button ---------- */
 #scrollTop {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 100;
-    width: 40px;
-    height: 40px;
-    background: var(--entry);
-    color: var(--primary);
-    border: none;
-    border-radius: 50%;
-    box-shadow: var(--shadow);
-    cursor: pointer;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.3s ease, color 0.3s ease;
+  position: fixed; /* Fixed position */
+  bottom: 20px; /* Distance from bottom */
+  right: 20px; /* Distance from right */
+  z-index: 100; /* Above other content */
+  width: 40px; /* Button size */
+  height: 40px; /* Button size */
+  background: var(--entry); /* Entry background */
+  color: var(--primary); /* Primary color */
+  border: none; /* No border */
+  border-radius: 50%; /* Circular shape */
+  box-shadow: var(--shadow); /* Theme shadow */
+  cursor: pointer; /* Pointer cursor */
+  display: none; /* Hidden by default */
+  align-items: center; /* Center icon */
+  justify-content: center; /* Center icon */
+  transition: background 0.3s ease, color 0.3s ease; /* Smooth transitions */
 }
 
 #scrollTop:hover {
-    background: var(--secondary);
-    color: var(--theme);
+  background: var(--secondary); /* Secondary background on hover */
+  color: var(--theme); /* Theme color for icon */
 }
 
+/* ---------- 15. Loader Styles ---------- */
 .loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    transition: opacity 0.3s ease;
+  position: fixed; /* Fixed position */
+  top: 0; /* Cover full viewport */
+  left: 0; /* Cover full viewport */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background: transparent; /* Transparent background */
+  backdrop-filter: blur(6px); /* Blur effect */
+  -webkit-backdrop-filter: blur(6px); /* Safari support */
+  display: none; /* Hidden by default */
+  justify-content: center; /* Center content */
+  align-items: center; /* Center content */
+  z-index: 1000; /* Above other content */
+  transition: opacity 0.3s ease; /* Smooth opacity transition */
 }
 
 .loader.active {
-    display: flex;
+  display: flex; /* Show when active */
 }
 
 .loader.hidden {
-    opacity: 0;
-    pointer-events: none;
+  opacity: 0; /* Fully transparent */
+  pointer-events: none; /* Disable interactions */
 }
 
 .terry-animation {
-    display: flex;
-    gap: 8px;
-    font-family: 'Courier New', monospace;
-    font-size: 3.5rem;
-    font-weight: bold;
-    color: var(--primary);
-    animation: shrinkLogo 0.3s ease-in-out 0.9s forwards;
+  display: flex; /* Flex layout for letters */
+  gap: 8px; /* Space between letters */
+  font-family: 'Courier New', monospace; /* Monospace font */
+  font-size: 3.5rem; /* Large font */
+  font-weight: bold; /* Bold text */
+  color: var(--primary); /* Primary color */
+  animation: shrinkLogo 0.3s ease-in-out 0.6s forwards; /* Shrink animation */
 }
 
 .letter {
-    display: inline-block;
-    animation: spinLetter 0.5s ease-in-out forwards;
+  display: inline-block; /* Inline-block for animation */
+  animation: spinLetter 0.5s ease-in-out forwards; /* Spin animation */
 }
 
-.letter:nth-child(1) {
-    animation-delay: 0s;
-}
-
-.letter:nth-child(2) {
-    animation-delay: 0.1s;
-}
-
-.letter:nth-child(3) {
-    animation-delay: 0.2s;
-}
-
-.letter:nth-child(4) {
-    animation-delay: 0.3s;
-}
-
-.letter:nth-child(5) {
-    animation-delay: 0.4s;
-}
+.letter:nth-child(1) { animation-delay: 0s; } /* No delay for first letter */
+.letter:nth-child(2) { animation-delay: 0.1s; } /* Slight delay for second */
+.letter:nth-child(3) { animation-delay: 0.2s; } /* Increasing delays */
+.letter:nth-child(4) { animation-delay: 0.3s; }
+.letter:nth-child(5) { animation-delay: 0.4s; }
 
 @keyframes spinLetter {
-    0% {
-        transform: rotate(0deg) scale(1);
-        opacity: 0;
-    }
-
-    50% {
-        transform: rotate(360deg) scale(1.2);
-        opacity: 1;
-    }
-
-    100% {
-        transform: rotate(360deg) scale(0.6);
-        opacity: 1;
-    }
+  0% {
+    transform: rotate(0deg) scale(1); /* Start position */
+    opacity: 0; /* Start invisible */
+  }
+  50% {
+    transform: rotate(360deg) scale(1.2); /* Spin and scale up */
+    opacity: 1; /* Fully visible */
+  }
+  100% {
+    transform: rotate(360deg) scale(0.6); /* End smaller */
+    opacity: 1; /* Fully visible */
+  }
 }
 
 @keyframes shrinkLogo {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-
-    100% {
-        transform: scale(0.1);
-        opacity: 0;
-    }
+  0% {
+    transform: scale(1); /* Full size */
+    opacity: 1; /* Fully visible */
+  }
+  100% {
+    transform: scale(0.1); /* Shrink to small */
+    opacity: 0; /* Fade out */
+  }
 }
 
-/* Responsive adjustments */
+/* ---------- 16. Responsive Grid Adjustments ---------- */
 @media (max-width: 1024px) {
-    .resources-grid {
-        grid-template-columns: repeat(3, minmax(200px, 1fr));
-    }
+  .resources-grid {
+    grid-template-columns: repeat(3, minmax(200px, 1fr)); /* 3-column grid */
+  }
+
+  .skeleton-resource-card {
+    grid-template-columns: repeat(3, minmax(200px, 1fr)); /* 3-column skeleton grid */
+  }
 }
 
 @media (max-width: 768px) {
-    .resources-grid {
-        grid-template-columns: repeat(2, minmax(200px, 1fr));
-    }
+  .resources-grid {
+    grid-template-columns: repeat(2, minmax(200px, 1fr)); /* 2-column grid */
+  }
+
+  .skeleton-resource-card {
+    grid-template-columns: repeat(2, minmax(200px, 1fr)); /* 2-column skeleton grid */
+  }
 }
 
 @media (max-width: 480px) {
-    .resources-grid {
-        grid-template-columns: repeat(1, minmax(200px, 1fr));
-    }
+  .resources-grid {
+    grid-template-columns: repeat(1, minmax(200px, 1fr)); /* 1-column grid */
+  }
+
+  .skeleton-resource-card {
+    grid-template-columns: repeat(1, minmax(200px, 1fr)); /* 1-column skeleton grid */
+  }
 }
 
-/* ---------- 15. Mobile Fixes ---------- */
+/* ---------- 17. Mobile Fixes ---------- */
 @media (max-width: 768px) {
-    .nav {
-        flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        padding: 10px 12px;
-        gap: 10px;
-    }
+  .nav {
+    flex-wrap: wrap; /* Allow wrapping */
+    flex-direction: row; /* Row layout */
+    justify-content: flex-start; /* Align to start */
+    align-items: center; /* Vertically align */
+    padding: 10px 12px; /* Reduced padding */
+    gap: 10px; /* Space between elements */
+  }
 
-    .nav-left {
-        flex: 1;
-        text-align: left;
-    }
+  .nav-left {
+    flex: 1; /* Take available space */
+    text-align: left; /* Align left */
+  }
 
-    .nav-center {
-        width: 100%;
-        order: 3;
-        overflow-x: auto;
-        padding-bottom: 5px;
-    }
+  .nav-center {
+    width: 100%; /* Full width */
+    order: 3; /* Move to bottom */
+    overflow-x: auto; /* Allow horizontal scroll */
+    padding-bottom: 5px; /* Space for scrollbar */
+  }
 
-    .pill-nav {
-        flex-wrap: nowrap;
-        gap: 18px;
-        padding: 6px 14px;
-        overflow-x: auto;
-        border-radius: 30px;
-        justify-content: flex-start;
-        margin: auto;
-        max-width: 100%;
-    }
+  .pill-nav {
+    flex-wrap: nowrap; /* Prevent wrapping */
+    gap: 18px; /* Reduced gap */
+    padding: 6px 14px; /* Reduced padding */
+    overflow-x: auto; /* Allow scroll */
+    border-radius: 30px; /* Rounded pill */
+    justify-content: flex-start; /* Align to start */
+    margin: auto; /* Center */
+    max-width: 100%; /* Full width */
+  }
 
-    .pill-nav::-webkit-scrollbar {
-        display: none;
-    }
+  .pill-nav::-webkit-scrollbar {
+    display: none; /* Hide scrollbar */
+  }
 
-    .nav-right {
-        order: 2;
-        margin-left: auto;
-    }
+  .nav-right {
+    order: 2; /* Move before nav-center */
+    margin-left: auto; /* Align to right */
+  }
 
-    .container {
-        padding-top: 10px;
-    }
+  .content {
+    padding-top: 10px; /* Reduced top padding */
+  }
 
-    .header-bar {
-        flex-direction: column;
-        gap: 15px;
-        align-items: flex-start;
-    }
+  .header-bar {
+    flex-direction: column; /* Stack vertically */
+    gap: 15px; /* Space between elements */
+    align-items: flex-start; /* Align to start */
+  }
 
-    h1 {
-        margin: 0;
-    }
+  h1 {
+    margin: 0; /* Remove default margin */
+  }
 
-    .search-box {
-        flex: 1;
-        max-width: 100%;
-        margin-left: 0;
-        width: 100%;
-    }
+  .search-box {
+    flex: 1; /* Take available space */
+    max-width: 100%; /* Full width */
+    margin-left: 0; /* No left margin */
+    width: 100%; /* Full width */
+  }
 
-    .search-box input {
-        padding: 8px 12px;
-        font-size: 14px;
-        border-radius: 6px;
-        border: none;
-        background-color: var(--entry);
-        color: var(--primary);
-        width: 100%;
-        box-sizing: border-box;
-    }
+  .search-box input {
+    padding: 8px 12px; /* Input padding */
+    font-size: 14px; /* Font size */
+    border-radius: 6px; /* Rounded corners */
+    border: none; /* No border */
+    background-color: var(--entry); /* Entry background */
+    color: var(--primary); /* Primary text color */
+    width: 100%; /* Full width */
+    box-sizing: border-box; /* Include padding in width */
+  }
 
-    .resources-grid {
-        grid-template-columns: repeat(1, minmax(200px, 1fr));
-    }
+  .terry-animation {
+    font-size: 2.2rem; /* Smaller font for mobile */
+    top: 0; /* No offset */
+    position: relative; /* Relative positioning */
+    text-align: left; /* Align left */
+  }
 
-    .terry-animation {
-        font-size: 2.2rem;
-        top: 0;
-        position: relative;
-        text-align: left;
-    }
+  .header {
+    padding-bottom: 0; /* Remove bottom padding */
+  }
 
-    .header {
-        padding-bottom: 0;
-    }
+  .pill-nav {
+    scroll-snap-type: x mandatory; /* Snap scroll */
+  }
 
-    .pill-nav {
-        scroll-snap-type: x mandatory;
-    }
+  .pill-nav a {
+    scroll-snap-align: start; /* Snap to start of link */
+  }
 
-    .pill-nav a {
-        scroll-snap-align: start;
-    }
+  .skeleton-thumb {
+    width: 50px; /* Smaller placeholder icon */
+    height: 50px; /* Smaller placeholder height */
+  }
+
+  .skeleton-title {
+    width: 70%; /* Smaller title placeholder */
+    height: 18px; /* Smaller height */
+  }
+
+  .skeleton-desc {
+    width: 85%; /* Smaller description placeholder */
+    height: 30px; /* Smaller height */
+  }
+
+  .skeleton-btn {
+    width: 50px; /* Smaller button placeholder */
+    height: 25px; /* Smaller height */
+  }
 }

@@ -39,7 +39,6 @@ body {
   margin: 0 auto;
   padding: 50px 20px;
   min-height: 80vh;
-  /* Adjusted height as requested */
   transition: background 0.3s ease, color 0.3s ease;
 }
 
@@ -70,7 +69,6 @@ body {
   flex-grow: 1;
   display: flex;
   justify-content: center;
-  /* Centered navigation pills as requested */
 }
 
 .pill-nav {
@@ -82,7 +80,7 @@ body {
   align-items: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   justify-content: center;
-  /* Center the pills */
+  margin-left: 30px;
 }
 
 .pill-nav a {
@@ -100,6 +98,7 @@ body {
 .nav-right {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
 #theme-toggle {
@@ -128,16 +127,127 @@ body {
   display: block;
 }
 
-/* ---------- 4. Hero section ---------- */
+/* ---------- 4. Hero Section ---------- */
 .profile-img {
   width: 150px;
   height: 150px;
   border-radius: 50%;
   margin: 20px auto;
   transition: transform 0.5s ease;
+  position: relative;
+  z-index: 10;
 }
 
-/* ---------- 5. Prompt & typing ---------- */
+.typing-text {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin: 10px 0;
+  text-align: center;
+}
+
+.animate-wave {
+  display: inline-block;
+  transform-origin: 70% 70%;
+  animation: wave 0.5s infinite;
+}
+
+.subtitle {
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: var(--secondary);
+  letter-spacing: 8px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+
+.circle {
+  position: absolute;
+  border: 2px solid var(--secondary);
+  opacity: 0.3;
+  border-radius: 50%;
+  animation: ripple 3s ease-out infinite;
+}
+
+.animated-circles {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  background: rgba(0, 255, 136, 0.1);
+  padding: 4px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  margin-right: 10px;
+}
+
+[data-theme="light"] .status .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00ff88;
+  border: 1px solid #00ff88;
+}
+
+[data-theme="dark"] .status .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00ff88;
+  border: 1px solid #00ff88;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+
+  70% {
+    transform: scale(1.5);
+    opacity: 0.1;
+  }
+
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+@keyframes wave {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(20deg);
+  }
+
+  50% {
+    transform: rotate(0deg);
+  }
+
+  75% {
+    transform: rotate(-20deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* ---------- 5. Prompt & Typing ---------- */
 .prompt,
 .typing {
   margin: 20px auto;
@@ -158,7 +268,7 @@ body {
   transition: opacity 0.5s ease, color 0.3s ease;
 }
 
-/* ---------- 6. Project cards ---------- */
+/* ---------- 6. Project Cards ---------- */
 .projects-container {
   margin: 20px auto;
   display: flex;
@@ -238,9 +348,9 @@ body {
   color: #2563eb;
 }
 
-/* ---------- 8. Ask-bar ---------- */
+/* ---------- 8. Ask Bar ---------- */
 .ask-bar {
-  display: flex;
+  display: none;
   align-items: center;
   margin: 10px auto;
   max-width: 500px;
@@ -346,10 +456,9 @@ body {
   font-size: 0.7em;
   color: var(--content);
   margin: 5px 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  max-height: 2.8em;
   overflow: hidden;
+  line-height: 1.4em;
 }
 
 .ask-bar .view-more {
@@ -386,7 +495,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* Custom Scrollbar for Posts Container */
 .ask-bar .posts-container::-webkit-scrollbar {
   height: 8px;
 }
@@ -405,62 +513,34 @@ body {
   background: rgba(107, 114, 128, 0.8);
 }
 
-/* ---------- 9. Action buttons ---------- */
+/* ---------- 9. Action Buttons ---------- */
 .action-buttons {
   display: flex;
+  gap: 12px;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
   margin-top: 20px;
 }
 
 .button {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  background: var(--tertiary);
-  color: var(--primary);
-  padding: 10px 15px;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
   border-radius: 20px;
-  font-size: 14px;
+  color: var(--secondary);
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
-
 
 .button:hover {
-  background: #6b7280;
-  transform: translateY(-3px);
-}
-
-/* ---------- 10. Dropdown ---------- */
-.dropdown {
-  display: none;
-  position: absolute;
   background: var(--tertiary);
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  padding: 10px;
-  text-align: left;
-  z-index: 1000;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-}
-
-.dropdown button {
-  width: 100%;
-  background: none;
-  border: none;
-  font-size: 14px;
   color: var(--primary);
-  margin: 5px 0;
-  cursor: pointer;
+  transform: translateY(-2px);
 }
 
-.dropdown button:hover {
-  background: #6b7280;
-}
-
-/* ---------- 11. Social icons ---------- */
+/* ---------- 10. Social Icons ---------- */
 .social-icons {
   display: flex;
   justify-content: center;
@@ -480,16 +560,15 @@ body {
   color: #3b82f6;
 }
 
-/* ---------- 12. Footer ---------- */
+/* ---------- 11. Footer ---------- */
 .footer {
   margin-top: 40px;
   font-size: 0.9em;
   color: var(--secondary);
   text-align: center;
-  /* Reverted to original style */
 }
 
-/* ---------- 13. Loader Styles ---------- */
+/* ---------- 12. Loader Styles ---------- */
 .loader {
   position: fixed;
   top: 0;
@@ -584,7 +663,7 @@ body {
   }
 }
 
-/* ---------- 14. Skills Container ---------- */
+/* ---------- 13. Skills Container ---------- */
 .skills-container {
   background: transparent;
   border-radius: 10px;
@@ -657,13 +736,12 @@ body {
   display: none;
 }
 
-/* ---------- 15. Mobile Fixes ---------- */
+/* ---------- 14. Mobile Fixes ---------- */
 @media (max-width: 768px) {
   .nav {
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: flex-start;
-    /* Changed from space-between to flex-start */
     align-items: center;
     padding: 10px 12px;
     gap: 10px;
@@ -672,7 +750,6 @@ body {
   .nav-left {
     flex: 1;
     text-align: left;
-    /* Align logo to the left */
   }
 
   .nav-center {
@@ -715,7 +792,6 @@ body {
     top: 0;
     position: relative;
     text-align: left;
-    /* Align the animation text to the left */
   }
 
   .header {
@@ -739,5 +815,19 @@ body {
     width: 36px;
     height: 36px;
     font-size: 16px;
+  }
+
+  .animated-circles {
+    transform: scale(0.6);
+  }
+
+  .circle {
+    max-width: 90vw;
+    max-height: 90vw;
+  }
+
+  .subtitle {
+    font-size: 0.8rem;
+    letter-spacing: 5px;
   }
 }

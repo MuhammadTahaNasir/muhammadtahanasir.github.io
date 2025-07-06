@@ -1,811 +1,801 @@
+/* ---------- 1. Color Tokens & Theme Switch ---------- */
 :root {
-    --theme: #f9fafc;
-    --entry: #fff;
-    --card-bg: #f0f0f0;
-    --primary: #333;
-    --secondary: #555;
-    --tertiary: #f3f4f6;
-    --border: #d1d5db;
-    --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    --highlight: #3b82f6;
+  --theme: #f9fafc; /* Background color for light theme */
+  --entry: #fff; /* Background for inputs and navigation in light theme */
+  --card-bg: #f0f0f0; /* Background for cards in light theme */
+  --primary: #333; /* Primary text/icon color in light theme */
+  --secondary: #555; /* Secondary text/icon color in light theme */
+  --tertiary: #f3f4f6; /* Background for buttons and accents in light theme */
+  --border: #d1d5db; /* Border color in light theme */
+  --shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for light theme */
+  --highlight: #3b82f6; /* Highlight color for links and accents */
 }
 
-body.dark {
-    --theme: #1a1a1a;
-    --entry: #2e2e33;
-    --card-bg: #2d2d2d;
-    --primary: #d1d5db;
-    --secondary: #9ca3af;
-    --tertiary: #4b5563;
-    --border: #333;
-    --shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+[data-theme="dark"] {
+  --theme: #1a1a1a; /* Background color for dark theme */
+  --entry: #2e2e33; /* Background for inputs and navigation in dark theme */
+  --card-bg: #2d2d2d; /* Background for cards in dark theme */
+  --primary: #d1d5db; /* Primary text/icon color in dark theme */
+  --secondary: #9ca3af; /* Secondary text/icon color in dark theme */
+  --tertiary: #4b5563; /* Background for buttons and accents in dark theme */
+  --border: #333; /* Border color in dark theme */
+  --shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Shadow for dark theme */
 }
 
+/* ---------- 2. Global Layout ---------- */
 body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: var(--theme);
-    color: var(--primary);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    transition: background 0.3s ease, color 0.3s ease;
+  margin: 0; /* Remove default margin */
+  font-family: 'Inter', sans-serif; /* Default font */
+  background: var(--theme); /* Apply theme background */
+  color: var(--primary); /* Apply primary text color */
+  display: flex; /* Flex layout for full height */
+  flex-direction: column; /* Stack content vertically */
+  min-height: 100vh; /* Ensure full viewport height */
+  transition: background 0.3s ease, color 0.3s ease; /* Smooth theme transitions */
 }
 
+/* ---------- 3. Header and Navigation Bar ---------- */
 .header {
-    background: var(--theme);
-    transition: background 0.3s ease;
+  background: var(--theme); /* Match header to theme background */
+  transition: background 0.3s ease; /* Smooth background transition */
 }
 
 .nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 24px;
-    max-width: 1200px;
-    margin: auto;
+  display: flex; /* Flex layout for nav items */
+  justify-content: space-between; /* Space out nav sections */
+  align-items: center; /* Vertically align items */
+  padding: 16px 24px; /* Add padding */
+  max-width: 1200px; /* Constrain width */
+  margin: auto; /* Center nav */
 }
 
 .nav-left .logo {
-    font-family: 'Courier New', monospace;
-    font-weight: bold;
-    font-size: 1.2em;
-    color: var(--primary);
-    text-decoration: none;
+  font-family: 'Courier New', monospace; /* Monospace font for logo */
+  font-weight: bold; /* Bold logo text */
+  font-size: 1.2em; /* Logo size */
+  color: var(--primary); /* Primary color for logo */
+  text-decoration: none; /* Remove underline */
 }
 
 .nav-center {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    /* Centered navigation pills as requested */
+  flex-grow: 1; /* Allow center to take available space */
+  display: flex; /* Flex layout for nav links */
+  justify-content: center; /* Center links */
 }
 
 .pill-nav {
-    background: var(--entry);
-    padding: 8px 20px;
-    border-radius: 999px;
-    display: flex;
-    gap: 24px;
-    align-items: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    justify-content: center;
-    /* Center the pills */
+  background: var(--entry); /* Background for pill navigation */
+  padding: 8px 20px; /* Padding for pill nav */
+  border-radius: 999px; /* Rounded pill shape */
+  display: flex; /* Flex layout for links */
+  gap: 24px; /* Space between links */
+  align-items: center; /* Vertically align links */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  justify-content: center; /* Center links */
 }
 
 .pill-nav a {
-    text-decoration: none;
-    font-size: 0.95em;
-    font-weight: 500;
-    color: var(--secondary);
-    transition: color 0.3s ease;
+  text-decoration: none; /* Remove underline */
+  font-size: 0.95em; /* Slightly smaller font */
+  font-weight: 500; /* Medium weight */
+  color: var(--secondary); /* Secondary color for links */
+  transition: color 0.3s ease; /* Smooth color transition */
 }
 
 .pill-nav a.active {
-    color: var(--primary);
-    font-weight: 700;
-    font-size: 1.15em;
+  color: var(--primary); /* Primary color for active link */
+  font-weight: 700; /* Bold active link */
+  font-size: 1.15em; /* Larger font for active link */
 }
 
 .pill-nav a:hover {
-    color: #3b82f6;
+  color: #3b82f6; /* Blue hover color */
 }
 
 .nav-right {
-    display: flex;
-    align-items: center;
+  display: flex; /* Flex layout for right-side elements */
+  align-items: center; /* Vertically align items */
 }
 
 #theme-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 6px;
-    color: var(--primary);
+  background: none; /* No background */
+  border: none; /* No border */
+  cursor: pointer; /* Pointer cursor */
+  padding: 6px; /* Padding for button */
+  color: var(--primary); /* Primary color for icon */
 }
 
 #theme-toggle svg {
-    width: 24px;
-    height: 24px;
-    fill: currentColor;
+  width: 24px; /* Icon size */
+  height: 24px; /* Icon size */
+  fill: currentColor; /* Match icon to button color */
 }
 
 #moon {
-    display: none;
+  display: none; /* Hide moon icon by default */
 }
 
 [data-theme="dark"] #sun {
-    display: none;
+  display: none; /* Hide sun icon in dark mode */
 }
 
 [data-theme="dark"] #moon {
-    display: block;
+  display: block; /* Show moon icon in dark mode */
 }
 
+/* ---------- 4. Resume Container ---------- */
 .resume-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 20px;
-    flex: 1;
+  max-width: 800px; /* Constrain content width */
+  margin: 0 auto; /* Center content */
+  padding: 0 20px; /* Add padding */
+  flex: 1; /* Allow container to grow */
 }
 
+/* ---------- 5. Breadcrumb Navigation ---------- */
 .breadcrumb {
-    font-size: 0.9em;
-    color: var(--secondary);
-    margin: 20px 0;
+  font-size: 0.9em; /* Smaller font for breadcrumbs */
+  color: var(--secondary); /* Secondary color */
+  margin: 20px 0; /* Vertical spacing */
 }
 
 .breadcrumb a {
-    color: var(--secondary);
-    text-decoration: none;
+  color: var(--secondary); /* Secondary color for links */
+  text-decoration: none; /* Remove underline */
 }
 
 .breadcrumb a:hover {
-    color: #3b82f6;
+  color: #3b82f6; /* Blue hover color */
 }
 
 .breadcrumb a:last-child {
-    font-weight: bold;
-    color: var(--primary);
+  font-weight: bold; /* Bold active breadcrumb */
+  color: var(--primary); /* Primary color for active */
 }
 
+/* ---------- 6. Resume Header ---------- */
 .resume-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-bottom: 2.5rem;
+  display: flex; /* Flex layout */
+  justify-content: space-between; /* Space out elements */
+  align-items: center; /* Vertically align */
+  flex-wrap: wrap; /* Allow wrapping */
+  margin-bottom: 2.5rem; /* Space below */
 }
 
 .resume-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    text-align: left;
+  font-size: 2.5rem; /* Large title size */
+  font-weight: 700; /* Bold title */
+  text-align: left; /* Align left */
 }
 
 .highlight {
-    color: var(--highlight);
+  color: var(--highlight); /* Highlight color for text */
 }
 
 .resume-download {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background-color: #3b82f6;
-    color: white;
-    padding: 0.6rem 1.2rem;
-    border-radius: 8px;
-    font-weight: 600;
-    text-decoration: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: background 0.3s ease, transform 0.2s ease;
+  display: inline-flex; /* Inline-flex for button */
+  align-items: center; /* Center items */
+  gap: 8px; /* Space between icon and text */
+  background-color: #3b82f6; /* Blue background */
+  color: white; /* White text */
+  padding: 0.6rem 1.2rem; /* Padding */
+  border-radius: 8px; /* Rounded corners */
+  font-weight: 600; /* Bold text */
+  text-decoration: none; /* Remove underline */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: background 0.3s ease, transform 0.2s ease; /* Smooth transitions */
 }
 
 .resume-download:hover {
-    background-color: #2563eb;
-    transform: translateY(-2px);
+  background-color: #2563eb; /* Darker blue on hover */
+  transform: translateY(-2px); /* Lift effect on hover */
 }
 
-
+/* ---------- 7. Resume Sections ---------- */
 .resume-section {
-    margin-bottom: 3rem;
+  margin-bottom: 3rem; /* Space below sections */
 }
 
 .resume-section h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    text-align: left;
-    color: var(--secondary);
+  font-size: 1.5rem; /* Section title size */
+  margin-bottom: 1rem; /* Space below title */
+  text-align: left; /* Align left */
+  color: var(--secondary); /* Secondary color */
 }
 
+/* ---------- 8. Technology Tags ---------- */
 .tech-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-    padding: 0;
-}
-
-.skills-icon-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.2rem;
-    justify-content: center;
-    margin-top: 1.5rem;
-}
-
-.skill-box {
-    width: 120px;
-    height: 120px;
-    background-color: var(--card-bg, #f0f0f0);
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: border 0.3s ease;
-}
-
-.skill-box:hover {
-    border: 2px solid var(--highlight);
-}
-
-.skill-box img {
-    width: 80px;
-    height: 80px;
-    transition: transform 0.3s;
-}
-
-.skill-box:hover img {
-    transform: scale(1.1);
-}
-
-body.dark .skill-box img[alt="Bash"] {
-    filter: brightness(0) invert(1);
-}
-
-body.dark .skill-box img[alt="Django"] {
-    filter: brightness(0) invert(1);
-}
-
-body.dark .skill-box img[alt="Flask"] {
-    filter: brightness(0) invert(1);
-}
-
-body.dark .skill-box img[alt="Pandas"] {
-    filter: brightness(1.5);
-}
-
-body.dark .skill-box img[alt="React"] {
-    filter: brightness(1.2) invert(0.8);
-}
-
-.skills-icon-grid p {
-    font-size: 0.9rem;
-    font-weight: 500;
-    margin: 0.5rem 0 0;
-    text-align: center;
-    color: var(--primary);
-}
-
-.additional-tech p {
-    margin-bottom: 0.5rem;
+  display: flex; /* Flex layout */
+  flex-wrap: wrap; /* Allow wrapping */
+  gap: 0.5rem; /* Space between tags */
+  margin-bottom: 1.5rem; /* Space below */
+  padding: 0; /* No padding */
 }
 
 .tech-tags span {
-    background: var(--card-bg);
-    padding: 0.4rem 0.8rem;
-    border-radius: 6px;
-    font-size: 0.875rem;
-    transition: background 0.3s ease, transform 0.2s ease;
+  background: var(--card-bg); /* Card background */
+  padding: 0.4rem 0.8rem; /* Padding */
+  border-radius: 6px; /* Rounded corners */
+  font-size: 0.875rem; /* Font size */
+  transition: background 0.3s ease, transform 0.2s ease; /* Smooth transitions */
 }
 
 .tech-tags span:hover {
-    background: #3b82f6;
-    color: var(--theme);
-    transform: scale(1.05);
+  background: #3b82f6; /* Blue background on hover */
+  color: var(--theme); /* Theme color for text */
+  transform: scale(1.05); /* Slight scale on hover */
 }
 
+/* ---------- 9. Skills Icon Grid ---------- */
+.skills-icon-grid {
+  display: flex; /* Flex layout */
+  flex-wrap: wrap; /* Allow wrapping */
+  gap: 1.2rem; /* Space between items */
+  justify-content: center; /* Center items */
+  margin-top: 1.5rem; /* Space above */
+}
+
+.skill-box {
+  width: 120px; /* Fixed width */
+  height: 120px; /* Fixed height */
+  background-color: var(--card-bg); /* Card background */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+  display: flex; /* Flex layout */
+  align-items: center; /* Center content */
+  justify-content: center; /* Center content */
+  transition: border 0.3s ease; /* Smooth border transition */
+}
+
+.skill-box:hover {
+  border: 2px solid var(--highlight); /* Highlight border on hover */
+}
+
+.skill-box img {
+  width: 80px; /* Icon size */
+  height: 80px; /* Icon size */
+  transition: transform 0.3s; /* Smooth scale transition */
+}
+
+.skill-box:hover img {
+  transform: scale(1.1); /* Scale up icon on hover */
+}
+
+[data-theme="dark"] .skill-box img[alt="Bash"] {
+  filter: brightness(0) invert(1); /* Invert Bash icon in dark mode */
+}
+
+[data-theme="dark"] .skill-box img[alt="Django"] {
+  filter: brightness(0) invert(1); /* Invert Django icon in dark mode */
+}
+
+[data-theme="dark"] .skill-box img[alt="Flask"] {
+  filter: brightness(0) invert(1); /* Invert Flask icon in dark mode */
+}
+
+[data-theme="dark"] .skill-box img[alt="Pandas"] {
+  filter: brightness(1.5); /* Brighten Pandas icon in dark mode */
+}
+
+[data-theme="dark"] .skill-box img[alt="React"] {
+  filter: brightness(1.2) invert(0.8); /* Adjust React icon in dark mode */
+}
+
+[data-theme="dark"] .skill-box img[alt="PHP"] {
+  filter: brightness(1.2); /* Brighten PHP icon in dark mode */
+}
+
+.skills-icon-grid p {
+  font-size: 0.9rem; /* Font size for skill names */
+  font-weight: 500; /* Medium weight */
+  margin: 0.5rem 0 0; /* Spacing */
+  text-align: center; /* Center text */
+  color: var(--primary); /* Primary color */
+}
+
+.additional-tech p {
+  margin-bottom: 0.5rem; /* Space below additional tech */
+}
+
+/* ---------- 10. Timeline Layout ---------- */
 .timeline {
-    position: relative;
+  position: relative; /* Relative positioning for timeline line */
 }
 
 .timeline::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 2px;
-    background: var(--secondary);
-    transform: translateX(-50%);
+  content: ''; /* Empty content for line */
+  position: absolute; /* Absolute positioning */
+  top: 0; /* Start at top */
+  bottom: 0; /* Extend to bottom */
+  left: 50%; /* Center horizontally */
+  width: 2px; /* Line width */
+  background: var(--secondary); /* Secondary color for line */
+  transform: translateX(-50%); /* Center line */
 }
 
 .timeline-card {
-    width: 45%;
-    background: var(--card-bg);
-    border-radius: 6px;
-    padding: 15px;
-    margin: 20px 0;
-    position: relative;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.6s ease-out;
+  width: 45%; /* Card width */
+  background: var(--card-bg); /* Card background */
+  border-radius: 6px; /* Rounded corners */
+  padding: 15px; /* Padding */
+  margin: 20px 0; /* Vertical spacing */
+  position: relative; /* Relative positioning */
+  opacity: 0; /* Start invisible */
+  transform: translateY(40px); /* Start offset */
+  transition: all 0.6s ease-out; /* Smooth animation */
 }
 
 .timeline-card.reveal {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1; /* Fully visible */
+  transform: translateY(0); /* Reset position */
 }
 
 .timeline-card.left {
-    margin-right: 55%;
-    text-align: right;
+  margin-right: 55%; /* Align left side */
+  text-align: right; /* Right-align text */
 }
 
 .timeline-card.right {
-    margin-left: 52%;
-    text-align: left;
+  margin-left: 52%; /* Align right side */
+  text-align: left; /* Left-align text */
 }
 
 .timeline-card .milestone {
-    position: absolute;
-    top: 15px;
-    width: 12px;
-    height: 12px;
-    background: var(--highlight);
-    border: 2px solid var(--theme);
-    border-radius: 50%;
-    transform: translateX(-50%);
+  position: absolute; /* Absolute positioning */
+  top: 15px; /* Align with content */
+  width: 12px; /* Marker size */
+  height: 12px; /* Marker size */
+  background: var(--highlight); /* Highlight color */
+  border: 2px solid var(--theme); /* Theme-colored border */
+  border-radius: 50%; /* Circular shape */
+  transform: translateX(-50%); /* Center marker */
 }
 
 .timeline-card.left .milestone {
-    right: -7%;
+  right: -7%; /* Position for left cards */
 }
 
 .timeline-card.right .milestone {
-    left: -16px;
+  left: -16px; /* Position for right cards */
 }
 
 .timeline-card .year {
-    position: absolute;
-    top: 5px;
-    right: 15px;
-    font-size: 0.9rem;
-    color: var(--secondary);
+  position: absolute; /* Absolute positioning */
+  top: 5px; /* Align near top */
+  right: 15px; /* Right-align */
+  font-size: 0.9rem; /* Font size */
+  color: var(--secondary); /* Secondary color */
 }
 
 .timeline-card h3 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: var(--primary);
+  font-size: 1.2rem; /* Title size */
+  font-weight: 600; /* Bold title */
+  margin-bottom: 0.5rem; /* Space below */
+  color: var(--primary); /* Primary color */
 }
 
 .timeline-card p {
-    font-size: 0.9rem;
-    margin: 0.5rem 0;
-    color: var(--secondary);
+  font-size: 0.9rem; /* Description size */
+  margin: 0.5rem 0; /* Vertical spacing */
+  color: var(--secondary); /* Secondary color */
 }
 
 .timeline-card .tags {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
+  display: flex; /* Flex layout */
+  gap: 0.5rem; /* Space between tags */
+  margin-top: 0.5rem; /* Space above */
 }
 
 .timeline-card .tags span {
-    background: var(--tertiary);
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    color: var(--primary);
-    transition: background 0.3s ease, transform 0.2s ease;
+  background: var(--tertiary); /* Tertiary background */
+  padding: 0.3rem 0.6rem; /* Padding */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 0.8rem; /* Font size */
+  color: var(--primary); /* Primary color */
+  transition: background 0.3s ease, transform 0.2s ease; /* Smooth transitions */
 }
 
 .timeline-card .tags span:hover {
-    background: #3b82f6;
-    color: var(--theme);
-    transform: scale(1.05);
+  background: #3b82f6; /* Blue background on hover */
+  color: var(--theme); /* Theme color for text */
+  transform: scale(1.05); /* Slight scale on hover */
 }
 
 .timeline-card:nth-child(odd) {
-    transition-delay: 0.1s;
+  transition-delay: 0.1s; /* Slight delay for odd cards */
 }
 
 .timeline-card:nth-child(even) {
-    transition-delay: 0.3s;
+  transition-delay: 0.3s; /* Longer delay for even cards */
 }
 
+/* ---------- 11. Project Box ---------- */
 .project-box {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background: var(--card-bg);
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-    text-align: left;
-    font-size: 1.1em;
-    color: var(--secondary);
-    transition: transform 0.3s ease;
+  max-width: 800px; /* Constrain width */
+  margin: 0 auto; /* Center box */
+  padding: 20px; /* Padding */
+  background: var(--card-bg); /* Card background */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: var(--shadow); /* Theme shadow */
+  text-align: left; /* Left-align text */
+  font-size: 1.1em; /* Font size */
+  color: var(--secondary); /* Secondary color */
+  transition: transform 0.3s ease; /* Smooth hover effect */
 }
 
 .project-box:hover {
-    transform: translateY(-5px);
+  transform: translateY(-5px); /* Lift effect on hover */
 }
 
 .project-box a {
-    color: var(--highlight);
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
+  color: var(--highlight); /* Highlight color for link */
+  text-decoration: none; /* Remove underline */
+  font-weight: 600; /* Bold text */
+  transition: color 0.3s ease; /* Smooth color transition */
 }
 
 .project-box a:hover {
-    color: #2563eb;
-    /* Darker shade on hover, no underline */
-    text-decoration: none;
-    /* No underline */
+  color: #2563eb; /* Darker blue on hover */
+  text-decoration: none; /* Keep no underline */
 }
 
+/* ---------- 12. Footer ---------- */
 .footer {
-    font-size: 0.9em;
-    color: var(--secondary);
-    margin-top: 40px;
-    text-align: center;
+  font-size: 0.9em; /* Smaller font */
+  color: var(--secondary); /* Secondary color */
+  margin-top: 40px; /* Space above */
+  text-align: center; /* Center text */
 }
 
 .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin: 32px auto 0;
-    max-width: 500px;
+  display: flex; /* Flex layout */
+  justify-content: center; /* Center icons */
+  gap: 15px; /* Space between icons */
+  margin: 32px auto 0; /* Spacing */
+  max-width: 500px; /* Constrain width */
 }
 
 .social-icons a {
-    font-size: 24px;
-    color: var(--primary);
-    text-decoration: none;
-    transition: color .3s;
+  font-size: 24px; /* Icon size */
+  color: var(--primary); /* Primary color */
+  text-decoration: none; /* Remove underline */
+  transition: color .3s; /* Smooth color transition */
 }
 
 .social-icons a:hover {
-    color: #3b82f6;
+  color: #3b82f6; /* Blue hover color */
 }
 
+/* ---------- 13. Scroll to Top Button ---------- */
 #scrollTop {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 100;
-    width: 40px;
-    height: 40px;
-    background: var(--entry);
-    color: var(--primary);
-    border: none;
-    border-radius: 50%;
-    box-shadow: var(--shadow);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.3s ease, color 0.3s ease;
+  position: fixed; /* Fixed position */
+  bottom: 20px; /* Distance from bottom */
+  right: 20px; /* Distance from right */
+  z-index: 100; /* Above other content */
+  width: 40px; /* Button size */
+  height: 40px; /* Button size */
+  background: var(--entry); /* Entry background */
+  color: var(--primary); /* Primary color */
+  border: none; /* No border */
+  border-radius: 50%; /* Circular shape */
+  box-shadow: var(--shadow); /* Theme shadow */
+  cursor: pointer; /* Pointer cursor */
+  display: flex; /* Flex layout */
+  align-items: center; /* Center icon */
+  justify-content: center; /* Center icon */
+  transition: background 0.3s ease, color 0.3s ease; /* Smooth transitions */
 }
 
 #scrollTop:hover {
-    background: var(--secondary);
-    color: var(--theme);
+  background: var(--secondary); /* Secondary background on hover */
+  color: var(--theme); /* Theme color for icon */
 }
 
 #scrollTop i {
-    font-size: 18px;
+  font-size: 18px; /* Icon size */
 }
 
+/* ---------- 14. Loader Styles ---------- */
 .loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    transition: opacity 0.3s ease;
+  position: fixed; /* Fixed position */
+  top: 0; /* Cover full viewport */
+  left: 0; /* Cover full viewport */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background: transparent; /* Transparent background */
+  backdrop-filter: blur(6px); /* Blur effect */
+  -webkit-backdrop-filter: blur(6px); /* Safari support */
+  display: none; /* Hidden by default */
+  justify-content: center; /* Center content */
+  align-items: center; /* Center content */
+  z-index: 1000; /* Above other content */
+  transition: opacity 0.3s ease; /* Smooth opacity transition */
 }
 
 .loader.no-blur {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+  backdrop-filter: none; /* Remove blur effect */
+  -webkit-backdrop-filter: none; /* Remove blur for Safari */
 }
 
 .loader.active {
-    display: flex;
+  display: flex; /* Show when active */
 }
 
 .loader.hidden {
-    opacity: 0;
-    pointer-events: none;
+  opacity: 0; /* Fully transparent */
+  pointer-events: none; /* Disable interactions */
 }
 
 .terry-animation {
-    display: flex;
-    gap: 8px;
-    font-family: 'Courier New', monospace;
-    font-size: 3.5rem;
-    font-weight: bold;
-    color: var(--primary);
-    animation: shrinkLogo 0.3s ease-in-out 0.9s forwards;
+  display: flex; /* Flex layout for letters */
+  gap: 8px; /* Space between letters */
+  font-family: 'Courier New', monospace; /* Monospace font */
+  font-size: 3.5rem; /* Large font */
+  font-weight: bold; /* Bold text */
+  color: var(--primary); /* Primary color */
+  animation: shrinkLogo 0.3s ease-in-out 0.9s forwards; /* Shrink animation */
 }
 
 .letter {
-    display: inline-block;
-    animation: spinLetter 0.5s ease-in-out forwards;
+  display: inline-block; /* Inline-block for animation */
+  animation: spinLetter 0.5s ease-in-out forwards; /* Spin animation */
 }
 
-.letter:nth-child(1) {
-    animation-delay: 0s;
-}
-
-.letter:nth-child(2) {
-    animation-delay: 0.1s;
-}
-
-.letter:nth-child(3) {
-    animation-delay: 0.2s;
-}
-
-.letter:nth-child(4) {
-    animation-delay: 0.3s;
-}
-
-.letter:nth-child(5) {
-    animation-delay: 0.4s;
-}
+.letter:nth-child(1) { animation-delay: 0s; } /* No delay for first letter */
+.letter:nth-child(2) { animation-delay: 0.1s; } /* Slight delay for second */
+.letter:nth-child(3) { animation-delay: 0.2s; } /* Increasing delays */
+.letter:nth-child(4) { animation-delay: 0.3s; }
+.letter:nth-child(5) { animation-delay: 0.4s; }
 
 @keyframes spinLetter {
-    0% {
-        transform: rotate(0deg) scale(1);
-        opacity: 0;
-    }
-
-    50% {
-        transform: rotate(360deg) scale(1.2);
-        opacity: 1;
-    }
-
-    100% {
-        transform: rotate(360deg) scale(0.6);
-        opacity: 1;
-    }
+  0% {
+    transform: rotate(0deg) scale(1); /* Start position */
+    opacity: 0; /* Start invisible */
+  }
+  50% {
+    transform: rotate(360deg) scale(1.2); /* Spin and scale up */
+    opacity: 1; /* Fully visible */
+  }
+  100% {
+    transform: rotate(360deg) scale(0.6); /* End smaller */
+    opacity: 1; /* Fully visible */
+  }
 }
 
 @keyframes shrinkLogo {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-
-    100% {
-        transform: scale(0.1);
-        opacity: 0;
-    }
+  0% {
+    transform: scale(1); /* Full size */
+    opacity: 1; /* Fully visible */
+  }
+  100% {
+    transform: scale(0.1); /* Shrink to small */
+    opacity: 0; /* Fade out */
+  }
 }
 
+/* ---------- 15. Responsive Adjustments ---------- */
 @media (max-width: 768px) {
-    .nav {
-        flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        padding: 10px 12px;
-        gap: 10px;
-    }
+  .nav {
+    flex-wrap: wrap; /* Allow wrapping */
+    flex-direction: row; /* Row layout */
+    justify-content: flex-start; /* Align to start */
+    align-items: center; /* Vertically align */
+    padding: 10px 12px; /* Reduced padding */
+    gap: 10px; /* Space between elements */
+  }
 
-    .nav-left {
-        flex: 1;
-        text-align: left;
-    }
+  .nav-left {
+    flex: 1; /* Take available space */
+    text-align: left; /* Align left */
+  }
 
-    .nav-center {
-        width: 100%;
-        order: 3;
-        overflow-x: auto;
-        padding-bottom: 5px;
-    }
+  .nav-center {
+    width: 100%; /* Full width */
+    order: 3; /* Move to bottom */
+    overflow-x: auto; /* Allow horizontal scroll */
+    padding-bottom: 5px; /* Space for scrollbar */
+  }
 
-    .pill-nav {
-        flex-wrap: nowrap;
-        gap: 12px;
-        padding: 6px 12px;
-        overflow-x: auto;
-        border-radius: 30px;
-        justify-content: flex-start;
-        margin: auto;
-        max-width: 100%;
-    }
+  .pill-nav {
+    flex-wrap: nowrap; /* Prevent wrapping */
+    gap: 12px; /* Reduced gap */
+    padding: 6px 12px; /* Reduced padding */
+    overflow-x: auto; /* Allow scroll */
+    border-radius: 30px; /* Rounded pill */
+    justify-content: flex-start; /* Align to start */
+    margin: auto; /* Center */
+    max-width: 100%; /* Full width */
+  }
 
-    .pill-nav::-webkit-scrollbar {
-        display: none;
-    }
+  .pill-nav::-webkit-scrollbar {
+    display: none; /* Hide scrollbar */
+  }
 
-    .nav-right {
-        order: 2;
-        margin-left: auto;
-    }
+  .nav-right {
+    order: 2; /* Move before nav-center */
+    margin-left: auto; /* Align to right */
+  }
 
-    .container {
-        padding-top: 10px;
-    }
+  .container {
+    padding-top: 10px; /* Reduced top padding */
+  }
 
-    .header-bar {
-        flex-direction: column;
-        gap: 15px;
-        align-items: flex-start;
-    }
+  .header-bar {
+    flex-direction: column; /* Stack vertically */
+    gap: 15px; /* Space between elements */
+    align-items: flex-start; /* Align to start */
+  }
 
-    .terry-animation {
-        font-size: 2.2rem;
-        top: 0;
-        position: relative;
-        text-align: left;
-    }
+  .terry-animation {
+    font-size: 2.2rem; /* Smaller font for mobile */
+    top: 0; /* No offset */
+    position: relative; /* Relative positioning */
+    text-align: left; /* Align left */
+  }
 
-    .header {
-        padding-bottom: 0;
-    }
+  .header {
+    padding-bottom: 0; /* Remove bottom padding */
+  }
 
-    .pill-nav {
-        scroll-snap-type: x mandatory;
-    }
+  .pill-nav {
+    scroll-snap-type: x mandatory; /* Snap scroll */
+  }
 
-    .pill-nav a {
-        scroll-snap-align: start;
-        font-size: 0.85em;
-    }
+  .pill-nav a {
+    scroll-snap-align: start; /* Snap to start of link */
+    font-size: 0.85em; /* Smaller font */
+  }
 
-    .resume-container {
-        padding: 0 10px;
-        width: 100%;
-        box-sizing: border-box;
-        max-width: 100%;
-        overflow-x: hidden;
-    }
+  .resume-container {
+    padding: 0 10px; /* Reduced padding */
+    width: 100%; /* Full width */
+    box-sizing: border-box; /* Include padding in width */
+    max-width: 100%; /* Constrain width */
+    overflow-x: hidden; /* Prevent horizontal overflow */
+  }
 
-    .resume-header {
-        flex-direction: column;
-        gap: 15px;
-        align-items: flex-start;
-    }
+  .resume-header {
+    flex-direction: column; /* Stack vertically */
+    gap: 15px; /* Space between elements */
+    align-items: flex-start; /* Align to start */
+  }
 
-    .resume-title {
-        font-size: 2rem;
-    }
+  .resume-title {
+    font-size: 2rem; /* Smaller title */
+  }
 
-    .resume-download {
-        display: block;
-        width: 80%;
-        margin: 0 auto;
-    }
+  .resume-download {
+    display: block; /* Block display */
+    width: 80%; /* Constrain width */
+    margin: 0 auto; /* Center button */
+  }
 
-    .skills-icon-grid p {
-        font-size: 0.55rem;
-        margin: 0.1rem 0 0;
-        padding: 0 1px;
-    }
+  .skills-icon-grid p {
+    font-size: 0.55rem; /* Smaller font */
+    margin: 0.1rem 0 0; /* Reduced spacing */
+    padding: 0 1px; /* Minimal padding */
+  }
 
-    .skill-box {
-        width: 60px;
-        height: 60px;
-        border-radius: 10px;
-    }
+  .skill-box {
+    width: 60px; /* Smaller width */
+    height: 60px; /* Smaller height */
+    border-radius: 10px; /* Smaller rounded corners */
+  }
 
-    .skill-box img {
-        width: 35px;
-        height: 35px;
-        image-rendering: auto;
-    }
+  .skill-box img {
+    width: 35px; /* Smaller icon */
+    height: 35px; /* Smaller icon */
+    image-rendering: auto; /* Default image rendering */
+  }
 
-    .skills-icon-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-        gap: 10px;
-        justify-items: center;
-    }
+  .skills-icon-grid {
+    display: grid; /* Grid layout */
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); /* Responsive columns */
+    gap: 10px; /* Reduced gap */
+    justify-items: center; /* Center items */
+  }
 
-    .tech-tags {
-        gap: 0.2rem;
-        padding: 0 2px;
-    }
+  .tech-tags {
+    gap: 0.2rem; /* Smaller gap */
+    padding: 0 2px; /* Minimal padding */
+  }
 
-    .tech-tags span {
-        padding: 0.2rem 0.4rem;
-        font-size: 0.7rem;
-    }
+  .tech-tags span {
+    padding: 0.2rem 0.4rem; /* Smaller padding */
+    font-size: 0.7rem; /* Smaller font */
+  }
 
-    .timeline {
-        position: relative;
-        padding-left: 30px;
-        max-width: 100%;
-        overflow-x: hidden;
-    }
+  .timeline {
+    position: relative; /* Relative positioning */
+    padding-left: 30px; /* Space for timeline line */
+    max-width: 100%; /* Full width */
+    overflow-x: hidden; /* Prevent overflow */
+  }
 
-    .timeline::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 14px;
-        width: 2px;
-        height: 100%;
-        background: var(--highlight);
-    }
+  .timeline::before {
+    content: ''; /* Empty content for line */
+    position: absolute; /* Absolute positioning */
+    top: 0; /* Start at top */
+    left: 14px; /* Align line */
+    width: 2px; /* Line width */
+    height: 100%; /* Full height */
+    background: var(--highlight); /* Highlight color for line */
+  }
 
-    /* Make all cards identical */
-    .timeline-card,
-    .timeline-card.left,
-    .timeline-card.right {
-        width: 100%;
-        max-width: 100%;
-        margin: 24px 0;
-        padding: 12px 16px 12px 28px;
-        /* enough left padding for dot */
-        background: var(--card-bg);
-        border-radius: 8px;
-        box-shadow: var(--shadow);
-        position: relative;
-        text-align: left;
-        box-sizing: border-box;
-        overflow-wrap: break-word;
-    }
+  .timeline-card,
+  .timeline-card.left,
+  .timeline-card.right {
+    width: 100%; /* Full width */
+    max-width: 100%; /* Constrain width */
+    margin: 24px 0; /* Vertical spacing */
+    padding: 12px 16px 12px 28px; /* Adjusted padding */
+    background: var(--card-bg); /* Card background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: var(--shadow); /* Theme shadow */
+    position: relative; /* Relative positioning */
+    text-align: left; /* Left-align text */
+    box-sizing: border-box; /* Include padding in width */
+    overflow-wrap: break-word; /* Break long words */
+  }
 
-    .timeline-card {
-        position: relative;
-        margin: 20px 0;
-        padding: 12px 16px 12px 32px;
-        /* More left-padding for space */
-        background: var(--card-bg);
-        border-radius: 8px;
-        box-shadow: var(--shadow);
-        text-align: left;
-    }
+  .timeline-card {
+    position: relative; /* Relative positioning */
+    margin: 20px 0; /* Vertical spacing */
+    padding: 12px 16px 12px 32px; /* Adjusted padding */
+    background: var(--card-bg); /* Card background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: var(--shadow); /* Theme shadow */
+    text-align: left; /* Left-align text */
+  }
 
-    .timeline-card .milestone {
-        position: absolute;
-        top: 16px;
-        left: -16px;
-        /* This pushes it outside the card */
-        width: 12px;
-        height: 12px;
-        background: var(--highlight);
-        border: 2px solid var(--theme);
-        border-radius: 50%;
-        z-index: 1;
-    }
+  .timeline-card .milestone {
+    position: absolute; /* Absolute positioning */
+    top: 16px; /* Align with content */
+    left: -16px; /* Position marker */
+    width: 12px; /* Marker size */
+    height: 12px; /* Marker size */
+    background: var(--highlight); /* Highlight color */
+    border: 2px solid var(--theme); /* Theme-colored border */
+    border-radius: 50%; /* Circular shape */
+    z-index: 1; /* Above timeline line */
+  }
 
-    /* Make sure text aligns with the left of the card */
-    .timeline-card .year {
-        display: block;
-        font-size: 0.7rem;
-        color: var(--secondary);
-        margin-bottom: 6px;
-    }
+  .timeline-card .year {
+    display: block; /* Block display */
+    font-size: 0.7rem; /* Smaller font */
+    color: var(--secondary); /* Secondary color */
+    margin-bottom: 6px; /* Space below */
+  }
 
-    /* Text and tags inside card */
-    .timeline-card h3 {
-        font-size: 1rem;
-        font-weight: 600;
-        margin: 5px 0;
-    }
+  .timeline-card h3 {
+    font-size: 1rem; /* Smaller title */
+    font-weight: 600; /* Bold title */
+    margin: 5px 0; /* Reduced spacing */
+  }
 
-    .timeline-card p {
-        font-size: 0.85rem;
-        color: var(--secondary);
-    }
+  .timeline-card p {
+    font-size: 0.85rem; /* Smaller description */
+    color: var(--secondary); /* Secondary color */
+  }
 
-    .timeline-card .tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.3rem;
-        margin-top: 6px;
-    }
+  .timeline-card .tags {
+    display: flex; /* Flex layout */
+    flex-wrap: wrap; /* Allow wrapping */
+    gap: 0.3rem; /* Smaller gap */
+    margin-top: 6px; /* Reduced spacing */
+  }
 
-    .timeline-card .tags span {
-        font-size: 0.7rem;
-        padding: 0.2rem 0.4rem;
-        background: var(--tertiary);
-        color: var(--primary);
-        border-radius: 4px;
-    }
+  .timeline-card .tags span {
+    font-size: 0.7rem; /* Smaller font */
+    padding: 0.2rem 0.4rem; /* Smaller padding */
+    background: var(--tertiary); /* Tertiary background */
+    color: var(--primary); /* Primary color */
+    border-radius: 4px; /* Rounded corners */
+  }
 
-
-    .project-box {
-        padding: 12px;
-        font-size: 0.85em;
-        width: 100%;
-        box-sizing: border-box;
-    }
+  .project-box {
+    padding: 12px; /* Reduced padding */
+    font-size: 0.85em; /* Smaller font */
+    width: 100%; /* Full width */
+    box-sizing: border-box; /* Include padding in width */
+  }
 }

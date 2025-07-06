@@ -1,30 +1,27 @@
-/* ---------- 1. Section navigation ---------- */
+// ---------- 1. Section Navigation ----------
 let allPosts = [];
 let currentStartIndex = 0;
 const postsPerPage = 4;
 const loader = document.getElementById('loader');
-let activeTimeout = null; // Track active timeout to cancel previous loads
+let activeTimeout = null;
 
+// Updates the visible posts in the posts container
 function updateVisiblePosts(posts, startIndex) {
   const postsContainer = document.querySelector('.ask-bar .posts-container');
   if (!postsContainer) return;
-  postsContainer.innerHTML = ''; // Clear current posts
+  postsContainer.innerHTML = '';
   const visiblePosts = posts.slice(startIndex, startIndex + postsPerPage);
 
   visiblePosts.forEach(post => {
     const thumbnailPath = post.thumbnail || null;
-    const postTitle = post.title || 'Untitled Post'; // Fallback if no title
+    const postTitle = post.title || 'Untitled Post';
     if (!post.thumbnail) {
       console.warn(`Thumbnail missing for post: ${postTitle}, image section hidden`);
     }
-    // Format date to "Day Month Year" (e.g., "1 July 2025")
     const date = new Date(post.date);
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const formattedDate = `${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
-    // Use time from posts.json without emoji
     const readTime = post.time || '1 min';
-
-    // Short description (first sentence of summary)
     const shortDescription = post.summary ? post.summary.split('. ')[0] + '.' : 'No description available.';
 
     const postCard = document.createElement('div');
@@ -35,7 +32,7 @@ function updateVisiblePosts(posts, startIndex) {
       <div class="post-meta">${formattedDate} · ${readTime}</div>
     `;
     if (!thumbnailPath) {
-      cardContent += `<p class="post-summary">${shortDescription}</p>`; // Show summary only for non-image posts
+      cardContent += `<p class="post-summary">${shortDescription}</p>`;
     }
     cardContent += `
       <a class="read-more" href="${post.url}" target="_blank">Read More</a>
@@ -44,7 +41,6 @@ function updateVisiblePosts(posts, startIndex) {
     postsContainer.appendChild(postCard);
   });
 
-  // Add View More link inside posts-container, below post cards
   const viewMore = document.createElement('a');
   viewMore.className = 'view-more';
   viewMore.href = 'posts.html';
@@ -52,8 +48,8 @@ function updateVisiblePosts(posts, startIndex) {
   postsContainer.appendChild(viewMore);
 }
 
+// Handles section changes and UI updates
 function showSection(section) {
-  // Clear any existing timeout to cancel previous loading
   if (activeTimeout) {
     clearTimeout(activeTimeout);
     activeTimeout = null;
@@ -75,28 +71,14 @@ function showSection(section) {
     return;
   }
 
-  const searchInput = askBar.querySelector('input');
-  const searchButton = askBar.querySelector('button');
-  if (!searchInput || !searchButton) {
-    console.error('Search input or button not found in ask-bar');
-    return;
-  }
-
-  // Remove any existing dynamically added headings or containers
+  askBar.style.display = 'flex';
   const existingAboutHeading = document.querySelector('h2');
-  if (existingAboutHeading) {
-    existingAboutHeading.remove();
-  }
+  if (existingAboutHeading) existingAboutHeading.remove();
   const existingSkillsContainer = document.querySelector('.skills-container');
-  if (existingSkillsContainer) {
-    existingSkillsContainer.remove();
-  }
+  if (existingSkillsContainer) existingSkillsContainer.remove();
   const existingViewMore = document.querySelector('.view-more');
-  if (existingViewMore) {
-    existingViewMore.remove();
-  }
+  if (existingViewMore) existingViewMore.remove();
 
-  // Reset all sections and remove dynamic elements immediately
   content.style.display = 'none';
   projects.style.display = 'none';
   tags.style.display = 'none';
@@ -105,9 +87,8 @@ function showSection(section) {
   title.style.display = 'none';
   subtitle.style.display = 'none';
   skillsIntro.style.display = 'none';
-  askBar.classList.remove('posts'); // Remove posts class on section switch
+  askBar.classList.remove('posts');
 
-  // Set placeholder based on section
   let placeholderText = 'Look for resources/posts…';
   if (section === 'tags') {
     placeholderText = 'Search for tags…';
@@ -117,18 +98,15 @@ function showSection(section) {
     placeholderText = 'Search for posts…';
   }
 
-  // Use consistent initial ask bar design for all sections
   askBar.innerHTML = `
     <input type="text" placeholder="${placeholderText}" autocomplete="off">
     <button aria-label="Send"><i class="fas fa-chevron-right"></i></button>
     <div class="posts-container"></div>
   `;
 
-  // Re-query input and button after resetting askBar
   const newSearchInput = askBar.querySelector('input');
   const newSearchButton = askBar.querySelector('button');
 
-  // Handle search redirection based on section
   function handleSearch() {
     const query = newSearchInput.value.trim();
     if (!query) return;
@@ -139,15 +117,12 @@ function showSection(section) {
     }
   }
 
-  // Enter key
   newSearchInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') handleSearch();
   });
 
-  // Button click
   newSearchButton.addEventListener('click', handleSearch);
 
-  // Customize for posts section
   if (section === 'posts') {
     newSearchInput.placeholder = 'Search for posts…';
     newSearchInput.addEventListener('keypress', (e) => {
@@ -172,7 +147,6 @@ function showSection(section) {
     img.style.transform = 'translateY(-50px)';
   }
 
-  // Show prompt with animation
   let promptText = '';
   switch (section) {
     case 'about':
@@ -243,12 +217,23 @@ function showSection(section) {
             break;
 
           case 'projects':
+            loader.classList.add('active');
             title.style.display = 'block';
             title.style.fontWeight = 'bold';
             title.style.fontSize = '1.5em';
             title.textContent = 'My Projects';
-            projects.style.display = 'flex';
+            projects.style.display = 'block';
+            projects.style.margin = '20px auto';
+            projects.style.maxWidth = '500px';
+            projects.style.textAlign = 'center';
             generateProjects();
+            setTimeout(() => {
+              loader.classList.add('no-blur');
+            }, 900);
+            setTimeout(() => {
+              loader.classList.add('hidden');
+              loader.classList.remove('active');
+            }, 1200);
             break;
 
           case 'posts':
@@ -370,12 +355,20 @@ function showSection(section) {
   }, 2000);
 }
 
-/* ---------- 2. Generate projects ---------- */
+// Hides typing text when switching sections
+function changeSection(section) {
+  const typingText = document.querySelector('.typing-text');
+  if (typingText) typingText.style.display = 'none';
+  showSection(section);
+}
+
+// ---------- 2. Generate Projects ----------
 function generateProjects() {
   const projectsContainer = document.getElementById('projects-container');
-  projectsContainer.innerHTML = ''; // Clear existing content
+  projectsContainer.innerHTML = '';
 
   const messageContainer = document.createElement('div');
+  messageContainer.className = 'skills-container';
   messageContainer.style.maxHeight = '300px';
   messageContainer.style.overflowY = 'auto';
   messageContainer.style.margin = '20px auto';
@@ -385,7 +378,7 @@ function generateProjects() {
 
   const message = document.createElement('h3');
   message.textContent = "Wait! I'll be posting my projects soon here, stay tuned!";
-  message.style.fontSize = '1rem';
+  message.style.fontSize = '1.2em';
   message.style.color = 'var(--primary)';
   message.style.margin = '0 0 20px 0';
 
@@ -393,7 +386,7 @@ function generateProjects() {
   projectsContainer.appendChild(messageContainer);
 }
 
-/* ---------- 3. Generate tags ---------- */
+// ---------- 3. Generate Tags ----------
 function generateTags() {
   const tagsContainer = document.getElementById('tags-container');
 
@@ -441,22 +434,12 @@ function generateTags() {
     });
 }
 
-/* ---------- 4. Dropdown menu ---------- */
-function toggleDropdown() {
-  const dropdown = document.getElementById('dropdown');
-  dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-}
-
-/* ---------- 5. Theme toggle (persisted) ---------- */
+// ---------- 4. Theme Toggle ----------
 const toggleBtn = document.getElementById('theme-toggle');
-let isToggling = false; // Debounce flag
+let isToggling = false;
 if (toggleBtn) {
-  console.log('Theme toggle button found, attaching event listener');
   toggleBtn.addEventListener('click', () => {
-    if (isToggling || loader.classList.contains('active')) {
-      console.warn('Theme toggle clicked during loader or debounce, action ignored');
-      return;
-    }
+    if (isToggling || loader.classList.contains('active')) return;
     isToggling = true;
     const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -466,8 +449,6 @@ if (toggleBtn) {
     } catch (e) {
       console.error('Failed to save theme to localStorage:', e);
     }
-    console.log(`Theme switched to: ${newTheme}`);
-    // Ensure all elements update their styles
     document.querySelectorAll('[style*="color: var(--primary)"]').forEach(el => {
       el.style.color = getComputedStyle(document.documentElement).getPropertyValue('--primary');
     });
@@ -477,13 +458,11 @@ if (toggleBtn) {
     document.querySelectorAll('[style*="background: var(--tertiary)"]').forEach(el => {
       el.style.background = getComputedStyle(document.documentElement).getPropertyValue('--tertiary');
     });
-    setTimeout(() => { isToggling = false; }, 300); // Match CSS transition duration
+    setTimeout(() => { isToggling = false; }, 300);
   });
-} else {
-  console.error('Theme toggle button not found');
 }
 
-/* ---------- 6. Auto-load saved theme ---------- */
+// ---------- 5. Auto-Load Theme and Event Listeners ----------
 window.addEventListener('DOMContentLoaded', () => {
   try {
     let savedTheme = localStorage.getItem('pref-theme');
@@ -491,7 +470,6 @@ window.addEventListener('DOMContentLoaded', () => {
       savedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
     document.documentElement.setAttribute('data-theme', savedTheme || 'light');
-    // Ensure initial theme styles are applied correctly
     document.querySelectorAll('[style*="color: var(--primary)"]').forEach(el => {
       el.style.color = getComputedStyle(document.documentElement).getPropertyValue('--primary');
     });
@@ -503,31 +481,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   } catch (e) {
     console.error('Failed to load theme from localStorage:', e);
-    document.documentElement.setAttribute('data-theme', 'light'); // Fallback to light theme
-  }
-
-  // Initialize search bar for initial state
-  const askBar = document.getElementById('ask-bar');
-  if (askBar) {
-    const searchInput = askBar.querySelector('input');
-    const searchButton = askBar.querySelector('button');
-    if (searchInput && searchButton) {
-      searchInput.placeholder = 'Look for resources/posts…'; // Set initial placeholder
-      function handleInitialSearch() {
-        const query = searchInput.value.trim();
-        if (query) {
-          window.location.href = `search.html?search=${encodeURIComponent(query)}`;
-        }
-      }
-      searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') handleInitialSearch();
-      });
-      searchButton.addEventListener('click', handleInitialSearch);
-    } else {
-      console.error('Search input or button not found in ask-bar');
-    }
-  } else {
-    console.error('Ask-bar element not found');
+    document.documentElement.setAttribute('data-theme', 'light');
   }
 
   loader.classList.add('active');
@@ -540,48 +494,23 @@ window.addEventListener('DOMContentLoaded', () => {
   }, 1200);
 });
 
-// Handle browser back/forward navigation
+// Handles browser back/forward navigation
 window.addEventListener('popstate', () => {
-  console.log('popstate event triggered');
   const askBar = document.getElementById('ask-bar');
   if (askBar && window.location.pathname.includes('index.html')) {
-    const searchInput = askBar.querySelector('input');
-    const searchButton = askBar.querySelector('button');
-    if (searchInput && searchButton) {
-      searchInput.value = ''; // Force clear input
-      askBar.innerHTML = `
-        <input type="text" placeholder="Look for resources/posts…" autocomplete="off">
-        <button aria-label="Send"><i class="fas fa-chevron-right"></i></button>
-        <div class="posts-container"></div>
-      `;
-      const newSearchInput = askBar.querySelector('input');
-      const newSearchButton = askBar.querySelector('button');
-      if (newSearchInput && newSearchButton) {
-        function handleInitialSearch() {
-          const query = newSearchInput.value.trim();
-          if (query) {
-            window.location.href = `search.html?search=${encodeURIComponent(query)}`;
-          }
-        }
-        newSearchInput.addEventListener('keypress', (e) => {
-          if (e.key === 'Enter') handleInitialSearch();
-        });
-        newSearchButton.addEventListener('click', handleInitialSearch);
-      } else {
-        console.error('Search input or button not found in ask-bar during popstate');
-      }
-    } else {
-      console.error('Search input or button not found in ask-bar during popstate');
-    }
-  } else {
-    console.error('Ask-bar element not found or not on index.html during popstate');
+    askBar.style.display = 'none';
+    askBar.innerHTML = `
+      <input type="text" placeholder="Look for resources/posts…" autocomplete="off">
+      <button aria-label="Send"><i class="fas fa-chevron-right"></i></button>
+      <div class="posts-container"></div>
+    `;
   }
 });
 
-// Event listeners for navigation
-document.querySelectorAll('.nav-item').forEach(item => {
-  item.addEventListener('click', () => {
-    const section = item.getAttribute('data-section');
+// Attaches event listeners to action buttons
+document.querySelectorAll('.action-buttons .button').forEach(button => {
+  button.addEventListener('click', () => {
+    const section = button.getAttribute('onclick').match(/'([^']+)'/)[1];
     showSection(section);
   });
 });

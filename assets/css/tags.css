@@ -1,3 +1,4 @@
+/* ---------- 1. Colour tokens & theme switch ---------- */
 :root {
     --theme: #f9fafc;
     --entry: #fff;
@@ -5,32 +6,43 @@
     --secondary: #555;
     --tertiary: #f3f4f6;
     --content: #333;
+    --code-block-bg: #f3f4f6;
+    --code-bg: #e5e7eb;
     --border: #d1d5db;
-    --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
-body.dark {
+html.dark {
     --theme: #1a1a1a;
     --entry: #2e2e33;
     --primary: #d1d5db;
     --secondary: #9ca3af;
     --tertiary: #4b5563;
     --content: #f9fafb;
+    --code-block-bg: #2e2e33;
+    --code-bg: #37404e;
     --border: #333;
-    --shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
+/* ---------- 2. Global layout ---------- */
 body {
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Roboto', Arial, sans-serif;
+    text-align: center;
     background: var(--theme);
     color: var(--primary);
     transition: background 0.3s ease, color 0.3s ease;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    min-height: 80vh;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ---------- 3. Header and Navigation bar ---------- */
 .header {
     background: var(--theme);
     transition: background 0.3s ease;
@@ -57,7 +69,6 @@ body {
     flex-grow: 1;
     display: flex;
     justify-content: center;
-    /* Centered navigation pills as requested */
 }
 
 .pill-nav {
@@ -69,7 +80,7 @@ body {
     align-items: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     justify-content: center;
-    /* Center the pills */
+    margin-left: 30px;
 }
 
 .pill-nav a {
@@ -87,6 +98,7 @@ body {
 .nav-right {
     display: flex;
     align-items: center;
+    gap: 10px;
 }
 
 #theme-toggle {
@@ -107,221 +119,368 @@ body {
     display: none;
 }
 
-[data-theme="dark"] #sun {
+html.dark #sun {
     display: none;
 }
 
-[data-theme="dark"] #moon {
+html.dark #moon {
     display: block;
 }
 
+/* ---------- 4. Main Content Container ---------- */
 .container {
     max-width: 800px;
+    /* Constrain content width */
     margin: 20px auto;
+    /* Center with vertical spacing */
     padding: 0 20px;
+    /* Horizontal padding */
     flex: 1 0 auto;
+    /* Grow to fill space for sticky footer */
 }
 
 h1 {
     text-align: left;
+    /* Align title to left */
     font-size: 2em;
+    /* Large heading size */
     margin: 20px 0;
+    /* Vertical spacing */
 }
 
+/* ---------- 5. Tags Section ---------- */
 .tags-grid {
     display: flex;
+    /* Flexbox for tag layout */
     flex-wrap: wrap;
+    /* Allow wrapping */
     gap: 10px;
+    /* Space between tags */
     justify-content: flex-start;
-    /* Align tags to the left with search box */
+    /* Align tags to start */
     padding: 0 10px;
-    /* Match search-box padding-left */
+    /* Horizontal padding */
     margin-left: 10px;
-    /* Offset to align with search-box start */
+    /* Slight offset */
 }
 
 .tag {
     background: var(--tertiary);
+    /* Dynamic tag background */
     color: var(--primary);
+    /* Dynamic tag text color */
     padding: 6px 14px;
+    /* Comfortable padding */
     font-size: 0.9em;
+    /* Slightly smaller text */
     border-radius: 6px;
+    /* Rounded corners */
     cursor: pointer;
+    /* Indicate interactivity */
     transition: background 0.2s ease;
+    /* Smooth background change */
     text-decoration: none;
+    /* No underline */
     display: inline-flex;
+    /* Flex for tag content */
     align-items: center;
+    /* Center content vertically */
 }
 
 .tag:hover {
     background: rgba(0, 0, 0, 0.1);
+    /* Subtle hover effect */
 }
 
 .tag-count {
     font-size: 0.8em;
+    /* Smaller count text */
     margin-left: 6px;
+    /* Space from tag text */
     background: var(--entry);
+    /* Dynamic count background */
     padding: 2px 6px;
+    /* Compact padding */
     border-radius: 999px;
+    /* Fully rounded */
     opacity: 0.8;
+    /* Slightly transparent */
 }
 
-
+/* ---------- 6. Search Section ---------- */
 .search-box {
     text-align: left;
-    /* Align left to match tags */
+    /* Align to left */
     margin-bottom: 20px;
+    /* Space below */
     display: flex;
+    /* Flexbox for layout */
     justify-content: flex-start;
-    /* Align items to the start */
+    /* Align to start */
     gap: 10px;
+    /* Space between elements */
     padding-left: 10px;
-    /* Match the tags-grid padding */
+    /* Slight offset */
     align-items: center;
-    /* Vertically align input and button */
+    /* Vertical alignment */
 }
 
 .search-box input {
     padding: 8px 14px;
+    /* Comfortable padding */
     border-radius: 6px;
+    /* Rounded corners */
     border: 1px solid var(--border);
+    /* Dynamic border */
     width: 100%;
-    /* Full available width */
+    /* Full width */
     max-width: 600px;
-    /* Extend toward the tags limit */
+    /* Constrain width */
     background: var(--entry);
+    /* Dynamic background */
     color: var(--primary);
+    /* Dynamic text color */
     font-size: 1em;
+    /* Standard text size */
     box-sizing: border-box;
     /* Include padding in width */
 }
 
 .all-posts-btn {
     padding: 8px 14px;
+    /* Comfortable padding */
     border-radius: 6px;
+    /* Rounded corners */
     border: 1px solid var(--border);
+    /* Dynamic border */
     background: var(--tertiary);
+    /* Dynamic background */
     color: var(--primary);
+    /* Dynamic text color */
     font-size: 1em;
+    /* Standard text size */
     text-decoration: none;
+    /* No underline */
     transition: background 0.2s ease;
+    /* Smooth background change */
     cursor: pointer;
+    /* Indicate interactivity */
     display: inline-flex;
+    /* Flex for content */
     align-items: center;
+    /* Center content vertically */
 }
 
 .all-posts-btn:hover {
     background: rgba(0, 0, 0, 0.1);
+    /* Subtle hover effect */
 }
 
+/* ---------- 7. No Results Message ---------- */
 .no-results {
     text-align: center;
+    /* Center message */
     font-size: 18px;
+    /* Readable size */
     margin-top: 50px;
+    /* Space above */
     color: var(--secondary);
+    /* Less prominent color */
 }
 
+/* ---------- 8. Footer ---------- */
 .footer {
     font-size: 0.9em;
+    /* Smaller text */
     color: var(--secondary);
+    /* Less prominent color */
     margin-top: 40px;
+    /* Space above */
     text-align: center;
+    /* Center text */
     flex-shrink: 0;
+    /* Prevent footer from shrinking */
 }
 
+/* ---------- 9. Social Icons ---------- */
 .social-icons {
     display: flex;
+    /* Flexbox for icons */
     justify-content: center;
+    /* Center icons */
     gap: 15px;
+    /* Space between icons */
     margin: 32px auto 0;
+    /* Space above, center */
     max-width: 500px;
+    /* Constrain width */
 }
 
 .social-icons a {
     font-size: 24px;
+    /* Large icon size */
     color: var(--primary);
+    /* Dynamic icon color */
     text-decoration: none;
-    transition: color .3s;
+    /* No underline */
+    transition: color 0.3s;
+    /* Smooth color change */
 }
 
 .social-icons a:hover {
     color: #3b82f6;
+    /* Blue hover effect */
 }
 
+/* ---------- 10. Scroll to Top Button ---------- */
 #scrollTop {
     position: fixed;
+    /* Fixed position */
     bottom: 20px;
+    /* Distance from bottom */
     right: 20px;
+    /* Distance from right */
     z-index: 100;
+    /* Above other content */
     width: 40px;
+    /* Button size */
     height: 40px;
     background: var(--entry);
+    /* Dynamic background */
     color: var(--primary);
+    /* Dynamic icon color */
     border: none;
+    /* No border */
     border-radius: 50%;
+    /* Circular button */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
     cursor: pointer;
+    /* Indicate interactivity */
     display: none;
+    /* Hidden by default */
     align-items: center;
+    /* Center icon */
     justify-content: center;
     transition: background 0.3s ease, color 0.3s ease;
+    /* Smooth transitions */
 }
 
 #scrollTop:hover {
     background: var(--secondary);
+    /* Hover background */
     color: var(--theme);
+    /* Contrast text color */
 }
 
-/* Loader Styles */
+/* ---------- 11. Skeleton UI for Loading ---------- */
+.skeleton-tag {
+    background: var(--tertiary);
+    /* Dynamic placeholder background */
+    padding: 6px 14px;
+    /* Match tag padding */
+    font-size: 0.9em;
+    /* Match tag size */
+    border-radius: 6px;
+    /* Match tag shape */
+    width: 100px;
+    /* Fixed width for placeholder */
+    height: 24px;
+    /* Fixed height */
+    animation: pulse 1.5s infinite ease-in-out;
+    /* Pulsing animation */
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.7;
+    }
+
+    /* Start opacity */
+    50% {
+        opacity: 0.4;
+    }
+
+    /* Midpoint opacity */
+    100% {
+        opacity: 0.7;
+    }
+
+    /* End opacity */
+}
+
+/* ---------- 12. Loader Styles ---------- */
 .loader {
     position: fixed;
+    /* Cover entire viewport */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: transparent;
+    /* Transparent background */
     backdrop-filter: blur(6px);
+    /* Blur effect */
     -webkit-backdrop-filter: blur(6px);
+    /* Safari support */
     display: none;
+    /* Hidden by default */
     justify-content: center;
+    /* Center content */
     align-items: center;
     z-index: 1000;
+    /* Above all content */
     transition: opacity 0.3s ease;
+    /* Smooth fade */
 }
 
 .loader.no-blur {
     backdrop-filter: none;
+    /* Disable blur if needed */
     -webkit-backdrop-filter: none;
 }
 
 .loader.active {
     display: flex;
+    /* Show when active */
 }
 
 .loader.hidden {
     opacity: 0;
+    /* Fade out */
     pointer-events: none;
+    /* Disable interaction */
 }
 
 .terry-animation {
     display: flex;
+    /* Flexbox for letters */
     gap: 8px;
+    /* Space between letters */
     font-family: 'Courier New', monospace;
+    /* Distinctive font */
     font-size: 3.5rem;
+    /* Large size for impact */
     font-weight: bold;
+    /* Strong emphasis */
     color: var(--primary);
-    animation: shrinkLogo 0.3s ease-in-out 0.9s forwards;
+    /* Dynamic color */
+    animation: shrinkLogo 0.3s ease-in-out 0.6s forwards;
+    /* Shrink animation */
 }
 
 .letter {
     display: inline-block;
+    /* Inline for animation */
     animation: spinLetter 0.5s ease-in-out forwards;
+    /* Spin each letter */
 }
 
 .letter:nth-child(1) {
     animation-delay: 0s;
 }
 
+/* Staggered delays */
 .letter:nth-child(2) {
     animation-delay: 0.1s;
 }
@@ -341,16 +500,21 @@ h1 {
 @keyframes spinLetter {
     0% {
         transform: rotate(0deg) scale(1);
+        /* Start position */
         opacity: 0;
+        /* Invisible */
     }
 
     50% {
         transform: rotate(360deg) scale(1.2);
+        /* Rotate and scale up */
         opacity: 1;
+        /* Fully visible */
     }
 
     100% {
         transform: rotate(360deg) scale(0.6);
+        /* End smaller */
         opacity: 1;
     }
 }
@@ -358,157 +522,204 @@ h1 {
 @keyframes shrinkLogo {
     0% {
         transform: scale(1);
+        /* Full size */
         opacity: 1;
+        /* Visible */
     }
 
     100% {
         transform: scale(0.1);
+        /* Shrink */
         opacity: 0;
+        /* Fade out */
     }
 }
 
-/* Mobile Responsiveness */
-/* Add this outside the media query for global styling */
-
-
-/* Update the media query for mobile adjustments */
+/* ---------- 13. Mobile Responsiveness ---------- */
 @media (max-width: 768px) {
     body {
         overflow-x: hidden;
-        /* Prevent horizontal scrolling */
+        /* Prevent horizontal scroll */
     }
 
     .container {
         max-width: 100%;
+        /* Full width */
         padding: 0 10px;
+        /* Tighter padding */
         margin: 10px auto;
+        /* Reduced margin */
     }
 
     h1 {
         text-align: center;
+        /* Center heading */
         font-size: 1.5em;
+        /* Smaller heading */
         margin: 15px 0;
+        /* Reduced spacing */
     }
 
     .tags-grid {
         justify-content: flex-start;
-        /* Ensure left alignment on mobile */
+        /* Align tags to start */
         padding: 0 5px;
+        /* Tighter padding */
         overflow-x: hidden;
-        /* Prevent horizontal scroll for tags */
+        /* Prevent overflow */
     }
 
     .tag {
         font-size: 0.85em;
+        /* Smaller tags */
         padding: 5px 12px;
+        /* Tighter padding */
+    }
+
+    .skeleton-tag {
+        width: 80px;
+        /* Smaller placeholder */
+        height: 20px;
     }
 
     .search-box {
         flex-direction: column;
+        /* Stack vertically */
         gap: 10px;
+        /* Space between elements */
         max-width: 100%;
+        /* Full width */
         padding-left: 5px;
-        /* Match mobile tags-grid padding */
+        /* Slight offset */
         text-align: left;
+        /* Align left */
         justify-content: flex-start;
+        /* Align to start */
     }
 
     .search-box input {
         max-width: 100%;
+        /* Full width */
         width: 100%;
         box-sizing: border-box;
+        /* Include padding */
     }
 
     .all-posts-btn {
         width: 100%;
+        /* Full width */
         box-sizing: border-box;
         margin: 0 auto;
+        /* Center */
         display: block;
+        /* Full-width block */
     }
 
     .nav {
         flex-wrap: wrap;
+        /* Allow wrapping */
         flex-direction: row;
+        /* Row layout */
         justify-content: flex-start;
-        /* Changed from space-between to flex-start */
+        /* Align to start */
         align-items: center;
+        /* Vertical alignment */
         padding: 10px 12px;
+        /* Tighter padding */
         gap: 10px;
+        /* Space between items */
     }
 
     .nav-left {
         flex: 1;
+        /* Take available space */
         text-align: left;
-        /* Align logo to the left */
+        /* Align left */
     }
 
     .nav-center {
         width: 100%;
+        /* Full width */
         order: 3;
+        /* Move to bottom */
         overflow-x: hidden;
-        /* Prevent horizontal scroll for nav pills */
+        /* Prevent overflow */
         padding-bottom: 5px;
+        /* Space below */
     }
 
     .pill-nav {
         flex-wrap: nowrap;
+        /* Prevent wrapping */
         gap: 10px;
-        /* Reduced gap for better fit */
+        /* Tighter spacing */
         padding: 6px 10px;
-        /* Reduced padding for better fit */
+        /* Tighter padding */
         overflow-x: hidden;
-        /* Prevent horizontal scroll */
+        /* Hide overflow */
         border-radius: 30px;
+        /* Rounded */
         justify-content: flex-start;
+        /* Align to start */
         margin: 0 auto;
+        /* Center */
         max-width: 100%;
+        /* Full width */
         flex-shrink: 0;
         /* Prevent shrinking */
     }
 
     .pill-nav::-webkit-scrollbar {
         display: none;
+        /* Hide scrollbar */
     }
 
     .nav-right {
         order: 2;
+        /* Move before nav-center */
         margin-left: auto;
+        /* Push to right */
     }
 
     .terry-animation {
         font-size: 2.2rem;
+        /* Smaller animation text */
         top: 0;
+        /* No offset */
         position: relative;
+        /* Relative positioning */
         text-align: left;
-        /* Align the animation text to the left */
+        /* Align left */
     }
 
     .header {
         padding-bottom: 0;
+        /* Remove bottom padding */
     }
 
     .pill-nav {
         scroll-snap-type: x mandatory;
+        /* Enable snap scrolling */
     }
 
     .pill-nav a {
         scroll-snap-align: start;
+        /* Snap to start of link */
         white-space: nowrap;
         /* Prevent text wrapping */
         font-size: 0.9em;
-        /* Adjust font size for mobile */
+        /* Smaller text */
     }
 
     #scrollTop {
         bottom: 15px;
-        /* Adjusted for mobile */
+        /* Closer to bottom */
         right: 15px;
-        /* Adjusted for mobile */
+        /* Closer to right */
         width: 45px;
-        /* Slightly larger for touch */
+        /* Slightly larger */
         height: 45px;
-        /* Slightly larger for touch */
         z-index: 1000;
-        /* Ensure it stays above content */
+        /* Ensure visibility */
     }
 }

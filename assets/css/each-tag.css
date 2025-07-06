@@ -1,125 +1,197 @@
+/* ---------- 1. Colour Tokens & Theme Switch ---------- */
 :root {
     --theme: #f9fafc;
+    /* Light theme background */
     --entry: #fff;
+    /* Background for interactive elements */
     --primary: #333;
+    /* Primary text/icon color */
     --secondary: #555;
+    /* Secondary text for less emphasis */
     --tertiary: #f3f4f6;
+    /* Background for tags and buttons */
     --content: #333;
+    /* Content text color */
     --code-block-bg: #f3f4f6;
+    /* Code block background */
     --code-bg: #e5e7eb;
+    /* Inline code background */
     --border: #d1d5db;
+    /* Border color */
     --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
 }
 
-body.dark {
+html.dark {
     --theme: #1a1a1a;
+    /* Dark theme background */
     --entry: #2e2e33;
+    /* Dark background for interactive elements */
     --primary: #d1d5db;
+    /* Light text/icon for dark theme */
     --secondary: #9ca3af;
+    /* Lighter secondary text */
     --tertiary: #4b5563;
+    /* Darker tag/button background */
     --content: #f9fafb;
+    /* Light content text */
     --code-block-bg: #2e2e33;
+    /* Dark code block background */
     --code-bg: #37404e;
+    /* Dark inline code background */
     --border: #333;
+    /* Dark border */
     --shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    /* Stronger shadow for dark theme */
 }
 
+/* ---------- 2. Global Layout ---------- */
 body {
     margin: 0;
+    /* Remove default margins */
     font-family: 'Segoe UI', sans-serif;
+    /* Modern font */
     background: var(--theme);
+    /* Theme-based background */
     color: var(--primary);
+    /* Theme-based text color */
     transition: background 0.3s ease, color 0.3s ease;
+    /* Smooth transitions */
 }
 
+/* ---------- 3. Header and Navigation ---------- */
 .header {
     background: var(--theme);
+    /* Match header to theme */
     transition: background 0.3s ease;
+    /* Smooth background change */
 }
 
 .nav {
     display: flex;
+    /* Flexbox for nav layout */
     justify-content: space-between;
+    /* Distribute items */
     align-items: center;
+    /* Vertical alignment */
     padding: 16px 24px;
+    /* Comfortable padding */
     max-width: 1200px;
+    /* Constrain width */
     margin: auto;
+    /* Center nav */
 }
 
 .nav-left .logo {
     font-family: 'Courier New', monospace;
+    /* Distinctive font for logo */
     font-weight: bold;
+    /* Strong logo emphasis */
     font-size: 1.2em;
+    /* Slightly larger logo text */
     color: var(--primary);
+    /* Dynamic logo color */
     text-decoration: none;
+    /* No underline for logo link */
 }
 
 .nav-center {
     flex-grow: 1;
+    /* Take available space */
     display: flex;
+    /* Flexbox for centering */
     justify-content: center;
-    /* Centered navigation pills as requested */
+    /* Center pill-nav */
 }
 
 .pill-nav {
     background: var(--entry);
+    /* Dynamic background */
     padding: 8px 20px;
+    /* Padding for pills */
     border-radius: 999px;
+    /* Fully rounded */
     display: flex;
+    /* Flexbox for links */
     gap: 24px;
+    /* Space between links */
     align-items: center;
+    /* Vertical alignment */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
     justify-content: center;
-    /* Center the pills */
+    /* Center links */
 }
 
 .pill-nav a {
     text-decoration: none;
+    /* No underlines */
     font-size: 0.95em;
+    /* Slightly smaller text */
     font-weight: 500;
+    /* Medium-bold */
     color: var(--secondary);
+    /* Secondary color */
     transition: color 0.3s ease;
+    /* Smooth color change */
 }
 
 .pill-nav a:hover {
     color: #3b82f6;
+    /* Blue hover effect */
 }
 
 .nav-right {
     display: flex;
+    /* Flexbox for right-side items */
     align-items: center;
+    /* Vertical alignment */
 }
 
 #theme-toggle {
     background: none;
+    /* No background */
     border: none;
+    /* No border */
     cursor: pointer;
+    /* Indicate interactivity */
     padding: 6px;
+    /* Clickable area */
     color: var(--primary);
+    /* Dynamic icon color */
 }
 
 #theme-toggle svg {
     width: 24px;
+    /* Icon size */
     height: 24px;
     fill: currentColor;
+    /* Inherit parent color */
 }
 
 #moon {
     display: none;
+    /* Hide moon icon by default */
 }
 
-[data-theme="dark"] #sun {
+html.dark #sun {
     display: none;
+    /* Hide sun in dark mode */
 }
 
-[data-theme="dark"] #moon {
+html.dark #moon {
     display: block;
+    /* Show moon in dark mode */
 }
 
+/* ---------- 4. Post Container ---------- */
 .post-container {
     max-width: 800px;
+    /* Constrain content width */
     margin: 0 auto;
+    /* Center container */
     padding: 0 20px;
+    /* Horizontal padding */
 }
 
 .breadcrumb,
@@ -127,244 +199,473 @@ body {
 .pagination,
 .footer {
     margin: 20px 0;
+    /* Consistent vertical spacing */
 }
 
+/* ---------- 5. Breadcrumb Navigation ---------- */
 .breadcrumb {
     font-size: 0.9em;
+    /* Smaller text */
     color: var(--secondary);
+    /* Less prominent color */
 }
 
 .breadcrumb a {
     color: var(--secondary);
+    /* Link color */
     text-decoration: none;
+    /* No underline */
 }
 
 .breadcrumb a:hover {
     color: #3b82f6;
+    /* Blue hover effect */
 }
 
 .breadcrumb a:last-child {
     font-weight: bold;
+    /* Highlight active breadcrumb */
     color: var(--primary);
+    /* Primary color */
 }
 
+/* ---------- 6. Header Bar ---------- */
 .header-bar {
     display: flex;
+    /* Flexbox for layout */
     justify-content: space-between;
+    /* Space out items */
     align-items: center;
+    /* Vertical alignment */
     margin-bottom: 10px;
+    /* Space below */
 }
 
 .header-bar h1 {
     font-size: 1.5em;
+    /* Moderate heading size */
     margin: 0;
+    /* Remove default margin */
 }
 
+/* ---------- 7. Post Cards ---------- */
 .post-card {
     background: var(--entry);
+    /* Dynamic background */
     border-radius: 10px;
+    /* Rounded corners */
     padding: 16px;
+    /* Internal padding */
     margin: 20px 0;
+    /* Vertical spacing */
     display: flex;
+    /* Flexbox for layout */
     align-items: flex-start;
+    /* Align content to top */
     gap: 20px;
+    /* Space between image and content */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Smooth hover effects */
 }
 
 .post-card img {
     width: 100px;
+    /* Fixed image size */
     height: 100px;
     object-fit: cover;
+    /* Fit image without distortion */
     border-radius: 8px;
+    /* Rounded corners */
 }
 
 .post-card:hover {
     transform: translateY(-5px);
+    /* Lift on hover */
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    /* Stronger shadow */
 }
 
 .post-card:hover h2 a {
     text-decoration: underline;
+    /* Underline title on hover */
 }
 
 .post-content {
     flex: 1;
+    /* Take remaining space */
 }
 
 .post-content h2 {
     margin: 0;
+    /* Remove default margin */
     font-size: 1.2em;
+    /* Moderate title size */
 }
 
 .post-content h2 a {
     color: var(--primary);
+    /* Dynamic link color */
     text-decoration: none;
+    /* No underline by default */
 }
 
 .post-meta {
     font-size: 13px;
+    /* Small meta text */
     color: var(--secondary);
+    /* Less prominent color */
     margin-top: 5px;
+    /* Space above */
 }
 
 .post-summary {
     margin-top: 10px;
+    /* Space above */
     color: var(--secondary);
+    /* Secondary color */
 }
 
+/* ---------- 8. Pagination ---------- */
 .pagination {
     display: flex;
+    /* Flexbox for layout */
     align-items: center;
+    /* Vertical alignment */
     flex-wrap: wrap;
+    /* Allow wrapping */
     margin: 20px 0;
+    /* Vertical spacing */
     gap: 5px;
+    /* Space between buttons */
 }
 
 .pagination .page-buttons {
     display: flex;
+    /* Flexbox for buttons */
     gap: 5px;
+    /* Space between buttons */
 }
 
 .pagination button {
     background: var(--entry);
+    /* Dynamic background */
     color: var(--primary);
+    /* Dynamic text color */
     border: none;
+    /* No border */
     padding: 6px 10px;
+    /* Compact padding */
     border-radius: 6px;
+    /* Rounded corners */
     cursor: pointer;
+    /* Indicate interactivity */
 }
 
 .pagination .active {
     background: var(--tertiary);
+    /* Highlight active page */
     color: var(--primary);
+    /* Maintain text color */
 }
 
+/* ---------- 9. No Results Message ---------- */
 .no-results {
     text-align: center;
+    /* Center message */
     font-size: 18px;
+    /* Readable size */
     margin-top: 50px;
+    /* Space above */
     color: var(--secondary);
+    /* Less prominent color */
 }
 
+/* ---------- 10. Footer ---------- */
 .footer {
     font-size: 0.9em;
+    /* Smaller text */
     color: var(--secondary);
+    /* Less prominent color */
     margin-top: 40px;
+    /* Space above */
     text-align: center;
+    /* Center text */
 }
 
+/* ---------- 11. Social Icons ---------- */
 .social-icons {
     font-size: 24px;
+    /* Large icons */
     display: flex;
+    /* Flexbox for layout */
     justify-content: center;
+    /* Center icons */
     gap: 15px;
+    /* Space between icons */
     margin: 32px auto 0;
+    /* Space above, centered */
     max-width: 500px;
+    /* Constrain width */
 }
 
 .social-icons a {
     font-size: 24px;
+    /* Consistent icon size */
     color: var(--primary);
+    /* Dynamic color */
     text-decoration: none;
+    /* No underline */
     transition: color .3s;
+    /* Smooth color change */
 }
 
 .social-icons a:hover {
     color: #3b82f6;
+    /* Blue hover effect */
 }
 
+/* ---------- 12. Scroll to Top Button ---------- */
 #scrollTop {
     position: fixed;
+    /* Fixed position */
     bottom: 20px;
+    /* Distance from bottom */
     right: 20px;
+    /* Distance from right */
     z-index: 100;
+    /* Above content */
     width: 40px;
+    /* Button size */
     height: 40px;
     background: var(--entry);
+    /* Dynamic background */
     color: var(--primary);
+    /* Dynamic icon color */
     border: none;
+    /* No border */
     border-radius: 50%;
+    /* Circular button */
     box-shadow: var(--shadow);
+    /* Dynamic shadow */
     cursor: pointer;
+    /* Indicate interactivity */
     display: none;
+    /* Hidden by default */
     align-items: center;
+    /* Center icon */
     justify-content: center;
     transition: background 0.3s ease, color 0.3s ease;
+    /* Smooth transitions */
 }
 
 #scrollTop:hover {
     background: var(--secondary);
+    /* Hover background */
     color: var(--theme);
+    /* Contrast text color */
 }
 
+/* ---------- 13. View All Tags Button ---------- */
 .view-all-tags {
     background: var(--tertiary);
+    /* Dynamic background */
     color: var(--primary);
+    /* Dynamic text color */
     padding: 6px 14px;
+    /* Compact padding */
     font-size: 0.85em;
+    /* Smaller text */
     border: 1px solid transparent;
+    /* No visible border */
     border-radius: 999px;
+    /* Fully rounded */
     cursor: pointer;
+    /* Indicate interactivity */
     transition: all 0.3s ease;
+    /* Smooth transitions */
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    /* Subtle shadow */
     text-decoration: none;
+    /* No underline */
 }
 
 .view-all-tags:hover {
     background: var(--secondary);
+    /* Hover background */
     color: var(--primary);
+    /* Maintain text color */
 }
 
-/* Loader Styles */
+/* ---------- 14. Skeleton UI for Loading ---------- */
+.skeleton-post-card {
+    background: var(--entry);
+    /* Dynamic background */
+    border-radius: 10px;
+    /* Rounded corners */
+    padding: 16px;
+    /* Match post-card padding */
+    margin: 20px 0;
+    /* Vertical spacing */
+    display: flex;
+    /* Flexbox layout */
+    align-items: flex-start;
+    /* Align to top */
+    gap: 20px;
+    /* Space between elements */
+    opacity: 0.7;
+    /* Slightly transparent */
+}
+
+.skeleton-img {
+    width: 100px;
+    /* Match post image size */
+    height: 100px;
+    background: var(--tertiary);
+    /* Placeholder background */
+    border-radius: 8px;
+    /* Rounded corners */
+    animation: pulse 1.5s infinite ease-in-out;
+    /* Pulsing effect */
+}
+
+.skeleton-content {
+    flex: 1;
+    /* Take remaining space */
+}
+
+.skeleton-title {
+    width: 60%;
+    /* Partial width for title */
+    height: 20px;
+    /* Fixed height */
+    background: var(--tertiary);
+    /* Placeholder background */
+    border-radius: 4px;
+    /* Rounded corners */
+    margin-bottom: 10px;
+    /* Space below */
+    animation: pulse 1.5s infinite ease-in-out;
+    /* Pulsing effect */
+}
+
+.skeleton-meta {
+    width: 40%;
+    /* Smaller width for meta */
+    height: 15px;
+    /* Fixed height */
+    background: var(--tertiary);
+    /* Placeholder background */
+    border-radius: 4px;
+    /* Rounded corners */
+    margin-bottom: 10px;
+    /* Space below */
+    animation: pulse 1.5s infinite ease-in-out;
+    /* Pulsing effect */
+}
+
+.skeleton-summary {
+    width: 80%;
+    /* Wider for summary */
+    height: 15px;
+    /* Fixed height */
+    background: var(--tertiary);
+    /* Placeholder background */
+    border-radius: 4px;
+    /* Rounded corners */
+    animation: pulse 1.5s infinite ease-in-out;
+    /* Pulsing effect */
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.7;
+    }
+
+    /* Start opacity */
+    50% {
+        opacity: 0.4;
+    }
+
+    /* Midpoint opacity */
+    100% {
+        opacity: 0.7;
+    }
+
+    /* End opacity */
+}
+
+/* ---------- 15. Loader Styles ---------- */
 .loader {
     position: fixed;
+    /* Cover viewport */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: transparent;
+    /* Transparent background */
     backdrop-filter: blur(6px);
+    /* Blur effect */
     -webkit-backdrop-filter: blur(6px);
+    /* Safari support */
     display: none;
+    /* Hidden by default */
     justify-content: center;
+    /* Center content */
     align-items: center;
     z-index: 1000;
+    /* Above all content */
     transition: opacity 0.3s ease;
+    /* Smooth fade */
 }
 
 .loader.no-blur {
     backdrop-filter: none;
+    /* Disable blur */
     -webkit-backdrop-filter: none;
 }
 
 .loader.active {
     display: flex;
+    /* Show when active */
 }
 
 .loader.hidden {
     opacity: 0;
+    /* Fade out */
     pointer-events: none;
+    /* Disable interaction */
 }
 
 .terry-animation {
     display: flex;
+    /* Flexbox for letters */
     gap: 8px;
+    /* Space between letters */
     font-family: 'Courier New', monospace;
+    /* Distinctive font */
     font-size: 3.5rem;
+    /* Large size */
     font-weight: bold;
+    /* Strong emphasis */
     color: var(--primary);
-    animation: shrinkLogo 0.3s ease-in-out 0.9s forwards;
+    /* Dynamic color */
+    animation: shrinkLogo 0.3s ease-in-out 0.6s forwards;
+    /* Shrink animation */
 }
 
 .letter {
     display: inline-block;
+    /* Inline for animation */
     animation: spinLetter 0.5s ease-in-out forwards;
+    /* Spin each letter */
 }
 
 .letter:nth-child(1) {
     animation-delay: 0s;
 }
 
+/* Staggered delays */
 .letter:nth-child(2) {
     animation-delay: 0.1s;
 }
@@ -384,16 +685,21 @@ body {
 @keyframes spinLetter {
     0% {
         transform: rotate(0deg) scale(1);
+        /* Start position */
         opacity: 0;
+        /* Invisible */
     }
 
     50% {
         transform: rotate(360deg) scale(1.2);
+        /* Rotate and scale */
         opacity: 1;
+        /* Visible */
     }
 
     100% {
         transform: rotate(360deg) scale(0.6);
+        /* End smaller */
         opacity: 1;
     }
 }
@@ -401,85 +707,118 @@ body {
 @keyframes shrinkLogo {
     0% {
         transform: scale(1);
+        /* Full size */
         opacity: 1;
+        /* Visible */
     }
 
     100% {
         transform: scale(0.1);
+        /* Shrink */
         opacity: 0;
+        /* Fade out */
     }
 }
 
-/* ---------- 15. Mobile Fixes ---------- */
+/* ---------- 16. Mobile Responsiveness ---------- */
 @media (max-width: 768px) {
     .nav {
         flex-wrap: wrap;
+        /* Allow wrapping */
         flex-direction: row;
+        /* Row layout */
         justify-content: flex-start;
-        /* Changed from space-between to flex-start */
+        /* Align to start */
         align-items: center;
+        /* Vertical alignment */
         padding: 10px 12px;
+        /* Tighter padding */
         gap: 10px;
+        /* Space between items */
     }
 
     .nav-left {
         flex: 1;
+        /* Take available space */
         text-align: left;
-        /* Align logo to the left */
+        /* Align left */
     }
 
     .nav-center {
         width: 100%;
+        /* Full width */
         order: 3;
+        /* Move to bottom */
         overflow-x: auto;
+        /* Allow horizontal scroll */
         padding-bottom: 5px;
+        /* Space below */
     }
 
     .pill-nav {
         flex-wrap: nowrap;
+        /* Prevent wrapping */
         gap: 18px;
+        /* Tighter spacing */
         padding: 6px 14px;
+        /* Tighter padding */
         overflow-x: auto;
+        /* Allow scroll */
         border-radius: 30px;
+        /* Rounded */
         justify-content: flex-start;
+        /* Align to start */
         margin: auto;
+        /* Center */
         max-width: 100%;
+        /* Full width */
     }
 
     .pill-nav::-webkit-scrollbar {
         display: none;
+        /* Hide scrollbar */
     }
 
     .nav-right {
         order: 2;
+        /* Move before nav-center */
         margin-left: auto;
+        /* Push to right */
     }
 
     .container {
         padding-top: 10px;
+        /* Reduced top padding */
     }
 
     .ask-bar {
         margin-top: 10px;
+        /* Reduced margin */
     }
 
     .terry-animation {
         font-size: 2.2rem;
+        /* Smaller text */
         top: 0;
+        /* No offset */
         position: relative;
+        /* Relative positioning */
         text-align: left;
-        /* Align the animation text to the left */
+        /* Align left */
     }
 
     .header {
         padding-bottom: 0;
+        /* Remove bottom padding */
     }
 
     .pill-nav {
         scroll-snap-type: x mandatory;
+        /* Enable snap scrolling */
     }
 
     .pill-nav a {
         scroll-snap-align: start;
+        /* Snap to link start */
     }
 }

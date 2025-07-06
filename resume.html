@@ -2,336 +2,351 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume | Muhammad Taha Nasir</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/assets/css/resume.css">
+  <!-- ---------- 1. Meta Tags ---------- -->
+  <meta charset="UTF-8"> <!-- Set character encoding to UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensure responsive viewport -->
+  <title>Resume | Muhammad Taha Nasir</title> <!-- Page title -->
+
+  <!-- ---------- 2. Stylesheets ---------- -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" /> <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="/assets/css/resume.css"> <!-- Custom styles for resume page -->
+
+  <!-- ---------- 3. Theme Initialization Script ---------- -->
+  <script>
+    // Apply theme immediately on page load
+    (function () {
+      const savedTheme = localStorage.getItem('pref-theme'); // Get saved theme
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; // Check system dark mode
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark'); // Apply dark theme
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light'); // Apply light theme
+      }
+    })();
+  </script>
 </head>
 
 <body>
-    <div class="loader" id="loader">
-        <div class="terry-animation">
-            <span class="letter">t</span>
-            <span class="letter">e</span>
-            <span class="letter">r</span>
-            <span class="letter">r</span>
-            <span class="letter">y</span>
-        </div>
+  <!-- ---------- 4. Loader Animation ---------- -->
+  <div class="loader" id="loader"> <!-- Loader overlay -->
+    <div class="terry-animation"> <!-- Animated "terry" text -->
+      <span class="letter">t</span> <!-- Individual letter -->
+      <span class="letter">e</span> <!-- Individual letter -->
+      <span class="letter">r</span> <!-- Individual letter -->
+      <span class="letter">r</span> <!-- Individual letter -->
+      <span class="letter">y</span> <!-- Individual letter -->
     </div>
+  </div>
 
-    <header class="header">
-        <nav class="nav">
-            <!-- Left: Logo -->
-            <div class="nav-left">
+  <!-- ---------- 5. Header Navigation ---------- -->
+  <header class="header"> <!-- Header section -->
+    <nav class="nav"> <!-- Navigation bar -->
+      <!-- Left: Logo -->
+      <div class="nav-left">
                 <a href="../index.html" class="logo">&lt;terry/&gt;</a>
             </div>
 
-            <!-- Center: Pills Navigation -->
-            <div class="nav-center">
-                <div class="pill-nav">
-                    <a href="resources.html">Resources</a>
-                    <a href="archives.html">Archives</a>
-                    <a href="resume.html" class="active">Resume</a>
-                    <a href="search.html">Search</a>
-                </div>
-            </div>
+      <!-- Center: Pills Navigation -->
+      <div class="nav-center"> <!-- Navigation links container -->
+        <div class="pill-nav"> <!-- Pill-style navigation -->
+          <a href="resources.html">Resources</a> <!-- Resources link -->
+          <a href="archives.html">Archives</a> <!-- Archives link -->
+          <a href="resume.html" class="active">Resume</a> <!-- Resume link, marked active -->
+          <a href="search.html">Search</a> <!-- Search link -->
+        </div>
+      </div>
 
-            <!-- Right: Theme toggle -->
-            <div class="nav-right">
-                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
-                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5" />
-                        <line x1="12" y1="1" x2="12" y2="3" />
-                        <line x1="12" y1="21" x2="12" y2="23" />
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                        <line x1="1" y1="12" x2="3" y2="12" />
-                        <line x1="21" y1="12" x2="23" y2="12" />
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                    </svg>
-                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-                    </svg>
-                </button>
-            </div>
-        </nav>
+      <!-- Right: Theme toggle -->
+      <div class="nav-right"> <!-- Theme toggle container -->
+        <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme"> <!-- Theme toggle button -->
+          <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round"> <!-- Sun icon for light mode -->
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round"> <!-- Moon icon for dark mode -->
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ---------- 6. Main Content ---------- -->
+  <main class="resume-container"> <!-- Main content section for resume -->
+    <!-- ---------- 7. Breadcrumb Navigation ---------- -->
+    <nav class="breadcrumb"> <!-- Breadcrumb navigation -->
+      <a href="/">Home</a> » <a href="/resume">Resume</a> <!-- Breadcrumb links -->
+    </nav>
+
+    <!-- ---------- 8. Resume Header ---------- -->
+    <header class="resume-header"> <!-- Resume header section -->
+      <h1 class="resume-title">My <span class="highlight">Resume</span></h1> <!-- Resume title with highlighted text -->
+      <a href="/resume/resume.pdf" download class="resume-download"> <!-- Download link for CV -->
+        <i class="fas fa-download"></i> Curriculum Vitae <!-- Download icon and text -->
+      </a>
     </header>
 
-    <main class="resume-container">
-        <nav class="breadcrumb">
-            <a href="/">Home</a> » <a href="/resume">Resume</a>
-        </nav>
-        <header class="resume-header">
-            <h1 class="resume-title">My <span class="highlight">Resume</span></h1>
-            <a href="resume.pdf" download class="resume-download">
-                <i class="fas fa-download"></i> Download Resume
-            </a>
-        </header>
-
-        <section class="resume-section">
-            <h2>Technical Skills</h2>
-            <div class="skills-icon-grid">
-                <div>
-                    <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
-                            alt="Python">
-                    </div>
-                    <p>Python</p>
-                </div>
-                <div>
-                    <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"
-                            alt="C/C++">
-                    </div>
-                    <p>C/C++</p>
-                </div>
-                <div>
-                    <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
-                            alt="JavaScript (ES6+)">
-                    </div>
-                    <p>JavaScript (ES6+)</p>
-                </div>
-                <div>
-                    <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
-                            alt="MySQL">
-                    </div>
-                    <p>MySQL</p>
-                </div>
-                <div>
-                    <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" alt="Bash">
-                    </div>
-                    <p>Bash</p>
-                </div>
-                <div>
-                    <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg"
-                            alt="TensorFlow">
-                    </div>
-                    <p>TensorFlow</p>
-                </div>
-                <div>
-                    <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg"
-                            alt="PyTorch">
-                    </div>
-                    <p>PyTorch</p>
-                </div>
-                <div>
-                    <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/react.svg" alt="React">
-                    </div>
-                    <p>React</p>
-                </div>
-                <div>
-                    <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/django.svg" alt="Django">
-                    </div>
-                    <p>Django</p>
-                </div>
-                <div>
-                    <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"
-                            alt="Next.js">
-                    </div>
-                    <p>Next.js</p>
-                </div>
-                <div>
-                    <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
-                            alt="PostgreSQL">
-                    </div>
-                    <p>PostgreSQL</p>
-                </div>
-                <div>
-                    <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
-                            alt="MongoDB">
-                    </div>
-                    <p>MongoDB</p>
-                </div>
-                <div>
-                    <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neo4j/neo4j-original.svg"
-                            alt="Neo4j">
-                    </div>
-                    <p>Neo4j (Cypher)</p>
-                </div>
-                <div>
-                    <div class="skill-box">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Scikit_learn_logo_small.svg/1200px-Scikit_learn_logo_small.svg.png"
-                            alt="scikit-learn">
-                    </div>
-                    <p>scikit-learn</p>
-                </div>
-                <div>
-                    <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg"
-                            alt="Pandas">
-                    </div>
-                    <p>Pandas</p>
-                </div>
-                <div>
-                    <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg"
-                            alt="NumPy">
-                    </div>
-                    <p>NumPy</p>
-                </div>
-                <div>
-                    <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg"
-                            alt="Flask">
-                    </div>
-                    <p>Flask</p>
-                </div>
-                <div>
-                    <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg"
-                            alt="FastAPI">
-                    </div>
-                    <p>FastAPI</p>
-                </div>
-                <div>
-                    <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
-                    </div>
-                    <p>Git</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="resume-section">
-            <h2>Additional Technologies</h2>
-            <div class="tech-tags">
-                <span>Matplotlib</span>
-                <span>Hugging Face</span>
-                <span>LangChain</span>
-                <span>NLTK</span>
-                <span>ShadCN</span>
-                <span>DaisyUI</span>
-                <span>GitHub Actions</span>
-                <span>Docker</span>
-                <span>CI/CD</span>
-                <span>Vercel</span>
-                <span>AWS (EC2, S3, SageMaker)</span>
-                <span>Google Cloud (Compute Engine, AI Platform)</span>
-                <span>Jupyter</span>
-                <span>Google Colab</span>
-                <span>Anaconda</span>
-                <span>MLflow</span>
-                <span>n8n</span>
-            </div>
-        </section>
-
-        <div class="resume-section">
-            <h2>Work Experience</h2>
-            <div class="timeline">
-                <div class="timeline-card left">
-                    <div class="milestone"></div>
-                    <div class="year">Jul 2024 – Sep 2024</div>
-                    <h3>Software Engineering Fellow at Headstarter AI</h3>
-                    <p>Built 5 AI projects in 5 weeks with React JS, Next.js, and CI/CD. Created a support agent and
-                        SaaS app using RAG and AI APIs. Scaled apps to 200+ users and collaborated with industry
-                        leaders.</p>
-                    <div class="tags">
-                        <span>React JS</span>
-                        <span>Next.js</span>
-                        <span>AI</span>
-                        <span>RAG</span>
-                        <span>CI/CD</span>
-                    </div>
-                </div>
-                <div class="timeline-card right">
-                    <div class="milestone"></div>
-                    <div class="year">Apr 2025 – Jul 2025</div>
-                    <h3>Private Tutor (Online) for Guangxi Medical University</h3>
-                    <p>Tutored 3-4 MBBS students online in medical physics and calculus, enhancing their academic
-                        performance.</p>
-                    <div class="tags">
-                        <span>Tutoring</span>
-                        <span>Medical Physics</span>
-                        <span>Calculus</span>
-                        <span>Online</span>
-                    </div>
-                </div>
-                <div class="timeline-card left">
-                    <div class="milestone"></div>
-                    <div class="year">Jun 2025 – Aug 2025</div>
-                    <h3>AI/ML Intern at Advrtix</h3>
-                    <p>Supported marketing with AI insights, built models for campaign performance, automated
-                        segmentation, and analyzed data trends.</p>
-                    <div class="tags">
-                        <span>AI/ML</span>
-                        <span>Marketing</span>
-                        <span>Automation</span>
-                        <span>Data Analysis</span>
-                    </div>
-                </div>
-            </div>
+    <!-- ---------- 9. Technical Skills Section ---------- -->
+    <section class="resume-section"> <!-- Technical skills section -->
+      <h2>Technical Skills</h2> <!-- Section title -->
+      <div class="skills-icon-grid"> <!-- Grid for skill icons -->
+        <div> <!-- Skill item -->
+          <div class="skill-box"> <!-- Icon container -->
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"> <!-- Python icon -->
+          </div>
+          <p>Python</p> <!-- Skill name -->
         </div>
-
-        <section class="resume-section">
-            <h2> Education</h2>
-            <div class="timeline">
-                <div class="timeline-card left">
-                    <div class="milestone"></div>
-                    <div class="year">Class of 2021</div>
-                    <h3>Intermediate (Pre-Engineering) – Bahria College Karachi</h3>
-                    <p>Focused on core subjects like Physics and Mathematics, building a solid foundation for higher
-                        studies in technology.</p>
-                    <div class="tags">
-                        <span>Physics</span>
-                        <span>Mathematics</span>
-                        <span>Pre-Engineering</span>
-                    </div>
-                </div>
-                <div class="timeline-card right">
-                    <div class="milestone"></div>
-                    <div class="year">Class of 2023 – Present</div>
-                    <h3>Bachelor of Science in Computer Science – FAST NUCES</h3>
-                    <p>Currently enrolled, exploring areas like artificial intelligence, system design, and software
-                        engineering.</p>
-                    <div class="tags">
-                        <span>AI</span>
-                        <span>Software Engineering</span>
-                        <span>Computer Science</span>
-                    </div>
-                </div>
-            </div>
-            </div>
-        </section>
-        <div class="resume-section">
-            <h2>Projects</h2>
-            <div class="project-box">
-                <p>You can check out my projects <a href="projects.html" target="_blank">here</a>!</p>
-            </div>
+        <div> <!-- Skill item -->
+          <div class="skill-box"> <!-- Icon container -->
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C/C++"> <!-- C/C++ icon -->
+          </div>
+          <p>C/C++</p> <!-- Skill name -->
         </div>
-    </main>
-
-    <footer class="footer">
-        <div class="social-icons">
-            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i
-                    class="fab fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i
-                    class="fab fa-linkedin"></i></a>
-            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+        <div> <!-- Skill item -->
+          <div class="skill-box"> <!-- Icon container -->
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript (ES6+)"> <!-- JavaScript icon -->
+          </div>
+          <p>JavaScript (ES6+)</p> <!-- Skill name -->
         </div>
-        <p>© 2025 – Muhammad Taha Nasir</p>
-    </footer>
-    <!-- Scroll to Top Button -->
-    <button id="scrollTop" aria-label="Scroll to top">
-        <i class="fas fa-chevron-up"></i>
-    </button>
-    <script src="/assets/js/resume.js"></script>
+        <div> <!-- Skill item -->
+          <div class="skill-box"> <!-- Icon container -->
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL"> <!-- MySQL icon -->
+          </div>
+          <p>MySQL</p> <!-- Skill name -->
+        </div>
+        <div> <!-- Skill item -->
+          <div class="skill-box"> <!-- Icon container -->
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" alt="Bash"> <!-- Bash icon -->
+          </div>
+          <p>Bash</p> <!-- Skill name -->
+        </div>
+        <div> <!-- Skill item -->
+          <div class="skill-box"> <!-- Icon container -->
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow"> <!-- TensorFlow icon -->
+          </div>
+          <p>TensorFlow</p> <!-- Skill name -->
+        </div>
+        <div> <!-- Skill item -->
+          <div class="skill-box"> <!-- Icon container -->
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch"> <!-- PyTorch icon -->
+          </div>
+          <p>PyTorch</p> <!-- Skill name -->
+        </div>
+        <div> <!-- Skill item -->
+          <div class="skill-box"> <!-- Icon container -->
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/react.svg" alt="React"> <!-- React icon -->
+          </div>
+          <p>React</p> <!-- Skill name -->
+        </div>
+        <div> <!-- Skill item -->
+          <div class="skill-box"> <!-- Icon container -->
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/django.svg" alt="Django"> <!-- Django icon -->
+          </div>
+          <p>Django</p> <!-- Skill name -->
+        </div>
+        <div> <!-- Skill item -->
+          <div class="skill-box"> <!-- Icon container -->
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js"> <!-- Next.js icon -->
+          </div>
+          <p>Next.js</p> <!-- Skill name -->
+        </div>
+        <div> <!-- Skill item -->
+          <div class="skill-box"> <!-- Icon container -->
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL"> <!-- PostgreSQL icon -->
+          </div>
+          <p>PostgreSQL</p> <!-- Skill name -->
+        </div>
+        <div> <!-- Skill item -->
+          <div class="skill-box"> <!-- Icon container -->
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB"> <!-- MongoDB icon -->
+          </div>
+          <p>MongoDB</p> <!-- Skill name -->
+        </div>
+        <div> <!-- Skill item -->
+          <div class="skill-box"> <!-- Icon container -->
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neo4j/neo4j-original.svg" alt="Neo4j"> <!-- Neo4j icon -->
+          </div>
+          <p>Neo4j (Cypher)</p> <!-- Skill name -->
+        </div>
+        <div> <!-- Skill item -->
+          <div class="skill-box"> <!-- Icon container -->
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Scikit_learn_logo_small.svg/1200px-Scikit_learn_logo_small.svg.png" alt="scikit-learn"> <!-- scikit-learn icon -->
+          </div>
+          <p>scikit-learn</p> <!-- Skill name -->
+        </div>
+        <div> <!-- Skill item -->
+          <div class="skill-box"> <!-- Icon container -->
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas"> <!-- Pandas icon -->
+          </div>
+          <p>Pandas</p> <!-- Skill name -->
+        </div>
+        <div> <!-- Skill item -->
+          <div class="skill-box"> <!-- Icon container -->
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" alt="NumPy"> <!-- NumPy icon -->
+          </div>
+          <p>NumPy</p> <!-- Skill name -->
+        </div>
+        <div> <!-- Skill item -->
+          <div class="skill-box"> <!-- Icon container -->
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" alt="Flask"> <!-- Flask icon -->
+          </div>
+          <p>Flask</p> <!-- Skill name -->
+        </div>
+        <div> <!-- Skill item -->
+          <div class="skill-box"> <!-- Icon container -->
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="FastAPI"> <!-- FastAPI icon -->
+          </div>
+          <p>FastAPI</p> <!-- Skill name -->
+        </div>
+        <div> <!-- Skill item -->
+          <div class="skill-box"> <!-- Icon container -->
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git"> <!-- Git icon -->
+          </div>
+          <p>Git</p> <!-- Skill name -->
+        </div>
+        <div> <!-- Skill item -->
+          <div class="skill-box"> <!-- Icon container -->
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP"> <!-- PHP icon -->
+          </div>
+          <p>PHP</p> <!-- Skill name -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- 10. Additional Technologies Section ---------- -->
+    <section class="resume-section"> <!-- Additional technologies section -->
+      <h2>Additional Technologies</h2> <!-- Section title -->
+      <div class="tech-tags"> <!-- Tags container -->
+        <span>Matplotlib</span> <!-- Technology tag -->
+        <span>Hugging Face</span> <!-- Technology tag -->
+        <span>LangChain</span> <!-- Technology tag -->
+        <span>NLTK</span> <!-- Technology tag -->
+        <span>ShadCN</span> <!-- Technology tag -->
+        <span>DaisyUI</span> <!-- Technology tag -->
+        <span>GitHub Actions</span> <!-- Technology tag -->
+        <span>Docker</span> <!-- Technology tag -->
+        <span>CI/CD</span> <!-- Technology tag -->
+        <span>Vercel</span> <!-- Technology tag -->
+        <span>AWS (EC2, S3, SageMaker)</span> <!-- Technology tag -->
+        <span>Google Cloud (Compute Engine, AI Platform)</span> <!-- Technology tag -->
+        <span>Jupyter</span> <!-- Technology tag -->
+        <span>Google Colab</span> <!-- Technology tag -->
+        <span>Anaconda</span> <!-- Technology tag -->
+        <span>MLflow</span> <!-- Technology tag -->
+        <span>n8n</span> <!-- Technology tag -->
+      </div>
+    </section>
+
+    <!-- ---------- 11. Work Experience Section ---------- -->
+    <div class="resume-section"> <!-- Work experience section -->
+      <h2>Work Experience</h2> <!-- Section title -->
+      <div class="timeline"> <!-- Timeline container -->
+        <div class="timeline-card left"> <!-- Timeline entry (left-aligned) -->
+          <div class="milestone"></div> <!-- Timeline marker -->
+          <div class="year">Jul 2024 – Sep 2024</div> <!-- Date range -->
+          <h3>Software Engineering Fellow at Headstarter AI</h3> <!-- Job title -->
+          <p>Built 5 AI projects in 5 weeks with React JS, Next.js, and CI/CD. Created a support agent and SaaS app using RAG and AI APIs.</p> <!-- Job description -->
+          <div class="tags"> <!-- Tags container -->
+            <span>React JS</span> <!-- Tag -->
+            <span>Next.js</span> <!-- Tag -->
+            <span>AI</span> <!-- Tag -->
+            <span>RAG</span> <!-- Tag -->
+            <span>CI/CD</span> <!-- Tag -->
+          </div>
+        </div>
+        <div class="timeline-card right"> <!-- Timeline entry (right-aligned) -->
+          <div class="milestone"></div> <!-- Timeline marker -->
+          <div class="year">Apr 2025 – Jul 2025</div> <!-- Date range -->
+          <h3>Private Tutor (Online) for Guangxi Medical University</h3> <!-- Job title -->
+          <p>Tutored 3-4 MBBS students online in medical physics and calculus, enhancing their academic performance.</p> <!-- Job description -->
+          <div class="tags"> <!-- Tags container -->
+            <span>Tutoring</span> <!-- Tag -->
+            <span>Medical Physics</span> <!-- Tag -->
+            <span>Calculus</span> <!-- Tag -->
+            <span>Online</span> <!-- Tag -->
+          </div>
+        </div>
+        <div class="timeline-card left"> <!-- Timeline entry (left-aligned) -->
+          <div class="milestone"></div> <!-- Timeline marker -->
+          <div class="year">Jun 2025 – Aug 2025</div> <!-- Date range -->
+          <h3>AI/ML Intern at Advrtix</h3> <!-- Job title -->
+          <p>Supported marketing with AI insights, built models for campaign performance, automated segmentation, and analyzed data trends.</p> <!-- Job description -->
+          <div class="tags"> <!-- Tags container -->
+            <span>AI/ML</span> <!-- Tag -->
+            <span>Marketing</span> <!-- Tag -->
+            <span>Automation</span> <!-- Tag -->
+            <span>Data Analysis</span> <!-- Tag -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- 12. Education Section ---------- -->
+    <section class="resume-section"> <!-- Education section -->
+      <h2>Education</h2> <!-- Section title -->
+      <div class="timeline"> <!-- Timeline container -->
+        <div class="timeline-card left"> <!-- Timeline entry (left-aligned) -->
+          <div class="milestone"></div> <!-- Timeline marker -->
+          <div class="year">Class of 2021</div> <!-- Year -->
+          <h3>Intermediate (Pre-Engineering) – Bahria College Karachi</h3> <!-- Degree and institution -->
+          <p>Focused on core subjects like Physics and Mathematics, building a solid foundation for higher studies in technology.</p> <!-- Description -->
+          <div class="tags"> <!-- Tags container -->
+            <span>Physics</span> <!-- Tag -->
+            <span>Mathematics</span> <!-- Tag -->
+            <span>Pre-Engineering</span> <!-- Tag -->
+          </div>
+        </div>
+        <div class="timeline-card right"> <!-- Timeline entry (right-aligned) -->
+          <div class="milestone"></div> <!-- Timeline marker -->
+          <div class="year">Class of 2023 – Present</div> <!-- Year range -->
+          <h3>Bachelor of Science in Computer Science – FAST NUCES</h3> <!-- Degree and institution -->
+          <p>Currently enrolled, exploring areas like artificial intelligence, system design, and software engineering.</p> <!-- Description -->
+          <div class="tags"> <!-- Tags container -->
+            <span>AI</span> <!-- Tag -->
+            <span>Software Engineering</span> <!-- Tag -->
+            <span>Computer Science</span> <!-- Tag -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- 13. Projects Section ---------- -->
+    <div class="resume-section"> <!-- Projects section -->
+      <h2>Projects</h2> <!-- Section title -->
+      <div class="project-box"> <!-- Projects container -->
+        <p>You can check out my projects <a href="projects.html" target="_blank">here</a>!</p> <!-- Link to projects page -->
+      </div>
+    </div>
+  </main>
+
+  <!-- ---------- 14. Footer ---------- -->
+  <footer class="footer"> <!-- Footer section -->
+    <div class="social-icons"> <!-- Social media links -->
+      <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i class="fab fa-github"></i></a> <!-- GitHub link -->
+      <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a> <!-- LinkedIn link -->
+      <a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a> <!-- Email link -->
+    </div>
+    <p>© 2025 – Muhammad Taha Nasir</p> <!-- Copyright notice -->
+  </footer>
+
+  <!-- ---------- 15. Scroll to Top Button ---------- -->
+  <button id="scrollTop" aria-label="Scroll to top"> <!-- Scroll to top button -->
+    <i class="fas fa-chevron-up"></i> <!-- Up arrow icon -->
+  </button>
+
+  <!-- ---------- 16. JavaScript Includes ---------- -->
+  <script src="/assets/js/resume.js"></script> <!-- Resume page JavaScript -->
 </body>
 
 </html>

@@ -2,22 +2,33 @@
 <html lang="en">
 
 <head>
+  <!-- ---------- 1. Meta Tags ---------- -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home | Muhammad Taha Nasir</title>
+
+  <!-- ---------- 2. Stylesheets ---------- -->
   <link rel="stylesheet" href="assets/css/stylesheet.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- ---------- 3. Theme Initialization Script ---------- -->
   <script>
     // Apply saved theme immediately to prevent flash
     const savedTheme = localStorage.getItem('pref-theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const theme = savedTheme || (prefersDark ? 'dark' : 'light');
     document.documentElement.setAttribute('data-theme', theme);
+
+    // Stop wave animation after 3 seconds
+    setTimeout(() => {
+      document.querySelector('.animate-wave')?.classList.remove('animate-wave');
+    }, 3000);
   </script>
 </head>
 
 <body>
+  <!-- ---------- 4. Loader Animation ---------- -->
   <div class="loader" id="loader">
     <div class="terry-animation">
       <span class="letter">t</span>
@@ -27,6 +38,8 @@
       <span class="letter">y</span>
     </div>
   </div>
+
+  <!-- ---------- 5. Header Navigation ---------- -->
   <header class="header">
     <nav class="nav">
       <!-- Left: Logo -->
@@ -38,14 +51,15 @@
       <div class="nav-center">
         <div class="pill-nav">
           <a href="resources.html">Resources</a>
-          <a href="archives.html">Archives</a>
+          <a href="archives.html" class="active">Archives</a>
           <a href="resume.html">Resume</a>
           <a href="search.html">Search</a>
         </div>
       </div>
 
-      <!-- Right: Theme toggle -->
+      <!-- Right: Status and Theme Toggle -->
       <div class="nav-right">
+        <span class="status"><span class="dot"></span>Available</span>
         <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
           <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
             stroke-linejoin="round">
@@ -68,17 +82,39 @@
     </nav>
   </header>
 
+  <!-- ---------- 6. Main Content ---------- -->
   <div class="container">
-    <img src="assets/images/profile.jpg" alt="Profile Picture" class="profile-img" id="profile-img">
+    <!-- Profile Section -->
+    <div class="profile-wrapper"
+      style="position: relative; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+      <!-- Bubbles Animation -->
+      <div class="animated-circles">
+        <div class="circle" style="height: 180px; width: 180px;"></div>
+        <div class="circle" style="height: 230px; width: 230px;"></div>
+        <div class="circle" style="height: 280px; width: 280px;"></div>
+        <div class="circle" style="height: 330px; width: 330px;"></div>
+        <div class="circle" style="height: 380px; width: 380px;"></div>
+      </div>
+
+      <!-- Profile Image and Text -->
+      <img src="assets/images/profile.jpg" alt="Profile Picture" class="profile-img" id="profile-img">
+      <div class="subtitle">Full Stack Dev × AI Engineer<p>(in making)</p>
+      </div>
+      <div class="typing-text" id="typing-text">
+        Hi, I'm Taha <span class="animate-wave">👋</span>
+      </div>
+    </div>
+
+    <!-- Dynamic Content Sections -->
     <div class="title" id="title"></div>
     <div class="subtitle" id="subtitle"></div>
     <div class="prompt" id="prompt" style="display: none;">Loading latest posts...</div>
     <div class="typing" id="typing" style="display: none;">.</div>
     <div class="content" id="content" style="display: none;"></div>
-
     <div class="projects-container" id="projects-container" style="display:none;"></div>
     <div class="tags-container" id="tags-container" style="display:none;"></div>
 
+    <!-- Skills Introduction -->
     <div class="skills-intro" id="skills-intro"
       style="display: none; margin-bottom: 20px; max-width: 500px; font-size: 1.1em; color: var(--secondary); line-height: 1.5;">
       Hey there! You can explore all my skills below, but here’s a quick overview:
@@ -87,35 +123,33 @@
       My soft skills include team collaboration, problem-solving, and technical writing.
     </div>
 
+    <!-- Ask Bar -->
     <div class="ask-bar" id="ask-bar">
       <input type="text" placeholder="Ask me anything…">
       <button aria-label="Send"><i class="fas fa-chevron-right"></i></button>
     </div>
 
+    <!-- Action Buttons -->
     <div class="action-buttons">
-      <div class="button" onclick="showSection('about')">About Me</div>
-      <div class="button" onclick="showSection('posts')">Posts</div>
-      <div class="button" onclick="showSection('projects')">Projects</div>
-      <div class="button" onclick="showSection('skills')">Skills</div>
-      <div class="button" onclick="showSection('tags')">Tags</div>
-      <div class="button" onclick="toggleDropdown()">⋯</div>
+      <div class="button" onclick="changeSection('about')">About Me</div>
+      <div class="button" onclick="changeSection('posts')">Posts</div>
+      <div class="button" onclick="changeSection('projects')">Projects</div>
+      <div class="button" onclick="changeSection('skills')">Skills</div>
+      <div class="button" onclick="changeSection('tags')">Tags</div>
     </div>
 
+    <!-- ---------- 7. Footer ---------- -->
+    <!-- Social Icons -->
     <div class="social-icons">
       <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
       <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i
           class="fab fa-linkedin"></i></a>
       <a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
     </div>
-
-    <div class="dropdown" id="dropdown">
-      <button>Settings</button>
-      <button>Logout</button>
-    </div>
-
     <footer class="footer">© 2025 – Muhammad Taha Nasir</footer>
   </div>
 
+  <!-- ---------- 8. JavaScript Include ---------- -->
   <script src="assets/js/scripts.js"></script>
 </body>
 
