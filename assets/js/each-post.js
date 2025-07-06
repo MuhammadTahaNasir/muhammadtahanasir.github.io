@@ -1,93 +1,100 @@
+// ---------- 1. Theme Handling on Page Load ----------
 document.addEventListener("DOMContentLoaded", () => {
     // Apply saved or system theme on load
-    const savedTheme = localStorage.getItem("pref-theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
-    document.body.classList.toggle("dark", initialTheme === 'dark');
-    updateThemeIcons();
+    const savedTheme = localStorage.getItem("pref-theme"); // Retrieve saved theme
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches; // Check system dark mode preference
+    const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light'); // Set initial theme
+    document.documentElement.setAttribute('data-theme', initialTheme); // Apply theme to document
+    updateThemeIcons(); // Update theme icons visibility
 });
 
+// ---------- 2. Theme Toggle Button ----------
 document.getElementById("theme-toggle").addEventListener("click", () => {
-    // Toggle the dark class on body
-    document.body.classList.toggle("dark");
-    const newTheme = document.body.classList.contains("dark") ? 'dark' : 'light';
-    localStorage.setItem("pref-theme", newTheme);
-    updateThemeIcons();
+    // Toggle between light and dark themes
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light'; // Get current theme
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark'; // Determine new theme
+    document.documentElement.setAttribute('data-theme', newTheme); // Apply new theme
+    localStorage.setItem("pref-theme", newTheme); // Save theme preference
+    updateThemeIcons(); // Update theme icons visibility
 });
 
+// ---------- 3. Update Theme Icons ----------
 function updateThemeIcons() {
-    // Update sun/moon icon visibility based on body class
-    const isDark = document.body.classList.contains("dark");
-    const sunIcon = document.getElementById("sun");
-    const moonIcon = document.getElementById("moon");
+    // Update sun/moon icon visibility based on current theme
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark'; // Check if dark mode is active
+    const sunIcon = document.getElementById("sun"); // Get sun icon
+    const moonIcon = document.getElementById("moon"); // Get moon icon
     if (sunIcon && moonIcon) {
-        sunIcon.style.display = isDark ? "none" : "block";
-        moonIcon.style.display = isDark ? "block" : "none";
+        sunIcon.style.display = isDark ? "none" : "block"; // Show/hide sun icon
+        moonIcon.style.display = isDark ? "block" : "none"; // Show/hide moon icon
     } else {
-        console.error("Theme toggle icons (sun/moon) not found");
+        console.error("Theme toggle icons (sun/moon) not found in DOM"); // Log error if icons are missing
     }
 }
 
-// Listen for system theme changes
+// ---------- 4. System Theme Change Listener ----------
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-    if (!localStorage.getItem("pref-theme")) {
-        document.body.classList.toggle("dark", e.matches);
-        updateThemeIcons();
+    if (!localStorage.getItem("pref-theme")) { // Check if no user theme preference is set
+        const newTheme = e.matches ? 'dark' : 'light'; // Set theme based on system preference
+        document.documentElement.setAttribute('data-theme', newTheme); // Apply new theme
+        updateThemeIcons(); // Update theme icons visibility
     }
 });
 
-// Scroll to top
+// ---------- 5. Scroll to Top Button Visibility ----------
 window.addEventListener("scroll", () => {
-    const scrollTopButton = document.getElementById("scrollTop");
+    const scrollTopButton = document.getElementById("scrollTop"); // Get scroll-to-top button
     if (scrollTopButton) {
-        scrollTopButton.style.display = window.scrollY > 200 ? "flex" : "none";
+        scrollTopButton.style.display = window.scrollY > 200 ? "flex" : "none"; // Show button after 200px scroll
     }
 });
 
+// ---------- 6. Scroll to Top Button Click ----------
 document.getElementById("scrollTop").addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" }); // Smooth scroll to top
 });
 
-// Loader handling
+// ---------- 7. Loader Animation on Page Load ----------
 window.addEventListener("load", () => {
-    const loader = document.getElementById("loader");
+    const loader = document.getElementById("loader"); // Get loader element
     if (loader) {
-        loader.classList.add("active");
+        loader.classList.add("active"); // Activate loader
         setTimeout(() => {
-            loader.classList.add("no-blur");
+            loader.classList.add("no-blur"); // Remove blur effect after 600ms
         }, 600);
         setTimeout(() => {
-            loader.classList.add("hidden");
-            loader.classList.remove("active");
+            loader.classList.add("hidden"); // Hide loader after 800ms
+            loader.classList.remove("active"); // Deactivate loader
         }, 800);
     }
 });
 
-// Navigation handling
+// ---------- 8. Navigation Handling ----------
 document.querySelectorAll('.pill-nav a').forEach(link => {
     link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const href = link.getAttribute('href');
-        console.log('Navigating to:', href);
+        e.preventDefault(); // Prevent default link behavior
+        const href = link.getAttribute('href'); // Get link href
+        console.log('Navigating to:', href); // Log navigation target
 
-        if (href && href !== '#' && !href.startsWith('#')) {
-            history.pushState({ path: href }, '', href);
-            window.location.assign(href);
+        if (href && href !== '#' && !href.startsWith('#')) { // Check for valid href
+            history.pushState({ path: href }, '', href); // Update browser history
+            window.location.assign(href); // Navigate to href
         } else {
-            console.error('Invalid href:', href);
+            console.error('Invalid href:', href); // Log error for invalid href
         }
     });
 });
 
+// ---------- 9. Popstate Event Handling ----------
 window.addEventListener('popstate', (event) => {
-    const state = event.state || {};
-    console.log('Popstate event:', state, 'URL:', window.location.href);
+    const state = event.state || {}; // Get event state
+    console.log('Popstate event:', state, 'URL:', window.location.href); // Log popstate details
 
-    if (state.path && (state.path.includes('index.html') || state.path === '/')) {
-        const savedTheme = localStorage.getItem('pref-theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.body.classList.toggle("dark", savedTheme ? savedTheme === 'dark' : prefersDark);
-        updateThemeIcons();
-        window.scrollTo({ top: 0, behavior: 'instant' });
+    if (state.path && (state.path.includes('index.html') || state.path === '/')) { // Check for index or root path
+        const savedTheme = localStorage.getItem('pref-theme'); // Retrieve saved theme
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; // Check system dark mode
+        document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light')); // Apply theme
+        updateThemeIcons(); // Update theme icons visibility
+        window.scrollTo({ top: 0, behavior: 'instant' }); // Scroll to top instantly
     }
 });
