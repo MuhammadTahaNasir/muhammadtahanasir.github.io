@@ -1,14 +1,8 @@
 const nodemailer = require('nodemailer');
 const multer = require('multer');
 
-// Manual CORS headers (Vercel-compatible)
 module.exports = async (req, res) => {
-
-    res.setHeader('Access-Control-Allow-Origin', 'https://muhammadtahanasir.github.io');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-
+    console.log('Request received:', req.method, req.headers.origin);
 
     // Handle CORS preflight request
     if (req.method === 'OPTIONS') {
