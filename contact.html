@@ -682,10 +682,10 @@
                     const formData = new FormData(form);
                     try {
                         console.log('Sending form data to API...');
-                        const response = await fetch('https://muhammadtahanasir.vercel.app/api/submit-contact', {
+                        const response = await fetch('https://contact-form-plum-five.vercel.app/api/submit-contact', {
                             method: 'POST',
                             body: formData,
-                            credentials: 'include', // Include credentials for CORS
+                            credentials: 'include',
                             headers: {
                                 'Accept': 'application/json'
                             }
