@@ -1,64 +1,69 @@
 const nodemailer = require('nodemailer');
 const multer = require('multer');
-const cors = require('cors');
+
+// Manual CORS headers (Vercel-compatible)
+const allowedOrigin = 'https://muhammadtahanasir.github.io';
 
 module.exports = async (req, res) => {
-    // Enable CORS for your GitHub Pages URL
-    const corsMiddleware = cors({ origin: 'https://muhammadtahanasir.github.io' }); // Replace with your GitHub Pages URL
-    corsMiddleware(req, res, async () => {
-        if (req.method !== 'POST') {
-            return res.status(405).json({ message: 'Method Not Allowed' });
+    res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    // Handle CORS preflight request
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+
+    if (req.method !== 'POST') {
+        return res.status(405).json({ message: 'Method Not Allowed' });
+    }
+
+    // Use multer to parse form-data
+    const upload = multer().none();
+    upload(req, res, async (err) => {
+        if (err) {
+            console.error('Multer error:', err.message);
+            return res.status(400).json({ message: `Form parsing error: ${err.message}` });
         }
 
-        // Setup multer for form data
-        const upload = multer();
-        upload.none()(req, res, async (err) => {
-            if (err) {
-                console.error('Multer error:', err.message);
-                return res.status(400).json({ message: `Form parsing error: ${err.message}` });
-            }
+        const { name, email, message } = req.body;
 
-            const { name, email, message } = req.body;
+        // Validate input
+        if (!name || !email || !message) {
+            console.warn('Missing fields:', { name, email, message });
+            return res.status(400).json({ message: 'All fields are required!' });
+        }
 
-            // Basic validation
-            if (!name || !email || !message) {
-                console.error('Validation failed: Missing fields');
-                return res.status(400).json({ message: 'All fields are required!' });
-            }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            console.warn('Invalid email:', email);
+            return res.status(400).json({ message: 'Invalid email format!' });
+        }
 
-            // Validate email format
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                console.error('Validation failed: Invalid email format');
-                return res.status(400).json({ message: 'Invalid email format!' });
-            }
-
-            // Setup email transport
-            const transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: process.env.EMAIL_USER,
-                    pass: process.env.EMAIL_PASS,
-                },
-            });
-
-            // Email content
-            const mailOptions = {
-                from: `"${name}" <${email}>`,
-                to: process.env.EMAIL_USER,
-                subject: 'New Portfolio Contact Form Submission',
-                text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
-            };
-
-            // Send email
-            try {
-                await transporter.sendMail(mailOptions);
-                console.log('Email sent successfully to:', process.env.EMAIL_USER);
-                res.status(200).json({ message: 'Message sent successfully!' });
-            } catch (error) {
-                console.error('Nodemailer error:', error.message);
-                res.status(500).json({ message: `Error sending email: ${error.message}` });
-            }
+        // Configure Nodemailer
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
+            },
         });
+
+        const mailOptions = {
+            from: `"${name}" <${email}>`,
+            to: process.env.EMAIL_USER,
+            subject: '📩 New Contact Message from Portfolio',
+            text: `You received a new message:\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`,
+        };
+
+        // Send email
+        try {
+            await transporter.sendMail(mailOptions);
+            console.log('✅ Email sent successfully');
+            res.status(200).json({ message: 'Message sent successfully!' });
+        } catch (error) {
+            console.error('❌ Nodemailer error:', error.message);
+            res.status(500).json({ message: `Error sending email: ${error.message}` });
+        }
     });
 };
