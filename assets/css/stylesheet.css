@@ -161,7 +161,6 @@ body {
   text-align: center;
 }
 
-
 .circle {
   position: absolute;
   border: 2px solid var(--secondary);
@@ -190,6 +189,15 @@ body {
   border-radius: 12px;
   border: 1px solid rgba(0, 255, 136, 0.3);
   margin-right: 10px;
+  text-decoration: none;
+  color: var(--primary);
+  transition: background 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+.status:hover {
+  background: rgba(0, 255, 136, 0.3);
+  transform: translateY(-2px);
+  color: #00cc66;
 }
 
 [data-theme="light"] .status .dot {
