@@ -685,7 +685,7 @@
                 const formData = new FormData(form);
                 console.log('Sending form data:', [...formData.entries()]);
                 try {
-                    const response = await fetch('http://localhost:3000/submit-contact', {
+                    const response = await fetch('https://muhammadtahanasir-github-git-4b1id4-muhammadtahanasir-projects.vercel.app/api/submit-contact', {
                         method: 'POST',
                         body: formData
                     });
