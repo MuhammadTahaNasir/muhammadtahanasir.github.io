@@ -6,8 +6,7 @@
     <meta charset="UTF-8" /> <!-- Set character encoding to UTF-8 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Ensure responsive viewport -->
     <meta name="theme-color" content="#1a1a1a"> <!-- Theme color for mobile browsers -->
-    <meta name="description" content="Contact Form - Muhammad Taha Nasir">
-    <!-- Page description -->
+    <meta name="description" content="Contact Form - Muhammad Taha Nasir"> <!-- Page description -->
     <title>Contact | Muhammad Taha Nasir</title> <!-- Page title -->
 
     <!-- ---------- 2. Stylesheets ---------- -->
@@ -93,7 +92,6 @@
             flex: 1;
             /* Allow container to grow */
         }
-
 
         /* ---------- 3. Header and Navigation bar ---------- */
         .header {
@@ -559,13 +557,13 @@
 
     <!-- ---------- 4. Theme Initialization Script ---------- -->
     <script>
-        // Apply theme immediately on page load
+        // Apply saved theme immediately to prevent flash
         (function () {
-            const savedTheme = localStorage.getItem('pref-theme'); // Get saved theme
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; // Check system dark mode
-            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                document.documentElement.classList.add('dark'); // Apply dark theme
-            }
+            const savedTheme = localStorage.getItem('pref-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+            document.documentElement.style.background = savedTheme === 'dark' ? '#1a1a1a' : '#f9fafc';
+            document.documentElement.style.color = savedTheme === 'dark' ? '#d1d5db' : '#333';
         })();
     </script>
 </head>
@@ -576,7 +574,9 @@
         <nav class="nav"> <!-- Navigation bar -->
             <!-- Left: Logo -->
             <div class="nav-left">
-                <a href="/index.html" class="logo">&lt;terry/&gt;</a>
+                <a href="/index.html" class="logo">
+                    <terry />
+                </a>
             </div>
 
             <!-- Center: Pills Navigation -->
@@ -662,17 +662,14 @@
     <script>
         // Theme toggle
         document.addEventListener('DOMContentLoaded', () => {
-            // Theme Toggle
             const html = document.documentElement;
             const themeToggle = document.getElementById('theme-toggle');
-            const currentTheme = localStorage.getItem('pref-theme') || 'light';
-            html.setAttribute('data-theme', currentTheme);
-            if (currentTheme === 'dark') html.classList.add('dark');
             themeToggle.addEventListener('click', () => {
-                const isDark = html.getAttribute('data-theme') === 'dark';
-                html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-                html.classList.toggle('dark');
-                localStorage.setItem('pref-theme', isDark ? 'light' : 'dark');
+                const currentTheme = html.getAttribute('data-theme');
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                html.setAttribute('data-theme', newTheme);
+                html.classList.toggle('dark', newTheme === 'dark');
+                localStorage.setItem('pref-theme', newTheme);
             });
             // Form Submission
             const form = document.getElementById('contact-form');
@@ -707,7 +704,6 @@
                         showToast(`❌ Network error: ${error.message}`);
                     }
                 });
-
             }
 
             // Scroll To Top Button

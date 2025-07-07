@@ -13,22 +13,27 @@
     <script>
         // Apply saved theme immediately to prevent flash
         (function () {
-            const savedTheme = localStorage.getItem('theme') || 'light';
+            const savedTheme = localStorage.getItem('pref-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
             document.documentElement.setAttribute('data-theme', savedTheme);
-            if (savedTheme === 'dark') {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-            // Set initial styles to avoid flash
+            if (savedTheme === 'dark') document.documentElement.classList.add('dark');
             document.documentElement.style.background = savedTheme === 'dark' ? '#1a1a1a' : '#f9fafc';
             document.documentElement.style.color = savedTheme === 'dark' ? '#d1d5db' : '#333';
+            // Make body visible after theme is applied
+            document.body.classList.add('theme-applied');
         })();
     </script>
     <style>
         /* Hide body until theme is applied */
         body {
             visibility: hidden;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--theme);
+            color: var(--primary);
+            transition: background 0.3s ease, color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         body.theme-applied {
@@ -63,17 +68,6 @@
         }
 
         /* ---------- 2. Global Layout ---------- */
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background: var(--theme);
-            color: var(--primary);
-            transition: background 0.3s ease, color 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
         .post-container {
             max-width: 800px;
             margin: 0 auto;
@@ -303,7 +297,9 @@
     <header class="header">
         <nav class="nav">
             <div class="nav-left">
-                <a href="/index.html" class="logo">&lt;terry/&gt;</a>
+                <a href="/index.html" class="logo">
+                    <terry />
+                </a>
             </div>
             <div class="nav-center">
                 <div class="pill-nav">
@@ -356,16 +352,15 @@
     <script>
         // Theme toggle logic and make body visible
         document.addEventListener('DOMContentLoaded', () => {
-            // Make body visible after theme is applied
-            document.body.classList.add('theme-applied');
-            const themeToggle = document.getElementById('theme-toggle');
+            document.body.classList.add('theme-applied'); // Ensure body is visible
             const html = document.documentElement;
+            const themeToggle = document.getElementById('theme-toggle');
             themeToggle.addEventListener('click', () => {
                 const currentTheme = html.getAttribute('data-theme');
                 const newTheme = currentTheme === 'light' ? 'dark' : 'light';
                 html.setAttribute('data-theme', newTheme);
                 html.classList.toggle('dark', newTheme === 'dark');
-                localStorage.setItem('theme', newTheme);
+                localStorage.setItem('pref-theme', newTheme);
                 // Update styles immediately
                 html.style.background = newTheme === 'dark' ? '#1a1a1a' : '#f9fafc';
                 html.style.color = newTheme === 'dark' ? '#d1d5db' : '#333';
