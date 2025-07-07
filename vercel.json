@@ -1,4 +1,10 @@
 {
+    "rewrites": [
+        {
+            "source": "/api/(.*)",
+            "destination": "/backend/api/$1"
+        }
+    ],
     "headers": [
         {
             "source": "/api/(.*)",
