@@ -4,7 +4,7 @@ const cors = require('cors');
 
 module.exports = async (req, res) => {
     // Enable CORS for your GitHub Pages URL
-    const corsMiddleware = cors({ origin: 'https://<username>.github.io/<repo>' }); // Replace with your GitHub Pages URL
+    const corsMiddleware = cors({ origin: 'https://muhammadtahanasir.github.io' }); // Replace with your GitHub Pages URL
     corsMiddleware(req, res, async () => {
         if (req.method !== 'POST') {
             return res.status(405).json({ message: 'Method Not Allowed' });
