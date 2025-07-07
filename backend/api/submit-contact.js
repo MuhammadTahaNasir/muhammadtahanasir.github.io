@@ -3,18 +3,14 @@ const multer = require('multer');
 const cors = require('cors');
 
 module.exports = async (req, res) => {
-    const corsMiddleware = cors({
-        origin: 'https://muhammadtahanasir.github.io',
-        optionsSuccessStatus: 200,
-        credentials: true
-    });
+    // Enable CORS for your GitHub Pages URL
+    const corsMiddleware = cors({ origin: 'https://muhammadtahanasir.github.io' }); // Replace with your GitHub Pages URL
     corsMiddleware(req, res, async () => {
-        console.log('Request method:', req.method);
         if (req.method !== 'POST') {
-            console.log('Method not allowed:', req.method);
             return res.status(405).json({ message: 'Method Not Allowed' });
         }
 
+        // Setup multer for form data
         const upload = multer();
         upload.none()(req, res, async (err) => {
             if (err) {
@@ -22,20 +18,22 @@ module.exports = async (req, res) => {
                 return res.status(400).json({ message: `Form parsing error: ${err.message}` });
             }
 
-            console.log('Raw request body:', req.body);
             const { name, email, message } = req.body;
 
+            // Basic validation
             if (!name || !email || !message) {
-                console.error('Validation failed: Missing fields', { name, email, message });
+                console.error('Validation failed: Missing fields');
                 return res.status(400).json({ message: 'All fields are required!' });
             }
 
+            // Validate email format
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
-                console.error('Validation failed: Invalid email format', { email });
+                console.error('Validation failed: Invalid email format');
                 return res.status(400).json({ message: 'Invalid email format!' });
             }
 
+            // Setup email transport
             const transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
@@ -43,8 +41,8 @@ module.exports = async (req, res) => {
                     pass: process.env.EMAIL_PASS,
                 },
             });
-            console.log('Email transport configured for:', process.env.EMAIL_USER);
 
+            // Email content
             const mailOptions = {
                 from: `"${name}" <${email}>`,
                 to: process.env.EMAIL_USER,
@@ -52,6 +50,7 @@ module.exports = async (req, res) => {
                 text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
             };
 
+            // Send email
             try {
                 await transporter.sendMail(mailOptions);
                 console.log('Email sent successfully to:', process.env.EMAIL_USER);
