@@ -4,7 +4,11 @@ const multer = require('multer');
 module.exports = async (req, res) => {
     console.log('Request received:', req.method, req.headers.origin);
 
-    // Handle CORS preflight request
+    res.setHeader('Access-Control-Allow-Origin', 'https://muhammadtahanasir.github.io');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
     if (req.method === 'OPTIONS') {
         return res.status(200).end();
     }
@@ -13,7 +17,6 @@ module.exports = async (req, res) => {
         return res.status(405).json({ message: 'Method Not Allowed' });
     }
 
-    // Use multer to parse form-data
     const upload = multer().none();
     upload(req, res, async (err) => {
         if (err) {
@@ -23,7 +26,6 @@ module.exports = async (req, res) => {
 
         const { name, email, message } = req.body;
 
-        // Validate input
         if (!name || !email || !message) {
             console.warn('Missing fields:', { name, email, message });
             return res.status(400).json({ message: 'All fields are required!' });
@@ -35,7 +37,6 @@ module.exports = async (req, res) => {
             return res.status(400).json({ message: 'Invalid email format!' });
         }
 
-        // Configure Nodemailer
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -51,7 +52,6 @@ module.exports = async (req, res) => {
             text: `You received a new message:\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`,
         };
 
-        // Send email
         try {
             await transporter.sendMail(mailOptions);
             console.log('✅ Email sent successfully');
