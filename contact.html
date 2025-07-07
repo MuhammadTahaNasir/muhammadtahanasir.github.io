@@ -766,20 +766,6 @@
             }
         }
 
-        // Scroll to top button
-        document.addEventListener('DOMContentLoaded', () => {
-            const scrollTopBtn = document.getElementById('scrollTop');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
-                    scrollTopBtn.style.display = 'flex';
-                } else {
-                    scrollTopBtn.style.display = 'none';
-                }
-            });
-            scrollTopBtn.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        });
     </script>
 </body>
 
