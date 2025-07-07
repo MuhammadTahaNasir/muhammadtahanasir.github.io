@@ -1,0 +1,538 @@
+ /* ---------- 1. Color Tokens & Theme Switch ---------- */
+ :root {
+     --theme: #f9fafc;
+     /* Background color for light theme */
+     --entry: #fff;
+     /* Background for cards and inputs in light theme */
+     --primary: #333;
+     /* Primary text/icon color in light theme */
+     --secondary: #555;
+     /* Secondary text/icon color in light theme */
+     --tertiary: #f3f4f6;
+     /* Background for buttons and accents in light theme */
+     --content: #333;
+     /* Content text color in light theme */
+     --code-block-bg: #f3f4f6;
+     /* Background for code blocks in light theme */
+     --code-bg: #e5e7eb;
+     /* Background for inline code in light theme */
+     --border: #d1d5db;
+     /* Border color in light theme */
+     --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     /* Shadow for light theme */
+ }
+
+ html.dark {
+     --theme: #1a1a1a;
+     /* Background color for dark theme */
+     --entry: #2e2e33;
+     /* Background for cards and inputs in dark theme */
+     --primary: #d1d5db;
+     /* Primary text/icon color in dark theme */
+     --secondary: #9ca3af;
+     /* Secondary text/icon color in dark theme */
+     --tertiary: #4b5563;
+     /* Background for buttons and accents in dark theme */
+     --content: #f9fafb;
+     /* Content text color in dark theme */
+     --code-block-bg: #2e2e33;
+     /* Background for code blocks in dark theme */
+     --code-bg: #37404e;
+     /* Background for inline code in dark theme */
+     --border: #333;
+     /* Border color in dark theme */
+     --shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+     /* Shadow for dark theme */
+ }
+
+ /* ---------- 2. Global Layout ---------- */
+ body {
+     margin: 0;
+     /* Remove default margin */
+     font-family: 'Segoe UI', sans-serif;
+     /* Default font */
+     background: var(--theme);
+     /* Apply theme background */
+     color: var(--primary);
+     /* Apply primary text color */
+     transition: background 0.3s ease, color 0.3s ease;
+     /* Smooth theme transitions */
+     display: flex;
+     /* Flex layout for full height */
+     flex-direction: column;
+     /* Stack content vertically */
+     min-height: 100vh;
+     /* Ensure full viewport height */
+ }
+
+ .post-container {
+     max-width: 800px;
+     /* Constrain content width */
+     margin: 0 auto;
+     /* Center content */
+     padding: 0 20px;
+     /* Add padding */
+     flex: 1;
+     /* Allow container to grow */
+ }
+
+ /* ---------- 3. Header and Navigation bar ---------- */
+ .header {
+     background: var(--theme);
+     transition: background 0.3s ease;
+ }
+
+ .nav {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 16px 24px;
+     max-width: 1200px;
+     margin: auto;
+ }
+
+ .nav-left .logo {
+     font-family: 'Courier New', monospace;
+     font-weight: bold;
+     font-size: 1.2em;
+     color: var(--primary);
+     text-decoration: none;
+ }
+
+ .nav-center {
+     flex-grow: 1;
+     display: flex;
+     justify-content: center;
+ }
+
+ .pill-nav {
+     background: var(--entry);
+     padding: 8px 20px;
+     border-radius: 999px;
+     display: flex;
+     gap: 24px;
+     align-items: center;
+     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+     justify-content: center;
+     margin-left: 30px;
+ }
+
+ .pill-nav a {
+     text-decoration: none;
+     font-size: 0.95em;
+     font-weight: 500;
+     color: var(--secondary);
+     transition: color 0.3s ease;
+ }
+
+ .pill-nav a:hover {
+     color: #3b82f6;
+ }
+
+ .nav-right {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+ }
+
+ #theme-toggle {
+     background: none;
+     border: none;
+     cursor: pointer;
+     padding: 6px;
+     color: var(--primary);
+ }
+
+ #theme-toggle svg {
+     width: 24px;
+     height: 24px;
+     fill: currentColor;
+ }
+
+ #moon {
+     display: none;
+ }
+
+ [data-theme="dark"] #sun {
+     display: none;
+ }
+
+ [data-theme="dark"] #moon {
+     display: block;
+ }
+
+ /* ---------- 4. Breadcrumb Navigation ---------- */
+ .breadcrumb {
+     font-size: 0.9em;
+     /* Smaller font for breadcrumbs */
+     color: var(--secondary);
+     /* Secondary color */
+     margin: 20px 0;
+     /* Vertical spacing */
+     animation: fadeIn 0.5s ease-in-out;
+     /* Fade in animation */
+ }
+
+ .breadcrumb a {
+     color: var(--secondary);
+     /* Secondary color for links */
+     text-decoration: none;
+     /* Remove underline */
+ }
+
+ .breadcrumb a:hover {
+     color: #3b82f6;
+     /* Blue hover color */
+ }
+
+ .breadcrumb a:last-child {
+     font-weight: bold;
+     /* Bold active breadcrumb */
+     color: var(--primary);
+     /* Primary color for active */
+ }
+
+ /* ---------- 5. Contact Form ---------- */
+ .contact-form {
+     background: var(--entry);
+     /* Entry background */
+     border-radius: 10px;
+     /* Rounded corners */
+     padding: 32px;
+     /* Padding */
+     margin: 20px 0;
+     /* Vertical spacing */
+     box-shadow: var(--shadow);
+     /* Theme shadow */
+     animation: fadeIn 0.5s ease-in-out;
+     /* Fade in animation */
+ }
+
+ .contact-form h2 {
+     font-size: 2em;
+     /* Large heading */
+     margin-bottom: 8px;
+     /* Space below */
+     color: var(--primary);
+     /* Primary color */
+ }
+
+ .contact-form p {
+     color: var(--secondary);
+     /* Secondary color */
+     margin-bottom: 24px;
+     /* Space below */
+     font-size: 1em;
+     /* Standard font size */
+ }
+
+ .contact-form form {
+     display: flex;
+     /* Flex layout */
+     flex-direction: column;
+     /* Stack vertically */
+     gap: 24px;
+     /* Space between form elements */
+ }
+
+ .form-group {
+     position: relative;
+     /* For label positioning */
+     width: 100%;
+     /* Full width */
+ }
+
+ .contact-form label {
+     font-size: 0.9em;
+     /* Smaller font */
+     font-weight: 500;
+     /* Medium weight */
+     color: var(--secondary);
+     /* Secondary color */
+     position: absolute;
+     /* Position above input */
+     top: -10px;
+     /* Align above */
+     left: 12px;
+     /* Slight offset */
+     background: var(--entry);
+     /* Match input background */
+     padding: 0 4px;
+     /* Padding for label */
+     transition: all 0.3s ease;
+     /* Smooth transitions */
+ }
+
+ .contact-form input,
+ .contact-form textarea {
+     padding: 12px;
+     /* Input padding */
+     font-size: 14px;
+     /* Font size */
+     border-radius: 6px;
+     /* Rounded corners */
+     border: 1px solid var(--border);
+     /* Border color */
+     background-color: var(--entry);
+     /* Entry background */
+     color: var(--primary);
+     /* Primary text color */
+     width: 100%;
+     /* Full width */
+     box-sizing: border-box;
+     /* Include padding in width */
+     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+     /* Subtle shadow */
+     transition: all 0.3s ease;
+     /* Smooth transitions */
+ }
+
+ .contact-form textarea {
+     resize: vertical;
+     /* Allow vertical resize only */
+     min-height: 120px;
+     /* Minimum height */
+ }
+
+ .contact-form input:focus,
+ .contact-form textarea:focus {
+     outline: none;
+     /* Remove default outline */
+     border-color: #3b82f6;
+     /* Blue border on focus */
+     box-shadow: 0 0 0 2px #3b82f6;
+     /* Blue glow on focus */
+ }
+
+ .contact-form input:placeholder-shown,
+ .contact-form textarea:placeholder-shown {
+     color: var(--secondary);
+     /* Secondary color for placeholder */
+ }
+
+ .contact-form input:not(:placeholder-shown)+label,
+ .contact-form textarea:not(:placeholder-shown)+label,
+ .contact-form input:focus+label,
+ .contact-form textarea:focus+label {
+     color: #3b82f6;
+     /* Blue label on focus/active */
+     font-size: 0.75em;
+     /* Smaller label font */
+ }
+
+ .contact-form button {
+     background: var(--tertiary);
+     /* Tertiary background */
+     color: var(--primary);
+     /* Primary text color */
+     padding: 12px 24px;
+     /* Padding */
+     font-size: 0.95em;
+     /* Slightly smaller font */
+     font-weight: 500;
+     /* Medium weight */
+     border: none;
+     /* No border */
+     border-radius: 999px;
+     /* Pill shape */
+     cursor: pointer;
+     /* Pointer cursor */
+     transition: all 0.3s ease;
+     /* Smooth transitions */
+     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+     /* Subtle shadow */
+ }
+
+ .contact-form button:hover {
+     background: rgba(0, 0, 0, 0.04);
+     /* Slightly darker on hover */
+     transform: scale(1.05);
+     /* Scale up on hover */
+ }
+
+ .contact-form .note {
+     font-size: 0.75em;
+     /* Smaller font */
+     color: var(--secondary);
+     /* Secondary color */
+     text-align: center;
+     /* Center text */
+     margin-top: 12px;
+     /* Space above */
+ }
+
+ /* ---------- 6. Section Divider ---------- */
+ .section-divider {
+     border: none;
+     /* No default border */
+     border-top: 2px solid #3b82f6;
+     /* Blue top border */
+     width: 60px;
+     /* Initial width */
+     margin: 12px 0 24px;
+     /* Spacing */
+     transition: width 0.3s ease-in-out;
+     /* Smooth width transition */
+ }
+
+ .contact-form:hover .section-divider {
+     width: 100px;
+     /* Expand on hover */
+ }
+
+ /* ---------- 7. Social Icons ---------- */
+ .social-icons {
+     display: flex;
+     /* Flex layout */
+     justify-content: center;
+     /* Center icons */
+     gap: 15px;
+     /* Space between icons */
+     margin: 32px auto 0;
+     /* Spacing */
+     max-width: 500px;
+     /* Constrain width */
+     animation: fadeIn 0.5s ease-in-out 0.2s both;
+     /* Fade in animation */
+ }
+
+ .social-icons a {
+     font-size: 24px;
+     /* Icon size */
+     color: var(--primary);
+     /* Primary color */
+     text-decoration: none;
+     /* Remove underline */
+     transition: all 0.3s ease;
+     /* Smooth transitions */
+ }
+
+ .social-icons a:hover {
+     color: #3b82f6;
+     /* Blue hover color */
+     transform: scale(1.1);
+     /* Scale up on hover */
+ }
+
+ /* ---------- 8. Footer ---------- */
+ .footer {
+     font-size: 0.9em;
+     /* Smaller font */
+     color: var(--secondary);
+     /* Secondary color */
+     margin-top: 40px;
+     /* Space above */
+     text-align: center;
+     /* Center text */
+     animation: fadeIn 0.5s ease-in-out 0.4s both;
+     /* Fade in animation */
+ }
+
+ /* ---------- 9. Animations ---------- */
+ @keyframes fadeIn {
+     from {
+         opacity: 0;
+         /* Start invisible */
+         transform: translateY(10px);
+         /* Start below */
+     }
+
+     to {
+         opacity: 1;
+         /* Fully visible */
+         transform: translateY(0);
+         /* End at position */
+     }
+ }
+
+ /* ---------- 11. Mobile Fixes ---------- */
+ @media (max-width: 768px) {
+     .nav {
+         flex-wrap: wrap;
+         /* Allow wrapping */
+         flex-direction: row;
+         /* Row layout */
+         justify-content: flex-start;
+         /* Align to start */
+         align-items: center;
+         /* Vertically align */
+         padding: 10px 12px;
+         /* Reduced padding */
+         gap: 10px;
+         /* Space between elements */
+     }
+
+     .nav-left {
+         flex: 1;
+         /* Take available space */
+         text-align: left;
+         /* Align left */
+     }
+
+     .nav-center {
+         width: 100%;
+         /* Full width */
+         order: 3;
+         /* Move to bottom */
+         overflow-x: auto;
+         /* Allow horizontal scroll */
+         padding-bottom: 5px;
+         /* Space for scrollbar */
+     }
+
+     .pill-nav {
+         flex-wrap: nowrap;
+         /* Prevent wrapping */
+         gap: 18px;
+         /* Reduced gap */
+         padding: 6px 14px;
+         /* Reduced padding */
+         overflow-x: auto;
+         /* Allow scroll */
+         border-radius: 30px;
+         /* Rounded pill */
+         justify-content: flex-start;
+         /* Align to start */
+         margin: auto;
+         /* Center */
+         max-width: 100%;
+         /* Full width */
+     }
+
+     .pill-nav::-webkit-scrollbar {
+         display: none;
+         /* Hide scrollbar */
+     }
+
+     .nav-right {
+         order: 2;
+         /* Move before nav-center */
+         margin-left: auto;
+         /* Align to right */
+     }
+
+     .post-container {
+         padding-top: 10px;
+         /* Reduced top padding */
+     }
+
+     .contact-form {
+         padding: 20px;
+         /* Reduced padding */
+     }
+
+     .contact-form h2 {
+         font-size: 1.5em;
+         /* Smaller heading */
+     }
+
+     .social-icons a {
+         font-size: 24px;
+         /* Smaller icons */
+     }
+
+     .form-group label {
+         font-size: 0.85em;
+         /* Smaller label font */
+     }
+ }
