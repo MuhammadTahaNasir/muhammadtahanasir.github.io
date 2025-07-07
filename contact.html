@@ -666,13 +666,16 @@
             const themeToggle = document.getElementById('theme-toggle');
             const currentTheme = localStorage.getItem('pref-theme') || 'light';
             html.setAttribute('data-theme', currentTheme);
-            if (currentTheme === 'dark') {
-                html.classList.add('dark');
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
             }
+
             themeToggle.addEventListener('click', () => {
                 const isDark = html.getAttribute('data-theme') === 'dark';
                 html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-                html.classList.toggle('dark');
+                html.setAttribute('data-theme', isDark ? 'light' : 'dark');
                 localStorage.setItem('pref-theme', isDark ? 'light' : 'dark');
             });
         });
