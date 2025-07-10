@@ -870,4 +870,95 @@ body {
     font-size: 0.8rem;
     letter-spacing: 5px;
   }
+
+  .view-more-wrapper {
+    width: 100%;
+    margin-top: 25px;
+    /* Increase margin to avoid overlap with post cards */
+    margin-bottom: 15px;
+    /* Add bottom margin for spacing */
+    display: flex;
+    justify-content: center;
+    padding: 0 12px;
+    box-sizing: border-box;
+  }
+
+  .ask-bar .view-more,
+  .ask-bar button,
+  .ask-bar .read-more {
+    outline: none;
+    /* Remove default outline */
+    -webkit-tap-highlight-color: transparent;
+    /* Remove mobile tap highlight */
+    -webkit-appearance: none;
+    /* Remove any browser-specific styling */
+    -moz-appearance: none;
+    /* For Firefox */
+    appearance: none;
+    /* Standard */
+    border: none;
+    /* Ensure no border is added */
+  }
+
+  /* Remove focus and active outlines */
+  .ask-bar .view-more:focus,
+  .ask-bar .view-more:active,
+  .ask-bar button:focus,
+  .ask-bar button:active,
+  .ask-bar .read-more:focus,
+  .ask-bar .read-more:active {
+    outline: none;
+    box-shadow: none;
+    /* Remove any focus shadow */
+    border: none;
+    /* Prevent any border from appearing */
+  }
+
+  /* Optional: Add subtle feedback for tap without box */
+  .ask-bar .view-more:active,
+  .ask-bar button:active,
+  .ask-bar .read-more:active {
+    transform: translateY(0);
+    /* Slight press effect */
+    background: var(--tertiary);
+    /* Subtle background change */
+  }
+
+  /* Ensure View More button stays clean */
+  .ask-bar .view-more {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    font-size: 0.85em;
+    border-radius: 20px;
+    text-decoration: none;
+    color: var(--primary);
+    background: var(--tertiary);
+    transition: background 0.3s ease, transform 0.3s ease, color 0.3s ease;
+    width: auto;
+    max-width: 200px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .ask-bar .view-more span {
+    padding: 4px 10px;
+    display: inline-block;
+    border-radius: 16px;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  /* Hover and active states for light and dark themes */
+  [data-theme="light"] .ask-bar .view-more:hover span,
+  [data-theme="light"] .ask-bar .view-more:active span {
+    background: rgba(59, 130, 246, 0.3);
+    color: #2563eb;
+  }
+
+  [data-theme="dark"] .ask-bar .view-more:hover span,
+  [data-theme="dark"] .ask-bar .view-more:active span {
+    background: rgba(110, 231, 183, 0.3);
+    color: #6ee7b7;
+  }
 }
