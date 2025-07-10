@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Terry" />
+    <link rel="manifest" href="/assets/images/site.webmanifest" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description"
+        content="Explore the critical role of system design in the era of AI, understanding its importance, challenges, and the tools that facilitate this intersection.">
+    <meta name="author" content="Muhammad Taha Nasir">
+    <meta name="tags" content="System Design, AI, Machine Learning, Scalability, Reliability">
+    <meta name="thumbnail" content="/assets/images/posts/system-design-ai.png">
+    <title>The Importance and Relevance of System Design with AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/each-post.css">
+    <script>
+        // Apply theme immediately on page load
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+</head>
+
+<body class="dark" id="top" post-date="2025-06-09T00:00:00Z">
+    <header class="header">
+        <nav class="nav">
+            <!-- Left: Logo -->
+            <div class="nav-left">
+                <a href="/index.html" class="logo">&lt;terry/&gt;</a>
+            </div>
+
+
+            <!-- Center: Pills Navigation -->
+            <div class="nav-center">
+                <div class="pill-nav">
+                    <a href="../../resources.html">Resources</a>
+                    <a href="../../archives.html">Archives</a>
+                    <a href="../../resume.html">Resume</a>
+                    <a href="../../search.html">Search</a>
+                </div>
+            </div>
+
+            <!-- Right: Theme toggle -->
+            <div class="nav-right">
+                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
+        </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">The Importance and Relevance of System Design with AI</h1>
+                <div class="post-meta">June 9, 2025 • 5 min • Muhammad Taha Nasir</div>
+            </header>
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#introduction">Introduction</a></li>
+                        <li><a href="#what-is-system-design">What is System Design?</a></li>
+                        <li><a href="#why-is-system-design-important">Why is System Design Important?</a></li>
+                        <li><a href="#how-does-ai-relate-to-system-design">How Does AI Relate to System Design?</a></li>
+                        <li><a href="#challenges-in-designing-ai-systems">Challenges in Designing AI Systems</a></li>
+                        <li><a href="#tools-and-technologies-for-ai-system-design">Tools and Technologies for AI System
+                                Design</a></li>
+                        <li><a href="#case-studies-or-examples">Case Studies or Examples</a></li>
+                        <li><a href="#future-of-ai-in-system-design">Future of AI in System Design</a></li>
+                        <li><a href="#my-journey">My Journey with System Design</a></li>
+                        <li><a href="#resources">Resources That Helped Me</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>Hey, tech fam! System design has always been the backbone of building solid software, but with
+                    Artificial Intelligence (AI) taking over, it’s like adding rocket fuel to the mix. AI systems, like
+                    the ones powering chatbots or Netflix recommendations, need to handle massive data, respond
+                    instantly, and stay reliable under pressure. I’ve been diving into system design myself, and after
+                    exploring databases in my <a href="sql-db-ai.html">last post</a>, I’m now tackling how
+                    system design and AI work together. This article breaks down why system design is crucial for AI,
+                    the challenges involved, and the tools that make it happen. Let’s dive in!</p>
+            </section>
+            <img src="/assets/images/posts/system-design-ai.png" alt="System Design and AI Integration"
+                style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;">
+            <section id="what-is-system-design">
+                <h2>What is System Design?</h2>
+                <p>System design is like planning a city for your software means laying out the roads (data flow),
+                    buildings
+                    (components), and rules (interfaces) to make everything work smoothly. It’s about defining the
+                    architecture, components, modules, and data to meet specific needs. It splits into two levels:</p>
+                <ul>
+                    <li><strong>High-Level Design (HLD)</strong>: The big picture like how components talk to each
+                        other,
+                        ensuring scalability and performance.</li>
+                    <li><strong>Low-Level Design (LLD)</strong>: The nitty-gritty means choosing algorithms, data
+                        structures,
+                        and coding details for each component.</li>
+                </ul>
+                <p>Think of it like designing a cricket stadium: HLD plans the stands and field layout, while LLD
+                    figures out the exact materials for the seats.</p>
+            </section>
+            <section id="why-is-system-design-important">
+                <h2>Why is System Design Important?</h2>
+                <p>System design is the glue that holds software together, especially for AI. Here’s why it matters:</p>
+                <ol>
+                    <li><strong>Scalability</strong>: AI systems like ChatGPT handle millions of users. Good design lets
+                        them scale up without crashing.</li>
+                    <li><strong>Reliability</strong>: Nobody wants a system that fails mid-query. Design ensures it
+                        keeps running smoothly.</li>
+                    <li><strong>Efficiency</strong>: Smart design saves resources, like using less server power for the
+                        same results.</li>
+                    <li><strong>Maintainability</strong>: A clear design makes it easier to fix bugs or add features
+                        later.</li>
+                </ol>
+                <p>For AI, where data and computation are massive, these factors are non-negotiable.</p>
+            </section>
+            <section id="how-does-ai-relate-to-system-design">
+                <h2>How Does AI Relate to System Design?</h2>
+                <p>AI systems, like machine learning models or natural language processors, need a rock-solid design to
+                    shine. Here’s how they connect:</p>
+                <ol>
+                    <li><strong>Data Pipelines</strong>: AI needs tons of data you can think terabytes for training
+                        models.
+                        Pipelines collect, clean, and store it efficiently.</li>
+                    <li><strong>Model Serving</strong>: Trained models must make predictions fast, like answering a
+                        chatbot query in seconds.</li>
+                    <li><strong>User Interfaces</strong>: AI outputs, like movie suggestions, need user-friendly
+                        displays.</li>
+                    <li><strong>Scalability</strong>: Systems must handle spikes in users, from a few in testing to
+                        millions in production.</li>
+                    <li><strong>Security and Privacy</strong>: AI often deals with sensitive data, so designs must
+                        protect it.</li>
+                </ol>
+                <p>It’s like cooking biryani for a crowd, you need the right ingredients (data), tools (models), and
+                    presentation (interface) to make it a hit.</p>
+            </section>
+            <section id="challenges-in-designing-ai-systems">
+                <h2>Challenges in Designing AI Systems</h2>
+                <p>Building AI systems is no walk in the park. Here are the big hurdles:</p>
+                <ol>
+                    <li><strong>Big Data Handling</strong>: AI systems process massive datasets, requiring efficient
+                        storage like vector databases.</li>
+                    <li><strong>Real-Time Processing</strong>: Apps like autonomous cars need instant decisions,
+                        demanding low-latency designs.</li>
+                    <li><strong>Model Complexity</strong>: Deep learning models need heavy computation, often requiring
+                        GPUs or TPUs.</li>
+                    <li><strong>Adaptability</strong>: Systems must evolve with new data or user needs, like updating a
+                        recommendation algorithm.</li>
+                    <li><strong>Ethical Considerations</strong>: AI can amplify biases or raise privacy concerns, so
+                        designs must ensure fairness and transparency.</li>
+                </ol>
+            </section>
+            <section id="tools-and-technologies-for-ai-system-design">
+                <h2>Tools and Technologies for AI System Design</h2>
+                <p>Here’s the toolkit for building AI systems:</p>
+                <ol>
+                    <li><strong>Machine Learning Frameworks</strong>: TensorFlow, PyTorch, and scikit-learn are go-to’s
+                        for building models.</li>
+                    <li><strong>Vector Databases</strong>: Pinecone and Weaviate store high-dimensional data for fast AI
+                        queries, like semantic search.</li>
+                    <li><strong>Model Serving Platforms</strong>: TensorFlow Serving, TorchServe, and BentoML deploy
+                        models at scale.</li>
+                    <li><strong>Cloud Services</strong>: AWS, Google Cloud, and Azure handle data storage, processing,
+                        and deployment.</li>
+                    <li><strong>Monitoring Tools</strong>: Prometheus and Grafana track system health, ensuring AI runs
+                        smoothly.</li>
+                </ol>
+                <p>Here’s a sample FastAPI code snippet for serving an AI model:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-python" data-lang="Python"><code>
+from fastapi import FastAPI
+import numpy as np
+from sklearn.linear_model import LogisticRegression
+
+app = FastAPI()
+model = LogisticRegression().fit([[0, 0], [1, 1]], [0, 1])
+
+@app.post("/predict")
+async def predict(data: list):
+    prediction = model.predict([data])
+    return {"prediction": int(prediction[0])}
+                    </code></pre>
+                </div>
+                <p>This sets up a simple API to predict using a trained model—perfect for real-time AI apps.</p>
+            </section>
+            <section id="case-studies-or-examples">
+                <h2>Case Studies or Examples</h2>
+                <p>Let’s look at two real-world examples:</p>
+                <p><strong>ChatGPT (OpenAI)</strong>: This language model needs a beast of a system to handle millions
+                    of queries. Its design includes:</p>
+                <ul>
+                    <li>Distributed servers for high traffic.</li>
+                    <li>Data pipelines for massive text datasets.</li>
+                    <li>Real-time inference for instant replies.</li>
+                    <li>Scalability to support global users.</li>
+                </ul>
+                <p><strong>Netflix’s Recommendation System</strong>: Netflix uses AI to suggest shows, with a design
+                    that:</p>
+                <ul>
+                    <li>Collects user behavior data (what you watch, rate, or skip).</li>
+                    <li>Trains models to predict preferences.</li>
+                    <li>Serves recommendations in real-time as you browse.</li>
+                </ul>
+            </section>
+            <section id="future-of-ai-in-system-design">
+                <h2>Future of AI in System Design</h2>
+                <p>The future is wild! Here’s what’s coming:</p>
+                <ol>
+                    <li><strong>Autonomous Systems</strong>: Systems that run with minimal human input, like
+                        self-managing servers.</li>
+                    <li><strong>Increased Automation</strong>: AI could generate code or optimize designs, speeding up
+                        development.</li>
+                    <li><strong>Edge AI</strong>: Processing data on devices like phones, reducing latency.</li>
+                    <li><strong>Explainable AI</strong>: Designs will focus on making AI decisions clear to users.</li>
+                    <li
+                        Asc="https://www.geeksforgeeks.org/system-design/what-is-scalability-and-how-to-achieve-it-learn-system-design">
+                        GeeksforGeeks: Scalability in System Design</a>
+                    </li>
+                    <li><a href="https://medium.com/fullstackai/building-ml-driven-applications-4e83cb95c0c">Medium:
+                            Designing AI Systems</a></li>
+                    <li><a href="https://microsoft.design/articles/design-systems-for-the-ai-era">Microsoft Design:
+                            AI-First Design Systems</a></li>
+                    </ul>
+            </section>
+            <section id="my-journey">
+                <h2>My Journey with System Design</h2>
+                <p>After diving into databases last semester, I’ve been grinding through system design,
+                    and it’s a game-changer. I’ve been working on projects, like building a scalable API for an AI
+                    model, and it’s tough but rewarding. My <a
+                        href="https://github.com/MuhammadTahaNasir/Systems_Design-Codes-Notes" target="_blank">GitHub
+                        repo</a> will be having all my notes and code snippets, so you can check it out for a deep dive
+                    into my learning
+                    process!</p>
+            </section>
+            <section id="resources">
+                <h2>Resources That Helped Me</h2>
+                <p>System design can feel like facing a googly, but these resources kept me on track:</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>GeeksforGeeks</strong>: Awesome guide on system design basics.<br>
+                        <a href="https://www.geeksforgeeks.org/system-design/what-is-system-design-learn-system-design">System
+                            Design Basics</a>
+                    </li>
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>Medium</strong>: Deep dive into building AI systems.<br>
+                        <a href="https://medium.com/fullstackai/building-ml-driven-applications-4e83cb95c0c">Building AI
+                            Systems</a>
+                    </li>
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>Microsoft Design</strong>: Insights on AI-first design systems.<br>
+                        <a href="https://microsoft.design/articles/design-systems-for-the-ai-era">AI-First Design
+                            Systems</a>
+                    </li>
+                </ul>
+            </section>
+            <div class="tags-container" id="dynamic-tags">
+                <!-- Tags will be dynamically generated here -->
+            </div>
+            <hr class="divider">
+            
+            <section id="related-series" class="related-articles">
+                <h2 class="series-title">Article Series</h2>
+                <a href="../../posts.html" class="series-link">Zero to One: Dev Diaries</a>
+                <div id="related-posts-container"></div>
+            </section>
+        </main>
+        <footer class="footer">
+            <div class="social-icons">
+                <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i
+                        class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i
+                        class="fab fa-linkedin"></i></a>
+                <a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>© 2025 – Muhammad Taha Nasir</p>
+        </footer>
+    </div>
+    <button id="scrollTop" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../../assets/js/each-post.js"></script>
+    <script>
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.innerText = "Copied!";
+                    setTimeout(() => button.innerText = "Copy", 1500);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

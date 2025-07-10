@@ -293,18 +293,21 @@ body {
   padding: 8px 12px;
   border-radius: 20px;
   font-size: 0.9em;
-  color: var(--content);
+  color: var(--primary);
   text-decoration: none;
   transition: background 0.3s ease, transform 0.3s ease, color 0.3s ease;
   box-sizing: border-box;
   white-space: nowrap;
   box-shadow: var(--shadow);
+  font-weight: 500;
 }
 
 .tag:hover {
-  background: #6b7280;
+  background: rgba(100, 100, 100, 0.1);
+  /* soft gray hover */
+  color: var(--primary);
+  /* keep text color consistent */
   transform: translateY(-2px);
-  color: var(--theme);
 }
 
 #scrollTop {
@@ -337,6 +340,137 @@ body {
   margin: 0.5rem 0;
   border-radius: 8px;
 }
+
+#related-series {
+  margin-top: 4rem;
+  background-color: var(--tertiary);
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  text-align: left;
+}
+
+.series-title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+  text-align: left;
+}
+
+.series-link {
+  color: var(--link-color);
+  font-weight: bold;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.series-link:hover {
+  color: var(--link-color-hover);
+}
+
+/* Divider styling */
+.divider {
+  border-top: 1px dashed var(--border);
+  margin: 2rem 0;
+}
+
+#related-series {
+  margin-top: 4rem;
+  background-color: var(--tertiary);
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  text-align: left;
+}
+
+#related-posts-container {
+  margin-top: 1rem;
+}
+
+#related-posts-container .post-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+#related-posts-container .post-item .post-number {
+  background-color: #666;
+  color: #fff;
+  font-weight: bold;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 32px;
+  flex-shrink: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#related-posts-container .post-item.current-post .post-number {
+  background-color: #1d4ed8;
+  color: #fff;
+}
+
+#related-posts-container .post-item a {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+#related-posts-container .post-item a:hover {
+  color: var(--link-color-hover);
+}
+
+#related-posts-container .post-item p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--secondary);
+  line-height: 1.4;
+}
+
+/* 🆕 Centered "Show all X posts" link */
+#related-posts-container .post-item.center-link {
+  justify-content: center;
+  text-align: center;
+  border-top: 1px dashed var(--border);
+  border-bottom: 1px dashed var(--border);
+  padding: 1.2rem 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+#related-posts-container .post-item.center-link .show-all-link {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+#related-posts-container .post-item.center-link .show-all-link:hover {
+  color: var(--link-color-hover);
+  text-decoration: underline;
+}
+
+/* Optional hover effect */
+#related-posts-container .post-item.center-link:hover {
+  background-color: var(--code-bg);
+}
+
+.tags-container {
+  margin: 40px auto;
+  max-width: 500px;
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
 
 @media (max-width: 600px) {
   .post-title {

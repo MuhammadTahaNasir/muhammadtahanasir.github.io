@@ -41,11 +41,15 @@ function updateVisiblePosts(posts, startIndex) {
     postsContainer.appendChild(postCard);
   });
 
+  // Create a wrapper for the View More button to center it
+  const viewMoreWrapper = document.createElement('div');
+  viewMoreWrapper.className = 'view-more-wrapper';
   const viewMore = document.createElement('a');
   viewMore.className = 'view-more';
   viewMore.href = 'posts.html';
-  viewMore.textContent = 'View More';
-  postsContainer.appendChild(viewMore);
+  viewMore.innerHTML = '<span>View More</span>';
+  viewMoreWrapper.appendChild(viewMore);
+  postsContainer.appendChild(viewMoreWrapper);
 }
 
 // Handles section changes and UI updates

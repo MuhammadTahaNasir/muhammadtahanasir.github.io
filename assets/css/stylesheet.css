@@ -469,21 +469,53 @@ body {
   line-height: 1.4em;
 }
 
+/* View More Button Wrapper */
+.view-more-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* View More Button */
 .ask-bar .view-more {
-  display: block;
-  margin: 10px auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 8px 16px;
   background: var(--tertiary);
-  color: var(--primary);
   border-radius: 20px;
   text-decoration: none;
   font-size: 0.9em;
+  color: var(--primary);
   transition: background 0.3s ease, transform 0.3s ease;
 }
 
+.ask-bar .view-more span {
+  transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease;
+}
+
 .ask-bar .view-more:hover {
-  background: #6b7280;
   transform: translateY(-2px);
+}
+
+.ask-bar .view-more:hover span {
+  padding: 4px 12px;
+  border-radius: 16px;
+}
+
+/* Light mode hover effect */
+[data-theme="light"] .ask-bar .view-more:hover span {
+  background: rgba(59, 130, 246, 0.3);
+  color: #2563eb;
+}
+
+/* Dark mode hover effect */
+[data-theme="dark"] .ask-bar .view-more:hover span {
+  background: rgba(110, 231, 183, 0.3);
+  /* Subtle teal for dark mode */
+  color: #6ee7b7;
+  /* Brighter teal for readability */
 }
 
 .ask-bar .read-more {

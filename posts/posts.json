@@ -1,5 +1,21 @@
 [
   {
+    "title": "The Importance and Relevance of System Design with AI",
+    "summary": "Explore the critical role of system design in the era of AI, understanding its importance, challenges, and the tools that facilitate this intersection.",
+    "url": "posts/2025/system_design.html",
+    "thumbnail": "/assets/images/posts/system-design-ai.png",
+    "tags": [
+      "System Design",
+      "AI",
+      "Machine Learning",
+      "Scalability",
+      "Reliability"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "5 min",
+    "date": "2025-06-09T00:00:00Z"
+  },
+  {
     "title": "The Future of Data: What I Learned from SQL to Vector Databases",
     "summary": "This semester, I got into databases and learned a ton. I started with MySQL and SQLite, figuring out how to write queries to manage data. Then, I tried Neo4j and saw how it connects things like a web. I also checked out vector databases and how they help apps find stuff fast. Working on projects and seeing real examples made it clear how data is stored and used in apps today.",
     "url": "posts/2025/sql-db-ai.html",
@@ -36,7 +52,7 @@
     "title": "Generative AI & Prompt Engineering: The New Skillset for the AI Age",
     "summary": "This post covers Generative AI and learning how Large Language Models (LLMs) like GPT understand and generate text, code, images, and more. From writing smarter prompts to understanding how these models think, this experience opened my eyes to how AI is reshaping creativity, productivity, and problem-solving.",
     "url": "posts/2025/gen-ai.html",
-    "thumbnail": "",
+    "thumbnail": "/assets/images/posts/gen-ai.JPG",
     "tags": [
       "Generative AI",
       "Large Language Models",
