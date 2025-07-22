@@ -1,0 +1,369 @@
+:root {
+  --primary: #2e2e33;
+  --secondary: #666;
+  --tertiary: #e5e5e5; /* Adjusted for more visible tool pills in light mode */
+  --background: #fff;
+  --border: #ddd;
+  --theme: #fff;
+  --entry: #fff;
+  --content: #333;
+  --code-block-bg: #f5f5f5;
+  --code-bg: #e5e7eb;
+  --shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  --link-color: #1d4ed8;
+  --link-color-hover: #1e40af;
+  --code-text: #333;
+}
+
+[data-theme="dark"] {
+  --primary: #fff;
+  --secondary: #aaa;
+  --tertiary: #333;
+  --background: #2e2e33;
+  --border: #555;
+  --theme: #1a1a1a;
+  --entry: #2e2e33;
+  --content: #f9fafb;
+  --code-block-bg: #1e293b;
+  --code-bg: #4b5563;
+  --link-color: #60a5fa;
+  --link-color-hover: #93c5fd;
+  --code-text: #f9fafb;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background: var(--background);
+  color: var(--primary);
+  line-height: 1.6;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.header {
+  background: var(--entry);
+  transition: background 0.3s ease;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.nav-left .logo {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  font-size: 1.2em;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.nav-center {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.pill-nav {
+  background: var(--theme);
+  padding: 8px 20px;
+  border-radius: 999px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+}
+
+.pill-nav a {
+  text-decoration: none;
+  font-size: 0.95em;
+  font-weight: 500;
+  color: var(--secondary);
+  transition: color 0.3s ease;
+}
+
+.pill-nav a:hover {
+  color: #3b82f6;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+#theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  color: var(--primary);
+}
+
+#theme-toggle svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+#moon {
+  display: none;
+}
+
+[data-theme="dark"] #sun {
+  display: none;
+}
+
+[data-theme="dark"] #moon {
+  display: block;
+}
+
+.breadcrumb {
+  margin: 20px 0;
+  font-size: 0.95em;
+  color: var(--secondary);
+  text-align: left;
+}
+
+.breadcrumb a {
+  color: var(--secondary);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: #3b82f6;
+}
+
+.project-header {
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.project-title {
+  font-size: 2rem;
+  margin: 0.5rem 0;
+  color: var(--primary);
+}
+
+.project-meta {
+  font-size: 0.9em;
+  color: var(--secondary);
+}
+
+.project-content {
+  font-size: 1.1em;
+  text-align: left;
+  color: var(--content);
+}
+
+.project-content h2 {
+  font-size: 1.5rem;
+  margin: 1.5rem 0 0.5rem;
+  color: var(--primary);
+}
+
+.project-content p,
+.project-content ul,
+.project-content ol {
+  margin: 0.5rem 0;
+}
+
+.project-content a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+.project-content a:hover {
+  color: var(--link-color-hover);
+}
+
+
+.tools-section {
+  margin: 40px 0;
+  text-align: left;
+}
+
+.tools-label {
+  font-weight: 600;
+  color: var(--primary);
+  margin-right: 10px;
+}
+
+.tool-pill {
+  display: inline-block;
+  background: var(--tertiary);
+  padding: 6px 12px;
+  margin: 0 8px 8px 0;
+  border-radius: 20px;
+  font-size: 0.9em;
+  color: var(--content);
+  box-shadow: var(--shadow);
+  white-space: nowrap;
+}
+
+.button-section {
+  margin: 20px 0;
+  text-align: left;
+}
+
+/* Project Buttons */
+.project-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9em;
+  transition: opacity 0.3s ease, background 0.3s ease, color 0.3s ease;
+  opacity: 0.7;
+  background: var(--entry);
+  color: var(--primary);
+}
+
+.project-button:hover {
+  opacity: 1;
+  background: var(--tertiary);
+}
+
+.project-button i {
+  font-size: 1.2em;
+}
+
+.project-button.web-link {
+  color: var(--web-icon);
+}
+
+.project-button.github-link {
+  color: var(--github-icon);
+}
+
+[data-theme="dark"] .tool-pill {
+  background: #6b7280;
+  color: var(--content);
+}
+
+[data-theme="dark"] .project-button {
+  background: #4b5563;
+  color: var(--content);
+}
+
+[data-theme="dark"] .project-button:hover {
+  background: #6b7280;
+  color: var(--theme);
+}
+
+.footer {
+  margin-top: 40px;
+  font-size: 0.9em;
+  color: var(--secondary);
+  text-align: center;
+  padding: 20px 0;
+  border-top: 1px solid var(--border);
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 32px auto 0;
+  max-width: 500px;
+}
+
+.social-icons a {
+  font-size: 24px;
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #3b82f6;
+}
+
+#scrollTop {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  width: 40px;
+  height: 40px;
+  background: var(--entry);
+  color: var(--primary);
+  border: none;
+  border-radius: 50%;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+#scrollTop:hover {
+  background: var(--secondary);
+  color: var(--theme);
+}
+
+@media (max-width: 768px) {
+  .nav {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  .nav-left {
+    flex: 1;
+    text-align: left;
+  }
+
+  .nav-center {
+    width: 100%;
+    order: 3;
+    overflow-x: auto;
+    padding-bottom: 5px;
+  }
+
+  .pill-nav {
+    flex-wrap: nowrap;
+    gap: 18px;
+    padding: 6px 14px;
+    overflow-x: auto;
+    border-radius: 30px;
+    justify-content: flex-start;
+    margin: auto;
+    max-width: 100%;
+  }
+
+  .pill-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-right {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .project-title {
+    font-size: 1.8rem;
+  }
+
+  .project-content {
+    font-size: 1rem;
+  }
+}
