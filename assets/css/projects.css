@@ -846,4 +846,10 @@ h1 {
   .view-toggle {
     display: none;
   }
+
+  .container h1, h1 {
+    text-align: left;
+    margin-top: 2px;
+    margin-bottom: 22px;
+  }
 }

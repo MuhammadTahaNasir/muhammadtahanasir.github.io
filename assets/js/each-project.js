@@ -5,17 +5,14 @@ document.addEventListener("DOMContentLoaded", () => {
     document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
     updateThemeIcons();
 
-    // Dynamically generate tool pills from meta features
+    // Dynamically generate tool tags from meta features
     const featuresMeta = document.querySelector('meta[name="features"]');
-    const toolsSection = document.querySelector('.tools-section');
-    if (featuresMeta && toolsSection) {
+    const toolsTagsDiv = document.getElementById('project-tools-tags');
+    if (featuresMeta && toolsTagsDiv) {
         const features = featuresMeta.content.split(',').map(feature => feature.trim());
-        features.forEach(feature => {
-            const pill = document.createElement('span');
-            pill.className = 'tool-pill';
-            pill.textContent = feature;
-            toolsSection.appendChild(pill);
-        });
+        toolsTagsDiv.innerHTML = features.map(feature => `
+            <a href="/tags/tag.html?name=${encodeURIComponent(feature)}" class="tag">${feature}</a>
+        `).join(' ');
     }
 });
 

@@ -9,17 +9,26 @@ const params = new URLSearchParams(window.location.search); // Parse URL query p
 activeTag = params.get('name'); // Extract the 'name' parameter for the active tag
 document.getElementById('tagTitle').textContent = activeTag; // Set the tag title in the DOM
 
-// ---------- 2. Post Loading ----------
+let projects = []; // Stores the fetched projects data
+
+// ---------- 2. Post and Project Loading ----------
 async function loadPosts() {
     loader.classList.add('active'); // Show loader with active state
     try {
-        const res = await fetch('../posts/posts.json'); // Fetch posts data from JSON file
-        if (!res.ok) throw new Error('File not found'); // Handle fetch errors
-        posts = await res.json(); // Parse JSON response into posts array
-        renderPosts(); // Render the posts for the current tag
+        // Fetch posts and projects in parallel
+        const [postsRes, projectsRes] = await Promise.all([
+            fetch('../posts/posts.json'),
+            fetch('../projects/projects.json')
+        ]);
+        if (!postsRes.ok) throw new Error('Posts file not found');
+        if (!projectsRes.ok) throw new Error('Projects file not found');
+        posts = await postsRes.json();
+        projects = await projectsRes.json();
+        renderUnifiedList(); // Render both posts and projects for the current tag
     } catch (error) {
         console.error('Fetch error:', error); // Log any fetch-related errors
         document.getElementById('post-container').innerHTML = `<p class="no-results">😕 Failed to load posts. Check the console for details.</p>`; // Display error message
+        document.getElementById('project-container').innerHTML = `<p class="no-results">😕 Failed to load projects. Check the console for details.</p>`;
     } finally {
         setTimeout(() => {
             loader.classList.add('no-blur'); // Add no-blur class to loader after 600ms
@@ -31,58 +40,61 @@ async function loadPosts() {
     }
 }
 
-// ---------- 3. Post Rendering and Pagination ----------
-function renderPosts() {
-    let filtered = posts.filter(post => post.tags.includes(activeTag)); // Filter posts by the active tag
-
-    const totalPages = Math.ceil(filtered.length / postsPerPage); // Calculate total pages
-    const start = (currentPage - 1) * postsPerPage; // Calculate start index for pagination
-    const paginated = filtered.slice(start, start + postsPerPage); // Get posts for the current page
-
-    const container = document.getElementById('post-container'); // Reference to the post container element
-    container.innerHTML = ''; // Clear existing content
-
-    if (filtered.length === 0) {
-        container.innerHTML = '<p class="no-results">😕 No posts found.</p>'; // Display message if no posts are found
-        document.getElementById('pagination').innerHTML = ''; // Clear pagination
+// ---------- 3. Unified Rendering for Posts and Projects ----------
+function renderUnifiedList() {
+    // Filter posts and projects by tag
+    let filteredPosts = posts.filter(post => post.tags.includes(activeTag));
+    let filteredProjects = projects.filter(project => Array.isArray(project.features) && project.features.includes(activeTag));
+    // Map both to a common format with a type field
+    let mappedPosts = filteredPosts.map(post => ({
+        type: 'post',
+        date: post.date ? post.date.split('T')[0] : '',
+        time: post.time || '',
+        title: post.title,
+        url: '../' + post.url,
+        thumbnail: post.thumbnail,
+        summary: post.summary,
+    }));
+    let mappedProjects = filteredProjects.map(project => ({
+        type: 'project',
+        date: project.date || '',
+        time: '',
+        title: project.title,
+        url: '..' + project.url,
+        thumbnail: project.thumbnail,
+        summary: project.description,
+    }));
+    // Merge and sort by date descending
+    let combined = [...mappedPosts, ...mappedProjects].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    const container = document.getElementById('post-container');
+    container.innerHTML = '';
+    if (combined.length === 0) {
+        container.innerHTML = '<p class="no-results">😕 No posts or projects found.</p>';
+        document.getElementById('pagination').innerHTML = '';
         return;
     }
-
-    container.innerHTML = paginated.map(post => `
-        <div class="post-card">
-            ${post.thumbnail ? `<img src="${post.thumbnail}" alt="${post.title}">` : ''} <!-- Conditionally render thumbnail -->
+    container.innerHTML = combined.map(item => `
+        <div class="post-card${item.type === 'project' ? ' project-card' : ''}">
+            ${item.thumbnail ? `<img src="${item.thumbnail}" alt="${item.title}">` : ''}
             <div class="post-content">
-                <h2><a href="../${post.url}">${post.title}</a></h2> <!-- Post title with link -->
-                <div class="post-meta">${post.date.split('T')[0]} · ${post.time}</div> <!-- Post date and read time -->
-                <p class="post-summary">${post.summary}</p> <!-- Post summary -->
+                <h2><a href="${item.url}">${item.title}</a>
+                    <span class="${item.type === 'project' ? 'project-badge' : 'post-badge'}">${item.type === 'project' ? 'Project' : 'Post'}</span>
+                </h2>
+                <div class="post-meta">${item.date}${item.time ? ' · ' + item.time : ''}</div>
+                <p class="post-summary">${item.summary ? item.summary : ''}</p>
             </div>
         </div>
-    `).join(''); // Generate HTML for each post and join into a single string
-
-    const pagination = document.getElementById('pagination'); // Reference to the pagination element
-    let paginationHTML = ''; // Initialize pagination HTML
-
-    if (currentPage > 1) {
-        paginationHTML += `<button onclick="goToPage(${currentPage - 1})">Prev</button>`; // Add Previous button if not on first page
-    }
-
-    paginationHTML += '<div class="page-buttons">'; // Container for page number buttons
-    for (let i = 1; i <= totalPages; i++) {
-        paginationHTML += `<button class="${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`; // Add button for each page, highlight active page
-    }
-    paginationHTML += '</div>';
-
-    if (currentPage < totalPages) {
-        paginationHTML += `<button onclick="goToPage(${currentPage + 1})">Next »</button>`; // Add Next button if not on last page
-    }
-
-    pagination.innerHTML = paginationHTML; // Render pagination controls
+    `).join('');
+    document.getElementById('pagination').innerHTML = '';
 }
+
+// ---------- 3b. Project Rendering ----------
+// This function is no longer needed as projects are rendered directly in renderUnifiedList
 
 // ---------- 4. Page Navigation ----------
 function goToPage(page) {
     currentPage = page; // Update current page
-    renderPosts(); // Re-render posts for the selected page
+    renderUnifiedList(); // Re-render posts for the selected page
 }
 
 // ---------- 5. Theme Toggle ----------

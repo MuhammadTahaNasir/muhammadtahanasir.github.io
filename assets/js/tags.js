@@ -7,16 +7,33 @@ const loader = document.getElementById('loader'); // Reference to the loader ele
 async function loadTags() {
     loader.classList.add('active'); // Show loader with active state
     try {
-        const res = await fetch("../posts/posts.json"); // Fetch posts data from JSON file
-        if (!res.ok) throw new Error('File not found'); // Handle fetch errors
-        posts = await res.json(); // Parse JSON response into posts array
-        const tagMap = new Map(); // Create a Map to count tag occurrences
+        // Fetch posts and projects in parallel
+        const [postsRes, projectsRes] = await Promise.all([
+            fetch("../posts/posts.json"),
+            fetch("../projects/projects.json")
+        ]);
+        if (!postsRes.ok) throw new Error('Posts file not found');
+        if (!projectsRes.ok) throw new Error('Projects file not found');
+        posts = await postsRes.json();
+        const projects = await projectsRes.json();
+        const tagMap = new Map(); // tag => count
+        // Aggregate tags from posts
         posts.forEach(p => {
-            p.tags.forEach(tag => {
-                tagMap.set(tag, (tagMap.get(tag) || 0) + 1); // Increment tag count
-            });
+            if (Array.isArray(p.tags)) {
+                p.tags.forEach(tag => {
+                    tagMap.set(tag, (tagMap.get(tag) || 0) + 1);
+                });
+            }
         });
-        tagList = [...tagMap.entries()].sort((a, b) => a[0].localeCompare(b[0])); // Convert Map to sorted array of [tag, count]
+        // Aggregate features from projects as tags
+        projects.forEach(proj => {
+            if (Array.isArray(proj.features)) {
+                proj.features.forEach(feature => {
+                    tagMap.set(feature, (tagMap.get(feature) || 0) + 1);
+                });
+            }
+        });
+        tagList = [...tagMap.entries()].sort((a, b) => a[0].localeCompare(b[0]));
         renderTags(tagList); // Render the sorted tags
     } catch (error) {
         console.error('Fetch error:', error); // Log any fetch-related errors

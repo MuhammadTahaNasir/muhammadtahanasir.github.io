@@ -317,6 +317,26 @@ body {
   color: var(--theme);
 }
 
+.tag {
+  display: inline-block;
+  background: var(--tertiary);
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  color: var(--primary);
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.3s ease, color 0.3s ease;
+  box-sizing: border-box;
+  white-space: nowrap;
+  box-shadow: var(--shadow);
+  font-weight: 500;
+}
+.tag:hover {
+  background: rgba(100, 100, 100, 0.1);
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
 @media (max-width: 768px) {
   .nav {
     flex-wrap: wrap;
