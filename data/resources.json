@@ -1,525 +1,576 @@
 [
-    {
-        "thumbnail": "fas fa-code",
-        "title": "LlamaIndex",
-        "desc": "Python library for RAG applications",
-        "link": "https://github.com/run-llama/llama_index",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-play-circle",
-        "title": "HuggingFace Transformers + FAISS Notebook",
-        "desc": "RAG with vector DB",
-        "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/free-rag-faiss",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-brain",
-        "title": "HuggingFace Transformers 101",
-        "desc": "Quickstart using HF models",
-        "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/transformers-101"
-    },
-    {
-        "thumbnail": "fas fa-network-wired",
-        "title": "Prompt Engineering Cheatsheet",
-        "desc": "Tips to design better prompts",
-        "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/blob/main/prompt-engineering-cheatsheet/prompt_cheatsheet.ipynb"
-    },
-    {
-        "thumbnail": "fas fa-book",
-        "title": "Deep Learning Book",
-        "desc": "by Ian Goodfellow (PDF)",
-        "link": "resources/deeplearningbook.pdf"
-    },
-    {
-        "thumbnail": "fas fa-robot",
-        "title": "Building with LLMs (OpenAI)",
-        "desc": "OpenAI Dev Day doc summary",
-        "link": "resources/BuildingwithLLM.pdf"
-    },
-    {
-        "thumbnail": "fas fa-code",
-        "title": "Gradio",
-        "desc": "Python library for ML app UIs",
-        "link": "https://github.com/gradio-app/gradio",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-video",
-        "title": "Prompt Engineering Guide",
-        "desc": "Best practices for LLMs",
-        "link": "https://youtube.com/watch?v=dOxUroR57xs",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-code",
-        "title": "Haystack",
-        "desc": "Open-source NLP for search systems",
-        "link": "https://github.com/deepset-ai/haystack",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-link",
-        "title": "OpenAI Cookbook",
-        "desc": "Official GPT integration examples",
-        "link": "https://github.com/openai/openai-cookbook",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-brain",
-        "title": "GPT4 Prompt Patterns by OpenAI",
-        "desc": "Common prompt patterns blog on Cookbook",
-        "link": "https://cookbook.openai.com/examples/gpt4-1_prompting_guide"
-    },
-    {
-        "thumbnail": "fas fa-play-circle",
-        "title": "LLM Fine-Tuning Guide",
-        "desc": "Fine-tuning LLMs with HuggingFace",
-        "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/blob/main/fine-tune-llm-hf/finetune_classification.ipynb"
-    },
-    {
-        "thumbnail": "fas fa-link",
-        "title": "LangChain Docs",
-        "desc": "Official LangChain documentation",
-        "link": "https://python.langchain.com/docs/",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-flask",
-        "title": "Flask vs FastAPI",
-        "desc": "Comparison & deployment tips",
-        "link": "resources/flask_vs_fastapi.pdf"
-    },
-    {
-        "thumbnail": "fas fa-code",
-        "title": "PyTorch Lightning",
-        "desc": "Simplified PyTorch for ML",
-        "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/pytorch-lightning-intro",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-cogs",
-        "title": "CI/CD with GitHub Actions",
-        "desc": "Automate builds easily",
-        "link": "https://dev.to/vishnusatheesh/how-to-set-up-a-cicd-pipeline-with-github-actions-for-automated-deployments-j39#:~:text=As%20a%20popular%20CI%2FCD,one%20or%20more%20predefined%20tasks."
-    },
-    {
-        "thumbnail": "fas fa-cloud",
-        "title": "Deploy on Vercel",
-        "desc": "Guide to deploying Next.js apps",
-        "link": "https://nextjs.org/learn/pages-router/deploying-nextjs-app-deploy"
-    },
-    {
-        "thumbnail": "fas fa-file-pdf",
-        "title": "Kubernetes for ML Deployment",
-        "desc": "Deploy ML models with Kubernetes",
-        "link": "https://komodor.com/wp-content/uploads/2024/11/ML-Ebook.pdf"
-    },
-    {
-        "thumbnail": "fas fa-play-circle",
-        "title": "RAG with Weaviate",
-        "desc": "Vector DB RAG tutorial in Colab",
-        "link": "https://colab.research.google.com/drive/1smATV2Lk0tkXvEJLptIXBsISI53s0C1D",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-chart-line",
-        "title": "LLM Evaluation Guide",
-        "desc": "BLEU, ROUGE, human feedback, hallucination detection",
-        "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/llm-evaluation"
-    },
-    {
-        "thumbnail": "fas fa-file-pdf",
-        "title": "GraphQL Crash Course",
-        "desc": "Guide to API design with GraphQL",
-        "link": "https://www.tutorialspoint.com/graphql/graphql_tutorial.pdf"
-    },
-    {
-        "thumbnail": "fas fa-video",
-        "title": "Python Machine Learning Tutorial (Data Science)",
-        "desc": "Programming with Mosh - ML (Python)",
-        "link": "https://youtu.be/7eh4d6sabA0",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-database",
-        "title": "ChromaDB + LangChain Example",
-        "desc": "Using vector DBs with LangChain",
-        "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/rag-langchain-chroma"
-    },
-    {
-        "thumbnail": "fas fa-cogs",
-        "title": "Github Actions – YAML Snippets",
-        "desc": "Useful workflow templates",
-        "link": "https://github.com/MuhammadTahaNasir/actomatic"
-    },
-    {
-        "thumbnail": "fas fa-cloud",
-        "title": "Cloud Services Comparison",
-        "desc": "AWS vs GCP vs Azure PDF",
-        "link": "https://www.veritis.com/wp-content/uploads/2018/05/azure-vs-aws-vs-google-cloud-services-comparison.pdf"
-    },
-    {
-        "thumbnail": "fas fa-file-pdf",
-        "title": "Data Viz Guide",
-        "desc": "Matplotlib & Seaborn examples",
-        "link": "resources/data_viz.pdf"
-    },
-    {
-        "thumbnail": "fas fa-file-pdf",
-        "title": "SQLAlchemy Cheatsheet",
-        "desc": "ORM guide for Python",
-        "link": "resources/sqlalchemy_cheatsheet.pdf"
-    },
-    {
-        "thumbnail": "fas fa-book",
-        "title": "Python for Data Analysis",
-        "desc": "Wes McKinney (PDF)",
-        "link": "https://datapot.vn/wp-content/uploads/2023/12/datapot.vn-Python-for-Data-Analysis.pdf?srsltid=AfmBOopaS49vybq4VI5qfnX1ItMgzIUCnRWCFlONMoEsMl2vpPrG4zal"
-    },
-    {
-        "thumbnail": "fas fa-table",
-        "title": "MongoDB vs PostgreSQL",
-        "desc": "Blog on Dev Community",
-        "link": "https://dev.to/ben/postgresql-vs-mongodb-30b1"
-    },
-    {
-        "thumbnail": "fas fa-video",
-        "title": "ML Crash Course",
-        "desc": "Fast intro to ML (YouTube)",
-        "link": "https://youtube.com/watch?v=Gv9_4yMHFhI",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-link",
-        "title": "PyTorch Official Docs",
-        "desc": "Official PyTorch documentation",
-        "link": "https://pytorch.org/docs/stable/",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-file-image",
-        "title": "ML Pipeline Diagram",
-        "desc": "End-to-end ML workflow",
-        "link": "resources/ml_pipeline.png"
-    },
-    {
-        "thumbnail": "fas fa-cogs",
-        "title": "FastAPI JWT Auth",
-        "desc": "Secure API login system",
-        "link": "https://testdriven.io/blog/fastapi-jwt-auth/"
-    },
-    {
-        "thumbnail": "fas fa-video",
-        "title": "Docker in 100 Seconds",
-        "desc": "Fireship.io Docker explainer",
-        "link": "https://youtube.com/watch?v=Gjnup-PuquQ",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-link",
-        "title": "Google Cloud AI Docs",
-        "desc": "Deploy ML with GCP",
-        "link": "https://cloud.google.com/products/ai",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-play-circle",
-        "title": "PostgreSQL Crash Course",
-        "desc": "Comnplete PostgreSQL for beginners course",
-        "link": "https://youtube.com/watch?v=qw--VYLpxG4",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-link",
-        "title": "MLflow Docs",
-        "desc": "Experiment tracking for ML",
-        "link": "https://mlflow.org/docs/latest/quickstart.html",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-file-image",
-        "title": "FastAPI Architecture",
-        "desc": "System design of FastAPI app",
-        "link": "resources/fastapi_architecture.png"
-    },
-    {
-        "thumbnail": "fas fa-cogs",
-        "title": "Postman API Testing",
-        "desc": "Testing APIs like a pro",
-        "link": "https://unidel.edu.ng/focelibrary/books/API%20Testing%20and%20Development%20with%20Postman%20A%20practical%20guide%20to%20creating,%20testing,%20and%20managing%20APIs%20for%20automated%20software%20testing%20by%20Dave%20Westerveld%20(z-lib.org).pdf"
-    },
-    {
-        "thumbnail": "fas fa-server",
-        "title": "Backend with Django",
-        "desc": "Starter guide to Django apps",
-        "link": "https://docs.djangoproject.com/en/5.2/intro/tutorial01/"
-    },
-    {
-        "thumbnail": "fas fa-file-pdf",
-        "title": "Docker Cheatsheet",
-        "desc": "Docker CLI commands",
-        "link": "https://docs.docker.com/get-started/docker_cheatsheet.pdf"
-    },
-    {
-        "thumbnail": "fas fa-rocket",
-        "title": "Backend Roadmap by Roadmap.sh",
-        "desc": "Visual guide for backend devs",
-        "link": "https://roadmap.sh/backend"
-    },
-    {
-        "thumbnail": "fas fa-server",
-        "title": "Django Starter Guide by w3schools",
-        "desc": "Intro to Django basics",
-        "link": "https://www.w3schools.com/django/"
-    },
-    {
-        "thumbnail": "fas fa-code",
-        "title": "Django Blog Template",
-        "desc": "Starter template for blogs using Django",
-        "link": "https://github.com/encode/django-rest-framework",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-link",
-        "title": "Streamlit Docs",
-        "desc": "Build interactive Python apps",
-        "link": "https://docs.streamlit.io",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-terminal",
-        "title": "Linux Command Guide",
-        "desc": "PDF reference for Linux CLI",
-        "link": "https://www.loggly.com/wp-content/uploads/2015/05/Linux-Cheat-Sheet-Sponsored-By-Loggly.pdf"
-    },
-    {
-        "thumbnail": "fas fa-file-image",
-        "title": "JWT Auth Flow Diagram",
-        "desc": "Visual auth flow for APIs",
-        "link": "resources/jwt_flowchart.png"
-    },
-    {
-        "thumbnail": "fas fa-file-pdf",
-        "title": "Docker Crash Course",
-        "desc": "Docker basics for devs",
-        "link": "https://chariotsolutions.com/wp-content/uploads/2019/05/ng-conf-2019-rimple-docker-workshop.pdf"
-    },
-    {
-        "thumbnail": "fas fa-link",
-        "title": "Design Patterns Illustrated",
-        "desc": "Best practices in OOP",
-        "link": "https://refactoring.guru/design-patterns",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-code",
-        "title": "Streamlit Chatbot",
-        "desc": "UI for GPT chatbot app",
-        "link": "https://streamlit.io/gallery?category=llms",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-video",
-        "title": "What is LangChain?",
-        "desc": "LangChain explained visually",
-        "link": "https://youtu.be/1bUy-1hGZpI?si",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-play-circle",
-        "title": "Colab – Vision Detection",
-        "desc": "YOLOv8 detection notebook",
-        "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/yolov8-vision-detection",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-brain",
-        "title": "NLP Toolkit Cheatsheet",
-        "desc": "NLTK, SpaCy, transformers",
-        "link": "https://github.com/janlukasschroeder/nlp-cheat-sheet-python"
-    },
-    {
-        "thumbnail": "fas fa-file-pdf",
-        "title": "React Quickstart",
-        "desc": "React + Tailwind crash notes",
-        "link": "https://www.newline.co/fullstack-react/assets/media/sGEMe/MNzue/30-days-of-react-ebook-fullstackio.pdf"
-    },
-    {
-        "thumbnail": "fas fa-book",
-        "title": "Automate the Boring Stuff",
-        "desc": "Python automation book (PDF)",
-        "link": "https://edu.anarcho-copy.org/Programming%20Languages/Python/Automate%20the%20Boring%20Stuff%20with%20Python.pdf"
-    },
-    {
-        "thumbnail": "fas fa-terminal",
-        "title": "Bash Cheatsheet",
-        "desc": "Everyday Linux commands",
-        "link": "https://github.com/RehanSaeed/Bash-Cheat-Sheet"
-    },
-    {
-        "thumbnail": "fas fa-file-image",
-        "title": "REST vs GraphQL",
-        "desc": "Visual comparison",
-        "link": "resources/rest_vs_graphql.png"
-    },
-    {
-        "thumbnail": "fas fa-file-pdf",
-        "title": "SQL Cheatsheet",
-        "desc": "Most used SQL queries",
-        "link": "https://www.dbvis.com/wp-content/uploads/2024/04/SQL-Cheat-Sheet.pdf"
-    },
-    {
-        "thumbnail": "fas fa-link",
-        "title": "Python Official Docs",
-        "desc": "The official Python documentation",
-        "link": "https://docs.python.org/3/",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-file-pdf",
-        "title": "Python Basics",
-        "desc": "Beginner's guide to Python",
-        "link": "https://mathstat.dal.ca/~brown/sound/python/ABeginnersGuideToPython3Progra.pdf"
-    },
-    {
-        "thumbnail": "fas fa-book",
-        "title": "AI: A Modern Approach",
-        "desc": "Russell & Norvig (PDF)",
-        "link": "http://lib.ysu.am/disciplines_bk/efdd4d1d4c2087fe1cbe03d9ced67f34.pdf"
-    },
-    {
-        "thumbnail": "fas fa-file-pdf",
-        "title": "DSA Cheat Sheet",
-        "desc": "Quick DSA reference PDF",
-        "link": "resources/dsa_cheatsheet.pdf"
-    },
-    {
-        "thumbnail": "fas fa-rocket",
-        "title": "Frontend Roadmap by Roadmap.sh",
-        "desc": "Visual guide for devs",
-        "link": "https://roadmap.sh/frontend"
-    },
-    {
-        "thumbnail": "fas fa-file-image",
-        "title": "ML Diagram – Types",
-        "desc": "Supervised vs Unsupervised",
-        "link": "resources/ml_types.png"
-    },
-    {
-        "thumbnail": "fas fa-code",
-        "title": "MLflow Examples",
-        "desc": "MLflow experiment tracking",
-        "link": "https://github.com/mlflow/mlflow",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-code",
-        "title": "n8n Workflows",
-        "desc": "Automate tasks with n8n",
-        "link": "https://github.com/n8n-io/n8n",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-file-pdf",
-        "title": "FastAPI Quickstart",
-        "desc": "Intro to FastAPI for APIs",
-        "link": "https://www.tutorialspoint.com/fastapi/fastapi_tutorial.pdf"
-    },
-    {
-        "thumbnail": "fas fa-terminal",
-        "title": "Git Commands Cheatsheet",
-        "desc": "Common Git commands",
-        "link": "https://education.github.com/git-cheat-sheet-education.pdf"
-    },
-    {
-        "thumbnail": "fas fa-file-pdf",
-        "title": "TensorFlow Cheatsheet by GeeksForGeeks",
-        "desc": "Quick reference for TensorFlow APIs",
-        "link": "https://media.geeksforgeeks.org/wp-content/uploads/20250128165917613679/TensorFlow-Cheat-Sheet.pdf"
-    },
-    {
-        "thumbnail": "fas fa-link",
-        "title": "Learn TensorFlow",
-        "desc": "Official TensorFlow documentation",
-        "link": "https://www.tensorflow.org/learn",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-file-image",
-        "title": "Neural Network Flow",
-        "desc": "Diagram of forward/backprop",
-        "link": "resources/nn_flowchart.png"
-    },
-    {
-        "thumbnail": "fas fa-video",
-        "title": "FastAPI Complete Tutorial",
-        "desc": "Build APIs with FastAPI",
-        "link": "https://youtu.be/7t2alSnE2-I?si=WgtG_CZA6pOhhBhU",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-cloud",
-        "title": "AWS for ML",
-        "desc": "Guide to AWS ML services",
-        "link": "https://medium.com/@AlexanderObregon/a-beginners-introductory-guide-to-aws-machine-learning-services-92ae189ab1c4"
-    },
-    {
-        "thumbnail": "fas fa-video",
-        "title": "HuggingFace Playlist",
-        "desc": "HuggingFace - Full Course",
-        "link": "https://www.youtube.com/playlist?list=PLo2EIpI_JMQvWfQndUesu0nPBAtZ9gP1o",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-code",
-        "title": "Scikit-Learn Examples",
-        "desc": "ML examples with scikit-learn",
-        "link": "https://github.com/scikit-learn/scikit-learn",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-file-image",
-        "title": "Data Science Workflow",
-        "desc": "Visual guide to DS pipeline",
-        "link": "resources/ds_workflow.png"
-    },
-    {
-        "thumbnail": "fas fa-link",
-        "title": "Notion AI Workspace",
-        "desc": "My personal Notion AI setup",
-        "link": "https://notion.so/your-workspace-link",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-file-pdf",
-        "title": "NumPy Cheatsheet",
-        "desc": "Quick reference for NumPy",
-        "link": "https://media.geeksforgeeks.org/wp-content/uploads/20240104182515/NumPy-Cheat-Sheet.pdf"
-    },
-    {
-        "thumbnail": "fas fa-file-pdf",
-        "title": "SciPy Cheatsheet",
-        "desc": "Quick reference for SciPy",
-        "link": "https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Python_SciPy_Cheat_Sheet_Linear_Algebra.pdf"
-    },
-    {
-        "thumbnail": "fas fa-link",
-        "title": "FastAPI Docs",
-        "desc": "Official FastAPI documentation",
-        "link": "https://fastapi.tiangolo.com/",
-        "type": "Link"
-    },
-    {
-        "thumbnail": "fas fa-file-pdf",
-        "title": "SQL Handbook",
-        "desc": "Fundamentals of SQL queries",
-        "link": "https://cdncontribute.geeksforgeeks.org/wp-content/uploads/SQL-Manual.pdf"
-    },
-    {
-        "thumbnail": "fas fa-file-pdf",
-        "title": "Pandas Cheatsheet by DataCamp",
-        "desc": "Quick reference for Pandas",
-        "link": "https://media.datacamp.com/legacy/image/upload/v1676302204/Marketing/Blog/Pandas_Cheat_Sheet.pdf"
-    }
+  {
+    "thumbnail": "fas fa-code",
+    "title": "LlamaIndex",
+    "desc": "Python library for RAG applications",
+    "link": "https://github.com/run-llama/llama_index",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-play-circle",
+    "title": "HuggingFace Transformers + FAISS Notebook",
+    "desc": "RAG with vector DB",
+    "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/free-rag-faiss",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-brain",
+    "title": "HuggingFace Transformers 101",
+    "desc": "Quickstart using HF models",
+    "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/transformers-101",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-network-wired",
+    "title": "Prompt Engineering Cheatsheet",
+    "desc": "Tips to design better prompts",
+    "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/blob/main/prompt-engineering-cheatsheet/prompt_cheatsheet.ipynb",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-book",
+    "title": "Deep Learning Book",
+    "desc": "by Ian Goodfellow (PDF)",
+    "link": "resources/deeplearningbook.pdf",
+    "type": "Book"
+  },
+  {
+    "thumbnail": "fas fa-robot",
+    "title": "Building with LLMs (OpenAI)",
+    "desc": "OpenAI Dev Day doc summary",
+    "link": "resources/BuildingwithLLM.pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-code",
+    "title": "Gradio",
+    "desc": "Python library for ML app UIs",
+    "link": "https://github.com/gradio-app/gradio",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-video",
+    "title": "Prompt Engineering Guide",
+    "desc": "Best practices for LLMs",
+    "link": "https://youtube.com/watch?v=dOxUroR57xs",
+    "type": "Video"
+  },
+  {
+    "thumbnail": "fas fa-code",
+    "title": "Haystack",
+    "desc": "Open-source NLP for search systems",
+    "link": "https://github.com/deepset-ai/haystack",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-link",
+    "title": "OpenAI Cookbook",
+    "desc": "Official GPT integration examples",
+    "link": "https://github.com/openai/openai-cookbook",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-brain",
+    "title": "GPT4 Prompt Patterns by OpenAI",
+    "desc": "Common prompt patterns blog on Cookbook",
+    "link": "https://cookbook.openai.com/examples/gpt4-1_prompting_guide",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-play-circle",
+    "title": "LLM Fine-Tuning Guide",
+    "desc": "Fine-tuning LLMs with HuggingFace",
+    "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/blob/main/fine-tune-llm-hf/finetune_classification.ipynb",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-link",
+    "title": "LangChain Docs",
+    "desc": "Official LangChain documentation",
+    "link": "https://python.langchain.com/docs/",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-flask",
+    "title": "Flask vs FastAPI",
+    "desc": "Comparison & deployment tips",
+    "link": "resources/flask_vs_fastapi.pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-code",
+    "title": "PyTorch Lightning",
+    "desc": "Simplified PyTorch for ML",
+    "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/pytorch-lightning-intro",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-cogs",
+    "title": "CI/CD with GitHub Actions",
+    "desc": "Automate builds easily",
+    "link": "https://dev.to/vishnusatheesh/how-to-set-up-a-cicd-pipeline-with-github-actions-for-automated-deployments-j39#:~:text=As%20a%20popular%20CI%2FCD,one%20or%20more%20predefined%20tasks.",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-cloud",
+    "title": "Deploy on Vercel",
+    "desc": "Guide to deploying Next.js apps",
+    "link": "https://nextjs.org/learn/pages-router/deploying-nextjs-app-deploy",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-file-pdf",
+    "title": "Kubernetes for ML Deployment",
+    "desc": "Deploy ML models with Kubernetes",
+    "link": "https://komodor.com/wp-content/uploads/2024/11/ML-Ebook.pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-play-circle",
+    "title": "RAG with Weaviate",
+    "desc": "Vector DB RAG tutorial in Colab",
+    "link": "https://colab.research.google.com/drive/1smATV2Lk0tkXvEJLptIXBsISI53s0C1D",
+    "type": "Video"
+  },
+  {
+    "thumbnail": "fas fa-chart-line",
+    "title": "LLM Evaluation Guide",
+    "desc": "BLEU, ROUGE, human feedback, hallucination detection",
+    "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/llm-evaluation",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-file-pdf",
+    "title": "GraphQL Crash Course",
+    "desc": "Guide to API design with GraphQL",
+    "link": "https://www.tutorialspoint.com/graphql/graphql_tutorial.pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-video",
+    "title": "Python Machine Learning Tutorial (Data Science)",
+    "desc": "Programming with Mosh - ML (Python)",
+    "link": "https://youtu.be/7eh4d6sabA0",
+    "type": "Video"
+  },
+  {
+    "thumbnail": "fas fa-database",
+    "title": "ChromaDB + LangChain Example",
+    "desc": "Using vector DBs with LangChain",
+    "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/rag-langchain-chroma",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-cogs",
+    "title": "Github Actions – YAML Snippets",
+    "desc": "Useful workflow templates",
+    "link": "https://github.com/MuhammadTahaNasir/actomatic",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-cloud",
+    "title": "Cloud Services Comparison",
+    "desc": "AWS vs GCP vs Azure PDF",
+    "link": "https://www.veritis.com/wp-content/uploads/2018/05/azure-vs-aws-vs-google-cloud-services-comparison.pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-file-pdf",
+    "title": "Data Viz Guide",
+    "desc": "Matplotlib & Seaborn examples",
+    "link": "resources/data_viz.pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-file-pdf",
+    "title": "SQLAlchemy Cheatsheet",
+    "desc": "ORM guide for Python",
+    "link": "resources/sqlalchemy_cheatsheet.pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-book",
+    "title": "Python for Data Analysis",
+    "desc": "Wes McKinney (PDF)",
+    "link": "https://datapot.vn/wp-content/uploads/2023/12/datapot.vn-Python-for-Data-Analysis.pdf?srsltid=AfmBOopaS49vybq4VI5qfnX1ItMgzIUCnRWCFlONMoEsMl2vpPrG4zal",
+    "type": "Book"
+  },
+  {
+    "thumbnail": "fas fa-table",
+    "title": "MongoDB vs PostgreSQL",
+    "desc": "Blog on Dev Community",
+    "link": "https://dev.to/ben/postgresql-vs-mongodb-30b1",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-video",
+    "title": "ML Crash Course",
+    "desc": "Fast intro to ML (YouTube)",
+    "link": "https://youtube.com/watch?v=Gv9_4yMHFhI",
+    "type": "Video"
+  },
+  {
+    "thumbnail": "fas fa-link",
+    "title": "PyTorch Official Docs",
+    "desc": "Official PyTorch documentation",
+    "link": "https://pytorch.org/docs/stable/",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-file-image",
+    "title": "ML Pipeline Diagram",
+    "desc": "End-to-end ML workflow",
+    "link": "resources/ml_pipeline.png",
+    "type": "Image"
+  },
+  {
+    "thumbnail": "fas fa-cogs",
+    "title": "FastAPI JWT Auth",
+    "desc": "Secure API login system",
+    "link": "https://testdriven.io/blog/fastapi-jwt-auth/",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-video",
+    "title": "Docker in 100 Seconds",
+    "desc": "Fireship.io Docker explainer",
+    "link": "https://youtube.com/watch?v=Gjnup-PuquQ",
+    "type": "Video"
+  },
+  {
+    "thumbnail": "fas fa-link",
+    "title": "Google Cloud AI Docs",
+    "desc": "Deploy ML with GCP",
+    "link": "https://cloud.google.com/products/ai",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-play-circle",
+    "title": "PostgreSQL Crash Course",
+    "desc": "Comnplete PostgreSQL for beginners course",
+    "link": "https://youtube.com/watch?v=qw--VYLpxG4",
+    "type": "Video"
+  },
+  {
+    "thumbnail": "fas fa-link",
+    "title": "MLflow Docs",
+    "desc": "Experiment tracking for ML",
+    "link": "https://mlflow.org/docs/latest/quickstart.html",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-file-image",
+    "title": "FastAPI Architecture",
+    "desc": "System design of FastAPI app",
+    "link": "resources/fastapi_architecture.png",
+    "type": "Image"
+  },
+  {
+    "thumbnail": "fas fa-cogs",
+    "title": "Postman API Testing",
+    "desc": "Testing APIs like a pro",
+    "link": "https://unidel.edu.ng/focelibrary/books/API%20Testing%20and%20Development%20with%20Postman%20A%20practical%20guide%20to%20creating,%20testing,%20and%20managing%20APIs%20for%20automated%20software%20testing%20by%20Dave%20Westerveld%20(z-lib.org).pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-server",
+    "title": "Backend with Django",
+    "desc": "Starter guide to Django apps",
+    "link": "https://docs.djangoproject.com/en/5.2/intro/tutorial01/",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-file-pdf",
+    "title": "Docker Cheatsheet",
+    "desc": "Docker CLI commands",
+    "link": "https://docs.docker.com/get-started/docker_cheatsheet.pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-rocket",
+    "title": "Backend Roadmap by Roadmap.sh",
+    "desc": "Visual guide for backend devs",
+    "link": "https://roadmap.sh/backend",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-server",
+    "title": "Django Starter Guide by w3schools",
+    "desc": "Intro to Django basics",
+    "link": "https://www.w3schools.com/django/",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-code",
+    "title": "Django Blog Template",
+    "desc": "Starter template for blogs using Django",
+    "link": "https://github.com/encode/django-rest-framework",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-link",
+    "title": "Streamlit Docs",
+    "desc": "Build interactive Python apps",
+    "link": "https://docs.streamlit.io",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-terminal",
+    "title": "Linux Command Guide",
+    "desc": "PDF reference for Linux CLI",
+    "link": "https://www.loggly.com/wp-content/uploads/2015/05/Linux-Cheat-Sheet-Sponsored-By-Loggly.pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-file-image",
+    "title": "JWT Auth Flow Diagram",
+    "desc": "Visual auth flow for APIs",
+    "link": "resources/jwt_flowchart.png",
+    "type": "Image"
+  },
+  {
+    "thumbnail": "fas fa-file-pdf",
+    "title": "Docker Crash Course",
+    "desc": "Docker basics for devs",
+    "link": "https://chariotsolutions.com/wp-content/uploads/2019/05/ng-conf-2019-rimple-docker-workshop.pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-link",
+    "title": "Design Patterns Illustrated",
+    "desc": "Best practices in OOP",
+    "link": "https://refactoring.guru/design-patterns",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-code",
+    "title": "Streamlit Chatbot",
+    "desc": "UI for GPT chatbot app",
+    "link": "https://streamlit.io/gallery?category=llms",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-video",
+    "title": "What is LangChain?",
+    "desc": "LangChain explained visually",
+    "link": "https://youtu.be/1bUy-1hGZpI?si",
+    "type": "Video"
+  },
+  {
+    "thumbnail": "fas fa-play-circle",
+    "title": "Colab – Vision Detection",
+    "desc": "YOLOv8 detection notebook",
+    "link": "https://github.com/MuhammadTahaNasir/llm-learning-hub/tree/main/yolov8-vision-detection",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-brain",
+    "title": "NLP Toolkit Cheatsheet",
+    "desc": "NLTK, SpaCy, transformers",
+    "link": "https://github.com/janlukasschroeder/nlp-cheat-sheet-python",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-file-pdf",
+    "title": "React Quickstart",
+    "desc": "React + Tailwind crash notes",
+    "link": "https://www.newline.co/fullstack-react/assets/media/sGEMe/MNzue/30-days-of-react-ebook-fullstackio.pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-book",
+    "title": "Automate the Boring Stuff",
+    "desc": "Python automation book (PDF)",
+    "link": "https://edu.anarcho-copy.org/Programming%20Languages/Python/Automate%20the%20Boring%20Stuff%20with%20Python.pdf",
+    "type": "Book"
+  },
+  {
+    "thumbnail": "fas fa-terminal",
+    "title": "Bash Cheatsheet",
+    "desc": "Everyday Linux commands",
+    "link": "https://github.com/RehanSaeed/Bash-Cheat-Sheet",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-file-image",
+    "title": "REST vs GraphQL",
+    "desc": "Visual comparison",
+    "link": "resources/rest_vs_graphql.png",
+    "type": "Image"
+  },
+  {
+    "thumbnail": "fas fa-file-pdf",
+    "title": "SQL Cheatsheet",
+    "desc": "Most used SQL queries",
+    "link": "https://www.dbvis.com/wp-content/uploads/2024/04/SQL-Cheat-Sheet.pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-link",
+    "title": "Python Official Docs",
+    "desc": "The official Python documentation",
+    "link": "https://docs.python.org/3/",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-file-pdf",
+    "title": "Python Basics",
+    "desc": "Beginner's guide to Python",
+    "link": "https://mathstat.dal.ca/~brown/sound/python/ABeginnersGuideToPython3Progra.pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-book",
+    "title": "AI: A Modern Approach",
+    "desc": "Russell & Norvig (PDF)",
+    "link": "http://lib.ysu.am/disciplines_bk/efdd4d1d4c2087fe1cbe03d9ced67f34.pdf",
+    "type": "Book"
+  },
+  {
+    "thumbnail": "fas fa-file-pdf",
+    "title": "DSA Cheat Sheet",
+    "desc": "Quick DSA reference PDF",
+    "link": "resources/dsa_cheatsheet.pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-rocket",
+    "title": "Frontend Roadmap by Roadmap.sh",
+    "desc": "Visual guide for devs",
+    "link": "https://roadmap.sh/frontend",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-file-image",
+    "title": "ML Diagram – Types",
+    "desc": "Supervised vs Unsupervised",
+    "link": "resources/ml_types.png",
+    "type": "Image"
+  },
+  {
+    "thumbnail": "fas fa-code",
+    "title": "MLflow Examples",
+    "desc": "MLflow experiment tracking",
+    "link": "https://github.com/mlflow/mlflow",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-code",
+    "title": "n8n Workflows",
+    "desc": "Automate tasks with n8n",
+    "link": "https://github.com/n8n-io/n8n",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-file-pdf",
+    "title": "FastAPI Quickstart",
+    "desc": "Intro to FastAPI for APIs",
+    "link": "https://www.tutorialspoint.com/fastapi/fastapi_tutorial.pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-terminal",
+    "title": "Git Commands Cheatsheet",
+    "desc": "Common Git commands",
+    "link": "https://education.github.com/git-cheat-sheet-education.pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-file-pdf",
+    "title": "TensorFlow Cheatsheet by GeeksForGeeks",
+    "desc": "Quick reference for TensorFlow APIs",
+    "link": "https://media.geeksforgeeks.org/wp-content/uploads/20250128165917613679/TensorFlow-Cheat-Sheet.pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-link",
+    "title": "Learn TensorFlow",
+    "desc": "Official TensorFlow documentation",
+    "link": "https://www.tensorflow.org/learn",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-file-image",
+    "title": "Neural Network Flow",
+    "desc": "Diagram of forward/backprop",
+    "link": "resources/nn_flowchart.png",
+    "type": "Image"
+  },
+  {
+    "thumbnail": "fas fa-video",
+    "title": "FastAPI Complete Tutorial",
+    "desc": "Build APIs with FastAPI",
+    "link": "https://youtu.be/7t2alSnE2-I?si=WgtG_CZA6pOhhBhU",
+    "type": "Video"
+  },
+  {
+    "thumbnail": "fas fa-cloud",
+    "title": "AWS for ML",
+    "desc": "Guide to AWS ML services",
+    "link": "https://medium.com/@AlexanderObregon/a-beginners-introductory-guide-to-aws-machine-learning-services-92ae189ab1c4",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-video",
+    "title": "HuggingFace Playlist",
+    "desc": "HuggingFace - Full Course",
+    "link": "https://www.youtube.com/playlist?list=PLo2EIpI_JMQvWfQndUesu0nPBAtZ9gP1o",
+    "type": "Video"
+  },
+  {
+    "thumbnail": "fas fa-code",
+    "title": "Scikit-Learn Examples",
+    "desc": "ML examples with scikit-learn",
+    "link": "https://github.com/scikit-learn/scikit-learn",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-file-image",
+    "title": "Data Science Workflow",
+    "desc": "Visual guide to DS pipeline",
+    "link": "resources/ds_workflow.png",
+    "type": "Image"
+  },
+  {
+    "thumbnail": "fas fa-link",
+    "title": "Notion AI Workspace",
+    "desc": "My personal Notion AI setup",
+    "link": "https://notion.so/your-workspace-link",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-file-pdf",
+    "title": "NumPy Cheatsheet",
+    "desc": "Quick reference for NumPy",
+    "link": "https://media.geeksforgeeks.org/wp-content/uploads/20240104182515/NumPy-Cheat-Sheet.pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-file-pdf",
+    "title": "SciPy Cheatsheet",
+    "desc": "Quick reference for SciPy",
+    "link": "https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Python_SciPy_Cheat_Sheet_Linear_Algebra.pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-link",
+    "title": "FastAPI Docs",
+    "desc": "Official FastAPI documentation",
+    "link": "https://fastapi.tiangolo.com/",
+    "type": "Link"
+  },
+  {
+    "thumbnail": "fas fa-file-pdf",
+    "title": "SQL Handbook",
+    "desc": "Fundamentals of SQL queries",
+    "link": "https://cdncontribute.geeksforgeeks.org/wp-content/uploads/SQL-Manual.pdf",
+    "type": "PDF"
+  },
+  {
+    "thumbnail": "fas fa-file-pdf",
+    "title": "Pandas Cheatsheet by DataCamp",
+    "desc": "Quick reference for Pandas",
+    "link": "https://media.datacamp.com/legacy/image/upload/v1676302204/Marketing/Blog/Pandas_Cheat_Sheet.pdf",
+    "type": "PDF"
+  }
 ]

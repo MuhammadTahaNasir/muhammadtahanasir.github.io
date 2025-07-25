@@ -92,12 +92,29 @@
     </div>
 
     <!-- ---------- 8. Sublink ---------- -->
-    <p class="sublink">Browse all posts by years</p>
 
-    <!-- ---------- 9. Archive List ---------- -->
+    <!-- ---------- 9. Toggle Switch ---------- -->
+    <div class="toggle-container">
+      <button class="toggle-btn active" id="show-posts">Posts</button>
+      <button class="toggle-btn" id="show-projects">Projects</button>
+    </div>
+
+    <!-- ---------- 10. Archive List ---------- -->
     <div class="archive-container" id="archive-content">
       <!-- Content will be dynamically generated -->
     </div>
+    <style>
+      .archive-section-title {
+        margin-top: 2.5em;
+        margin-bottom: 1em;
+        font-size: 2rem;
+        border-bottom: 2px solid var(--secondary);
+        padding-bottom: 0.2em;
+      }
+      .archive-section-title:first-child {
+        margin-top: 0;
+      }
+    </style>
   </div>
 
   <!-- ---------- 10. Footer ---------- -->

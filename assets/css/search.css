@@ -63,31 +63,35 @@ body {
 }
 
 .pill-nav {
-  background: var(--entry); /* Background for pill navigation */
-  padding: 8px 20px; /* Padding for pill nav */
-  border-radius: 999px; /* Rounded pill shape */
-  display: flex; /* Flex layout for links */
-  gap: 24px; /* Space between links */
-  align-items: center; /* Vertically align links */
-  box-shadow: var(--shadow); /* Apply theme shadow */
-  justify-content: center; /* Center links */
+  background: var(--entry);
+  padding: 8px 20px;
+  border-radius: 999px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
 }
-
 .pill-nav a {
-  text-decoration: none; /* Remove underline */
-  font-size: 0.95em; /* Slightly smaller font */
-  font-weight: 500; /* Medium weight */
-  color: var(--secondary); /* Secondary color for links */
+  text-decoration: none;
+  font-size: 0.95em;
+  font-weight: 500;
+  color: var(--secondary);
+  transition: color 0.3s ease;
 }
-
-.pill-nav a:hover {
-  color: #3b82f6; /* Blue hover color */
-}
-
 .pill-nav a.active {
-  color: var(--primary); /* Primary color for active link */
-  font-weight: 700; /* Bold active link */
-  font-size: 1.15em; /* Larger font for active link */
+  font-weight: 700;
+  font-size: 1.15em;
+  color: var(--primary);
+}
+.pill-nav a.active:hover {
+  color: var(--secondary);
+  cursor: pointer;
+}
+.pill-nav a:hover {
+  color: #3b82f6;
 }
 
 .nav-right {
@@ -133,7 +137,7 @@ body {
 .breadcrumb {
   font-size: 0.9em; /* Smaller font for breadcrumbs */
   color: var(--secondary); /* Secondary color */
-  margin: 20px 0; /* Vertical spacing */
+  margin: 24px 0 0 0; /* Vertical spacing */
 }
 
 .breadcrumb a {
@@ -439,23 +443,31 @@ body {
   }
 
   .pill-nav {
-    flex-wrap: nowrap; /* Prevent wrapping */
-    gap: 18px; /* Reduced gap */
-    padding: 6px 14px; /* Reduced padding */
-    overflow-x: auto; /* Allow scroll */
-    border-radius: 30px; /* Rounded pill */
-    justify-content: flex-start; /* Align to start */
-    margin: auto; /* Center */
-    max-width: 100%; /* Full width */
+    flex-wrap: nowrap;
+    gap: 12px;
+    padding: 6px 12px;
+    overflow-x: auto;
+    border-radius: 30px;
+    justify-content: flex-start;
+    margin: auto;
+    max-width: 100%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: var(--entry);
   }
-
   .pill-nav::-webkit-scrollbar {
-    display: none; /* Hide scrollbar */
+    display: none;
   }
-
-  .nav-right {
-    order: 2; /* Move before nav-center */
-    margin-left: auto; /* Align to right */
+  .pill-nav a {
+    font-size: 0.85em;
+    scroll-snap-align: start;
+    font-weight: 500;
+    color: var(--secondary);
+    transition: color 0.3s ease;
+  }
+  .pill-nav a.active {
+    font-weight: 700;
+    font-size: 1.15em;
+    color: var(--primary);
   }
 
   .container {
@@ -469,7 +481,8 @@ body {
   }
 
   h1 {
-    margin: 0; /* Remove default margin */
+    font-size: 1.5em;
+    margin: 4px 0 0 0;
   }
 
   .search-box {
@@ -517,5 +530,11 @@ body {
   .skeleton-meta {
     width: 50%; /* Smaller meta placeholder */
     height: 12px; /* Smaller height */
+  }
+}
+
+@media (max-width: 600px) {
+  h1 {
+    margin-bottom: 1.2rem;
   }
 }

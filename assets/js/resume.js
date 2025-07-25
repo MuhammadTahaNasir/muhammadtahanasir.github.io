@@ -45,6 +45,8 @@ document.getElementById("scrollTop").addEventListener("click", () => {
 // ---------- 7. Loader Animation on Page Load ----------
 window.addEventListener("load", () => {
     const loader = document.getElementById("loader"); // Get loader element
+    const mainContent = document.querySelector("main.resume-container");
+    if (mainContent) mainContent.classList.add("blurred");
     if (loader) {
         loader.classList.add("active"); // Activate loader
         setTimeout(() => {
@@ -53,6 +55,18 @@ window.addEventListener("load", () => {
         setTimeout(() => {
             loader.classList.add("hidden"); // Hide loader after 1200ms
             loader.classList.remove("active"); // Deactivate loader
+            // Hide skeleton loader
+            const skeleton = document.getElementById("resume-skeleton");
+            if (skeleton) skeleton.style.display = "none";
+            // Remove skeleton-active from body
+            document.body.classList.remove("skeleton-active");
+            // Show footer and scroll-to-top button
+            const footer = document.querySelector("footer.footer");
+            if (footer) footer.style.display = "block";
+            const scrollBtn = document.getElementById("scrollTop");
+            if (scrollBtn) scrollBtn.style.display = "flex";
+            // Remove blur from main content
+            if (mainContent) mainContent.classList.remove("blurred");
         }, 1200);
     }
 });

@@ -92,17 +92,30 @@
     <main> <!-- Main content section -->
         <div class="content"> <!-- Content container -->
             <!-- ---------- 7. Breadcrumb Navigation ---------- -->
-            <div class="breadcrumb"> <!-- Breadcrumb navigation -->
-                <a href="index.html">Home</a> » <span><a href="resources.html">Resources</a></span>
-                <!-- Breadcrumb links -->
-            </div>
 
-            <!-- ---------- 8. Header Bar ---------- -->
-            <div class="header-bar"> <!-- Header bar for title and search -->
-                <h1>Resources</h1> <!-- Page title -->
-                <div class="search-box"> <!-- Search input container -->
-                    <input type="text" id="searchInput" placeholder="Search resources..." aria-label="Search resources">
-                    <!-- Search input -->
+            <div class="header-bar">
+                <nav class="breadcrumb">
+                    <a href="index.html">Home</a> » <a href="resources.html">Resources</a>
+                </nav>
+                <h1>Resources</h1>
+            </div>
+            <div class="resources-bar-wrapper">
+                <div class="toggle-container" id="resourceTypePills" style="margin-bottom: 1rem;">
+                    <!-- Pills will be populated by JS -->
+                </div>
+                <div class="filter-bar">
+                    <input id="searchInput" type="text" placeholder="Search resources..." class="flex-1 min-w-[200px]" />
+                    <div class="dropdown-container">
+                        <select id="sortSelect">
+                            <option value="" disabled selected>Sort by</option>
+                            <option value="default">Default</option>
+                            <option value="a-z">Name ↗</option>
+                            <option value="z-a">Name ↘</option>
+                        </select>
+                        <div class="arrow pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
 

@@ -74,26 +74,35 @@ body {
 }
 
 .pill-nav {
-  background: var(--entry); /* Background for pill navigation */
-  padding: 8px 20px; /* Padding for pill nav */
-  border-radius: 999px; /* Rounded pill shape */
-  display: flex; /* Flex layout for links */
-  gap: 24px; /* Space between links */
-  align-items: center; /* Vertically align links */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  justify-content: center; /* Center links */
+  background: var(--entry);
+  padding: 8px 20px;
+  border-radius: 999px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
 }
-
 .pill-nav a {
-  text-decoration: none; /* Remove underline */
-  font-size: 0.95em; /* Slightly smaller font */
-  font-weight: 500; /* Medium weight */
-  color: var(--secondary); /* Secondary color for links */
-  transition: color 0.3s ease; /* Smooth color transition */
+  text-decoration: none;
+  font-size: 0.95em;
+  font-weight: 500;
+  color: var(--secondary);
+  transition: color 0.3s ease;
 }
-
+.pill-nav a.active {
+  font-weight: 700;
+  font-size: 1.15em;
+  color: var(--primary);
+}
+.pill-nav a.active:hover {
+  color: var(--secondary);
+  cursor: pointer;
+}
 .pill-nav a:hover {
-  color: #3b82f6; /* Blue hover color */
+  color: #3b82f6;
 }
 
 .nav-right {
@@ -534,18 +543,31 @@ body {
   }
 
   .pill-nav {
-    flex-wrap: nowrap; /* Prevent wrapping */
-    gap: 18px; /* Reduced gap */
-    padding: 6px 14px; /* Reduced padding */
-    overflow-x: auto; /* Allow scroll */
-    border-radius: 30px; /* Rounded pill */
-    justify-content: flex-start; /* Align to start */
-    margin: auto; /* Center */
-    max-width: 100%; /* Full width */
+    flex-wrap: nowrap;
+    gap: 12px;
+    padding: 6px 12px;
+    overflow-x: auto;
+    border-radius: 30px;
+    justify-content: flex-start;
+    margin: auto;
+    max-width: 100%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: var(--entry);
   }
-
   .pill-nav::-webkit-scrollbar {
-    display: none; /* Hide scrollbar */
+    display: none;
+  }
+  .pill-nav a {
+    font-size: 0.85em;
+    scroll-snap-align: start;
+    font-weight: 500;
+    color: var(--secondary);
+    transition: color 0.3s ease;
+  }
+  .pill-nav a.active {
+    font-weight: 700;
+    font-size: 1.15em;
+    color: var(--primary);
   }
 
   .nav-right {

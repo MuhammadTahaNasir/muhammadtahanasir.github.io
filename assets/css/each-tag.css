@@ -121,6 +121,8 @@ body {
     /* Subtle shadow */
     justify-content: center;
     /* Center links */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .pill-nav a {
@@ -134,6 +136,17 @@ body {
     /* Secondary color */
     transition: color 0.3s ease;
     /* Smooth color change */
+}
+
+.pill-nav a.active {
+    font-weight: 700;
+    font-size: 1.15em;
+    color: var(--primary);
+}
+
+.pill-nav a.active:hover {
+    color: var(--secondary);
+    cursor: pointer;
 }
 
 .pill-nav a:hover {
@@ -758,9 +771,9 @@ html.dark #moon {
     .pill-nav {
         flex-wrap: nowrap;
         /* Prevent wrapping */
-        gap: 18px;
+        gap: 12px;
         /* Tighter spacing */
-        padding: 6px 14px;
+        padding: 6px 12px;
         /* Tighter padding */
         overflow-x: auto;
         /* Allow scroll */
@@ -772,6 +785,8 @@ html.dark #moon {
         /* Center */
         max-width: 100%;
         /* Full width */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        background: var(--entry);
     }
 
     .pill-nav::-webkit-scrollbar {

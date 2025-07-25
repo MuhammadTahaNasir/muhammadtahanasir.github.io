@@ -80,6 +80,8 @@ body {
   align-items: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .pill-nav a {
@@ -90,14 +92,19 @@ body {
   transition: color 0.3s ease;
 }
 
-.pill-nav a:hover {
-  color: #3b82f6;
-}
-
 .pill-nav a.active {
   font-weight: 700;
   font-size: 1.15em;
   color: var(--primary);
+}
+
+.pill-nav a.active:hover {
+  color: var(--secondary);
+  cursor: pointer;
+}
+
+.pill-nav a:hover {
+  color: #3b82f6;
 }
 
 .nav-right {
@@ -169,6 +176,7 @@ body {
   font-size: 0.9em;
   color: var(--secondary);
   margin: 5px 0;
+  padding-left: 0;
 }
 
 .breadcrumb a {
@@ -189,23 +197,36 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 10px 0;
-  padding-left: 16px;
+  margin: 32px 0 10px 0;
+  padding-left: 0;
 }
 
 .header-bar h1 {
   font-size: 1.5em;
   margin: 0;
+  padding-left: 0;
 }
 
 .sublink {
-  font-size: 0.9em;
+  font-size: 1.15em;
   color: var(--secondary);
   margin: 5px 0 20px;
-  padding-left: 16px;
+  padding-left: 0;
+  text-align: left;
+  font-weight: 600;
 }
 
 .archive-year h2 {
+  border-left: 4px solid var(--primary);
+  padding-left: 12px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 2rem 0 1rem;
+  color: var(--primary);
+  text-align: left;
+}
+
+.archive-year h3 {
   border-left: 4px solid var(--primary);
   padding-left: 12px;
   font-size: 1.5rem;
@@ -360,4 +381,105 @@ details summary {
 @keyframes shrinkLogo {
   0% { transform: scale(1); opacity: 1; }
   100% { transform: scale(0.1); opacity: 0; }
+}
+
+.toggle-container {
+  background: var(--entry);
+  display: flex;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 6px;
+  margin: 0 auto 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+  gap: 10px;
+  /* Ensure centering */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.toggle-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 999px;
+  background: var(--entry);
+  color: var(--secondary);
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 600;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.toggle-btn.active {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.toggle-btn:hover {
+  background: var(--tertiary);
+  color: var(--primary);
+}
+
+@media (max-width: 600px) {
+  .toggle-btn.active {
+    background: #3b82f6 !important;
+    color: #fff !important;
+  }
+}
+
+.archive-container {
+  min-height: 400px;
+  /* You can adjust this value if you want a taller or shorter minimum */
+}
+@media (max-width: 768px) {
+  .nav {
+    flex-wrap: wrap; /* Allow wrapping */
+    flex-direction: row; /* Row layout */
+    justify-content: flex-start; /* Align to start */
+    align-items: center; /* Vertically align */
+    padding: 10px 12px; /* Reduced padding */
+    gap: 10px; /* Space between elements */
+  }
+
+  .nav-left {
+    flex: 1; /* Take available space */
+    text-align: left; /* Align left */
+  }
+
+  .nav-center {
+    width: 100%; /* Full width */
+    order: 3; /* Move to bottom */
+    overflow-x: auto; /* Allow horizontal scroll */
+    padding-bottom: 5px; /* Space for scrollbar */
+  }
+
+  .pill-nav {
+    flex-wrap: nowrap; /* Prevent wrapping */
+    gap: 18px; /* Reduced gap */
+    padding: 6px 14px; /* Reduced padding */
+    overflow-x: auto; /* Allow scroll */
+    border-radius: 30px; /* Rounded pill */
+    justify-content: flex-start; /* Align to start */
+    margin: auto; /* Center */
+    max-width: 100%; /* Full width */
+  }
+
+  .pill-nav::-webkit-scrollbar {
+    display: none; /* Hide scrollbar */
+  }
+
+  .nav-right {
+    order: 2; /* Move before nav-center */
+    margin-left: auto; /* Align to right */
+  }
+
+  .content {
+    padding-top: 10px; /* Reduced top padding */
+  }
+
+  .header-bar {
+    flex-direction: column; /* Stack vertically */
+    gap: 15px; /* Space between elements */
+    align-items: flex-start; /* Align to start */
+  }
 }

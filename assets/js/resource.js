@@ -4,17 +4,24 @@ const resourcesGrid = document.getElementById('resourcesGrid'); // Resources gri
 const pagination = document.getElementById('pagination'); // Pagination container
 const searchInput = document.getElementById('searchInput'); // Search input element
 const themeToggle = document.getElementById('theme-toggle'); // Theme toggle button
+const resourceTypePills = document.getElementById('resourceTypePills');
+const sortSelect = document.getElementById('sortSelect');
 let currentPage = 1; // Current page for pagination
 const itemsPerPage = 8; // Number of items per page
 let searchQuery = ''; // Current search query
 let debounceTimeout = null; // Timer for debouncing search
 let isResourcesLoaded = false; // Flag for resource loading status
+let currentCategory = 'all';
+let currentSort = '';
+let allResources = [];
 
 // ---------- 2. Update URL Parameters ----------
 function updateURL() {
     const params = new URLSearchParams(); // Create URL params
     if (currentPage > 1) params.set('page', currentPage); // Add page if not 1
     if (searchQuery) params.set('search', searchQuery); // Add search query if set
+    if (currentCategory !== 'all') params.set('category', currentCategory); // Add category if set
+    if (currentSort !== 'newest') params.set('sort', currentSort); // Add sort if set
     const newURL = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`; // Build URL
     console.log('Updating URL:', newURL, 'State:', { page: currentPage, search: searchQuery, path: window.location.pathname }); // Log URL and state
     history.pushState({ page: currentPage, search: searchQuery, path: window.location.pathname }, '', newURL); // Update browser history
@@ -31,15 +38,34 @@ async function loadResources(page = 1, forceReload = false) {
         const res = await fetch("data/resources.json?t=" + Date.now()); // Fetch resources with cache-busting
         if (!res.ok) throw new Error("Failed to load resources"); // Handle fetch error
         const resources = await res.json(); // Parse resources JSON
+        allResources = resources;
         resourcesGrid.innerHTML = ""; // Clear skeleton UI
 
+        // Extract unique categories
+        const uniqueCategories = ['all'];
+        resources.forEach(resource => {
+            if (resource.type && !uniqueCategories.includes(resource.type)) {
+                uniqueCategories.push(resource.type);
+            }
+        });
+        updateTypePills(uniqueCategories);
+
         let filteredResources = resources.filter(resource => {
-            const searchLower = searchQuery.toLowerCase(); // Convert query to lowercase
-            return (
-                resource.title.toLowerCase().includes(searchLower) || // Match title
-                (resource.description || resource.desc || '').toLowerCase().includes(searchLower) // Match description
-            );
-        }); // Filter resources by search query
+            const searchLower = searchQuery.toLowerCase();
+            const matchesSearch =
+                resource.title.toLowerCase().includes(searchLower) ||
+                (resource.description || resource.desc || '').toLowerCase().includes(searchLower);
+            const matchesCategory = currentCategory === 'all' || (resource.type === currentCategory);
+            return matchesSearch && matchesCategory;
+        });
+
+        // Sort resources
+        filteredResources = filteredResources.slice(); // Make a shallow copy
+        if (currentSort === 'a-z') {
+            filteredResources.sort((a, b) => a.title.localeCompare(b.title));
+        } else if (currentSort === 'z-a') {
+            filteredResources.sort((a, b) => b.title.localeCompare(a.title));
+        }
 
         if (filteredResources.length === 0) {
             resourcesGrid.innerHTML = `<p class="no-results">😕 No resources found.</p>`; // Show no results
@@ -159,8 +185,23 @@ window.addEventListener('popstate', async (event) => {
     if (state.path && state.path.includes('resources.html')) {
         currentPage = state.page || 1; // Restore page
         searchQuery = state.search || ''; // Restore search query
+        currentCategory = state.category || 'all'; // Restore category
+        currentSort = state.sort || 'newest'; // Restore sort
         if (searchInput) {
             searchInput.value = searchQuery; // Update search input
+        }
+        if (resourceTypePills) {
+            // Find the active pill and set its class
+            resourceTypePills.querySelectorAll('.toggle-btn').forEach(b => {
+                if (b.getAttribute('data-type') === currentCategory) {
+                    b.classList.add('active');
+                } else {
+                    b.classList.remove('active');
+                }
+            });
+        }
+        if (sortSelect) {
+            sortSelect.value = currentSort; // Update sort select
         }
         isResourcesLoaded = false; // Reset loaded flag
         await loadResources(currentPage, true); // Load resources
@@ -177,29 +218,54 @@ window.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search); // Get URL params
     currentPage = parseInt(urlParams.get('page')) || 1; // Set current page
     searchQuery = urlParams.get('search') || ''; // Set search query
+    currentCategory = urlParams.get('category') || 'all'; // Set category
+    currentSort = urlParams.get('sort') || '';
     searchInput.value = searchQuery; // Update search input
-    console.log('Initial load: page=', currentPage, 'search=', searchQuery); // Log initial state
-    history.replaceState({ page: currentPage, search: searchQuery, path: window.location.pathname }, '', window.location.href); // Set initial state
+    if (resourceTypePills) {
+        // Find the active pill and set its class
+        resourceTypePills.querySelectorAll('.toggle-btn').forEach(b => {
+            if (b.getAttribute('data-type') === currentCategory) {
+                b.classList.add('active');
+            } else {
+                b.classList.remove('active');
+            }
+        });
+    }
+    if (sortSelect) {
+        sortSelect.value = currentSort;
+        if (!currentSort) sortSelect.value = '';
+    }
+    console.log('Initial load: page=', currentPage, 'search=', searchQuery, 'category=', currentCategory, 'sort=', currentSort); // Log initial state
+    history.replaceState({ page: currentPage, search: searchQuery, path: window.location.pathname, category: currentCategory, sort: currentSort }, '', window.location.href); // Set initial state
     document.documentElement.setAttribute('data-theme', localStorage.getItem('pref-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')); // Initialize theme
     isResourcesLoaded = false; // Reset loaded flag
     loadResources(currentPage, true); // Load resources
 });
 
-// ---------- 11. Navigation Link Handlers ----------
-document.querySelectorAll('.pill-nav a').forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevent default navigation
-        const href = link.getAttribute('href'); // Get link href
-        console.log('Navigating to:', href); // Log navigation
-        if (href && href !== '#' && !href.startsWith('#')) {
-            history.pushState({ page: 1, search: '', path: href }, '', href); // Update history
-            window.location.assign(href); // Navigate to href
-        } else if (href === '#search') {
-            console.log('In-page action: Focusing search input'); // Log search focus
-            document.getElementById('searchInput').focus(); // Focus search input
-            history.pushState({ page: currentPage, search: searchQuery, path: window.location.pathname }, '', window.location.href); // Update history
-        } else {
-            console.error('Invalid href:', href); // Log invalid href
-        }
+function updateTypePills(categories) {
+    if (!resourceTypePills) return;
+    resourceTypePills.innerHTML = '';
+    categories.forEach(category => {
+        let label = category.charAt(0).toUpperCase() + category.slice(1);
+        if (category.toLowerCase() === 'link') label = 'Links';
+        const btn = document.createElement('button');
+        btn.className = 'toggle-btn' + (currentCategory === category ? ' active' : '');
+        btn.textContent = label;
+        btn.setAttribute('data-type', category);
+        btn.onclick = () => {
+            currentCategory = category;
+            currentPage = 1;
+            // Remove active from all, add to clicked
+            resourceTypePills.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            loadResources(currentPage);
+        };
+        resourceTypePills.appendChild(btn);
     });
+}
+
+sortSelect.addEventListener('change', () => {
+    currentSort = sortSelect.value;
+    currentPage = 1;
+    loadResources(currentPage);
 });

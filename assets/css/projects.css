@@ -230,7 +230,7 @@ h1 {
   pointer-events: none;
 }
 
-.dropdown-container select:focus + .arrow {
+.dropdown-container select:focus+.arrow {
   color: #3b82f6;
 }
 
@@ -599,21 +599,53 @@ h1 {
   animation: spinLetter 0.5s ease-in-out forwards;
 }
 
-.letter:nth-child(1) { animation-delay: 0s; }
-.letter:nth-child(2) { animation-delay: 0.1s; }
-.letter:nth-child(3) { animation-delay: 0.2s; }
-.letter:nth-child(4) { animation-delay: 0.3s; }
-.letter:nth-child(5) { animation-delay: 0.4s; }
+.letter:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.letter:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.letter:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.letter:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.letter:nth-child(5) {
+  animation-delay: 0.4s;
+}
 
 @keyframes spinLetter {
-  0% { transform: rotate(0deg) scale(1); opacity: 0; }
-  50% { transform: rotate(360deg) scale(1.2); opacity: 1; }
-  100% { transform: rotate(360deg) scale(0.6); opacity: 1; }
+  0% {
+    transform: rotate(0deg) scale(1);
+    opacity: 0;
+  }
+
+  50% {
+    transform: rotate(360deg) scale(1.2);
+    opacity: 1;
+  }
+
+  100% {
+    transform: rotate(360deg) scale(0.6);
+    opacity: 1;
+  }
 }
 
 @keyframes shrinkLogo {
-  0% { transform: scale(1); opacity: 1; }
-  100% { transform: scale(0.1); opacity: 0; }
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
 }
 
 /* Mobile Fixes */
@@ -660,8 +692,10 @@ h1 {
   }
 
   .filter-bar {
-    flex-direction: column;
-    align-items: stretch;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
   }
 
   .filter-bar input {
@@ -669,16 +703,39 @@ h1 {
     font-size: 14px;
     border-radius: 6px;
     border: none;
-    width: 100%;
+    flex: 1;
+    min-width: 200px;
     box-sizing: border-box;
   }
 
   .filter-bar select {
-    padding: 8px 12px;
+    padding: 6px 8px;
     font-size: 14px;
     border-radius: 6px;
     border: none;
-    width: 100%;
+    min-width: 150px;
+    flex: 0 0 auto;
+  }
+
+  /* Fix dropdown arrow positioning on mobile */
+  .dropdown-container {
+    position: relative;
+    min-width: 150px;
+  }
+
+  .dropdown-container .arrow {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondary);
+    transition: color 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .dropdown-container select {
+    padding-right: 30px; /* Reduced space for arrow */
   }
 
   .toggle-container {
@@ -691,6 +748,12 @@ h1 {
   .toggle-btn {
     padding: 6px 12px;
     font-size: 0.85em;
+  }
+
+  /* Fix tab switching colors on mobile */
+  .toggle-btn.active {
+    background: #3b82f6 !important;
+    color: #fff !important;
   }
 
   .projects-grid {
@@ -737,11 +800,13 @@ h1 {
     font-size: 0.9em;
   }
 
+  /* Fix loader animation on mobile */
   .terry-animation {
     font-size: 2.2rem;
-    top: 0;
-    position: relative;
-    text-align: left;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
 
   .header {
@@ -764,5 +829,21 @@ h1 {
   .skeleton-meta {
     width: 50%;
     height: 12px;
+  }
+
+  /* Ensure GitHub and web icons are visible on mobile */
+  .project-links .web-link,
+  .project-links .github-link {
+    opacity: 1 !important;
+    font-size: 1.2em;
+  }
+
+  /* Hide list view button on mobile - keep only grid view */
+  #listViewBtn {
+    display: none;
+  }
+
+  .view-toggle {
+    display: none;
   }
 }

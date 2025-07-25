@@ -26,22 +26,26 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 /* ---------- 3. Archive Generator ---------- */
 function generateArchive() {
   const archiveContent = document.getElementById('archive-content');
+  const showPostsBtn = document.getElementById('show-posts');
+  const showProjectsBtn = document.getElementById('show-projects');
 
   loader.classList.add('active');
-  fetch('posts/posts.json')
-    .then(res => {
-      if (!res.ok) throw new Error('File not found');
+  Promise.all([
+    fetch('posts/posts.json').then(res => {
+      if (!res.ok) throw new Error('Posts file not found');
+      return res.json();
+    }),
+    fetch('projects/projects.json').then(res => {
+      if (!res.ok) throw new Error('Projects file not found');
       return res.json();
     })
-    .then(posts => {
-      // Sort posts newest → oldest
+  ])
+    .then(([posts, projects]) => {
+      // --- POSTS SECTION ---
       posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-      // Group by year & month
       const postsByYear = {};
       posts.forEach(post => {
         if (post.url && post.url.endsWith('posts.html')) return;
-
         const date = new Date(post.date);
         const year = date.getFullYear();
         const month = date.toLocaleString('default', { month: 'long' });
@@ -49,39 +53,80 @@ function generateArchive() {
         postsByYear[year][month] ??= [];
         postsByYear[year][month].push(post);
       });
-
-      // Build HTML with years & months descending
-      let html = '';
+      let postsHtml = '';
       Object.keys(postsByYear).sort((a, b) => b - a).forEach(year => {
-        // Count unique months for the year
         const monthCount = Object.keys(postsByYear[year]).length;
-        html += `<div class="archive-year"><h2 id="${year}">${year} <sup class="archive-count">${monthCount}</sup></h2>`;
-
+        postsHtml += `<div class="archive-year"><h3 id="posts-${year}">${year} <sup class="archive-count">${monthCount}</sup></h3>`;
         Object.keys(postsByYear[year])
           .sort((a, b) => new Date(`${b} 1, 2000`) - new Date(`${a} 1, 2000`))
           .forEach(month => {
             const monthPosts = postsByYear[year][month];
-            monthPosts.sort((a, b) => new Date(b.date) - new Date(a.date)); // Newest first in month
-
-            html += `<details><summary>${month} <sup class="archive-count">${monthPosts.length}</sup></summary>`;
+            monthPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+            postsHtml += `<details><summary>${month} <sup class="archive-count">${monthPosts.length}</sup></summary>`;
             monthPosts.forEach(post => {
               const dateStr = new Date(post.date).toLocaleDateString('en-US', {
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric'
+                day: 'numeric', month: 'short', year: 'numeric'
               });
-              html += `<div class="archive-post">
-                         <a href="${post.url}">${post.title || 'Untitled Post'}</a>
-                         <span class="meta">${dateStr} · ${post.time || 'N/A'}</span>
-                       </div>`;
+              postsHtml += `<div class="archive-post">
+                <a href="${post.url}">${post.title || 'Untitled Post'}</a>
+                <span class="meta">${dateStr} · ${post.time || 'N/A'}</span>
+              </div>`;
             });
-            html += `</details>`;
+            postsHtml += `</details>`;
           });
-
-        html += `</div>`;
+        postsHtml += `</div>`;
       });
 
-      archiveContent.innerHTML = html;
+      // --- PROJECTS SECTION ---
+      projects.sort((a, b) => new Date(b.date) - new Date(a.date));
+      const projectsByYear = {};
+      projects.forEach(project => {
+        const date = new Date(project.date);
+        const year = date.getFullYear();
+        const month = date.toLocaleString('default', { month: 'long' });
+        projectsByYear[year] ??= {};
+        projectsByYear[year][month] ??= [];
+        projectsByYear[year][month].push(project);
+      });
+      let projectsHtml = '';
+      Object.keys(projectsByYear).sort((a, b) => b - a).forEach(year => {
+        const monthCount = Object.keys(projectsByYear[year]).length;
+        projectsHtml += `<div class="archive-year"><h3 id="projects-${year}">${year} <sup class="archive-count">${monthCount}</sup></h3>`;
+        Object.keys(projectsByYear[year])
+          .sort((a, b) => new Date(`${b} 1, 2000`) - new Date(`${a} 1, 2000`))
+          .forEach(month => {
+            const monthProjects = projectsByYear[year][month];
+            monthProjects.sort((a, b) => new Date(b.date) - new Date(a.date));
+            projectsHtml += `<details><summary>${month} <sup class="archive-count">${monthProjects.length}</sup></summary>`;
+            monthProjects.forEach(project => {
+              const dateStr = new Date(project.date).toLocaleDateString('en-US', {
+                day: 'numeric', month: 'short', year: 'numeric'
+              });
+              projectsHtml += `<div class="archive-post">
+                <a href="${project.url}">${project.title || 'Untitled Project'}</a>
+                <span class="meta">${dateStr}</span>
+              </div>`;
+            });
+            projectsHtml += `</details>`;
+          });
+        projectsHtml += `</div>`;
+      });
+
+      // --- TOGGLE LOGIC ---
+      function showPosts() {
+        archiveContent.innerHTML = postsHtml;
+        showPostsBtn.classList.add('active');
+        showProjectsBtn.classList.remove('active');
+      }
+      function showProjects() {
+        archiveContent.innerHTML = projectsHtml;
+        showProjectsBtn.classList.add('active');
+        showPostsBtn.classList.remove('active');
+      }
+      // Default: show posts
+      showPosts();
+      showPostsBtn.onclick = showPosts;
+      showProjectsBtn.onclick = showProjects;
     })
     .catch(error => {
       archiveContent.innerHTML = `<p style="text-align:center; color:var(--secondary)">😕 Failed to load archive.</p>`;
