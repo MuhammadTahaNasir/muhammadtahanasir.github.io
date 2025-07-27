@@ -17,8 +17,8 @@
     <meta name="date" content="2025-07-23">
     <meta name="tab" content="side">
     <meta name="subcategory" content="Data Science">
-    <meta name="features" content="Streamlit, python, Pandas, Scikit-learn, Sentiment Analysis, KMeans Clustering">
-    <meta name="thumbnail" content="/assets/images/projects/terrag-ai-preview.png">
+    <meta name="features" content="Streamlit, python, pandas, Scikit-learn, Sentiment Analysis, KMeans Clustering">
+    <meta name="thumbnail" content="/assets/images/projects/terrag-ai/terrag-ai-preview.png">
     <meta name="github" content="https://github.com/MuhammadTahaNasir/advtrix-learning/tree/main/streamlit_app">
     <meta name="hideWebLink" content="true">
     <title>Terrag AI: AI-Powered Data Analytics Platform</title>
@@ -29,14 +29,22 @@
 
     <!-- ---------- 3. Theme Initialization Script ---------- -->
     <script>
+        // Apply theme immediately on page load to prevent flash
         (function () {
-            const savedTheme = localStorage.getItem('pref-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            document.documentElement.style.background = savedTheme === 'dark' ? '#1a1a1a' : '#f9fafc';
-            document.documentElement.style.color = savedTheme === 'dark' ? '#d1d5db' : '#333';
-            if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+            const savedTheme = localStorage.getItem('pref-theme'); // Get saved theme
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; // Check system dark mode
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark'); // Apply dark theme
+                document.documentElement.style.background = '#1a1a1a'; // Set background immediately
+                document.documentElement.style.color = '#d1d5db'; // Set text color immediately
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light'); // Apply light theme
+                document.documentElement.style.background = '#f9fafc'; // Set background immediately
+                document.documentElement.style.color = '#333'; // Set text color immediately
+            }
         })();
     </script>
+    
 </head>
 
 <body class="dark" id="top">
@@ -96,9 +104,99 @@
                 <div class="project-meta">Jul 23 2025 • Muhammad Taha Nasir</div>
             </header>
 
-            <!-- Project Image -->
-            <img src="/assets/images/projects/terrag-ai-inner-view.png" alt="Terrag AI Preview"
-                style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;">
+            <!-- Project Image Carousel -->
+            <div class="image-carousel">
+                <div class="carousel-container">
+                    <div class="carousel-slide active">
+                        <img src="/assets/images/projects/terrag-ai/home.png" alt="Terrag AI Preview" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/terrag-ai/data_preview.png" alt="Terrag AI Inner View" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/terrag-ai/cleaning.png" alt="Terrag AI Inner View" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/terrag-ai/lead_scoring.png" alt="Terrag AI Inner View" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/terrag-ai/segmentation.png" alt="Terrag AI Inner View" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/terrag-ai/sentiment.png" alt="Terrag AI Inner View" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/terrag-ai/trend.png" alt="Terrag AI Inner View" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/terrag-ai/churn.png" alt="Terrag AI Inner View" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/terrag-ai/chat.png" alt="Terrag AI Inner View" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/terrag-ai/chat-2.png" alt="Terrag AI Inner View" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/terrag-ai/chat-3.png" alt="Terrag AI Inner View" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/terrag-ai/chat-4.png" alt="Terrag AI Inner View" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/terrag-ai/pdf.png" alt="Terrag AI Inner View" class="carousel-image">
+                    </div>
+                    
+                </div>
+                
+                <!-- Center Navigation Arrows -->
+                <div class="carousel-center-nav">
+                    <button class="carousel-btn prev-btn" aria-label="Previous image">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-btn next-btn" aria-label="Next image">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <!-- Bottom Dots -->
+                <div class="carousel-dots-container">
+                    <div class="carousel-dots">
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                        <span class="dot" data-slide="3"></span>
+                        <span class="dot" data-slide="4"></span>
+                        <span class="dot" data-slide="5"></span>
+                        <span class="dot" data-slide="6"></span>
+                        <span class="dot" data-slide="7"></span>
+                        <span class="dot" data-slide="8"></span>
+                        <span class="dot" data-slide="9"></span>
+                        <span class="dot" data-slide="10"></span>
+                        <span class="dot" data-slide="11"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Image Modal -->
+            <div class="image-modal" id="imageModal">
+                <div class="modal-content">
+                    <button class="modal-close" id="modalClose">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="modal-image-container">
+                        <img src="" alt="Full size image" id="modalImage" class="modal-image">
+                    </div>
+                    <div class="modal-nav">
+                        <button class="modal-btn prev-btn" id="modalPrev">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="modal-btn next-btn" id="modalNext">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
             <!-- Button Section -->
             <div class="button-section">
@@ -181,7 +279,7 @@
     </button>
 
     <!-- ---------- 8. JavaScript Inclusion ---------- -->
-    <script src="/assets/js/each-project.js"></script>
+    <script src="../../assets/js/each-project.js"></script>
 </body>
 
 </html>

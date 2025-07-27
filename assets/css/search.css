@@ -181,6 +181,9 @@ body {
   display: flex; /* Flex layout for cards */
   flex-direction: column; /* Stack cards vertically */
   gap: 16px; /* Space between cards */
+  min-height: 400px; /* Ensure consistent height */
+  overflow-y: auto; /* Always show scrollbar space */
+  padding-right: 8px; /* Reserve space for scrollbar */
 }
 
 /* ---------- 8. Post Cards ---------- */
@@ -213,6 +216,18 @@ body {
 
 .post-card a:hover {
   color: #3b82f6; /* Blue hover color */
+}
+
+/* ---------- 8.5. No Results Message ---------- */
+.no-results {
+  text-align: center; /* Center the message */
+  padding: 40px 20px; /* Add padding */
+  color: var(--secondary); /* Secondary color */
+  font-size: 1.1em; /* Larger font */
+  min-height: 200px; /* Ensure minimum height */
+  display: flex; /* Flex layout */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
 }
 
 /* ---------- 9. Footer ---------- */

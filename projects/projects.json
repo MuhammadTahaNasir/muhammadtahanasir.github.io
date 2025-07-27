@@ -2,7 +2,7 @@
   {
     "title": "Terrag AI: AI-Powered Data Analytics Platform",
     "description": "Terrag AI: A Streamlit-based AI-powered data analytics app for intelligent insights from business datasets like customers, feedback, and sales data.",
-    "thumbnail": "/assets/images/projects/terrag-ai-preview.png",
+    "thumbnail": "/assets/images/projects/terrag-ai/terrag-ai-preview.png",
     "url": "/projects/side/terrag-ai.html",
     "github": "https://github.com/MuhammadTahaNasir/advtrix-learning/tree/main/streamlit_app",
     "date": "2025-07-23",
@@ -11,7 +11,7 @@
     "features": [
       "Streamlit",
       "python",
-      "Pandas",
+      "pandas",
       "Scikit-learn",
       "Sentiment Analysis",
       "KMeans Clustering"

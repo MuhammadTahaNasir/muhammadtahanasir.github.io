@@ -2,14 +2,17 @@
 const loader = document.getElementById('loader');
 
 document.addEventListener('DOMContentLoaded', () => {
-  loader.classList.add('active');
-  setTimeout(() => {
-    loader.classList.add('no-blur');
-  }, 900);
-  setTimeout(() => {
-    loader.classList.add('hidden');
-    loader.classList.remove('active');
-  }, 1200);
+  // Only show loader if it's not already active
+  if (!loader.classList.contains('active')) {
+    loader.classList.add('active');
+    setTimeout(() => {
+      loader.classList.add('no-blur');
+    }, 900);
+    setTimeout(() => {
+      loader.classList.add('hidden');
+      loader.classList.remove('active');
+    }, 1200);
+  }
   generateArchive();
 });
 
@@ -28,8 +31,6 @@ function generateArchive() {
   const archiveContent = document.getElementById('archive-content');
   const showPostsBtn = document.getElementById('show-posts');
   const showProjectsBtn = document.getElementById('show-projects');
-
-  loader.classList.add('active');
   Promise.all([
     fetch('posts/posts.json').then(res => {
       if (!res.ok) throw new Error('Posts file not found');
@@ -145,11 +146,37 @@ function generateArchive() {
 
 /* ---------- 4. Theme Toggle (Persisted) ---------- */
 const toggleBtn = document.getElementById('theme-toggle');
+
+// Function to update theme icons
+function updateThemeIcons() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.getElementById("sun").style.display = isDark ? "none" : "block";
+  document.getElementById("moon").style.display = isDark ? "block" : "none";
+}
+
+// Initialize theme on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('pref-theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', theme);
+  updateThemeIcons();
+});
+
 toggleBtn.addEventListener('click', () => {
   const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
   const next = current === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', next);
   localStorage.setItem('pref-theme', next);
+  updateThemeIcons();
+});
+
+// Listen for system theme changes
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+  if (!localStorage.getItem("pref-theme")) {
+    document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+    updateThemeIcons();
+  }
 });
 
 /* ---------- 5. Scroll to Top Handler ---------- */

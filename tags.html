@@ -25,7 +25,7 @@
       const savedTheme = localStorage.getItem('pref-theme'); // Retrieve saved theme from localStorage
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; // Check system dark mode preference
       if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-        document.documentElement.classList.add('dark'); // Apply dark theme if saved or system prefers dark
+        document.documentElement.classList.add('dark'); // Apply dark theme
       }
     })();
   </script>

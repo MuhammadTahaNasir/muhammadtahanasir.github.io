@@ -72,6 +72,14 @@ async function loadProjects() {
         const uniqueCategories = ['all', ...new Set(projects.map(project => project.subcategory))];
         updateCategoryDropdown(uniqueCategories);
 
+        // Check URL parameters for search query
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchParam = urlParams.get('search');
+        if (searchParam) {
+            searchQuery = searchParam;
+            searchInput.value = searchQuery;
+        }
+
         applyFilter();
     } catch (error) {
         console.error('Fetch error:', error);

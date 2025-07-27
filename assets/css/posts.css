@@ -32,16 +32,12 @@ body {
   background: var(--theme); /* Apply theme background */
   color: var(--primary); /* Apply primary text color */
   transition: background 0.3s ease, color 0.3s ease; /* Smooth theme transitions */
-  display: flex; /* Flex layout for full height */
-  flex-direction: column; /* Stack content vertically */
-  min-height: 100vh; /* Ensure full viewport height */
 }
 
 .post-container {
   max-width: 800px; /* Constrain content width */
   margin: 0 auto; /* Center content */
   padding: 0 20px; /* Add padding */
-  flex: 1; /* Allow container to grow */
 }
 
 /* ---------- 3. Header and Navigation Bar ---------- */
@@ -128,11 +124,11 @@ body {
   display: none; /* Hide moon icon by default */
 }
 
-[data-theme="dark"] #sun {
+html.dark #sun {
   display: none; /* Hide sun icon in dark mode */
 }
 
-[data-theme="dark"] #moon {
+html.dark #moon {
   display: block; /* Show moon icon in dark mode */
 }
 
@@ -229,6 +225,11 @@ body {
 }
 
 /* ---------- 7. Post Cards ---------- */
+#post-container {
+  flex: 1; /* Take available space */
+  min-height: 400px; /* Minimum height to prevent layout shift */
+}
+
 .post-card {
   background: var(--entry); /* Entry background */
   border-radius: 10px; /* Rounded corners */
@@ -313,7 +314,7 @@ body {
 .no-results {
   text-align: center; /* Center text */
   font-size: 18px; /* Larger font */
-  margin-top: 50px; /* Space above */
+  margin: 50px auto; /* Center vertically and horizontally */
   color: var(--secondary); /* Secondary color */
 }
 

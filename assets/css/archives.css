@@ -482,4 +482,61 @@ details summary {
     gap: 15px; /* Space between elements */
     align-items: flex-start; /* Align to start */
   }
+
+  /* Mobile Archive Post Layout */
+  .archive-post {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    text-align: left;
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+
+  .archive-post a {
+    flex: 1;
+    text-align: left;
+    font-size: 0.9em;
+    line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  .archive-post .meta {
+    flex-shrink: 0;
+    text-align: right;
+    font-size: 0.8em;
+    color: var(--secondary);
+    white-space: nowrap;
+    margin-left: auto;
+  }
+
+  /* Ensure proper spacing for archive years and details */
+  .archive-year h3 {
+    text-align: left;
+    margin-left: 0;
+  }
+
+  details summary {
+    text-align: left;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .archive-post {
+    padding: 0.4rem 0;
+    gap: 8px;
+  }
+
+  .archive-post a {
+    font-size: 0.85em;
+    line-height: 1.3;
+  }
+
+  .archive-post .meta {
+    font-size: 0.75em;
+  }
 }

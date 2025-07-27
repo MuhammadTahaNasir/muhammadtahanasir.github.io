@@ -147,17 +147,29 @@ searchInput.addEventListener("input", () => {
 
 // ---------- 10. Theme Toggle ----------
 document.getElementById("theme-toggle").addEventListener("click", () => {
-    document.documentElement.classList.toggle("dark"); // Toggle dark mode
-    localStorage.setItem("pref-theme", document.documentElement.classList.contains("dark") ? "dark" : "light"); // Save theme
+    document.documentElement.classList.toggle("dark"); // Toggle dark mode class on root element
+    localStorage.setItem("pref-theme", document.documentElement.classList.contains("dark") ? "dark" : "light"); // Save theme preference to localStorage
 });
 
-// ---------- 11. Load Saved Theme ----------
-const savedTheme = localStorage.getItem("pref-theme"); // Get saved theme
+// Loads saved theme or applies system preference
+const savedTheme = localStorage.getItem("pref-theme"); // Retrieve saved theme from localStorage
 if (savedTheme) {
     document.documentElement.classList.toggle("dark", savedTheme === "dark"); // Apply saved theme
 } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.documentElement.classList.add("dark"); // Apply system dark mode
+    document.documentElement.classList.add("dark"); // Apply dark theme if system prefers dark mode
 }
+
+// Listen for system theme changes
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+    if (!localStorage.getItem("pref-theme")) {
+        if (e.matches) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        updateThemeIcons();
+    }
+});
 
 // ---------- 12. Scroll to Top Visibility ----------
 window.addEventListener("scroll", () => {

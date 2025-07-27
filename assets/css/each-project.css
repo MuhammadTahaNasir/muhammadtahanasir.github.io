@@ -1,7 +1,7 @@
 :root {
   --primary: #2e2e33;
   --secondary: #666;
-  --tertiary: #e5e5e5; /* Adjusted for more visible tool pills in light mode */
+  --tertiary: #e5e5e5;
   --background: #fff;
   --border: #ddd;
   --theme: #fff;
@@ -187,7 +187,6 @@ body {
   color: var(--link-color-hover);
 }
 
-
 .tools-section {
   margin: 40px 0;
   text-align: left;
@@ -337,6 +336,444 @@ body {
   transform: translateY(-2px);
 }
 
+/* Image Carousel Styles */
+.image-carousel {
+  margin: 40px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: var(--entry);
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-carousel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+  transition: all 0.8s ease-in-out;
+}
+
+/* Center Navigation Arrows */
+.carousel-center-nav {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.image-carousel:hover .carousel-center-nav {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.carousel-center-nav .carousel-btn {
+  pointer-events: all;
+}
+
+/* Bottom Dots */
+.carousel-dots-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-carousel:hover .carousel-dots-container {
+  opacity: 1;
+}
+
+.carousel-btn {
+  background: rgba(0, 0, 0, 0.8);
+  border: none;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-size: 18px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.carousel-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.dot.active {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.3);
+}
+
+.dot:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: scale(1.2);
+}
+
+/* Dark theme adjustments for carousel */
+[data-theme="dark"] .image-carousel {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .image-carousel:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .carousel-btn {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+}
+
+[data-theme="dark"] .carousel-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+[data-theme="dark"] .dot {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="dark"] .dot.active {
+  background: rgba(255, 255, 255, 1);
+}
+
+[data-theme="dark"] .dot:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* Image Modal Styles */
+.image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.image-modal.active {
+  display: flex;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+}
+
+.modal-image-container {
+  width: 100%;
+  max-width: 90vw;
+  max-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.modal-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px; /* Moved further outside into khaki space */
+  right: 10px;
+  background: none;
+  border: none;
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  transition: color 0.3s ease;
+  z-index: 1001;
+}
+
+.modal-close:hover {
+  color: #ccc;
+  transform: none;
+}
+
+.modal-nav {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  pointer-events: none;
+}
+
+.modal-nav .modal-btn:first-child {
+  margin-left: 0;
+}
+
+.modal-nav .modal-btn:last-child {
+  margin-right: 0;
+}
+
+.image-modal:hover .modal-nav {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-btn {
+  background: rgba(0, 0, 0, 0.8);
+  border: none;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.1s ease; /* Faster transition for smoother arrow response */
+  font-size: 18px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  pointer-events: all;
+}
+
+.modal-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+.modal-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive carousel styles */
+@media (max-width: 768px) {
+  .carousel-container {
+    height: 350px;
+  }
+  
+  .carousel-image {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+  
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+  
+  /* Show dots on mobile */
+  .carousel-dots-container {
+    opacity: 1;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-container {
+    height: 280px;
+  }
+  
+  .carousel-image {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .carousel-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 12px;
+  }
+  
+  .dot {
+    width: 6px;
+    height: 6px;
+  }
+  
+  /* Hide arrows on mobile for carousel */
+  .carousel-center-nav {
+    display: none;
+  }
+  
+  /* Modal mobile styles */
+  .modal-content {
+    padding: 5px;
+  }
+  
+  .modal-close {
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+  
+  /* Hide arrows on mobile for modal */
+  .modal-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-image-container {
+      padding: 15px;
+      max-height: 75vh;
+  }
+  
+  /* Better mobile modal spacing */
+  .modal-content {
+      padding: 20px;
+      margin: 10px;
+  }
+  
+  /* Ensure modal image fits properly */
+  .modal-image {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      object-position: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-image-container {
+      padding: 10px;
+      max-height: 70vh;
+  }
+  
+  .modal-content {
+      padding: 10px;
+      margin: 5px;
+  }
+  
+  .modal-close {
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      font-size: 16px;
+  }
+  
+  /* Ensure modal image fits properly on small screens */
+  .modal-image {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      object-position: center;
+  }
+}
+
 @media (max-width: 768px) {
   .nav {
     flex-wrap: wrap;
@@ -385,5 +822,104 @@ body {
 
   .project-content {
     font-size: 1rem;
+  }
+
+  /* Mobile Tools Section */
+  .tools-section {
+    margin: 30px 0;
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 16px;
+    align-items: flex-start;
+  }
+
+  .tools-label {
+    display: block;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 15px;
+    font-size: 0.95em;
+    grid-column: 1 / -1;
+  }
+
+  .tool-pill {
+    display: inline-block;
+    background: var(--tertiary);
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    color: var(--content);
+    box-shadow: var(--shadow);
+    white-space: nowrap;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin: 0;
+  }
+
+  .tool-pill:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    background: rgba(100, 100, 100, 0.1);
+  }
+
+  /* Mobile Button Section */
+  .button-section {
+    margin: 25px 0;
+    text-align: left;
+  }
+
+  .project-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+    background: var(--entry);
+    color: var(--primary);
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
+
+  .project-button:hover {
+    opacity: 1;
+    background: var(--tertiary);
+    transform: translateY(-1px);
+  }
+}
+
+@media (max-width: 480px) {
+  .tools-section {
+    margin: 25px 0;
+    gap: 18px 14px;
+  }
+
+  .tools-label {
+    font-size: 0.9em;
+    margin-bottom: 12px;
+  }
+
+  .tool-pill {
+    padding: 8px 14px;
+    font-size: 0.8em;
+    border-radius: 16px;
+    margin: 0;
+  }
+
+  .button-section {
+    margin: 20px 0;
+  }
+
+  .project-button {
+    padding: 8px 14px;
+    font-size: 0.85em;
+    margin-right: 6px;
+    margin-bottom: 6px;
   }
 }

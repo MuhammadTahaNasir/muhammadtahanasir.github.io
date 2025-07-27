@@ -312,16 +312,11 @@ h1 {
 
 /* ---------- 8. Footer ---------- */
 .footer {
-    font-size: 0.9em;
-    /* Smaller text */
-    color: var(--secondary);
-    /* Less prominent color */
-    margin-top: 40px;
-    /* Space above */
-    text-align: center;
-    /* Center text */
-    flex-shrink: 0;
-    /* Prevent footer from shrinking */
+    font-size: 0.9em; /* Smaller font */
+    color: var(--secondary); /* Secondary color */
+    margin-top: 40px; /* Space above */
+    text-align: center; /* Center text */
+    flex-shrink: 0; /* Prevent footer from shrinking */
 }
 
 /* ---------- 9. Social Icons ---------- */

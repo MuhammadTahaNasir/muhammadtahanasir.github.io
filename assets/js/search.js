@@ -1,6 +1,7 @@
 // ---------- 1. Global Variables ----------
 let posts = []; // Array to store posts
 let resources = []; // Array to store resources
+let projects = []; // Array to store projects
 let currentPage = 1; // Current page for pagination
 const postsPerPage = 8; // Number of items per page
 let fuse; // Fuse.js instance for search
@@ -79,10 +80,22 @@ async function loadResources() {
     }
 }
 
+// ---------- 6.5. Load Projects Data ----------
+async function loadProjects() {
+    try {
+        const res = await fetch('projects/projects.json'); // Fetch projects JSON
+        if (!res.ok) throw new Error('Failed to load projects'); // Handle fetch error
+        projects = await res.json(); // Parse and store projects
+    } catch (error) {
+        console.error('Fetch error for projects:', error); // Log error
+        projects = []; // Set empty array on failure
+    }
+}
+
 // ---------- 7. Initialize Data and Search ----------
 async function initializeData() {
     loader.classList.add('active'); // Show loader
-    await Promise.all([loadPosts(), loadResources()]); // Load posts and resources concurrently
+    await Promise.all([loadPosts(), loadResources(), loadProjects()]); // Load posts, resources, and projects concurrently
     const startDate = new Date('2025-04-13T00:00:00Z'); // Base date for resources
     const allItems = [
         ...posts.map(p => ({ ...p, type: 'post', link: p.url || '#' })), // Map posts with type and link
@@ -94,10 +107,11 @@ async function initializeData() {
                 link: r.link || '#', // Set link
                 date: pseudoDate.toISOString() // Assign date
             };
-        })
-    ]; // Combine posts and resources
+        }),
+        ...projects.map(p => ({ ...p, type: 'project', link: p.url || '#' })) // Map projects with type and link
+    ]; // Combine posts, resources, and projects
     fuse = new Fuse(allItems, {
-        keys: ['title', 'summary', 'desc'], // Searchable fields
+        keys: ['title', 'summary', 'desc', 'description', 'tab', 'subcategory'], // Searchable fields
         threshold: 0.3 // Search sensitivity
     }); // Initialize Fuse.js
     setTimeout(() => {
@@ -150,8 +164,9 @@ function renderResults() {
                 type: r.type || 'resource', // Set type
                 link: r.link || '#', // Set link
                 date: new Date('2025-04-13T00:00:00Z').toISOString() // Set date
-            }))
-        ]; // Combine posts and resources
+            })),
+            ...projects.map(p => ({ ...p, type: 'project', link: p.url || '#' })) // Map projects
+        ]; // Combine posts, resources, and projects
         filtered = allItems.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 7); // Sort and limit to 7
         totalPages = 1; // Single page for no query
     } else {
@@ -164,7 +179,7 @@ function renderResults() {
     const pageItems = filtered.slice(start, start + postsPerPage); // Get items for current page
 
     if (filtered.length === 0 && searchQuery) {
-        searchResults.innerHTML = '<li Forma de archivo: .html no admitida por este navegador.<li class="no-results">😕 No results found.</li>'; // Show no results
+        searchResults.innerHTML = '<div class="no-results">😕 No results found.</div>'; // Show no results
         pagination.innerHTML = ''; // Clear pagination
         return;
     }

@@ -85,6 +85,18 @@ if (savedTheme) {
     document.documentElement.classList.add("dark"); // Apply dark theme if system prefers dark mode
 }
 
+// Listen for system theme changes
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+    if (!localStorage.getItem("pref-theme")) {
+        if (e.matches) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        updateThemeIcons();
+    }
+});
+
 // ---------- 4. Scroll-to-Top Functionality ----------
 window.addEventListener("scroll", () => {
     document.getElementById("scrollTop").style.display = window.scrollY > 200 ? "flex" : "none"; // Show/hide scroll-to-top button based on scroll position
