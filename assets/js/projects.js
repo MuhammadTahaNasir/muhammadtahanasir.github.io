@@ -85,8 +85,13 @@ async function loadProjects() {
         console.error('Fetch error:', error);
         projectsGrid.innerHTML = `<p class="no-results">😕 Failed to load projects. Check the console for details.</p>`;
     } finally {
-        loader.classList.remove('active');
-        loader.classList.add('hidden');
+        setTimeout(() => {
+            loader.classList.add('no-blur');
+        }, 600);
+        setTimeout(() => {
+            loader.classList.add('hidden');
+            loader.classList.remove('active');
+        }, 800);
     }
 }
 
@@ -228,8 +233,15 @@ window.addEventListener('scroll', () => {
 
 // Initial Load
 document.addEventListener('DOMContentLoaded', () => {
+    // Activate loader on page load
+    loader.classList.add('active');
+    
     const defaultToggle = document.querySelector('.toggle-btn[data-tab="all"]');
     if (defaultToggle) defaultToggle.classList.add('active');
     gridViewBtn.classList.add('active');
-    loadProjects();
+    
+    // Load projects after a short delay to show loader
+    setTimeout(() => {
+        loadProjects();
+    }, 100);
 });
