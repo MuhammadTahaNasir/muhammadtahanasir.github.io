@@ -829,16 +829,21 @@ function generateTags() {
 function displayProjects(projects) {
   const projectsContainer = document.querySelector('.projects-container');
   if (!projectsContainer) return;
-  
+
   if (projects.length === 0) {
     projectsContainer.innerHTML = '<p style="text-align: center; color: var(--secondary);">No projects found 😕</p>';
     return;
   }
-  
+
+  // Sort projects by date (most recent first) and take the top 5
+  const latestProjects = projects
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 5); // Limit to 5 projects
+
   // Clear container and show projects
   projectsContainer.innerHTML = '';
-  
-  projects.forEach(project => {
+
+  latestProjects.forEach(project => {
     const projectCard = document.createElement('div');
     projectCard.className = 'project-card';
     projectCard.style.display = 'flex';
@@ -846,23 +851,22 @@ function displayProjects(projects) {
     projectCard.style.width = '260px';
     projectCard.style.minWidth = '260px';
     projectCard.style.maxWidth = '260px';
-    projectCard.style.height = '320px';
     projectCard.style.flexShrink = '0';
-    
+
     const thumbnailPath = project.thumbnail || null;
     const projectTitle = project.title || 'Untitled Project';
-    const shortDescription = project.description ? project.description.length > 80 ? project.description.substring(0, 80) + '...' : project.description : 'No description available.';
+    const shortDescription = project.description ? (project.description.length > 80 ? project.description.substring(0, 80) + '...' : project.description) : 'No description available.';
     const date = new Date(project.date);
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const formattedDate = `${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
     const tabName = project.tab ? project.tab.charAt(0).toUpperCase() + project.tab.slice(1) : 'Project';
-    
+
     let cardContent = `
       ${thumbnailPath ? `<img src="${thumbnailPath}" alt="${projectTitle}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 16px;">` : ''}
-      <h3 style="margin: 0 0 12px 0; font-size: 1.1em; font-weight: 600; color: var(--primary); line-height: 1.3; height: 2.6em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${projectTitle}</h3>
+      <h3 style="margin: 0 0 12px 0; font-size: 1.1em; font-weight: 600; color: var(--primary); line-height: 1.3; word-wrap: break-word; overflow-wrap: break-word;">${projectTitle}</h3>
       <span style="display: inline-block; padding: 2px 10px; background: #ff7a59; border-radius: 999px; font-size: 0.7em; color: #fff; margin: 0 0 10px 0; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; box-shadow: 0 1px 4px rgba(255,122,89,0.08); opacity: 0.85;">${tabName}</span>
       <p style="font-size: 0.75em; color: var(--secondary); margin: 0 0 12px 0;">${formattedDate}</p>
-      <p style="font-size: 0.8em; color: var(--secondary); line-height: 1.4; margin: 0 0 16px 0; height: 2.8em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${shortDescription}</p>
+      <p style="font-size: 0.8em; color: var(--secondary); line-height: 1.4; margin: 0 0 16px 0; flex-grow: 1;">${shortDescription}</p>
       <a href="${project.url}" target="_blank" style="display: block; margin-top: auto; padding: 8px 16px; background: #3b82f6; color: #fff; text-decoration: none; border-radius: 6px; font-size: 0.8em; font-weight: 600; transition: background 0.3s ease; text-align: center;">View Project</a>
     `;
     projectCard.innerHTML = cardContent;
