@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Filesystem Time Machine" />
+    <link rel="manifest" href="/assets/images/site.webmanifest" />
+    <!-- ---------- 1. Meta Tags ---------- -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Filesystem Time Machine: A powerful file system monitoring and version control application with interactive OS concepts visualization, built with React and FastAPI.">
+    <meta name="author" content="Muhammad Taha Nasir">
+    <meta name="date" content="2025-04-10">
+    <meta name="tab" content="academic">
+    <meta name="subcategory" content="Operating Systems">
+    <meta name="features" content="React, FastAPI, python, File System Monitoring">
+    <meta name="thumbnail" content="/assets/images/projects/filesystem-time-machine/preview.png">
+    <meta name="github" content="https://github.com/MuhammadTahaNasir/fast-chronicles/tree/main/projects/operating-system/filesystem-time-machine">
+    <meta name="hideWebLink" content="true">
+    <title>Filesystem Time Machine: File System Monitoring & OS Visualization</title>
+
+    <!-- ---------- 2. Stylesheets ---------- -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/each-project.css">
+
+    <!-- ---------- 3. Theme Initialization Script ---------- -->
+    <script>
+        // Apply theme immediately on page load to prevent flash
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme'); // Get saved theme
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; // Check system dark mode
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark'); // Apply dark theme
+                document.documentElement.style.background = '#1a1a1a'; // Set background immediately
+                document.documentElement.style.color = '#d1d5db'; // Set text color immediately
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light'); // Apply light theme
+                document.documentElement.style.background = '#f9fafc'; // Set background immediately
+                document.documentElement.style.color = '#333'; // Set text color immediately
+            }
+        })();
+    </script>
+</head>
+
+<body class="dark" id="top">
+    <!-- ---------- 4. Header Navigation ---------- -->
+    <header class="header">
+        <nav class="nav">
+            <!-- Left: Logo -->
+            <div class="nav-left">
+                <a href="/index.html" class="logo">&lt;terry/&gt;</a>
+            </div>
+
+            <!-- Center: Pills Navigation -->
+            <div class="nav-center">
+                <div class="pill-nav">
+                    <a href="/resources.html">Resources</a>
+                    <a href="/archives.html">Archives</a>
+                    <a href="/resume.html">Resume</a>
+                    <a href="/search.html">Search</a>
+                </div>
+            </div>
+
+            <!-- Right: Theme toggle -->
+            <div class="nav-right">
+                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ---------- 5. Main Content ---------- -->
+    <div class="container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb">
+            <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a>
+        </nav>
+
+        <!-- Project Content -->
+        <main class="project-content">
+            <header class="project-header">
+                <h1 class="project-title">Filesystem Time Machine: File System Monitoring & OS Visualization</h1>
+                <div class="project-meta">Apr 10 2025 • Muhammad Taha Nasir</div>
+            </header>
+
+            <!-- Project Image Carousel -->
+            <div class="image-carousel">
+                <div class="carousel-container">
+                    <div class="carousel-slide active">
+                        <img src="/assets/images/projects/filesystem-time-machine/preview.png" alt="Filesystem Time Machine Preview" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/filesystem-time-machine/landing_page.png" alt="Landing Page" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/filesystem-time-machine/file_watcher.png" alt="File Watcher Interface" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/filesystem-time-machine/event_panel.png" alt="Event Panel" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/filesystem-time-machine/snapshot_panel.png" alt="Snapshot Panel" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/filesystem-time-machine/timeline.png" alt="Theme Toggle" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/filesystem-time-machine/folder_browser.png" alt="API Documentation" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/filesystem-time-machine/diff_viewer.png" alt="Diff Viewer" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/filesystem-time-machine/anomaly_detection.png" alt="Restore Interface" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/filesystem-time-machine/os_visualization.png" alt="OS Concepts Visualization" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/filesystem-time-machine/process_monitor.png" alt="Process Monitoring" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/filesystem-time-machine/memory_management.png" alt="Memory Management Visualization" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/filesystem-time-machine/disk_scheduling.png" alt="Disk Scheduling Simulation" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/filesystem-time-machine/file_system_tree.png" alt="File System Tree" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/filesystem-time-machine/storage_management.png" alt="Snapshot Comparison" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/filesystem-time-machine/fcfs.png" alt="Drag & Drop Interface" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/filesystem-time-machine/file_system_compare.png" alt="Statistics Panel" class="carousel-image">
+                    </div>
+                </div>
+
+                <!-- Center Navigation Arrows -->
+                <div class="carousel-center-nav">
+                    <button class="carousel-btn prev-btn" aria-label="Previous image">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-btn next-btn" aria-label="Next image">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- Bottom Dots -->
+                <div class="carousel-dots-container">
+                    <div class="carousel-dots">
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                        <span class="dot" data-slide="3"></span>
+                        <span class="dot" data-slide="4"></span>
+                        <span class="dot" data-slide="5"></span>
+                        <span class="dot" data-slide="6"></span>
+                        <span class="dot" data-slide="7"></span>
+                        <span class="dot" data-slide="8"></span>
+                        <span class="dot" data-slide="9"></span>
+                        <span class="dot" data-slide="10"></span>
+                        <span class="dot" data-slide="11"></span>
+                        <span class="dot" data-slide="12"></span>
+                        <span class="dot" data-slide="13"></span>
+                        <span class="dot" data-slide="14"></span>
+                        <span class="dot" data-slide="15"></span>
+                        <span class="dot" data-slide="16"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Image Modal -->
+            <div class="image-modal" id="imageModal">
+                <div class="modal-content">
+                    <button class="modal-close" id="modalClose">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="modal-image-container">
+                        <img src="" alt="Full size image" id="modalImage" class="modal-image">
+                    </div>
+                    <div class="modal-nav">
+                        <button class="modal-btn prev-btn" id="modalPrev">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="modal-btn next-btn" id="modalNext">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button Section -->
+            <div class="button-section">
+                <a href="https://github.com/MuhammadTahaNasir/fast-chronicles/tree/main/projects/operating-system/filesystem-time-machine" class="project-button github-link">
+                    <i class="fab fa-github"></i> Source Code
+                </a>
+            </div>
+
+            <!-- Project Overview -->
+            <section id="overview">
+                <h2>Project Overview</h2>
+                <p>Filesystem Time Machine is a powerful file system monitoring and version control application built with React and FastAPI. It provides real-time file watching, smart snapshot creation, time-travel restore capabilities, and interactive visualizations of operating system concepts like file system structure, process management, memory allocation, and disk scheduling.</p>
+            </section>
+
+            <!-- Situation Section -->
+            <section id="situation">
+                <h2>Situation</h2>
+                <p>Understanding and managing file system changes in real-time, along with learning complex operating system concepts, can be challenging without intuitive tools that combine monitoring, version control, and educational visualizations.</p>
+            </section>
+
+            <!-- Task Section -->
+            <section id="task">
+                <h2>Task</h2>
+                <p>Develop a user-friendly application that monitors file system changes in real-time, allows snapshot creation and restoration, and provides interactive visualizations of operating system concepts for academic and practical use.</p>
+            </section>
+
+            <!-- Actions Section -->
+            <section id="actions">
+                <h2>Actions</h2>
+                <ul>
+                    <li>Built a React-based frontend with Vite for fast development and responsive design.</li>
+                    <li>Developed a FastAPI backend for real-time file system monitoring and API endpoints.</li>
+                    <li>Implemented real-time file watching with event tracking for creation, modification, deletion, and movement.</li>
+                    <li>Created a snapshot system for capturing and comparing file system states.</li>
+                    <li>Designed a time-travel restore feature for recovering files and folders.</li>
+                    <li>Integrated interactive visualizations for OS concepts using Chart.js and custom components.</li>
+                    <li>Added drag-and-drop folder selection and theme toggling for enhanced UX.</li>
+                    <li>Deployed the application using Docker, Vercel, and Railway for scalability.</li>
+                </ul>
+            </section>
+
+            <!-- Results Section -->
+            <section id="results">
+                <h2>Results</h2>
+                <p>Filesystem Time Machine successfully provided a robust tool for file system monitoring, version control, and OS concept visualization. The project enhanced my skills in React, FastAPI, and system programming, delivering an intuitive and educational application for students and professionals.</p>
+            </section>
+
+            <!-- Tech Stack Section -->
+            <section id="tech-stack">
+                <h2>Tech Stack</h2>
+                <ul>
+                    <li><strong>React</strong>: Frontend framework for building the interactive UI.</li>
+                    <li><strong>FastAPI</strong>: Backend framework for high-performance APIs.</li>
+                    <li><strong>Python</strong>: Core language for file system monitoring and backend logic.</li>
+                    <li><strong>Vite</strong>: Build tool for fast frontend development.</li>
+                    <li><strong>Chart.js</strong>: For interactive OS concept visualizations.</li>
+                    <li><strong>Tailwind CSS</strong>: Utility-first CSS for responsive design.</li>
+                    <li><strong>Docker</strong>: For containerized deployment.</li>
+                </ul>
+                <div class="tools-section">
+                    <span class="tools-label">Tools:</span>
+                    <div id="project-tools-tags"></div>
+                </div>
+            </section>
+        </main>
+
+        <!-- ---------- 6. Footer ---------- -->
+        <footer class="footer">
+            <div class="social-icons">
+                <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>© 2025 – Muhammad Taha Nasir</p>
+        </footer>
+    </div>
+
+    <!-- ---------- 7. Scroll to Top Button ---------- -->
+    <button id="scrollTop" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- ---------- 8. JavaScript Inclusion ---------- -->
+    <script src="/assets/js/each-project.js"></script>
+</body>
+
+</html>

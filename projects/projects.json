@@ -17,5 +17,22 @@
       "KMeans Clustering"
     ],
     "hideWebLink": true
+  },
+  {
+    "title": "Filesystem Time Machine: File System Monitoring & OS Visualization",
+    "description": "Filesystem Time Machine: A powerful file system monitoring and version control application with interactive OS concepts visualization, built with React and FastAPI.",
+    "thumbnail": "/assets/images/projects/filesystem-time-machine/preview.png",
+    "url": "/projects/academic/filesystem-time-machine.html",
+    "github": "https://github.com/MuhammadTahaNasir/fast-chronicles/tree/main/projects/operating-system/filesystem-time-machine",
+    "date": "2025-04-10",
+    "tab": "academic",
+    "subcategory": "Operating Systems",
+    "features": [
+      "React",
+      "FastAPI",
+      "python",
+      "File System Monitoring"
+    ],
+    "hideWebLink": true
   }
 ]
