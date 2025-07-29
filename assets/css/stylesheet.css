@@ -482,8 +482,6 @@ body {
   font-size: 16px;
 }
 
-/* Removed old ask-bar posts container styling */
-
 .ask-bar .post-card {
   background: var(--entry);
   border-radius: 8px;
@@ -941,9 +939,7 @@ body {
   .view-more-wrapper {
     width: 100%;
     margin-top: 25px;
-    /* Increase margin to avoid overlap with post cards */
     margin-bottom: 15px;
-    /* Add bottom margin for spacing */
     display: flex;
     justify-content: center;
     padding: 0 12px;
@@ -954,20 +950,13 @@ body {
   .ask-bar button,
   .ask-bar .read-more {
     outline: none;
-    /* Remove default outline */
     -webkit-tap-highlight-color: transparent;
-    /* Remove mobile tap highlight */
     -webkit-appearance: none;
-    /* Remove any browser-specific styling */
     -moz-appearance: none;
-    /* For Firefox */
     appearance: none;
-    /* Standard */
     border: none;
-    /* Ensure no border is added */
   }
 
-  /* Remove focus and active outlines */
   .ask-bar .view-more:focus,
   .ask-bar .view-more:active,
   .ask-bar button:focus,
@@ -981,17 +970,13 @@ body {
     /* Prevent any border from appearing */
   }
 
-  /* Optional: Add subtle feedback for tap without box */
   .ask-bar .view-more:active,
   .ask-bar button:active,
   .ask-bar .read-more:active {
     transform: translateY(0);
-    /* Slight press effect */
     background: var(--tertiary);
-    /* Subtle background change */
   }
 
-  /* Ensure View More button stays clean */
   .ask-bar .view-more {
     display: inline-flex;
     align-items: center;
@@ -1046,20 +1031,34 @@ body {
   }
 
   .project-card {
-  min-width: 220px;
+    min-width: 220px;
     max-width: 220px;
-    height: 280px;
-    padding: 16px;
+    height: auto;
+    padding: 12px;
+    margin-bottom: 10px;
   }
 
   .project-card h3 {
     font-size: 1em;
     margin-bottom: 8px;
-    height: 2.4em;
+    height: auto;
+    overflow: visible;
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: unset;
   }
 
   .project-card p {
     font-size: 0.75em;
+    margin-bottom: 8px;
+    height: auto;
+    overflow: visible;
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: unset;
+  }
+
+  .project-card a {
+    padding: 6px 12px;
+    font-size: 0.7em;
   }
 }
 
