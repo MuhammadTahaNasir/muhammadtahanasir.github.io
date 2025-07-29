@@ -315,8 +315,6 @@ body {
   width: 260px;
   min-width: 260px;
   max-width: 260px;
-  /* Remove fixed height to allow dynamic content */
-  /* height: 320px; */
   background: var(--entry);
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -338,12 +336,6 @@ body {
   font-weight: 600;
   color: var(--primary);
   line-height: 1.3;
-  /* Remove height and line-clamp to avoid cutting text */
-  /* height: 2.6em;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical; */
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
@@ -353,12 +345,6 @@ body {
   font-size: 0.85em;
   color: var(--secondary);
   line-height: 1.4;
-  /* Remove height constraint */
-  /* height: 2.8em;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical; */
   flex-grow: 1;
 }
 
