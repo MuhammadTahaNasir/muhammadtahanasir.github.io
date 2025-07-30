@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Dishly" />
+    <link rel="manifest" href="/assets/images/site.webmanifest" />
+    <!-- ---------- 1. Meta Tags ---------- -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Dishly: A modern recipe management system with pantry tracking, social features, and an admin panel, built with PHP, MySQL, and modern CSS for a responsive UI.">
+    <meta name="author" content="Muhammad Taha Nasir">
+    <meta name="date" content="2025-05-30">
+    <meta name="tab" content="academic">
+    <meta name="subcategory" content="Database Management Systems">
+    <meta name="features" content="PHP, MySQL, CSS, Recipe Management, Pantry Tracking">
+    <meta name="thumbnail" content="/assets/images/projects/dishly/signup.png">
+    <meta name="github" content="https://github.com/muhammadtahanasir/dishly">
+    <meta name="hideWebLink" content="true">
+    <title>Dishly: Modern Recipe Management System</title>
+
+    <!-- ---------- 2. Stylesheets ---------- -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/each-project.css">
+
+    <!-- ---------- 3. Theme Initialization Script ---------- -->
+    <script>
+        // Apply theme immediately on page load to prevent flash
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme'); // Get saved theme
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; // Check system dark mode
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark'); // Apply dark theme
+                document.documentElement.style.background = '#1a1a1a'; // Set background immediately
+                document.documentElement.style.color = '#d1d5db'; // Set text color immediately
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light'); // Apply light theme
+                document.documentElement.style.background = '#f9fafc'; // Set background immediately
+                document.documentElement.style.color = '#333'; // Set text color immediately
+            }
+        })();
+    </script>
+</head>
+
+<body class="dark" id="top">
+    <!-- ---------- 4. Header Navigation ---------- -->
+    <header class="header">
+        <nav class="nav">
+            <!-- Left: Logo -->
+            <div class="nav-left">
+                <a href="/index.html" class="logo">&lt;terry/&gt;</a>
+            </div>
+
+            <!-- Center: Pills Navigation -->
+            <div class="nav-center">
+                <div class="pill-nav">
+                    <a href="/resources.html">Resources</a>
+                    <a href="/archives.html">Archives</a>
+                    <a href="/resume.html">Resume</a>
+                    <a href="/search.html">Search</a>
+                </div>
+            </div>
+
+            <!-- Right: Theme toggle -->
+            <div class="nav-right">
+                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ---------- 5. Main Content ---------- -->
+    <div class="container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb">
+            <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a>
+        </nav>
+
+        <!-- Project Content -->
+        <main class="project-content">
+            <header class="project-header">
+                <h1 class="project-title">Dishly: Modern Recipe Management System</h1>
+                <div class="project-meta">Jul 30 2025 • Muhammad Taha Nasir</div>
+            </header>
+
+            <!-- Project Image Carousel -->
+            <div class="image-carousel">
+                <div class="carousel-container">
+                    <div class="carousel-slide active">
+                        <img src="/assets/images/projects/dishly/manage_rec_2.png" alt="Dishly Preview" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/dishly/super_admin.png" alt="Dashboard Interface" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/dishly/profile.png" alt="User Profile" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/dishly/add_recipe.png" alt="Add Recipe Interface" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/dishly/view_favorites.png" alt="Favorites Page" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/dishly/cook.png" alt="Recipe Discovery" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/dishly/pantry.png" alt="Pantry Management" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/dishly/collections.png" alt="Recipe Collections" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/dishly/inbox.png" alt="Messaging System" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/dishly/admin_dashboard.png" alt="Admin Dashboard" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/dishly/manage_recipes.png" alt="Recipe Management" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/dishly/manage_users.png" alt="User Management" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/dishly/manage_ingredients.png" alt="Ingredient Management" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/dishly/meal_planner.png" alt="Meal Planner" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/dishly/trend.png" alt="Shopping List" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/dishly/admin_charts.png" alt="Leaderboard" class="carousel-image">
+                    </div>
+                </div>
+
+                <!-- Center Navigation Arrows -->
+                <div class="carousel-center-nav">
+                    <button class="carousel-btn prev-btn" aria-label="Previous image">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-btn next-btn" aria-label="Next image">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- Bottom Dots -->
+                <div class="carousel-dots-container">
+                    <div class="carousel-dots">
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                        <span class="dot" data-slide="3"></span>
+                        <span class="dot" data-slide="4"></span>
+                        <span class="dot" data-slide="5"></span>
+                        <span class="dot" data-slide="6"></span>
+                        <span class="dot" data-slide="7"></span>
+                        <span class="dot" data-slide="8"></span>
+                        <span class="dot" data-slide="9"></span>
+                        <span class="dot" data-slide="10"></span>
+                        <span class="dot" data-slide="11"></span>
+                        <span class="dot" data-slide="12"></span>
+                        <span class="dot" data-slide="13"></span>
+                        <span class="dot" data-slide="14"></span>
+                        <span class="dot" data-slide="15"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Image Modal -->
+            <div class="image-modal" id="imageModal">
+                <div class="modal-content">
+                    <button class="modal-close" id="modalClose">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="modal-image-container">
+                        <img src="" alt="Full size image" id="modalImage" class="modal-image">
+                    </div>
+                    <div class="modal-nav">
+                        <button class="modal-btn prev-btn" id="modalPrev">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="modal-btn next-btn" id="modalNext">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button Section -->
+            <div class="button-section">
+                <a href="https://github.com/yourusername/dishly" class="project-button github-link">
+                    <i class="fab fa-github"></i> Source Code
+                </a>
+            </div>
+
+            <!-- Project Overview -->
+            <section id="overview">
+                <h2>Project Overview</h2>
+                <p>Dishly is a comprehensive web-based recipe management system built with PHP and MySQL, featuring a modern UI with glassmorphism effects, pantry tracking, social features, and an admin panel. It allows users to create, manage, and discover recipes, track pantry inventory, and engage with a cooking community.</p>
+            </section>
+
+            <!-- Situation Section -->
+            <section id="situation">
+                <h2>Situation</h2>
+                <p>Managing recipes and pantry inventory efficiently while fostering a community for sharing culinary creations is challenging without a centralized, user-friendly platform that leverages database management systems for robust data handling.</p>
+            </section>
+
+            <!-- Task Section -->
+            <section id="task">
+                <h2>Task</h2>
+                <p>Develop a web application that enables users to manage recipes, track pantry inventory, and connect with other chefs, while providing administrators with tools to moderate content and analyze usage, all powered by a robust MySQL database.</p>
+            </section>
+
+            <!-- Actions Section -->
+            <section id="actions">
+                <h2>Actions</h2>
+                <ul>
+                    <li>Designed a MySQL database schema for users, recipes, ingredients, collections, and notifications.</li>
+                    <li>Built a PHP-based backend with secure database connections using prepared statements.</li>
+                    <li>Developed a responsive frontend with modern CSS, including glassmorphism effects and gradient backgrounds.</li>
+                    <li>Implemented pantry management with visual stock indicators and quick actions.</li>
+                    <li>Created social features like user following, messaging, and activity feeds.</li>
+                    <li>Built an admin panel for user management, recipe moderation, and analytics with Chart.js.</li>
+                    <li>Added security features like CSRF protection, SQL injection prevention, and input sanitization.</li>
+                    <li>Optimized performance with database indexing, image compression, and caching.</li>
+                </ul>
+            </section>
+
+            <!-- Results Section -->
+            <section id="results">
+                <h2>Results</h2>
+                <p>Dishly successfully delivered a robust recipe management platform with seamless pantry tracking and social engagement. The project enhanced my skills in PHP, MySQL, and database management, providing an intuitive tool for cooking enthusiasts and administrators.</p>
+            </section>
+
+            <!-- Tech Stack Section -->
+            <section id="tech-stack">
+                <h2>Tech Stack</h2>
+                <ul>
+                    <li><strong>PHP</strong>: Backend logic and server-side scripting.</li>
+                    <li><strong>MySQL</strong>: Database for storing user, recipe, and pantry data.</li>
+                    <li><strong>HTML/CSS</strong>: Responsive frontend with modern design.</li>
+                    <li><strong>Chart.js</strong>: Interactive charts for analytics and trends.</li>
+                    <li><strong>XAMPP</strong>: Local development environment for Apache and MySQL.</li>
+                    <li><strong>Material Icons</strong>: Consistent iconography for UI elements.</li>
+                </ul>
+                <div class="tools-section">
+                    <span class="tools-label">Tools:</span>
+                    <div id="project-tools-tags"></div>
+                </div>
+            </section>
+        </main>
+
+        <!-- ---------- 6. Footer ---------- -->
+        <footer class="footer">
+            <div class="social-icons">
+                <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>© 2025 – Muhammad Taha Nasir</p>
+        </footer>
+    </div>
+
+    <!-- ---------- 7. Scroll to Top Button ---------- -->
+    <button id="scrollTop" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- ---------- 8. JavaScript Inclusion ---------- -->
+    <script src="/assets/js/each-project.js"></script>
+</body>
+
+</html>

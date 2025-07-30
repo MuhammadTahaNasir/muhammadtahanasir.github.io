@@ -19,6 +19,24 @@
     "hideWebLink": true
   },
   {
+    "title": "Dishly: Modern Recipe Management System",
+    "description": "Dishly: A modern recipe management system with pantry tracking, social features, and an admin panel, built with PHP, MySQL, and modern CSS for a responsive UI.",
+    "thumbnail": "/assets/images/projects/dishly/signup.png",
+    "url": "/projects/academic/dishly.html",
+    "github": "https://github.com/muhammadtahanasir/dishly",
+    "date": "2025-05-30",
+    "tab": "academic",
+    "subcategory": "Database Management Systems",
+    "features": [
+      "PHP",
+      "MySQL",
+      "CSS",
+      "Recipe Management",
+      "Pantry Tracking"
+    ],
+    "hideWebLink": true
+  },
+  {
     "title": "Filesystem Time Machine: File System Monitoring & OS Visualization",
     "description": "Filesystem Time Machine: A powerful file system monitoring and version control application with interactive OS concepts visualization, built with React and FastAPI.",
     "thumbnail": "/assets/images/projects/filesystem-time-machine/preview.png",
