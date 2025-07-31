@@ -723,8 +723,9 @@ h1 {
     align-items: center;
     gap: 10px;
     flex-wrap: nowrap;
-    overflow-x: auto;
+    overflow-x: hidden;
     padding: 8px 0;
+    width: 100%;
   }
 
   .filter-bar select {
@@ -732,15 +733,17 @@ h1 {
     font-size: 14px;
     border-radius: 6px;
     border: none;
-    min-width: 120px;
-    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
+    flex: 1;
   }
 
   /* Fix dropdown arrow positioning on mobile */
   .dropdown-container {
     position: relative;
     min-width: 120px;
-    flex-shrink: 0;
+    max-width: calc(50% - 5px);
+    flex: 1;
   }
 
   .dropdown-container .arrow {
