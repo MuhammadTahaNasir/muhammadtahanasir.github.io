@@ -238,6 +238,13 @@ h1 {
   font-size: 0.8em;
 }
 
+.dropdowns-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
 .view-toggle {
   display: flex;
   align-items: center;
@@ -692,20 +699,32 @@ h1 {
   }
 
   .filter-bar {
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
     gap: 10px;
-    flex-wrap: wrap;
+    padding: 8px 12px;
   }
 
   .filter-bar input {
+    width: 100%;
+    min-width: auto;
+    flex: none;
     padding: 8px 12px;
     font-size: 14px;
     border-radius: 6px;
     border: none;
-    flex: 1;
-    min-width: 200px;
     box-sizing: border-box;
+    margin-bottom: 0;
+  }
+
+  .filter-bar .dropdowns-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 8px 0;
   }
 
   .filter-bar select {
@@ -713,14 +732,15 @@ h1 {
     font-size: 14px;
     border-radius: 6px;
     border: none;
-    min-width: 150px;
+    min-width: 120px;
     flex: 0 0 auto;
   }
 
   /* Fix dropdown arrow positioning on mobile */
   .dropdown-container {
     position: relative;
-    min-width: 150px;
+    min-width: 120px;
+    flex-shrink: 0;
   }
 
   .dropdown-container .arrow {
@@ -819,6 +839,11 @@ h1 {
 
   .pill-nav a {
     scroll-snap-align: start;
+  }
+
+  .skeleton-post-card {
+    padding: 8px 12px;
+    margin-bottom: 10px;
   }
 
   .skeleton-title {
