@@ -632,8 +632,8 @@ body.skeleton-active .resume-container {
 
   .pill-nav {
     flex-wrap: nowrap;
-    gap: 12px;
-    padding: 6px 12px;
+    gap: 18px;
+    padding: 6px 14px;
     overflow-x: auto;
     border-radius: 30px;
     justify-content: flex-start;
@@ -646,7 +646,7 @@ body.skeleton-active .resume-container {
     display: none;
   }
   .pill-nav a {
-    font-size: 0.85em;
+    font-size: 0.95em;
     scroll-snap-align: start;
     font-weight: 500;
     color: var(--secondary);
