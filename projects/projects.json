@@ -5,6 +5,7 @@
     "thumbnail": "/assets/images/projects/terrag-ai/terrag-ai-preview.png",
     "url": "/projects/side/terrag-ai.html",
     "github": "https://github.com/MuhammadTahaNasir/advtrix-learning/tree/main/streamlit_app",
+    "web": "",
     "date": "2025-07-23",
     "tab": "side",
     "subcategory": "Data Science",
@@ -19,11 +20,31 @@
     "hideWebLink": true
   },
   {
+    "title": "ThinkBoard: Data Analytics Dashboard",
+    "description": "ThinkBoard: A Flask-based web application for uploading CSV files, performing statistical analysis, and visualizing data with interactive charts, featuring a modern glassmorphism design and responsive layout.",
+    "thumbnail": "/assets/images/projects/think-board/preview.png",
+    "url": "/projects/side/think-board.html",
+    "github": "https://github.com/MuhammadTahaNasir/ThinkBoard",
+    "web": "https://thinkboard.up.railway.app",
+    "date": "2025-07-09",
+    "tab": "side",
+    "subcategory": "Web Development",
+    "features": [
+      "Flask",
+      "JavaScript",
+      "pandas",
+      "Chart.js",
+      "Glassmorphism"
+    ],
+    "hideWebLink": false
+  },
+  {
     "title": "Dishly: Modern Recipe Management System",
     "description": "Dishly: A modern recipe management system with pantry tracking, social features, and an admin panel, built with PHP, MySQL, and modern CSS for a responsive UI.",
     "thumbnail": "/assets/images/projects/dishly/signup.png",
     "url": "/projects/academic/dishly.html",
     "github": "",
+    "web": "",
     "date": "2025-05-30",
     "tab": "academic",
     "subcategory": "Database Management Systems",
@@ -42,6 +63,7 @@
     "thumbnail": "/assets/images/projects/filesystem-time-machine/preview.png",
     "url": "/projects/academic/filesystem-time-machine.html",
     "github": "https://github.com/MuhammadTahaNasir/fast-chronicles/tree/main/projects/operating-system/filesystem-time-machine",
+    "web": "",
     "date": "2025-04-10",
     "tab": "academic",
     "subcategory": "Operating Systems",
