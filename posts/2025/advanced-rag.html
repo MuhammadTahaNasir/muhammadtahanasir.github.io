@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html dir="auto" lang="en">
+<head>
+<link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/assets/images/favicon.ico" rel="shortcut icon"/>
+<link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<meta content="Terry" name="apple-mobile-web-app-title"/>
+<link href="/assets/images/site.webmanifest" rel="manifest"/>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<meta content="noindex, nofollow" name="robots"/>
+<meta content="Explaining the limitations of basic semantic search and how combining it with keyword matching fixes retrieval issues in AI apps." name="description"/>
+<meta content="Muhammad Taha Nasir" name="author"/>
+<meta content="Generative AI, System Architecture" name="tags"/>
+<meta content="/assets/images/posts/advanced-rag.png" name="thumbnail"/>
+<title>Why Basic RAG Failed My AI Study Assistant and How I Fixed It</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+<link href="../../assets/css/each-post.css" rel="stylesheet"/>
+<link href="../../assets/css/bottom-nav.css" rel="stylesheet"/>
+<!-- Prism.js Okaidia High Contrast Theme -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/>
+<style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+        /* Force code blocks to be bright and override any dim CSS from each-post.css */
+        .code-block pre {
+            opacity: 1 !important;
+            color: #f8f8f2 !important;
+            text-shadow: 0 1px rgba(0, 0, 0, 0.3) !important;
+        }
+        .code-block code {
+            opacity: 1 !important;
+            color: inherit !important;
+        }
+    </style>
+<script>
+        // Apply theme immediately on page load
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+</head>
+<body class="dark" id="top" post-date="2025-08-28">
+<!-- Loader Animation -->
+<div aria-hidden="true" class="loader" id="loader">
+<div class="terry-animation">
+<span class="letter">t</span>
+<span class="letter">e</span>
+<span class="letter">r</span>
+<span class="letter">r</span>
+<span class="letter">y</span>
+</div>
+</div>
+<header class="header">
+<nav class="nav">
+<!-- Left: Logo -->
+<div class="nav-left">
+<a class="logo" href="/index.html">&lt;terry/&gt;</a>
+</div>
+<!-- Center: Pills Navigation -->
+<div class="nav-center">
+<div class="pill-nav">
+<a href="/projects.html">Projects</a>
+<a href="/archives.html">Archives</a>
+<a href="/resume.html">Resume</a>
+<a href="/search.html">Search</a>
+</div>
+</div>
+<!-- Right: Theme toggle -->
+<div class="nav-right">
+<button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
+<svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="5"></circle>
+<line x1="12" x2="12" y1="1" y2="3"></line>
+<line x1="12" x2="12" y1="21" y2="23"></line>
+<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+<line x1="1" x2="3" y1="12" y2="12"></line>
+<line x1="21" x2="23" y1="12" y2="12"></line>
+<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+</svg>
+<svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+</svg>
+</button>
+</div>
+</nav>
+</header>
+<div class="container">
+<nav class="breadcrumb">
+<a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
+</nav>
+<main class="post-content">
+<header class="post-header">
+<h1 class="post-title">Why Basic RAG Failed My AI Study Assistant and How I Fixed It</h1>
+<div class="post-meta">August 28, 2025 • 4 min • Muhammad Taha Nasir</div>
+</header>
+<img alt="Why Basic RAG Failed My AI Study Assistant and How I Fixed It" src="/assets/images/posts/advanced-rag.png" style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;"/>
+<aside class="table-of-contents">
+<details>
+<summary>Table of Contents</summary>
+<ul>
+<li><a href="#the-problem">The Problem with Semantic Search</a></li>
+<li><a href="#understanding-embeddings">Why Embeddings Fall Short</a></li>
+<li><a href="#hybrid-search">The Solution: Hybrid Search</a></li>
+<li><a href="#bm25-explained">How BM25 Fills the Gap</a></li>
+<li><a href="#code-implementation">Ensemble Retriever Code</a></li>
+<li><a href="#graph-databases">Moving to Graph Databases</a></li>
+<li><a href="#final-thoughts">Engineering Takeaways</a></li>
+</ul>
+</details>
+</aside>
+<!-- Social Sharing Floating Toolbar -->
+<div class="social-sharing-toolbar">
+<button class="social-btn subscribe-btn" title="Subscribe to newsletter">
+<i class="fas fa-envelope"></i>
+</button>
+<button class="social-btn share-btn" title="Share">
+<i class="fas fa-share-alt"></i>
+</button>
+</div>
+<section id="the-problem">
+<h2>The Problem with Semantic Search</h2>
+<p>Let's talk about building retrieval-augmented generation (RAG) systems in the real world. A few months ago, I thought building a personalized AI study assistant for my computer science notes would be a straightforward weekend project. I had hundreds of PDFs, lecture slides, and personal Markdown notes. The standard playbook is easy: chunk the text, generate embeddings using an OpenAI or Hugging Face model, shove those embeddings into a vector database like Pinecone or FAISS, and query them when the user asks a question.</p>
+<p>The first few queries worked like magic. If I asked, "What is a neural network?", the system correctly pulled the introductory paragraph from my deep learning textbook. It felt incredibly powerful. But then, I asked a highly specific, complex question: "Compare the performance trade-offs between QuickSort and MergeSort specifically concerning worst-case scenarios, based on my Week 4 Data Structures lecture."</p>
+<p>The AI completely broke down. It hallucinated terribly. It pulled a paragraph about sorting from a completely different context, mixed it up with some random runtime complexities from a database course, and gave me an answer that would absolutely fail a midterm exam. I was shocked. How could a system that understands the "meaning" of text fail so spectacularly on a direct comparison?</p>
+</section>
+<section id="understanding-embeddings">
+<h2>Why Embeddings Fall Short</h2>
+<p>To fix the issue, I had to fundamentally understand how semantic search actually works under the hood. Vector embeddings map text to a high-dimensional space based on conceptual similarity. Words that appear in similar contexts in the training data end up close together in this mathematical space.</p>
+<p>However, this means that vector databases measure conceptual distance, not relational logic. If I search for the exact variable name "x_train_split_v2", a pure vector search might just return general paragraphs about splitting datasets, completely missing the exact variable I need. Semantic search is terrible at needle-in-a-haystack exact keyword matching. It understands the "vibe" of your query, but ignores the strict constraints.</p>
+</section>
+<section id="hybrid-search">
+<h2>The Solution: Hybrid Search</h2>
+<p>The immediate fix was implementing Hybrid Search. If semantic search is great for meaning but terrible for exact keywords, and traditional database search is great for keywords but terrible for meaning, combining them gives you a bulletproof retrieval system.</p>
+<p>In industry, this is standard practice. You run the user's query through two parallel pipelines: one semantic (vector search) and one lexical (keyword search). You retrieve the top results from both, merge the lists, and mathematically rerank them to surface the documents that score highly on both metrics.</p>
+</section>
+<section id="bm25-explained">
+<h2>How BM25 Fills the Gap</h2>
+<p>For the lexical search component, I used BM25 (Best Matching 25). BM25 is a robust ranking function used by search engines to estimate the relevance of documents to a given search query. It operates on term frequency-inverse document frequency (TF-IDF). Unlike embeddings, BM25 cares exactly about the specific words you typed.</p>
+<p>If I ask about "QuickSort", BM25 will hunt down the exact instances of that string, completely ignoring general texts about sorting algorithms. By combining FAISS (for vectors) with BM25, the system suddenly became incredibly sharp and precise.</p>
+</section>
+<section id="code-implementation">
+<h2>Ensemble Retriever Code</h2>
+<p>Here is exactly how I implemented this in Python using LangChain. I created an Ensemble Retriever that assigns specific weights to the vector search and the keyword search.</p>
+<div class="code-block">
+<button class="copy-btn">Copy</button>
+<pre class="language-python" data-lang="Python"><code>
+from langchain.retrievers import EnsembleRetriever
+from langchain_community.retrievers import BM25Retriever
+from langchain_community.vectorstores import FAISS
+from langchain_openai import OpenAIEmbeddings
+
+# Step 1: Initialize the exact keyword matcher (BM25)
+# This will hunt for exact string matches in my study notes
+bm25_retriever = BM25Retriever.from_texts(my_uni_notes)
+bm25_retriever.k = 3 # Retrieve top 3 exact matches
+
+# Step 2: Initialize the semantic vector matcher (FAISS)
+# This handles the conceptual understanding
+embeddings = OpenAIEmbeddings()
+faiss_vectorstore = FAISS.from_texts(my_uni_notes, embeddings)
+faiss_retriever = faiss_vectorstore.as_retriever(search_kwargs={"k": 3})
+
+# Step 3: Combine them using an Ensemble Retriever
+# I heavily weight the semantic search, but keep BM25 strong enough to anchor facts
+ensemble_retriever = EnsembleRetriever(
+    retrievers=[bm25_retriever, faiss_retriever],
+    weights=[0.4, 0.6] 
+)
+
+# Execute the hybrid search
+retrieved_docs = ensemble_retriever.invoke("QuickSort vs MergeSort worst-case time complexity")
+
+for doc in retrieved_docs:
+    print(doc.page_content)
+                    </code></pre>
+</div>
+</section>
+<section id="graph-databases">
+<h2>Moving to Graph Databases</h2>
+<p>Hybrid search fixed 80 percent of my hallucination problems. But what about the remaining 20 percent? The system still struggled to connect the dots between concepts spread across entirely different lectures. For example, if Lecture 1 defined a "Foreign Key" and Lecture 5 explained "Database Normalization", the AI couldn't inherently link them unless they were physically near each other in the text chunks.</p>
+<p>This led me down the rabbit hole of Graph RAG. Instead of storing flat text chunks, you use an LLM to extract entities and relationships before saving them to a graph database like Neo4j. You literally map out the knowledge. "Foreign Key" is stored as a node, with a relationship arrow pointing to "Normalization". When queried, the system traverses these relationships, pulling a highly structured web of context. It is incredibly complex to set up, but the results are astonishingly accurate.</p>
+</section>
+<section id="final-thoughts">
+<h2>Engineering Takeaways</h2>
+<p>This project was a massive reality check. It taught me that in the world of AI, data structure is absolutely everything. You can pay for the most expensive, highly parameterized language model on the planet, but if your retrieval architecture is garbage, your output will be garbage.</p>
+<p>Start with vector search, graduate to hybrid search with BM25, and if you are building enterprise-grade systems where hallucinations are unacceptable, look heavily into Graph RAG. Keep building, keep failing, and keep optimizing.</p>
+</section>
+<div class="tags-container" id="dynamic-tags">
+<!-- Tags will be dynamically generated here -->
+</div>
+<hr class="divider"/>
+<section class="related-articles" id="related-series">
+<h2 class="series-title">Article Series</h2>
+<a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+<div id="related-posts-container"></div>
+</section>
+</main>
+<!-- Newsletter Subscription Section -->
+<div class="newsletter-section">
+<div class="newsletter-content">
+<h3>Subscribe to our newsletter</h3>
+<p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+<p>Subscribe to the newsletter, and don't miss out.</p>
+<div class="newsletter-form">
+<input class="newsletter-input" placeholder="Enter your email address" type="email"/>
+<button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+</div>
+</div>
+</div>
+</div>
+<footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+<div class="social-icons" style="margin-bottom:25px;">
+<a aria-label="GitHub profile" href="https://github.com/MuhammadTahaNasir" style="margin:0 5px; font-size:1.6em;" target="_blank" title="GitHub">
+<i aria-hidden="true" class="fab fa-github"></i>
+</a>
+<a aria-label="LinkedIn profile" href="https://www.linkedin.com/in/muhammadtahanasir/" style="margin:0 5px; font-size:1.6em;" target="_blank" title="LinkedIn">
+<i aria-hidden="true" class="fab fa-linkedin"></i>
+</a>
+<a aria-label="Send email" href="mailto:m.tahanasir.cs@gmail.com" style="margin:0 5px; font-size:1.6em;" title="Email">
+<i aria-hidden="true" class="fas fa-envelope"></i>
+</a>
+</div>
+<p style="font-size:0.9em;">© 2026 – Muhammad Taha Nasir</p>
+</footer>
+<button aria-label="Scroll to top" id="scrollTop">
+<i class="fas fa-chevron-up"></i>
+</button>
+<script src="../../assets/js/each-post.js"></script>
+<script src="../../assets/js/shared-bottom-nav.js"></script>
+<script src="../../assets/js/nav-active.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.innerText = "Copied!";
+                    setTimeout(() => button.innerText = "Copy", 1500);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
