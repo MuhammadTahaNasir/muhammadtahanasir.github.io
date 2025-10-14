@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html dir="auto" lang="en">
+<head>
+<link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/assets/images/favicon.ico" rel="shortcut icon"/>
+<link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<meta content="Terry" name="apple-mobile-web-app-title"/>
+<link href="/assets/images/site.webmanifest" rel="manifest"/>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<meta content="noindex, nofollow" name="robots"/>
+<meta content="A technical guide on optimizing local LLM inference using Ollama and quantization on constrained hardware." name="description"/>
+<meta content="Muhammad Taha Nasir" name="author"/>
+<meta content="LLM Inference, Hardware Optimization" name="tags"/>
+<meta content="/assets/images/posts/local-llms-ollama.png" name="thumbnail"/>
+<title>Ditching Cloud APIs: Running Llama Locally on Constrained Hardware</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+<link href="../../assets/css/each-post.css" rel="stylesheet"/>
+<link href="../../assets/css/bottom-nav.css" rel="stylesheet"/>
+<!-- Prism.js Okaidia High Contrast Theme -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/>
+<style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+        /* Force code blocks to be bright and override any dim CSS from each-post.css */
+        .code-block pre {
+            opacity: 1 !important;
+            color: #f8f8f2 !important;
+            text-shadow: 0 1px rgba(0, 0, 0, 0.3) !important;
+        }
+        .code-block code {
+            opacity: 1 !important;
+            color: inherit !important;
+        }
+    </style>
+<script>
+        // Apply theme immediately on page load
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+</head>
+<body class="dark" id="top" post-date="2025-10-14">
+<!-- Loader Animation -->
+<div aria-hidden="true" class="loader" id="loader">
+<div class="terry-animation">
+<span class="letter">t</span>
+<span class="letter">e</span>
+<span class="letter">r</span>
+<span class="letter">r</span>
+<span class="letter">y</span>
+</div>
+</div>
+<header class="header">
+<nav class="nav">
+<!-- Left: Logo -->
+<div class="nav-left">
+<a class="logo" href="/index.html">&lt;terry/&gt;</a>
+</div>
+<!-- Center: Pills Navigation -->
+<div class="nav-center">
+<div class="pill-nav">
+<a href="/projects.html">Projects</a>
+<a href="/archives.html">Archives</a>
+<a href="/resume.html">Resume</a>
+<a href="/search.html">Search</a>
+</div>
+</div>
+<!-- Right: Theme toggle -->
+<div class="nav-right">
+<button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
+<svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="5"></circle>
+<line x1="12" x2="12" y1="1" y2="3"></line>
+<line x1="12" x2="12" y1="21" y2="23"></line>
+<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+<line x1="1" x2="3" y1="12" y2="12"></line>
+<line x1="21" x2="23" y1="12" y2="12"></line>
+<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+</svg>
+<svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+</svg>
+</button>
+</div>
+</nav>
+</header>
+<div class="container">
+<nav class="breadcrumb">
+<a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
+</nav>
+<main class="post-content">
+<header class="post-header">
+<h1 class="post-title">Ditching Cloud APIs: Running Llama Locally on Constrained Hardware</h1>
+<div class="post-meta">October 14, 2025 • 4 min • Muhammad Taha Nasir</div>
+</header>
+<img alt="Ditching Cloud APIs: Running Llama Locally on Constrained Hardware" src="/assets/images/posts/local-llms-ollama.png" style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;"/>
+<aside class="table-of-contents">
+<details>
+<summary>Table of Contents</summary>
+<ul>
+<li><a href="#cloud-costs">The Real Cost of Cloud APIs</a></li>
+<li><a href="#vram-bottlenecks">Understanding VRAM Bottlenecks</a></li>
+<li><a href="#quantization">How Quantization Actually Works</a></li>
+<li><a href="#gguf-format">The Magic of the GGUF Format</a></li>
+<li><a href="#ollama-setup">Deploying with Ollama</a></li>
+<li><a href="#python-integration">Python API Integration</a></li>
+<li><a href="#performance">Performance Tuning</a></li>
+</ul>
+</details>
+</aside>
+<!-- Social Sharing Floating Toolbar -->
+<div class="social-sharing-toolbar">
+<button class="social-btn subscribe-btn" title="Subscribe to newsletter">
+<i class="fas fa-envelope"></i>
+</button>
+<button class="social-btn share-btn" title="Share">
+<i class="fas fa-share-alt"></i>
+</button>
+</div>
+<section id="cloud-costs">
+<h2>The Real Cost of Cloud APIs</h2>
+<p>Let's talk about API bills. Building AI applications is incredibly fun until you look at your credit card statement at the end of the month. During a recent hackathon, I was building an automated document parsing tool that processed hundreds of pages of messy PDF text. I relied heavily on OpenAI's endpoints.</p>
+<p>Because I was iterating rapidly, my code had bugs. At one point, an infinite loop triggered hundreds of API calls before I caught it. It cost me real, actual money. Beyond the financial cost, relying on cloud APIs means latency spikes, rate limits, and massive privacy concerns if you are dealing with sensitive user data. I needed to move inference entirely to my local machine.</p>
+</section>
+<section id="vram-bottlenecks">
+<h2>Understanding VRAM Bottlenecks</h2>
+<p>I decided to run Meta's Llama 3 locally. The problem? Running an 8-billion parameter model requires significant hardware. In standard 16-bit floating-point precision (FP16), an 8B model takes roughly 16GB of Video RAM (VRAM) just to load into memory, and that doesn't even account for the context window overhead during generation.</p>
+<p>My laptop definitely did not have 16GB of dedicated VRAM. If a model cannot fit into your GPU's VRAM, it spills over into your system's regular RAM. Because system RAM is drastically slower than VRAM, your inference speed immediately drops from a snappy 40 tokens per second to a painful 2 seconds per token. The model becomes practically unusable.</p>
+</section>
+<section id="quantization">
+<h2>How Quantization Actually Works</h2>
+<p>This is where quantization saves the day. Quantization is a compression technique that reduces the precision of the numbers used to represent the neural network's weights. By converting the weights from 16-bit floats to 4-bit integers, you drastically slash the memory footprint.</p>
+<p>Suddenly, that massive 16GB model compresses down to just 4.5GB. It easily fits inside an entry-level GPU or even unified Apple Silicon memory. The tradeoff is a slight degradation in the model's reasoning capabilities, but for 95 percent of standard tasks like summarization, entity extraction, or basic coding, the difference is completely negligible.</p>
+</section>
+<section id="gguf-format">
+<h2>The Magic of the GGUF Format</h2>
+<p>To run these quantized models efficiently, the community developed the GGUF (GPT-Generated Unified Format) file structure. GGUF is optimized for rapid loading and execution on both CPUs and GPUs. It stores all the tensors, metadata, and tokenization rules in a single, highly efficient binary file.</p>
+<p>Instead of downloading massive directories of PyTorch bin files and writing custom inference scripts, you just download a single `.gguf` file and execute it. It completely revolutionized the local AI scene.</p>
+</section>
+<section id="ollama-setup">
+<h2>Deploying with Ollama</h2>
+<p>The easiest way to run these GGUF models is using Ollama. Ollama acts very much like Docker, but specifically for LLMs. It manages your local model registry, handles the heavy lifting of loading weights into memory, and instantly spins up a local REST API that perfectly mimics the OpenAI endpoint structure.</p>
+<p>You can run a model from the terminal by simply typing `ollama run llama3`. But the real power is unleashed when you integrate it directly into your backend architecture.</p>
+</section>
+<section id="python-integration">
+<h2>Python API Integration</h2>
+<p>Here is how I modified my Python backend to hit the local Ollama instance instead of the cloud. It is incredibly straightforward.</p>
+<div class="code-block">
+<button class="copy-btn">Copy</button>
+<pre class="language-python" data-lang="Python"><code>
+import requests
+import json
+import time
+
+def generate_local_response(prompt_text, system_prompt="You are a helpful assistant."):
+    url = "http://localhost:11434/api/generate"
+    
+    payload = {
+        "model": "llama3",
+        "prompt": prompt_text,
+        "system": system_prompt,
+        "stream": False,
+        "options": {
+            "temperature": 0.7,
+            "num_ctx": 4096, # Restrict context window to save memory
+            "num_predict": 512 # Cap the output length
+        }
+    }
+    
+    start_time = time.time()
+    
+    try:
+        response = requests.post(url, json=payload)
+        response.raise_for_status()
+        
+        latency = time.time() - start_time
+        data = response.json()
+        
+        print(f"[Inference completed in {latency:.2f} seconds]")
+        return data['response']
+        
+    except requests.exceptions.RequestException as e:
+        return f"Local inference failed: {e}"
+
+# Test the local endpoint
+result = generate_local_response("Write a python script to reverse a linked list.")
+print(result)
+                    </code></pre>
+</div>
+</section>
+<section id="performance">
+<h2>Performance Tuning</h2>
+<p>Running local LLMs taught me that you don't always need massive cloud infrastructure to build powerful AI features. Optimizing for constrained hardware actually makes you a significantly better software engineer. You start caring about memory allocation, context window limits, and inference bottlenecks.</p>
+<p>My laptop sounded like a jet engine during heavy batch processing, but having zero API costs, total privacy, and absolute control over the generation parameters made Ollama an absolute game-changer for my local development workflow.</p>
+</section>
+<div class="tags-container" id="dynamic-tags">
+<!-- Tags will be dynamically generated here -->
+</div>
+<hr class="divider"/>
+<section class="related-articles" id="related-series">
+<h2 class="series-title">Article Series</h2>
+<a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+<div id="related-posts-container"></div>
+</section>
+</main>
+<!-- Newsletter Subscription Section -->
+<div class="newsletter-section">
+<div class="newsletter-content">
+<h3>Subscribe to our newsletter</h3>
+<p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+<p>Subscribe to the newsletter, and don't miss out.</p>
+<div class="newsletter-form">
+<input class="newsletter-input" placeholder="Enter your email address" type="email"/>
+<button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+</div>
+</div>
+</div>
+</div>
+<footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+<div class="social-icons" style="margin-bottom:25px;">
+<a aria-label="GitHub profile" href="https://github.com/MuhammadTahaNasir" style="margin:0 5px; font-size:1.6em;" target="_blank" title="GitHub">
+<i aria-hidden="true" class="fab fa-github"></i>
+</a>
+<a aria-label="LinkedIn profile" href="https://www.linkedin.com/in/muhammadtahanasir/" style="margin:0 5px; font-size:1.6em;" target="_blank" title="LinkedIn">
+<i aria-hidden="true" class="fab fa-linkedin"></i>
+</a>
+<a aria-label="Send email" href="mailto:m.tahanasir.cs@gmail.com" style="margin:0 5px; font-size:1.6em;" title="Email">
+<i aria-hidden="true" class="fas fa-envelope"></i>
+</a>
+</div>
+<p style="font-size:0.9em;">© 2026 – Muhammad Taha Nasir</p>
+</footer>
+<button aria-label="Scroll to top" id="scrollTop">
+<i class="fas fa-chevron-up"></i>
+</button>
+<script src="../../assets/js/each-post.js"></script>
+<script src="../../assets/js/shared-bottom-nav.js"></script>
+<script src="../../assets/js/nav-active.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.innerText = "Copied!";
+                    setTimeout(() => button.innerText = "Copy", 1500);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
