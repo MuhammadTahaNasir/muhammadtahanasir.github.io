@@ -97,6 +97,9 @@ function updateVisiblePosts(posts, startIndex) {
   } else {
     postsContainer.appendChild(viewMoreButton);
   }
+  
+  // Add scroll peek indicator handler
+  handleScrollPeek(postsContainer);
 }
 
 // Handles section changes and UI updates
@@ -831,6 +834,9 @@ function displayProjects(projects) {
     projectCard.innerHTML = cardContent;
     projectsContainer.appendChild(projectCard);
   });
+  
+  // Add scroll peek indicator handler
+  handleScrollPeek(projectsContainer);
 }
 
 // Function to search projects within the projects section
@@ -1124,3 +1130,27 @@ document.addEventListener('DOMContentLoaded', () => {
     if (waving) waving.classList.remove('animate-wave');
   }, 3000);
 })();
+
+// ---------- Scroll Peek Handler for horizontal scroll containers ----------
+function handleScrollPeek(container) {
+  if (!container) return;
+  
+  function checkScroll() {
+    const scrollLeft = container.scrollLeft;
+    const scrollWidth = container.scrollWidth;
+    const clientWidth = container.clientWidth;
+    
+    // Check if scrolled to end (within 10px threshold)
+    if (scrollLeft + clientWidth >= scrollWidth - 10) {
+      container.classList.add('scrolled-end');
+    } else {
+      container.classList.remove('scrolled-end');
+    }
+  }
+  
+  // Check on scroll
+  container.addEventListener('scroll', checkScroll);
+  
+  // Check initially
+  setTimeout(checkScroll, 100);
+}
