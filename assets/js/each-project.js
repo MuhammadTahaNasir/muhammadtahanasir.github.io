@@ -1,4 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Show loader animation
+    const loader = document.getElementById('loader');
+    if (loader && !loader.classList.contains('active')) {
+        loader.classList.add('active');
+        setTimeout(() => {
+            loader.classList.add('no-blur');
+        }, 900);
+        setTimeout(() => {
+            loader.classList.add('hidden');
+            loader.classList.remove('active');
+        }, 1200);
+    }
+
     // Initialize theme
     const savedTheme = localStorage.getItem('pref-theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -43,11 +56,21 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e)
     }
 });
 
-// Scroll to top functionality
 window.addEventListener("scroll", () => {
     const scrollTopButton = document.getElementById("scrollTop");
+    const header = document.querySelector('.header');
+    
+    // Add/remove scrolled class to header for blur effect
+    if (header) {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    }
+    
     if (scrollTopButton) {
-        scrollTopButton.style.display = window.scrollY > 200 ? "flex" : "none";
+        scrollTopButton.classList.toggle("visible", window.scrollY > 200);
     }
 });
 
@@ -61,21 +84,18 @@ document.querySelectorAll('.pill-nav a').forEach(link => {
         e.preventDefault();
         const href = link.getAttribute('href');
         if (href && href !== '#' && !href.startsWith('#')) {
-            history.pushState({ path: href }, '', href);
-            window.location.assign(href);
+            // Use window.location.href for proper navigation
+            window.location.href = href;
         }
     });
 });
 
+// Handle browser back/forward buttons
 window.addEventListener('popstate', (event) => {
-    const state = event.state || {};
-    if (state.path && state.path.includes('index.html')) {
-        const savedTheme = localStorage.getItem('pref-theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
-        updateThemeIcons();
-        window.scrollTo({ top: 0, behavior: 'instant' });
-    }
+    console.log('Popstate event:', window.location.href);
+    
+    // Reload the page to ensure proper state
+    window.location.reload();
 });
 
 // Image Carousel Functionality

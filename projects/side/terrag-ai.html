@@ -12,12 +12,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="robots" content="index, follow">
-    <meta name="description" content="Terrag AI: A Streamlit-based AI-powered data analytics app for intelligent insights from business datasets like customers, feedback, and sales data.">
+    <meta name="description"
+        content="Terrag AI: A Streamlit-based AI-powered data analytics app for intelligent insights from business datasets like customers, feedback, and sales data.">
     <meta name="author" content="Muhammad Taha Nasir">
     <meta name="date" content="2025-07-23">
     <meta name="tab" content="side">
     <meta name="subcategory" content="Data Science">
-    <meta name="features" content="Streamlit, python, pandas, Scikit-learn, Sentiment Analysis, KMeans Clustering">
+    <meta name="features" content="Streamlit, Python, Pandas, Scikit-learn, Sentiment Analysis, KMeans Clustering">
     <meta name="thumbnail" content="/assets/images/projects/terrag-ai/terrag-ai-preview.png">
     <meta name="github" content="https://github.com/MuhammadTahaNasir/advtrix-learning/tree/main/streamlit_app">
     <meta name="hideWebLink" content="true">
@@ -26,6 +27,7 @@
     <!-- ---------- 2. Stylesheets ---------- -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="/assets/css/each-project.css">
+    <link rel="stylesheet" href="/assets/css/bottom-nav.css">
 
     <!-- ---------- 3. Theme Initialization Script ---------- -->
     <script>
@@ -44,33 +46,53 @@
             }
         })();
     </script>
-    
+
 </head>
 
 <body class="dark" id="top">
+    <!-- Loader Animation -->
+    <div class="loader" id="loader" aria-hidden="true">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+
     <!-- ---------- 4. Header Navigation ---------- -->
-    <header class="header">
-        <nav class="nav">
+    <header class="header"> <!-- Header section -->
+        <nav class="nav"> <!-- Navigation bar -->
             <!-- Left: Logo -->
             <div class="nav-left">
                 <a href="/index.html" class="logo">&lt;terry/&gt;</a>
             </div>
 
             <!-- Center: Pills Navigation -->
-            <div class="nav-center">
-                <div class="pill-nav">
-                    <a href="/resources.html">Resources</a>
-                    <a href="/archives.html">Archives</a>
-                    <a href="/resume.html">Resume</a>
-                    <a href="/search.html">Search</a>
+            <div class="nav-center"> <!-- Navigation links container -->
+                <div class="pill-nav"> <!-- Pill-style navigation -->
+                    <a href="/resources.html">Resources</a> <!-- Resources link -->
+                    <a href="/archives.html">Archives</a> <!-- Archives link -->
+                    <a href="/resume.html">Resume</a> <!-- Resume link -->
+                    <a href="/search.html">Search</a> <!-- Search link -->
                 </div>
             </div>
 
+            <!-- Bottom Nav (Mobile Only) -->
+            <nav class="bottom-nav">
+                <a href="/index.html"><i class="fas fa-home"></i><span>Home</span></a>
+                <a href="/resources.html"><i class="fas fa-book"></i><span>Resources</span></a>
+                <a href="/archives.html"><i class="fas fa-archive"></i><span>Archives</span></a>
+                <a href="/resume.html"><i class="fas fa-file-alt"></i><span>Resume</span></a>
+                <a href="/search.html"><i class="fas fa-search"></i><span>Search</span></a>
+            </nav>
+
             <!-- Right: Theme toggle -->
-            <div class="nav-right">
-                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+            <div class="nav-right"> <!-- Theme toggle container -->
+                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme"> <!-- Theme toggle button -->
                     <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
+                        stroke-linecap="round" stroke-linejoin="round"> <!-- Sun icon for light mode -->
                         <circle cx="12" cy="12" r="5" />
                         <line x1="12" y1="1" x2="12" y2="3" />
                         <line x1="12" y1="21" x2="12" y2="23" />
@@ -82,7 +104,7 @@
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
                     </svg>
                     <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
+                        stroke-linecap="round" stroke-linejoin="round"> <!-- Moon icon for dark mode -->
                         <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
                     </svg>
                 </button>
@@ -94,7 +116,8 @@
     <div class="container">
         <!-- Breadcrumb Navigation -->
         <nav class="breadcrumb">
-            <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a>
+            <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a> » <a
+                href="/projects/side/terrag-ai.html">Terrag AI: AI-Powered Data Analytics Platform</a>
         </nav>
 
         <!-- Project Content -->
@@ -108,47 +131,60 @@
             <div class="image-carousel">
                 <div class="carousel-container">
                     <div class="carousel-slide active">
-                        <img src="/assets/images/projects/terrag-ai/home.png" alt="Terrag AI Preview" class="carousel-image">
+                        <img src="/assets/images/projects/terrag-ai/home.png" alt="Terrag AI Preview"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/terrag-ai/data_preview.png" alt="Terrag AI Inner View" class="carousel-image">
+                        <img src="/assets/images/projects/terrag-ai/data_preview.png" alt="Terrag AI Inner View"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/terrag-ai/cleaning.png" alt="Terrag AI Inner View" class="carousel-image">
+                        <img src="/assets/images/projects/terrag-ai/cleaning.png" alt="Terrag AI Inner View"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/terrag-ai/lead_scoring.png" alt="Terrag AI Inner View" class="carousel-image">
+                        <img src="/assets/images/projects/terrag-ai/lead_scoring.png" alt="Terrag AI Inner View"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/terrag-ai/segmentation.png" alt="Terrag AI Inner View" class="carousel-image">
+                        <img src="/assets/images/projects/terrag-ai/segmentation.png" alt="Terrag AI Inner View"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/terrag-ai/sentiment.png" alt="Terrag AI Inner View" class="carousel-image">
+                        <img src="/assets/images/projects/terrag-ai/sentiment.png" alt="Terrag AI Inner View"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/terrag-ai/trend.png" alt="Terrag AI Inner View" class="carousel-image">
+                        <img src="/assets/images/projects/terrag-ai/trend.png" alt="Terrag AI Inner View"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/terrag-ai/churn.png" alt="Terrag AI Inner View" class="carousel-image">
+                        <img src="/assets/images/projects/terrag-ai/churn.png" alt="Terrag AI Inner View"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/terrag-ai/chat.png" alt="Terrag AI Inner View" class="carousel-image">
+                        <img src="/assets/images/projects/terrag-ai/chat.png" alt="Terrag AI Inner View"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/terrag-ai/chat-2.png" alt="Terrag AI Inner View" class="carousel-image">
+                        <img src="/assets/images/projects/terrag-ai/chat-2.png" alt="Terrag AI Inner View"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/terrag-ai/chat-3.png" alt="Terrag AI Inner View" class="carousel-image">
+                        <img src="/assets/images/projects/terrag-ai/chat-3.png" alt="Terrag AI Inner View"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/terrag-ai/chat-4.png" alt="Terrag AI Inner View" class="carousel-image">
+                        <img src="/assets/images/projects/terrag-ai/chat-4.png" alt="Terrag AI Inner View"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/terrag-ai/pdf.png" alt="Terrag AI Inner View" class="carousel-image">
+                        <img src="/assets/images/projects/terrag-ai/pdf.png" alt="Terrag AI Inner View"
+                            class="carousel-image">
                     </div>
-                    
+
                 </div>
-                
+
                 <!-- Center Navigation Arrows -->
                 <div class="carousel-center-nav">
                     <button class="carousel-btn prev-btn" aria-label="Previous image">
@@ -158,7 +194,7 @@
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
-                
+
                 <!-- Bottom Dots -->
                 <div class="carousel-dots-container">
                     <div class="carousel-dots">
@@ -200,7 +236,8 @@
 
             <!-- Button Section -->
             <div class="button-section">
-                <a href="https://github.com/MuhammadTahaNasir/advtrix-learning/tree/main/streamlit_app" class="project-button github-link">
+                <a href="https://github.com/MuhammadTahaNasir/advtrix-learning/tree/main/streamlit_app"
+                    class="project-button github-link">
                     <i class="fab fa-github"></i> Source Code
                 </a>
             </div>
@@ -208,19 +245,26 @@
             <!-- Project Overview -->
             <section id="overview">
                 <h2>Project Overview</h2>
-                <p>Terrag AI is a Streamlit-based AI-powered data analytics application designed to provide intelligent insights from business datasets, including customers, feedback, and sales data. It offers features like lead scoring, customer segmentation, trend forecasting, churn analysis, sentiment analysis, and natural language querying, with the ability to export results as PDF.</p>
+                <p>Terrag AI is a Streamlit-based AI-powered data analytics application designed to provide intelligent
+                    insights from business datasets, including customers, feedback, and sales data. It offers features
+                    like lead scoring, customer segmentation, trend forecasting, churn analysis, sentiment analysis, and
+                    natural language querying, with the ability to export results as PDF.</p>
             </section>
 
             <!-- Situation Section -->
             <section id="situation">
                 <h2>Situation</h2>
-                <p>Businesses often struggle to derive actionable insights from diverse datasets like customer feedback, sales, and user behavior due to complex analysis requirements and lack of integrated tools for AI-driven analytics.</p>
+                <p>Businesses often struggle to derive actionable insights from diverse datasets like customer feedback,
+                    sales, and user behavior due to complex analysis requirements and lack of integrated tools for
+                    AI-driven analytics.</p>
             </section>
 
             <!-- Task Section -->
             <section id="task">
                 <h2>Task</h2>
-                <p>Develop a user-friendly web application that leverages AI and machine learning to analyze business datasets, providing features like data cleaning, customer segmentation, churn prediction, and sentiment analysis, with an intuitive interface for non-technical users.</p>
+                <p>Develop a user-friendly web application that leverages AI and machine learning to analyze business
+                    datasets, providing features like data cleaning, customer segmentation, churn prediction, and
+                    sentiment analysis, with an intuitive interface for non-technical users.</p>
             </section>
 
             <!-- Actions Section -->
@@ -240,7 +284,9 @@
             <!-- Results Section -->
             <section id="results">
                 <h2>Results</h2>
-                <p>Terrag AI successfully empowered businesses with actionable insights, simplifying complex data analysis tasks. The project enhanced my expertise in Python, Streamlit, and machine learning, delivering a robust tool for data-driven decision-making.</p>
+                <p>Terrag AI successfully empowered businesses with actionable insights, simplifying complex data
+                    analysis tasks. The project enhanced my expertise in Python, Streamlit, and machine learning,
+                    delivering a robust tool for data-driven decision-making.</p>
             </section>
 
             <!-- Tech Stack Section -->
@@ -250,7 +296,8 @@
                     <li><strong>Streamlit</strong>: Web framework for building the data analytics interface.</li>
                     <li><strong>python</strong>: Core language for data processing and AI model integration.</li>
                     <li><strong>Pandas & NumPy</strong>: Libraries for data manipulation and analysis.</li>
-                    <li><strong>Scikit-learn</strong>: Machine learning library for clustering and predictive modeling.</li>
+                    <li><strong>Scikit-learn</strong>: Machine learning library for clustering and predictive modeling.
+                    </li>
                     <li><strong>Sentence-Transformers & Transformers</strong>: For sentiment analysis and NLP.</li>
                     <li><strong>Matplotlib & Altair</strong>: Data visualization libraries.</li>
                     <li><strong>Openpyxl</strong>: For handling Excel file uploads.</li>
@@ -261,25 +308,35 @@
                 </div>
             </section>
         </main>
-
-        <!-- ---------- 6. Footer ---------- -->
-        <footer class="footer">
-            <div class="social-icons">
-                <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-            </div>
-            <p>© 2025 – Muhammad Taha Nasir</p>
-        </footer>
     </div>
 
-    <!-- ---------- 7. Scroll to Top Button ---------- -->
-    <button id="scrollTop" aria-label="Scroll to top">
-        <i class="fas fa-chevron-up"></i>
-    </button>
+    <!-- ---------- 6. Footer ---------- -->
+    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+        <div class="social-icons" style="margin-bottom:25px;">
+            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+        </div>
+        <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+    </footer>
 
+    <!-- ---------- 7. Scroll to Top Button ---------- -->
+    <button id="scrollTop" aria-label="Scroll to top"> <!-- Scroll to top button -->
+        <i class="fas fa-chevron-up"></i> <!-- Up arrow icon -->
+    </button>
     <!-- ---------- 8. JavaScript Inclusion ---------- -->
     <script src="../../assets/js/each-project.js"></script>
+    <script src="/assets/js/shared-bottom-nav.js"></script>
+    <script src="/assets/js/nav-active.js"></script>
 </body>
 
 </html>

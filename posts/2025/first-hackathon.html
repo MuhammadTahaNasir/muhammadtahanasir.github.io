@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html dir="auto" lang="en">
+
+<head>
+    <link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png" />
+    <link href="/assets/images/favicon.ico" rel="shortcut icon" />
+    <link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta
+        content="My April 2024 story: joining the AWS Cloud Club, surviving my first hackathon at GIKI, and tackling competitive programming prep."
+        name="description" />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="AWS, Hackathon, Competitive Programming, Cloud" name="tags" />
+    <title>April 2024: Code, Clouds, and Crazy Days</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+    </style>
+    <script>
+        // Apply theme immediately on page load
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+</head>
+
+<body class="dark" id="top" post-date="2024-04-25">
+    <!-- Loader Animation -->
+    <div class="loader" id="loader" aria-hidden="true">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+    
+    
+    <header class="header">
+        <nav class="nav">
+            <!-- Left: Logo -->
+            <div class="nav-left">
+                <a class="logo" href="../../index.html">&lt;terry/&gt;</a>
+            </div>
+            <!-- Center: Pills Navigation -->
+            <div class="nav-center">
+                <div class="pill-nav">
+                    <a href="../../resources.html">Resources</a>
+                    <a href="../../archives.html">Archives</a>
+                    <a href="../../resume.html">Resume</a>
+                    <a href="../../search.html">Search</a>
+                </div>
+            </div>
+            <!-- Right: Theme toggle -->
+            <div class="nav-right">
+                <button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
+                    <svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" x2="12" y1="1" y2="3"></line>
+                        <line x1="12" x2="12" y1="21" y2="23"></line>
+                        <line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+                        <line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+                        <line x1="1" x2="3" y1="12" y2="12"></line>
+                        <line x1="21" x2="23" y1="12" y2="12"></line>
+                        <line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+                        <line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+                    </svg>
+                    <svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
+        </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">April 2024: Code, Clouds, and Crazy Days</h1>
+                <div class="post-meta">25 Apr 2024 • 2 min • Muhammad Taha Nasir</div>
+            </header>
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#aws-club">AWS Cloud Club Beginnings</a></li>
+                        <li><a href="#hackathon">My First Hackathon at GIKI</a></li>
+                        <li><a href="#fpsc">AFPSC Mock and Coding Prep</a></li>
+                        <li><a href="#summer">Semester Wrap and Summer Plans</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <!-- Social Sharing Floating Toolbar -->
+            <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+            <section id="aws-club">
+                <h2>AWS Cloud Club Beginnings</h2>
+                <p>Assalam o Alaikum, fam! April 2024 was a whirlwind. Started with our uni’s AWS Cloud Club launch, and
+                    man, it was like stepping into a new world. They were talking about cloud stuff like EC2, S3, Lambda
+                    and I was just trying to keep my head above water. Scribbled notes like I was back in school, but
+                    the vibe was so cool, everyone hyped about building projects. I found some free AWS tutorials online
+                    at <a href="https://aws.amazon.com/">aws site</a>, and they were a lifesaver for understanding the
+                    basics. Got me thinking, “Okay, time to make something!”</p>
+            </section>
+            <section id="hackathon">
+                <h2>My First Hackathon at GIKI</h2>
+                <p>On 19 April, I went for my first hackathon at GIKI, called Micathon. Was I nervous? Oh, yeah. But I
+                    thought, “Let’s just do this.” It was a mess of ideas my team was throwing out plans, coding like
+                    crazy, and trying not to break everything. We used some AWS stuff I learned from the club. Our
+                    project didn’t win (it was a bit of a disaster, lol), but I learned so much about AI-related ideas.
+                    Already looking forward to the next one. Pro tip: AWS’s free training on their site helped me prep
+                    for this.</p>
+            </section>
+            <section id="fpsc">
+                <h2>FPSC Mock and Coding Prep</h2>
+                <p>Then, on 22 April, our uni had a mock for FPSC, a competitive programming contest. I’m not some
+                    coding wizard, but I gave it a shot. DOM Judge was the platform, and it was intense solving problems
+                    with a clock ticking felt like a race. My code kept failing, but I picked up some algorithm tricks.
+                    Codeforces has some great practice problems if you’re into this stuff. Got advice from seniors to
+                    stay calm next time, and I’m ready to improve.</p>
+            </section>
+            <section id="summer">
+                <h2>Semester Wrap and Summer Plans</h2>
+                <p>Second semester’s almost over, and finals are coming in May. After that, it’s summer break, and I’m
+                    pumped. Planning to keep coding, maybe fix that hackathon project, and write more about my tech
+                    journey. I’ve got some goals in mind, and I’ll share them in my next posts. April was wild, but it’s
+                    got me ready for more. For now, I’m just grinding, learning, and keeping it real.</p>
+                <blockquote class="quote-highlight">
+                    <p><strong>“Code crash? Fix it. Brain crash? Learn from it.”</strong></p>
+                    <p>– Muhammad Taha Nasir</p>
+                </blockquote>
+            </section>
+            <div class="tags-container" id="dynamic-tags">
+                <!-- Tags will be dynamically generated here -->
+            </div>
+            <hr class="divider" />
+            <section class="related-articles" id="related-series">
+                <h2 class="series-title">Article Series</h2>
+                <a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+                <div id="related-posts-container"></div>
+            </section>
+        </main>
+        <!-- Newsletter Subscription Section -->
+        <div class="newsletter-section">
+            <div class="newsletter-content">
+                <h3>Subscribe to our newsletter</h3>
+                <p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+                <p>Subscribe to the newsletter, and don't miss out.</p>
+                <div class="newsletter-form">
+                    <input class="newsletter-input" placeholder="Enter your email address" type="email" />
+                    <button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+        <div class="social-icons" style="margin-bottom:25px;">
+            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+        </div>
+        <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../../assets/js/each-post.js"></script>
+    <script src="../../assets/js/shared-bottom-nav.js"></script>
+    <script src="../../assets/js/nav-active.js"></script>
+</body>
+
+</html>

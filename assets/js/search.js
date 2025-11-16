@@ -12,6 +12,7 @@ const searchResults = document.getElementById('searchResults'); // Search result
 const pagination = document.getElementById('pagination'); // Pagination container
 const scrollTop = document.getElementById('scrollTop'); // Scroll to top button
 const themeToggle = document.getElementById('theme-toggle'); // Theme toggle button
+const clearBtn = document.getElementById('clearBtn'); // Clear search button (may not exist on all pages)
 
 // ---------- 2. Theme Handling ----------
 function initializeTheme() {
@@ -94,7 +95,11 @@ async function loadProjects() {
 
 // ---------- 7. Initialize Data and Search ----------
 async function initializeData() {
-    loader.classList.add('active'); // Show loader
+    // Only show loader if page is still loading (not already initialized)
+    if (!fuse) {
+        loader.classList.add('active'); // Show loader
+    }
+    
     await Promise.all([loadPosts(), loadResources(), loadProjects()]); // Load posts, resources, and projects concurrently
     const startDate = new Date('2025-04-13T00:00:00Z'); // Base date for resources
     const allItems = [
@@ -114,14 +119,16 @@ async function initializeData() {
         keys: ['title', 'summary', 'desc', 'description', 'tab', 'subcategory'], // Searchable fields
         threshold: 0.3 // Search sensitivity
     }); // Initialize Fuse.js
+    
+    // Hide loader after data is ready
     setTimeout(() => {
         loader.classList.add('no-blur'); // Remove loader blur
-    }, 600);
+    }, 300);
     setTimeout(() => {
         loader.classList.add('hidden'); // Hide loader
         loader.classList.remove('active'); // Deactivate loader
         renderResults(); // Render search results
-    }, 800);
+    }, 500);
 }
 
 // ---------- 8. Debounced Search Handler ----------
@@ -152,6 +159,13 @@ function goToPage(page) {
 
 // ---------- 10. Render Search Results ----------
 function renderResults() {
+    const loadingState = document.getElementById('loadingState');
+    const noResults = document.getElementById('noResults');
+    
+    // Hide loading and no results states
+    if (loadingState) loadingState.style.display = 'none';
+    if (noResults) noResults.style.display = 'none';
+    
     searchResults.innerHTML = ''; // Clear results container
     let filtered = []; // Filtered items
     let totalPages = 1; // Total pages
@@ -179,20 +193,34 @@ function renderResults() {
     const pageItems = filtered.slice(start, start + postsPerPage); // Get items for current page
 
     if (filtered.length === 0 && searchQuery) {
-        searchResults.innerHTML = '<div class="no-results">😕 No results found.</div>'; // Show no results
+        if (noResults) noResults.style.display = 'block'; // Show no results
         pagination.innerHTML = ''; // Clear pagination
         return;
     }
 
     pageItems.forEach(item => {
         const li = document.createElement('li'); // Create result item
-        li.className = 'post-card'; // Set class
+        li.className = 'search-result-card'; // Set class
         li.innerHTML = `
-      <div class="post-content">
-        <h2><a href="${item.link}">${item.title || 'Untitled'}</a></h2> <!-- Item title -->
-        <div class="post-meta">${item.type.charAt(0).toUpperCase() + item.type.slice(1)}</div> <!-- Item type -->
-      </div>
-    `; // Render item
+            <a href="${item.link}">
+                <div class="result-type">${item.type.charAt(0).toUpperCase() + item.type.slice(1)}</div>
+                <div class="result-content">
+                    <h3 class="result-title">${item.title || 'Untitled'}</h3>
+                    ${item.excerpt || item.description ? `<p class="result-excerpt">${item.excerpt || item.description}</p>` : ''}
+                    <div class="result-meta">
+                        <span class="result-date">
+                            <i class="fas fa-calendar"></i>
+                            ${new Date(item.date).toLocaleDateString()}
+                        </span>
+                        ${item.tags ? `
+                            <div class="result-tags">
+                                ${item.tags.slice(0, 3).map(tag => `<span class="result-tag">${tag}</span>`).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            </a>
+        `; // Render item
         searchResults.appendChild(li); // Append to results
     });
 
@@ -200,7 +228,7 @@ function renderResults() {
     if (totalPages > 1 && searchQuery) {
         let paginationHTML = ''; // Build pagination
         if (currentPage > 1) {
-            paginationHTML += `<button onclick="goToPage(${currentPage - 1})">Prev</button>`; // Previous button
+            paginationHTML += `<button onclick="goToPage(${currentPage - 1})">Previous</button>`; // Previous button
         }
         paginationHTML += '<div class="page-buttons">'; // Page buttons container
         const maxPagesToShow = 5; // Max pages to display
@@ -234,40 +262,89 @@ window.addEventListener('popstate', async (event) => {
             searchInput.value = searchQuery; // Update search input
         }
         if (!fuse) {
+            loader.classList.add('active'); // Show loader before initializing
             await initializeData(); // Initialize data if needed
+        } else {
+            renderResults(); // Just render if data already loaded
         }
-        renderResults(); // Render results
         window.scrollTo({ top: 0, behavior: 'instant' }); // Instant scroll to top
     }
 });
 
-// ---------- 12. Page Load Initialization ----------
+
+
+// ---------- 13. Page Load Initialization ----------
 window.addEventListener('DOMContentLoaded', () => {
     if (!searchInput) {
         console.error('Search input not found'); // Log missing input error
+        // Hide loader even if there's an error
+        setTimeout(() => {
+            loader.classList.add('hidden');
+            loader.classList.remove('active');
+        }, 500);
         return;
     }
     const urlParams = new URLSearchParams(window.location.search); // Get URL params
     currentPage = parseInt(urlParams.get('page')) || 1; // Set current page
     searchQuery = urlParams.get('search') || ''; // Set search query
     searchInput.value = searchQuery; // Update search input
+    
+    // Show clear button if there's a search query
+    if (searchQuery && clearBtn) {
+        clearBtn.classList.add('visible');
+    }
+    
     history.replaceState({ page: currentPage, search: searchQuery, path: window.location.pathname }, '', window.location.href); // Set initial state
     console.log('Search: Initial state set:', history.state); // Log initial state
     initializeTheme(); // Initialize theme
-    initializeData(); // Initialize data
+    initializeData().catch(error => {
+        console.error('Error initializing data:', error);
+        // Ensure loader is hidden even on error
+        setTimeout(() => {
+            loader.classList.add('hidden');
+            loader.classList.remove('active');
+        }, 500);
+    }); // Initialize data with error handling
 });
 
-// ---------- 13. Navigation Link Handlers ----------
+// ---------- 14. Navigation Link Handlers ----------
 document.querySelectorAll('.pill-nav a').forEach(link => {
     link.addEventListener('click', (e) => {
         e.preventDefault(); // Prevent default navigation
         const href = link.getAttribute('href'); // Get link href
         console.log('Search: Navigating to:', href); // Log navigation
         if (href && href !== '#' && !href.startsWith('#')) {
-            history.pushState({ page: 1, search: '', path: href }, '', href); // Update history
-            window.location.assign(href); // Navigate to href
+            // Use window.location.href for proper navigation
+            window.location.href = href;
         } else {
             console.error('Invalid href:', href); // Log invalid href
         }
     });
+});
+
+// ---------- 15. Page Visibility Handler ----------
+// Ensure loader is hidden when page becomes visible
+document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && loader.classList.contains('active')) {
+        // If page is visible and loader is still active, force hide it after a short delay
+        setTimeout(() => {
+            if (loader.classList.contains('active')) {
+                console.warn('Forcing loader to hide after visibility change');
+                loader.classList.add('hidden');
+                loader.classList.remove('active');
+            }
+        }, 1000);
+    }
+});
+
+// ---------- 16. Fallback Loader Hide ----------
+// Ensure loader doesn't stay visible indefinitely
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        if (loader.classList.contains('active')) {
+            console.warn('Forcing loader to hide after page load');
+            loader.classList.add('hidden');
+            loader.classList.remove('active');
+        }
+    }, 2000); // Wait max 2 seconds after page load
 });

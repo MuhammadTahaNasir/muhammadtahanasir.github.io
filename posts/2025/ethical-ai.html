@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html dir="auto" lang="en">
+
+<head>
+    <link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png" />
+    <link href="/assets/images/favicon.ico" rel="shortcut icon" />
+    <link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta
+        content="A tech blogger’s reflection on AI ethics after a 1.5-hour session, exploring bias, responsibility, and personal growth with humor and insights."
+        name="description" />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="AI Ethics, Machine Learning, Research, University" name="tags" />
+    <meta content="/assets/images/posts/ethical-ai.jpg" name="thumbnail" />
+    <title>Ethical AI: Why It’s More Than Hype</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+    </style>
+    <style>
+        .urdu-shair {
+            font-family: 'Amiri', 'Noto Naskh Arabic', serif;
+            direction: rtl;
+            text-align: right;
+            font-size: 1.2em;
+            line-height: 1.5;
+        }
+    </style>
+    <script>
+        // Apply theme immediately on page load
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+</head>
+
+<body class="dark" id="top" post-date="2023-11-15">
+    <!-- Loader Animation -->
+    <div class="loader" id="loader" aria-hidden="true">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+    
+    
+    <header class="header">
+        <nav class="nav">
+            <!-- Left: Logo -->
+            <div class="nav-left">
+                <a class="logo" href="../../index.html">&lt;terry/&gt;</a>
+            </div>
+            <!-- Center: Pills Navigation -->
+            <div class="nav-center">
+                <div class="pill-nav">
+                    <a href="../../resources.html">Resources</a>
+                    <a href="../../archives.html">Archives</a>
+                    <a href="../../resume.html">Resume</a>
+                    <a href="../../search.html">Search</a>
+                </div>
+            </div>
+            <!-- Right: Theme toggle -->
+            <div class="nav-right">
+                <button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
+                    <svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" x2="12" y1="1" y2="3"></line>
+                        <line x1="12" x2="12" y1="21" y2="23"></line>
+                        <line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+                        <line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+                        <line x1="1" x2="3" y1="12" y2="12"></line>
+                        <line x1="21" x2="23" y1="12" y2="12"></line>
+                        <line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+                        <line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+                    </svg>
+                    <svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
+        </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">Ethical AI: Why It’s More Than Hype</h1>
+                <div class="post-meta">Nov 15, 2023 • 3 min • Muhammad Taha Nasir</div>
+            </header>
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#session-spark">The Session That Got Me Thinking</a></li>
+                        <li><a href="#unpacking-bias">Unpacking AI Bias</a></li>
+                        <li><a href="#ethics-real-deal">Ethics in the Real World</a></li>
+                        <li><a href="#my-journey">My Journey So Far</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <!-- Social Sharing Floating Toolbar -->
+            <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+            <section id="session-spark">
+                <h2>The Session That Got Me Thinking</h2>
+                <p>سلام، ٹیک فیم! So, I moved to the hostel and thought, time to level up! That’s when I caught a 1.5
+                    hour session on stage, not some boring lecture, just smart folks chatting about AI ethics. It hit me
+                    like a chai spill on my notebook! Got curious, so I dug into articles from places like MIT
+                    Technology Review and The Guardian, plus some random PDFs I found online. I scribbled notes, mixed
+                    them with my own thoughts, and now I’m here, your friendly tech blogger, ready to share the scoop on
+                    why AI ethics isn’t just talk!</p>
+            </section>
+            <section id="unpacking-bias">
+                <h2>Unpacking AI Bias</h2>
+                <p>AI can be a bit of a drama queen, you know? Those articles showed me how it messes up. Picture facial
+                    recognition tech flopping on darker skin tones because the data was mostly light faces. Or a job
+                    algorithm tossing out women’s resumes since it learned from male heavy datasets. As a coder playing
+                    with NLP and ML, like I mentioned in my <a href="surviving-first-semester.html">last post</a>, I
+                    realized my projects could accidentally carry these traps. One article talked about a chatbot
+                    picking up toxic slang from the internet, yikes! It’s like AI mirrors our worst habits unless we
+                    clean it up. Check these out for more:</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>MIT Technology Review</strong>: How biased data skews AI results.<br />
+                        <a href="https://www.technologyreview.com/2023/02/09/1067821/ai-bias-black-box">AI Bias Black
+                            Box</a>
+                    </li>
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>The Guardian</strong>: Amazon’s scrapped AI tool and lessons learned.<br />
+                        <a
+                            href="https://www.theguardian.com/technology/2018/oct/10/amazon-hiring-ai-gender-bias-recruiting-tool">Amazon
+                            AI Bias</a>
+                    </li>
+                </ul>
+            </section>
+            <section id="ethics-real-deal">
+                <h2>Ethics in the Real World</h2>
+                <p>Ethics isn’t just a fancy word, it’s the soul of AI. Those articles and the session made it clear: AI
+                    shapes lives. Imagine an AI misdiagnosing someone in a hospital because of bad data, or a loan
+                    system unfairly rejecting people. The session folks said it’s like cooking biryani, get the
+                    ingredients wrong, and the whole dish flops! As a uni coder struggling with C and Python under crazy
+                    pressure, I’m starting to see how I can build AI that’s fair. It’s tough, but coding something that
+                    helps instead of hurts? That’s my goal. The articles suggested audits and diverse data, stuff I’ll
+                    try when I’m better at this.</p>
+                <img alt="AI Ethics Reflection" src="/assets/images/posts/ethical-ai.jpg"
+                    style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;" />
+            </section>
+            <section id="my-journey">
+                <h2>My Journey So Far</h2>
+                <p>Big win, fam! Sessional 2 exams went great, and my results were solid. But programming? Still a
+                    struggle. The uni grind and late night debugging are no joke, and I know I need to level up my
+                    skills. This AI ethics stuff feels like a perfect side project to grow with. I’m reading,
+                    experimenting, and dreaming of an ethical ML project to share soon. Stay tuned for more!</p>
+            </section>
+            <div class="tags-container" id="dynamic-tags">
+                <!-- Tags will be dynamically generated here -->
+            </div>
+            <hr class="divider" />
+            <section class="related-articles" id="related-series">
+                <h2 class="series-title">Article Series</h2>
+                <a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+                <div id="related-posts-container"></div>
+            </section>
+        </main>
+        <!-- Newsletter Subscription Section -->
+        <div class="newsletter-section">
+            <div class="newsletter-content">
+                <h3>Subscribe to our newsletter</h3>
+                <p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+                <p>Subscribe to the newsletter, and don't miss out.</p>
+                <div class="newsletter-form">
+                    <input class="newsletter-input" placeholder="Enter your email address" type="email" />
+                    <button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+        <div class="social-icons" style="margin-bottom:25px;">
+            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+        </div>
+        <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../../assets/js/each-post.js"></script>
+    <script src="../../assets/js/shared-bottom-nav.js"></script>
+    <script src="../../assets/js/nav-active.js"></script>
+</body>
+
+</html>

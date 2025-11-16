@@ -1,155 +1,176 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="auto">
 
 <head>
-    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
-    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="Terry" />
-    <link rel="manifest" href="/assets/images/site.webmanifest" />
+  <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
+  <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="Terry" />
+  <link rel="manifest" href="/assets/images/site.webmanifest" />
 
-    <!-- ---------- 1. Meta Tags ---------- -->
-    <meta charset="UTF-8"> <!-- Set character encoding to UTF-8 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensure responsive viewport -->
-    <title>Search | Muhammad Taha Nasir</title> <!-- Page title -->
+  <!-- ---------- 1. Meta Tags ---------- -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search | Muhammad Taha Nasir</title>
+  <meta name="description" content="Search through all posts, projects, and resources" />
 
-    <!-- ---------- 2. Stylesheets ---------- -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" /> <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="./assets/css/search.css"> <!-- Custom styles for search page -->
+  <!-- ---------- 2. Stylesheets ---------- -->
+  <link rel="stylesheet" href="assets/css/search.css" />
+  <link rel="stylesheet" href="assets/css/bottom-nav.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <style>
+    .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+    .loader.hidden{opacity:0;visibility:hidden}
+  </style>
 
-    <!-- ---------- 3. Theme Initialization Script ---------- -->
-    <script>
-        // Apply theme immediately on page load
-        (function () {
-            const savedTheme = localStorage.getItem('pref-theme'); // Get saved theme
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; // Check system dark mode
-            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                document.documentElement.setAttribute('data-theme', 'dark'); // Apply dark theme
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light'); // Apply light theme
-            }
-        })();
-    </script>
+  <!-- ---------- 3. Theme Initialization Script ---------- -->
+  <script>
+    // Apply saved theme immediately to prevent flash
+    const savedTheme = localStorage.getItem('pref-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  </script>
 </head>
 
 <body>
-    <!-- ---------- 4. Loader Animation ---------- -->
-    <div class="loader" id="loader"> <!-- Loader overlay -->
-        <div class="terry-animation"> <!-- Animated "terry" text -->
-            <span class="letter">t</span> <!-- Individual letter -->
-            <span class="letter">e</span> <!-- Individual letter -->
-            <span class="letter">r</span> <!-- Individual letter -->
-            <span class="letter">r</span> <!-- Individual letter -->
-            <span class="letter">y</span> <!-- Individual letter -->
-        </div>
+  <!-- ---------- 4. Loader Animation ---------- -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="terry-animation">
+      <span class="letter">t</span>
+      <span class="letter">e</span>
+      <span class="letter">r</span>
+      <span class="letter">r</span>
+      <span class="letter">y</span>
     </div>
+  </div>
 
-    <!-- ---------- 5. Header Navigation ---------- -->
-    <header class="header"> <!-- Header section -->
-        <nav class="nav"> <!-- Navigation bar -->
-            <!-- Left: Logo -->
-            <div class="nav-left">
-                <a href="../index.html" class="logo">&lt;terry/&gt;</a>
-            </div>
+  <!-- ---------- 5. Header Navigation ---------- -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <!-- Left: Logo -->
+      <div class="nav-left">
+        <a href="index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
 
-            <!-- Center: Pills Navigation -->
-            <div class="nav-center"> <!-- Navigation links container -->
-                <div class="pill-nav"> <!-- Pill-style navigation -->
-                    <a href="resources.html">Resources</a> <!-- Resources link -->
-                    <a href="archives.html">Archives</a> <!-- Archives link -->
-                    <a href="resume.html">Resume</a> <!-- Resume link -->
-                    <a href="search.html" class="active">Search</a> <!-- Search link, marked active -->
-                </div>
-            </div>
-
-            <!-- Right: Theme toggle -->
-            <div class="nav-right"> <!-- Theme toggle container -->
-                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme"> <!-- Theme toggle button -->
-                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round"> <!-- Sun icon for light mode -->
-                        <circle cx="12" cy="12" r="5" />
-                        <line x1="12" y1="1" x2="12" y2="3" />
-                        <line x1="12" y1="21" x2="12" y2="23" />
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                        <line x1="1" y1="12" x2="3" y2="12" />
-                        <line x1="21" y1="12" x2="23" y2="12" />
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                    </svg>
-                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round"> <!-- Moon icon for dark mode -->
-                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-                    </svg>
-                </button>
-            </div>
-        </nav>
-    </header>
-
-    <!-- ---------- 6. Main Content ---------- -->
-    <div class="container"> <!-- Main content wrapper -->
-        <div class="post-container"> <!-- Post content container -->
-            <!-- ---------- 7. Breadcrumb Navigation ---------- -->
-            <nav class="breadcrumb"> <!-- Breadcrumb navigation -->
-                <a href="index.html">Home</a> » <a href="search.html">Search</a> <!-- Breadcrumb links -->
-            </nav>
-
-            <!-- ---------- 8. Search Header ---------- -->
-            <div class="header-bar"> <!-- Header bar for search -->
-                <h1>Search</h1> <!-- Page title -->
-                <div class="search-box"> <!-- Search input container -->
-                    <input type="text" id="searchInput" placeholder="Search posts or resources...">
-                    <!-- Search input -->
-                </div>
-            </div>
-
-            <!-- ---------- 9. Search Results ---------- -->
-            <ul id="searchResults" class="post-card-container"> <!-- Search results container -->
-                <!-- Skeleton UI -->
-                <li class="skeleton-post-card"> <!-- Skeleton result card -->
-                    <div class="skeleton-content"> <!-- Placeholder for content -->
-                        <div class="skeleton-title"></div> <!-- Placeholder for title -->
-                        <div class="skeleton-meta"></div> <!-- Placeholder for meta -->
-                    </div>
-                </li>
-                <li class="skeleton-post-card"> <!-- Second skeleton result card -->
-                    <div class="skeleton-content"> <!-- Placeholder for content -->
-                        <div class="skeleton-title"></div> <!-- Placeholder for title -->
-                        <div class="skeleton-meta"></div> <!-- Placeholder for meta -->
-                    </div>
-                </li>
-            </ul>
-
-            <!-- ---------- 10. Pagination ---------- -->
-            <div class="pagination" id="pagination"></div> <!-- Pagination container -->
+      <!-- Center: Pills Navigation -->
+      <div class="nav-center">
+        <div class="pill-nav" role="tablist">
+          <a href="resources.html" role="tab">Resources</a>
+          <a href="archives.html" role="tab">Archives</a>
+          <a href="resume.html" role="tab">Resume</a>
+          <a href="search.html" class="active" role="tab" aria-selected="true">Search</a>
         </div>
+      </div>
 
-        <!-- ---------- 11. Footer ---------- -->
-        <footer class="footer"> <!-- Footer section -->
-            <div class="social-icons"> <!-- Social media links -->
-                <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i
-                        class="fab fa-github"></i></a> <!-- GitHub link -->
-                <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i
-                        class="fab fa-linkedin"></i></a> <!-- LinkedIn link -->
-                <a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-                <!-- Email link -->
-            </div>
-            <p>© 2025 – Muhammad Taha Nasir</p> <!-- Copyright notice -->
-        </footer>
 
-        <!-- ---------- 12. Scroll to Top Button ---------- -->
-        <button id="scrollTop" aria-label="Scroll to top"> <!-- Scroll to top button -->
-            <i class="fas fa-chevron-up"></i> <!-- Up arrow icon -->
+      <!-- Right: Theme toggle -->
+      <div class="nav-right">
+        <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+          <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
         </button>
+      </div>
+    </nav>
+  </header>
 
-        <!-- ---------- 13. JavaScript Includes ---------- -->
-        <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.min.js"></script>
-        <!-- Fuse.js for search functionality -->
-        <script src="./assets/js/theme-sync.js"></script>
-        <script src="./assets/js/search.js"></script> <!-- Search page JavaScript -->
+  <!-- ---------- 6. Main Content ---------- -->
+  <main class="post-container page-fade-in" role="main">
+    <!-- ---------- 7. Search Header ---------- -->
+    <div class="header-bar">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span aria-hidden="true">»</span>
+        <a href="search.html" aria-current="page">Search</a>
+      </nav>
+      <h1>Search</h1>
+      <p class="subtitle">Find posts, projects, and resources across the site</p>
     </div>
+
+    <!-- ---------- 8. Search Controls ---------- -->
+    <div class="search-container">
+      <div class="search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="searchInput" placeholder="Search posts, projects, or resources..." aria-label="Search">
+      </div>
+    </div>
+
+    <!-- ---------- 9. Search Results ---------- -->
+    <div class="search-container">
+      <div class="loading-state" id="loadingState">
+        <div class="loading-spinner"></div>
+        <p>Searching...</p>
+      </div>
+
+      <div class="no-results" id="noResults" style="display: none;">
+        <i class="fas fa-search"></i>
+        <h3>No results found</h3>
+        <p>Try adjusting your search terms or filters</p>
+      </div>
+
+      <ul id="searchResults" class="search-results-grid">
+        <!-- Results will be populated by JavaScript -->
+      </ul>
+    </div>
+
+    <!-- ---------- 10. Pagination ---------- -->
+    <div class="pagination" id="pagination"></div>
+  </main>
+
+  <!-- Bottom Nav (Mobile Only) -->
+  <nav class="bottom-nav">
+    <a href="index.html"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="resources.html"><i class="fas fa-book"></i><span>Resources</span></a>
+    <a href="archives.html"><i class="fas fa-archive"></i><span>Archives</span></a>
+    <a href="resume.html"><i class="fas fa-file-alt"></i><span>Resume</span></a>
+    <a href="search.html"><i class="fas fa-search"></i><span>Search</span></a>
+  </nav>
+
+  <!-- ---------- 11. Footer ---------- -->
+  <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+    <div class="social-icons" style="margin-bottom:25px;">
+      <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+        style="margin:0 5px; font-size:1.6em;">
+        <i class="fab fa-github" aria-hidden="true"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+        aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+        <i class="fab fa-linkedin" aria-hidden="true"></i>
+      </a>
+      <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+        style="margin:0 5px; font-size:1.6em;">
+        <i class="fas fa-envelope" aria-hidden="true"></i>
+      </a>
+    </div>
+    <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+  </footer>
+
+  <!-- ---------- 12. Scroll to Top Button ---------- -->
+  <button id="scrollTop" aria-label="Scroll to top" title="Scroll to top" type="button">
+    <i class="fas fa-chevron-up" aria-hidden="true"></i>
+  </button>
+
+  <!-- ---------- 13. JavaScript Includes ---------- -->
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.min.js"></script>
+  <script src="./assets/js/search.js"></script>
+  <script src="./assets/js/header-scroll.js"></script>
+  <script src="./assets/js/shared-bottom-nav.js"></script>
+  <script src="./assets/js/nav-active.js"></script>
+  <script src="./assets/js/instant-loader.js"></script>
 </body>
 
 </html>

@@ -1,25 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+
+<html dir="auto" lang="en">
 
 <head>
-    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
-    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="Terry" />
-    <link rel="manifest" href="/assets/images/site.webmanifest" />
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="description"
+    <link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png" />
+    <link href="/assets/images/favicon.ico" rel="shortcut icon" />
+    <link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta
         content="AI ≠ Just Models.
-This semester, I got a bouncer from Operating Systems and realized: building AI is just 20% of the job. The rest? DevOps, Docker, AWS, MLOps and all the stuff that takes your model from laptop to live app. From running Flask in Docker to deploying models on AWS SageMaker, I’ve been learning how the real-world AI game is played. If you’re into AI, here’s why DevOps isn’t optional.">
-    <meta name="author" content="Muhammad Taha Nasir">
-    <meta name="tags" content="Docker, AWS, DevOps, MLOps, AI, Machine Learning, Linux, Deployment">
-    <meta name="thumbnail" content="/assets/images/posts/docker.jpg">
-    <title>Docker, AWS & DevOps for AI Engineers: Should You Care?</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="../../assets/css/each-post.css">
+This semester, I got a bouncer from Operating Systems and realized: building AI is just 20% of the job. The rest? DevOps, Docker, AWS, MLOps and all the stuff that takes your model from laptop to live app. From running Flask in Docker to deploying models on AWS SageMaker, I’ve been learning how the real-world AI game is played. If you’re into AI, here’s why DevOps isn’t optional."
+        name="description" />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="Docker, AWS, DevOps, MLOps, AI, Machine Learning, Linux, Deployment" name="tags" />
+    <meta content="/assets/images/posts/docker.jpg" name="thumbnail" />
+    <title>Docker, AWS &amp; DevOps for AI Engineers: Should You Care?</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+    </style>
     <script>
         // Apply theme immediately on page load
         (function () {
@@ -30,14 +37,25 @@ This semester, I got a bouncer from Operating Systems and realized: building AI 
     </script>
 </head>
 
-<body class="dark" id="top" post-date="2025-01-20T00:00:00Z">
+<body class="dark" id="top" post-date="2025-01-20">
+    <!-- Loader Animation -->
+    <div class="loader" id="loader" aria-hidden="true">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+    
+    
     <header class="header">
         <nav class="nav">
             <!-- Left: Logo -->
             <div class="nav-left">
-                <a href="../../index.html" class="logo">&lt;terry/&gt;</a>
+                <a class="logo" href="../../index.html">&lt;terry/&gt;</a>
             </div>
-
             <!-- Center: Pills Navigation -->
             <div class="nav-center">
                 <div class="pill-nav">
@@ -47,25 +65,24 @@ This semester, I got a bouncer from Operating Systems and realized: building AI 
                     <a href="../../search.html">Search</a>
                 </div>
             </div>
-
             <!-- Right: Theme toggle -->
             <div class="nav-right">
-                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
-                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5" />
-                        <line x1="12" y1="1" x2="12" y2="3" />
-                        <line x1="12" y1="21" x2="12" y2="23" />
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                        <line x1="1" y1="12" x2="3" y2="12" />
-                        <line x1="21" y1="12" x2="23" y2="12" />
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                <button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
+                    <svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" x2="12" y1="1" y2="3"></line>
+                        <line x1="12" x2="12" y1="21" y2="23"></line>
+                        <line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+                        <line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+                        <line x1="1" x2="3" y1="12" y2="12"></line>
+                        <line x1="21" x2="23" y1="12" y2="12"></line>
+                        <line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+                        <line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
                     </svg>
-                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    <svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
                     </svg>
                 </button>
             </div>
@@ -77,7 +94,7 @@ This semester, I got a bouncer from Operating Systems and realized: building AI 
         </nav>
         <main class="post-content">
             <header class="post-header">
-                <h1 class="post-title">Docker, AWS & DevOps for AI Engineers: Should You Care?</h1>
+                <h1 class="post-title">Docker, AWS &amp; DevOps for AI Engineers: Should You Care?</h1>
                 <div class="post-meta">January 20, 2025 • 4 min • Muhammad Taha Nasir</div>
             </header>
             <aside class="table-of-contents">
@@ -94,6 +111,15 @@ This semester, I got a bouncer from Operating Systems and realized: building AI 
                     </ul>
                 </details>
             </aside>
+            <!-- Social Sharing Floating Toolbar -->
+            <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
             <section id="devops-wake-up">
                 <h2>DevOps Smacked Me Hard</h2>
                 <p>Assalam o Alaikum everyone, this semester’s Operating Systems course with Sir Saad hit me like a
@@ -104,8 +130,8 @@ This semester, I got a bouncer from Operating Systems and realized: building AI 
                     to actual users. Sir Saad’s love for Linux and DevOps pushed me to figure this out, so here’s my
                     take on why it’s a big deal.</p>
             </section>
-            <img src="/assets/images/posts/docker.jpg" alt="Docker and AWS Code on Screen"
-                style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;">
+            <img alt="Docker and AWS Code on Screen" src="/assets/images/posts/docker.jpg"
+                style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;" />
             <section id="docker-start">
                 <h2>Docker: Packing Apps Like Biryani</h2>
                 <p>Docker’s like wrapping your app, its libraries, and all its stuff in a tiffin box that works
@@ -196,19 +222,19 @@ mlflow.end_run()
                 <ul style="list-style: none; padding: 0;">
                     <li
                         style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
-                        <strong>Docker Docs</strong><br>
+                        <strong>Docker Docs</strong><br />
                         Clear guides for getting started with containers. Check it: <a
                             href="https://docs.docker.com">docs.docker.com</a>
                     </li>
                     <li
                         style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
-                        <strong>AWS Free Tier Labs</strong><br>
+                        <strong>AWS Free Tier Labs</strong><br />
                         Hands-on practice for EC2 and SageMaker. Try it: <a
                             href="https://aws.amazon.com/free">aws.amazon.com/free</a>
                     </li>
                     <li
                         style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
-                        <strong>MLflow Docs</strong><br>
+                        <strong>MLflow Docs</strong><br />
                         Simple start for tracking AI experiments. Look here: <a
                             href="https://mlflow.org/docs/latest">mlflow.org</a>
                     </li>
@@ -228,28 +254,49 @@ mlflow.end_run()
             <div class="tags-container" id="dynamic-tags">
                 <!-- Tags will be dynamically generated here -->
             </div>
-            <hr class="divider">
-            <section id="related-series" class="related-articles">
+            <hr class="divider" />
+            <section class="related-articles" id="related-series">
                 <h2 class="series-title">Article Series</h2>
-                <a href="../../posts.html" class="series-link">Zero to One: Dev Diaries</a>
+                <a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
                 <div id="related-posts-container"></div>
             </section>
         </main>
-        <footer class="footer">
-            <div class="social-icons">
-                <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i
-                        class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i
-                        class="fab fa-linkedin"></i></a>
-                <a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+        <!-- Newsletter Subscription Section -->
+        <div class="newsletter-section">
+            <div class="newsletter-content">
+                <h3>Subscribe to our newsletter</h3>
+                <p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+                <p>Subscribe to the newsletter, and don't miss out.</p>
+                <div class="newsletter-form">
+                    <input class="newsletter-input" placeholder="Enter your email address" type="email" />
+                    <button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+                </div>
             </div>
-            <p>© 2025 – Muhammad Taha Nasir</p>
-        </footer>
+        </div>
     </div>
-    <button id="scrollTop" aria-label="Scroll to top">
+    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+        <div class="social-icons" style="margin-bottom:25px;">
+            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+        </div>
+        <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
         <i class="fas fa-chevron-up"></i>
     </button>
     <script src="../../assets/js/each-post.js"></script>
+    <script src="../../assets/js/shared-bottom-nav.js"></script>
+    <script src="../../assets/js/nav-active.js"></script>
     <script>
         document.querySelectorAll('.copy-btn').forEach(button => {
             button.addEventListener('click', () => {

@@ -12,12 +12,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="robots" content="index, follow">
-    <meta name="description" content="ThinkBoard: A Flask-based web application for uploading CSV files, performing statistical analysis, and visualizing data with interactive charts, featuring a modern glassmorphism design and responsive layout.">
+    <meta name="description"
+        content="ThinkBoard: A Flask-based web application for uploading CSV files, performing statistical analysis, and visualizing data with interactive charts, featuring a modern glassmorphism design and responsive layout.">
     <meta name="author" content="Muhammad Taha Nasir">
     <meta name="date" content="2025-07-09">
     <meta name="tab" content="side">
     <meta name="subcategory" content="Web Development">
-    <meta name="features" content="Flask, JavaScript, pandas, Chart.js, Glassmorphism">
+    <meta name="features" content="Flask, JavaScript, Pandas, Chart.js, Glassmorphism">
     <meta name="thumbnail" content="/assets/images/projects/think-board/preview.png">
     <meta name="github" content="https://github.com/MuhammadTahaNasir/ThinkBoard">
     <meta name="web" content="https://think-board.up.railway.app">
@@ -26,6 +27,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="/assets/css/each-project.css">
+    <link rel="stylesheet" href="/assets/css/bottom-nav.css">
 
     <!-- Theme Initialization Script -->
     <script>
@@ -46,29 +48,49 @@
 </head>
 
 <body class="dark" id="top">
+    <!-- Loader Animation -->
+    <div class="loader" id="loader" aria-hidden="true">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+
     <!-- Header Navigation -->
-    <header class="header">
-        <nav class="nav">
-            <!-- Logo -->
+    <header class="header"> <!-- Header section -->
+        <nav class="nav"> <!-- Navigation bar -->
+            <!-- Left: Logo -->
             <div class="nav-left">
-                <a href="/index.html" class="logo">&lt;taha/&gt;</a>
+                <a href="/index.html" class="logo">&lt;terry/&gt;</a>
             </div>
 
-            <!-- Navigation Links -->
-            <div class="nav-center">
-                <div class="pill-nav">
-                    <a href="/resources.html">Resources</a>
-                    <a href="/archives.html">Archives</a>
-                    <a href="/resume.html">Resume</a>
-                    <a href="/search.html">Search</a>
+            <!-- Center: Pills Navigation -->
+            <div class="nav-center"> <!-- Navigation links container -->
+                <div class="pill-nav"> <!-- Pill-style navigation -->
+                    <a href="/resources.html">Resources</a> <!-- Resources link -->
+                    <a href="/archives.html">Archives</a> <!-- Archives link -->
+                    <a href="/resume.html">Resume</a> <!-- Resume link -->
+                    <a href="/search.html">Search</a> <!-- Search link -->
                 </div>
             </div>
 
-            <!-- Theme Toggle -->
-            <div class="nav-right">
-                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+            <!-- Bottom Nav (Mobile Only) -->
+            <nav class="bottom-nav">
+                <a href="/index.html"><i class="fas fa-home"></i><span>Home</span></a>
+                <a href="/resources.html"><i class="fas fa-book"></i><span>Resources</span></a>
+                <a href="/archives.html"><i class="fas fa-archive"></i><span>Archives</span></a>
+                <a href="/resume.html"><i class="fas fa-file-alt"></i><span>Resume</span></a>
+                <a href="/search.html"><i class="fas fa-search"></i><span>Search</span></a>
+            </nav>
+
+            <!-- Right: Theme toggle -->
+            <div class="nav-right"> <!-- Theme toggle container -->
+                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme"> <!-- Theme toggle button -->
                     <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
+                        stroke-linecap="round" stroke-linejoin="round"> <!-- Sun icon for light mode -->
                         <circle cx="12" cy="12" r="5" />
                         <line x1="12" y1="1" x2="12" y2="3" />
                         <line x1="12" y1="21" x2="12" y2="23" />
@@ -80,7 +102,7 @@
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
                     </svg>
                     <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
+                        stroke-linecap="round" stroke-linejoin="round"> <!-- Moon icon for dark mode -->
                         <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
                     </svg>
                 </button>
@@ -88,11 +110,13 @@
         </nav>
     </header>
 
+
     <!-- Main Content -->
     <div class="container">
         <!-- Breadcrumb Navigation -->
         <nav class="breadcrumb">
-            <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a>
+            <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a> » <a
+                href="/projects/side/think-board.html">ThinkBoard: Data Analytics Dashboard</a>
         </nav>
 
         <!-- Project Content -->
@@ -106,28 +130,36 @@
             <div class="image-carousel">
                 <div class="carousel-container">
                     <div class="carousel-slide active">
-                        <img src="/assets/images/projects/think-board/preview.png" alt="ThinkBoard Dashboard" class="carousel-image">
+                        <img src="/assets/images/projects/think-board/preview.png" alt="ThinkBoard Dashboard"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/think-board/upload.png" alt="ThinkBoard Upload Interface" class="carousel-image">
+                        <img src="/assets/images/projects/think-board/upload.png" alt="ThinkBoard Upload Interface"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/think-board/stats.png" alt="ThinkBoard Statistics View" class="carousel-image">
+                        <img src="/assets/images/projects/think-board/stats.png" alt="ThinkBoard Statistics View"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/think-board/bar_chart.png" alt="ThinkBoard Bar Chart" class="carousel-image">
+                        <img src="/assets/images/projects/think-board/bar_chart.png" alt="ThinkBoard Bar Chart"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/think-board/line_chart.png" alt="ThinkBoard Line Chart" class="carousel-image">
+                        <img src="/assets/images/projects/think-board/line_chart.png" alt="ThinkBoard Line Chart"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/think-board/gradient.png" alt="ThinkBoard Pie Chart" class="carousel-image">
+                        <img src="/assets/images/projects/think-board/gradient.png" alt="ThinkBoard Pie Chart"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/think-board/sort_search.png" alt="ThinkBoard Sort and Search Interface" class="carousel-image">
+                        <img src="/assets/images/projects/think-board/sort_search.png"
+                            alt="ThinkBoard Sort and Search Interface" class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/think-board/about.png" alt="ThinkBoard Mobile View" class="carousel-image">
+                        <img src="/assets/images/projects/think-board/about.png" alt="ThinkBoard Mobile View"
+                            class="carousel-image">
                     </div>
                 </div>
 
@@ -178,7 +210,8 @@
 
             <!-- Button Section -->
             <div class="button-section">
-                <a href="https://github.com/MuhammadTahaNasir/Learning-AI/tree/main/PHASE_1_Foundational_Core/Projects/ThinkBoard" class="project-button github-link">
+                <a href="https://github.com/MuhammadTahaNasir/Learning-AI/tree/main/PHASE_1_Foundational_Core/Projects/ThinkBoard"
+                    class="project-button github-link">
                     <i class="fab fa-github"></i> View Source Code
                 </a>
                 <a href="https://think-board.up.railway.app" class="project-button demo-link">
@@ -189,19 +222,27 @@
             <!-- Project Overview -->
             <section id="overview">
                 <h2>Project Overview</h2>
-                <p>ThinkBoard is a Flask-based web application designed for data analysis and visualization. Users can upload CSV files, compute statistical metrics such as mean, median, and mode, and generate interactive charts, including bar, line, and pie formats. The application features a modern glassmorphism design with a dark theme and is fully responsive for both desktop and mobile devices.</p>
+                <p>ThinkBoard is a Flask-based web application designed for data analysis and visualization. Users can
+                    upload CSV files, compute statistical metrics such as mean, median, and mode, and generate
+                    interactive charts, including bar, line, and pie formats. The application features a modern
+                    glassmorphism design with a dark theme and is fully responsive for both desktop and mobile devices.
+                </p>
             </section>
 
             <!-- Situation -->
             <section id="situation">
                 <h2>Situation</h2>
-                <p>Data analysts and enthusiasts often require accessible tools to upload, analyze, and visualize datasets without complex configurations. Existing solutions may lack intuitive interfaces or engaging designs, limiting their effectiveness for quick data exploration.</p>
+                <p>Data analysts and enthusiasts often require accessible tools to upload, analyze, and visualize
+                    datasets without complex configurations. Existing solutions may lack intuitive interfaces or
+                    engaging designs, limiting their effectiveness for quick data exploration.</p>
             </section>
 
             <!-- Task -->
             <section id="task">
                 <h2>Task</h2>
-                <p>The goal was to develop a web application using Flask and JavaScript that supports CSV file uploads, performs statistical analysis, and provides interactive data visualizations. The application needed a modern, user-friendly interface with glassmorphism styling and mobile responsiveness.</p>
+                <p>The goal was to develop a web application using Flask and JavaScript that supports CSV file uploads,
+                    performs statistical analysis, and provides interactive data visualizations. The application needed
+                    a modern, user-friendly interface with glassmorphism styling and mobile responsiveness.</p>
             </section>
 
             <!-- Actions -->
@@ -210,10 +251,13 @@
                 <ul>
                     <li>Developed a Flask backend to manage CSV file uploads, data processing, and API endpoints.</li>
                     <li>Utilized Pandas and NumPy for statistical computations and data manipulation.</li>
-                    <li>Implemented a JavaScript frontend with Chart.js to create interactive bar, line, and pie charts.</li>
-                    <li>Designed a glassmorphism user interface using CSS3, featuring translucent cards, blur effects, and a dark theme.</li>
+                    <li>Implemented a JavaScript frontend with Chart.js to create interactive bar, line, and pie charts.
+                    </li>
+                    <li>Designed a glassmorphism user interface using CSS3, featuring translucent cards, blur effects,
+                        and a dark theme.</li>
                     <li>Ensured mobile responsiveness with a hamburger menu and touch-friendly controls.</li>
-                    <li>Integrated sorting, searching, and gradient computation functionalities for enhanced data exploration.</li>
+                    <li>Integrated sorting, searching, and gradient computation functionalities for enhanced data
+                        exploration.</li>
                     <li>Deployed the application on Railway for public access.</li>
                 </ul>
             </section>
@@ -221,7 +265,10 @@
             <!-- Results -->
             <section id="results">
                 <h2>Results</h2>
-                <p>ThinkBoard provides an effective platform for data analysis, offering intuitive functionality and visually appealing charts. The project enhanced my expertise in full-stack web development, data processing, and user interface design. Its deployment on Railway ensures accessibility for users worldwide.</p>
+                <p>ThinkBoard provides an effective platform for data analysis, offering intuitive functionality and
+                    visually appealing charts. The project enhanced my expertise in full-stack web development, data
+                    processing, and user interface design. Its deployment on Railway ensures accessibility for users
+                    worldwide.</p>
             </section>
 
             <!-- Tech Stack -->
@@ -242,25 +289,34 @@
                 </div>
             </section>
         </main>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="social-icons">
-                <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-            </div>
-            <p>© 2025 – Muhammad Taha Nasir</p>
-        </footer>
     </div>
 
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+        <div class="social-icons" style="margin-bottom:25px;">
+            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+        </div>
+        <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+    </footer>
+
     <!-- Scroll to Top Button -->
-    <button id="scrollTop" aria-label="Scroll to top">
-        <i class="fas fa-chevron-up"></i>
+    <button id="scrollTop" aria-label="Scroll to top"> <!-- Scroll to top button -->
+        <i class="fas fa-chevron-up"></i> <!-- Up arrow icon -->
     </button>
 
     <!-- JavaScript -->
     <script src="/assets/js/each-project.js"></script>
-</body>
-
-</html>
+    <script src="/assets/js/shared-bottom-nav.js"></script>
+    <script src="/assets/js/nav-active.js"></script>
+d: New Look)

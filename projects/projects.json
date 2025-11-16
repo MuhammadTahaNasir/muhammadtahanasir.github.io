@@ -11,8 +11,8 @@
     "subcategory": "Data Science",
     "features": [
       "Streamlit",
-      "python",
-      "pandas",
+      "Python",
+      "Pandas",
       "Scikit-learn",
       "Sentiment Analysis",
       "KMeans Clustering"
@@ -32,7 +32,11 @@
     "features": [
       "Flask",
       "JavaScript",
+<<<<<<< HEAD
       "pandas",
+=======
+      "Pandas",
+>>>>>>> c9292a4 (Site Updated: New Look)
       "Chart.js",
       "Glassmorphism"
     ],
@@ -70,7 +74,7 @@
     "features": [
       "React",
       "FastAPI",
-      "python",
+      "Python",
       "File System Monitoring"
     ],
     "hideWebLink": true

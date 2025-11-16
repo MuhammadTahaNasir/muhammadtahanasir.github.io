@@ -8,142 +8,171 @@
   <meta name="apple-mobile-web-app-title" content="Terry" />
   <link rel="manifest" href="/assets/images/site.webmanifest" />
 
-    <!-- ---------- 1. Meta Tags ---------- -->
-    <meta charset="UTF-8" /> <!-- Set character encoding to UTF-8 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Ensure responsive viewport scaling -->
-    <title>Posts by Tag | Muhammad Taha Nasir</title> <!-- Page title for SEO and browser tab -->
+  <!-- ---------- 1. Meta Tags ---------- -->
+  <meta charset="UTF-8" /> <!-- Set character encoding to UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Ensure responsive viewport scaling -->
+  <title>Tag: Loading... | Muhammad Taha Nasir</title> <!-- Page title for SEO and browser tab -->
 
-    <!-- ---------- 2. Stylesheets ---------- -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <!-- Load Font Awesome for icons -->
-    <link rel="stylesheet" href="../assets/css/each-tag.css" /> <!-- Load custom stylesheet for tag-specific page -->
+  <!-- ---------- 2. Stylesheets ---------- -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- Load Font Awesome for icons -->
+  <link rel="stylesheet" href="../assets/css/each-tag.css" /> <!-- Load custom stylesheet for tag-specific page -->
+  <link rel="stylesheet" href="../assets/css/bottom-nav.css" />
+  <style>
+    .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible;transition:opacity 0.3s ease, visibility 0.3s ease}
+    .loader.hidden{opacity:0;visibility:hidden}
+  </style>
 
-    <!-- ---------- 3. Theme Initialization Script ---------- -->
-    <script>
-        // Apply theme immediately on page load to prevent flash
-        (function () {
-            const savedTheme = localStorage.getItem('pref-theme'); // Retrieve saved theme from localStorage
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; // Check system dark mode preference
-            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                document.documentElement.classList.add('dark'); // Apply dark theme if saved or system prefers dark
-            }
-        })();
-    </script>
+  <!-- ---------- 3. Theme Initialization Script ---------- -->
+  <script>
+    // Apply theme immediately on page load to prevent flash
+    (function () {
+      const savedTheme = localStorage.getItem('pref-theme'); // Retrieve saved theme
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme); // Apply saved theme
+        document.documentElement.classList.toggle('dark', savedTheme === 'dark'); // Toggle dark class
+      } else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; // Check system dark mode
+        if (prefersDark) {
+          document.documentElement.setAttribute('data-theme', 'dark'); // Apply dark theme
+          document.documentElement.classList.add('dark'); // Add dark class
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light'); // Apply light theme
+        }
+      }
+    })();
+  </script>
 </head>
 
 <body>
-    <!-- ---------- 4. Loader Animation ---------- -->
-    <div class="loader" id="loader">
-        <div class="terry-animation">
-            <span class="letter">t</span>
-            <span class="letter">e</span>
-            <span class="letter">r</span>
-            <span class="letter">r</span>
-            <span class="letter">y</span>
+  <!-- ---------- 4. Loader Animation ---------- -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="terry-animation">
+      <span class="letter">t</span>
+      <span class="letter">e</span>
+      <span class="letter">r</span>
+      <span class="letter">r</span>
+      <span class="letter">y</span>
+    </div>
+  </div> <!-- Loader animation displayed during content loading -->
+
+  <!-- ---------- 5. Header Navigation ---------- -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <!-- Left: Logo -->
+      <div class="nav-left">
+        <a href="../index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+
+      <!-- Center: Pills Navigation -->
+      <div class="nav-center">
+        <div class="pill-nav" role="tablist">
+          <a href="/resources.html" role="tab">Resources</a>
+          <a href="/archives.html" role="tab">Archives</a>
+          <a href="/resume.html" role="tab">Resume</a>
+          <a href="/search.html" role="tab">Search</a>
         </div>
-    </div> <!-- Loader animation displayed during content loading -->
+      </div>
 
-    <!-- ---------- 5. Header Navigation ---------- -->
-    <header class="header">
-        <nav class="nav">
-            <!-- Left: Logo -->
-            <div class="nav-left">
-                <a href="../index.html" class="logo">&lt;terry/&gt;</a>
-            </div>
+      <!-- Right: Theme toggle -->
+      <div class="nav-right">
+        <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+          <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
 
-            <!-- Center: Pills Navigation -->
-            <div class="nav-center">
-                <div class="pill-nav">
-                    <a href="/resources.html">Resources</a>
-                    <a href="/archives.html">Archives</a>
-                    <a href="/resume.html">Resume</a>
-                    <a href="/search.html">Search</a>
-                </div>
-            </div>
+  <!-- Bottom Nav (Mobile Only) -->
+  <nav class="bottom-nav">
+    <a href="../index.html"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="../resources.html"><i class="fas fa-book"></i><span>Resources</span></a>
+    <a href="../archives.html"><i class="fas fa-archive"></i><span>Archives</span></a>
+    <a href="../resume.html"><i class="fas fa-file-alt"></i><span>Resume</span></a>
+    <a href="../search.html"><i class="fas fa-search"></i><span>Search</span></a>
+  </nav>
 
-            <!-- Right: Theme toggle -->
-            <div class="nav-right">
-                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
-                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5" />
-                        <line x1="12" y1="1" x2="12" y2="3" />
-                        <line x1="12" y1="21" x2="12" y2="23" />
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                        <line x1="1" y1="12" x2="3" y2="12" />
-                        <line x1="21" y1="12" x2="23" y2="12" />
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                    </svg>
-                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-                    </svg>
-                </button>
-            </div>
-        </nav>
-    </header>
+  <!-- ---------- 6. Main Content ---------- -->
+  <div class="post-container">
+    <!-- ---------- 7. Breadcrumb Navigation ---------- -->
+    <nav class="breadcrumb">
+      <a href="../index.html">Home</a> » <a href="../tags.html">Tags</a> <!-- Breadcrumb links for navigation -->
+    </nav>
 
-    <!-- ---------- 6. Main Content ---------- -->
-    <div class="post-container">
-        <!-- ---------- 7. Breadcrumb Navigation ---------- -->
-        <nav class="breadcrumb">
-            <a href="../index.html">Home</a> » <a href="../tags.html">Tags</a> <!-- Breadcrumb links for navigation -->
-        </nav>
-
-        <!-- ---------- 8. Tag Header ---------- -->
-        <div class="header-bar">
-            <h1 id="tagTitle">Loading...</h1> <!-- Dynamic tag title -->
-            <a href="../tags.html" class="view-all-tags">Other Tags</a> <!-- Link to view all tags -->
-        </div>
-
-        <!-- ---------- 9. Post Container ---------- -->
-        <main id="post-container">
-            <!-- Skeleton UI for loading state -->
-            <div class="skeleton-post-card">
-                <div class="skeleton-img"></div>
-                <div class="skeleton-content">
-                    <div class="skeleton-title"></div>
-                    <div class="skeleton-meta"></div>
-                    <div class="skeleton-summary"></div>
-                </div>
-            </div>
-            <div class="skeleton-post-card">
-                <div class="skeleton-img"></div>
-                <div class="skeleton-content">
-                    <div class="skeleton-title"></div>
-                    <div class="skeleton-meta"></div>
-                    <div class="skeleton-summary"></div>
-                </div>
-            </div>
-        </main>
-
-        <!-- ---------- 10. Pagination ---------- -->
-        <div class="pagination" id="pagination"></div> <!-- Container for pagination controls -->
+    <!-- ---------- 8. Tag Header ---------- -->
+    <div class="header-bar">
+      <h1 id="tagTitle">Loading...</h1> <!-- Dynamic tag title -->
+      <a href="../tags.html" class="view-all-tags">Other Tags</a> <!-- Link to view all tags -->
     </div>
 
-    <!-- ---------- 11. Footer ---------- -->
-    <footer class="footer">
-        <div class="social-icons">
-            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i
-                    class="fab fa-github"></i></a> <!-- GitHub social link -->
-            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i
-                    class="fab fa-linkedin"></i></a> <!-- LinkedIn social link -->
-            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-            <!-- Email link -->
+    <!-- ---------- 9. Post Container ---------- -->
+    <main id="post-container">
+      <!-- Skeleton UI for loading state -->
+      <div class="skeleton-post-card">
+        <div class="skeleton-img"></div>
+        <div class="skeleton-content">
+          <div class="skeleton-title"></div>
+          <div class="skeleton-meta"></div>
+          <div class="skeleton-summary"></div>
         </div>
-        <p>© 2025 – Muhammad Taha Nasir</p> <!-- Copyright notice -->
-    </footer>
+      </div>
+      <div class="skeleton-post-card">
+        <div class="skeleton-img"></div>
+        <div class="skeleton-content">
+          <div class="skeleton-title"></div>
+          <div class="skeleton-meta"></div>
+          <div class="skeleton-summary"></div>
+        </div>
+      </div>
+    </main>
 
-    <!-- ---------- 12. Scroll to Top Button ---------- -->
-    <button id="scrollTop" aria-label="Scroll to top">
-        <i class="fas fa-chevron-up"></i> <!-- Scroll-to-top button with chevron icon -->
-    </button>
+    <!-- ---------- 10. Pagination ---------- -->
+    <div class="pagination" id="pagination"></div> <!-- Container for pagination controls -->
+  </div>
 
-    <!-- ---------- 13. JavaScript Include ---------- -->
-    <script src="../assets/js/theme-sync.js"></script>
-    <script src="../assets/js/each-tag.js"></script> <!-- Load JavaScript for tag-specific functionality -->
+  <!-- ---------- 11. Footer ---------- -->
+ <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+    <div class="social-icons" style="margin-bottom:25px;">
+      <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+        style="margin:0 5px; font-size:1.6em;">
+        <i class="fab fa-github" aria-hidden="true"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+        aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+        <i class="fab fa-linkedin" aria-hidden="true"></i>
+      </a>
+      <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+        style="margin:0 5px; font-size:1.6em;">
+        <i class="fas fa-envelope" aria-hidden="true"></i>
+      </a>
+    </div>
+    <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+  </footer>
+
+  <!-- ---------- 12. Scroll to Top Button ---------- -->
+  <button id="scrollTop" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i> <!-- Scroll-to-top button with chevron icon -->
+  </button>
+
+  <!-- ---------- 13. JavaScript Include ---------- -->
+  <script src="../assets/js/each-tag.js"></script> <!-- Load JavaScript for tag-specific functionality -->
+  <script src="../assets/js/header-scroll.js"></script>
+  <script src="../assets/js/nav-active.js"></script>
 </body>
 
 </html>

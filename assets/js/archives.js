@@ -1,7 +1,16 @@
 /* ---------- 1. Initialize Page ---------- */
 const loader = document.getElementById('loader');
+const header = document.querySelector('.header');
+
+// Header scroll behavior variables
+let lastScrollTop = 0;
+let isScrolling = false;
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Page-wide fade-in
+  const main = document.querySelector('main.post-container');
+  if (main) main.classList.add('page-fade-in');
+
   // Only show loader if it's not already active
   if (!loader.classList.contains('active')) {
     loader.classList.add('active');
@@ -14,9 +23,71 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 1200);
   }
   generateArchive();
+  
+  // Initialize header scroll behavior
+  initHeaderScroll();
+  
+  // Show header initially on mobile
+  if (window.innerWidth <= 768) {
+    setTimeout(() => {
+      header.classList.add('show');
+    }, 100);
+  }
 });
 
-/* ---------- 2. Smooth Internal Links ---------- */
+/* ---------- 2. Header Scroll Behavior ---------- */
+function initHeaderScroll() {
+  let lastScrollTop = 0;
+  let ticking = false;
+
+  function updateHeader() {
+    const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Only apply on mobile
+    if (window.innerWidth <= 768) {
+      if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
+        // Scrolling down - hide header
+        header.classList.remove('show');
+        header.classList.add('hide');
+      } else if (currentScrollTop < lastScrollTop) {
+        // Scrolling up - show header
+        header.classList.remove('hide');
+        header.classList.add('show');
+      }
+      
+      // Show header when at the top
+      if (currentScrollTop <= 100) {
+        header.classList.remove('hide');
+        header.classList.add('show');
+      }
+    } else {
+      // On desktop, always show header
+      header.classList.remove('hide', 'show');
+    }
+    
+    lastScrollTop = currentScrollTop;
+    ticking = false;
+  }
+
+  function requestTick() {
+    if (!ticking) {
+      requestAnimationFrame(updateHeader);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', requestTick, { passive: true });
+  
+  // Handle resize events
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+      // Reset header state on desktop
+      header.classList.remove('hide', 'show');
+    }
+  });
+}
+
+/* ---------- 3. Smooth Internal Links ---------- */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
@@ -26,7 +97,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* ---------- 3. Archive Generator ---------- */
+/* ---------- 4. Archive Generator ---------- */
 function generateArchive() {
   const archiveContent = document.getElementById('archive-content');
   const showPostsBtn = document.getElementById('show-posts');
@@ -56,14 +127,15 @@ function generateArchive() {
       });
       let postsHtml = '';
       Object.keys(postsByYear).sort((a, b) => b - a).forEach(year => {
-        const monthCount = Object.keys(postsByYear[year]).length;
-        postsHtml += `<div class="archive-year"><h3 id="posts-${year}">${year} <sup class="archive-count">${monthCount}</sup></h3>`;
+        // Count total posts in this year, not just months
+        const totalPostsInYear = Object.values(postsByYear[year]).reduce((total, monthPosts) => total + monthPosts.length, 0);
+        postsHtml += `<div class="archive-year"><h3 id="posts-${year}">${year} <sup class="archive-count">${totalPostsInYear}</sup></h3>`;
         Object.keys(postsByYear[year])
           .sort((a, b) => new Date(`${b} 1, 2000`) - new Date(`${a} 1, 2000`))
           .forEach(month => {
             const monthPosts = postsByYear[year][month];
             monthPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
-            postsHtml += `<details><summary>${month} <sup class="archive-count">${monthPosts.length}</sup></summary>`;
+            postsHtml += `<details><summary><span class="month-name">${month}</span><span class="month-count">${monthPosts.length}</span></summary>`;
             monthPosts.forEach(post => {
               const dateStr = new Date(post.date).toLocaleDateString('en-US', {
                 day: 'numeric', month: 'short', year: 'numeric'
@@ -91,14 +163,15 @@ function generateArchive() {
       });
       let projectsHtml = '';
       Object.keys(projectsByYear).sort((a, b) => b - a).forEach(year => {
-        const monthCount = Object.keys(projectsByYear[year]).length;
-        projectsHtml += `<div class="archive-year"><h3 id="projects-${year}">${year} <sup class="archive-count">${monthCount}</sup></h3>`;
+        // Count total projects in this year, not just months
+        const totalProjectsInYear = Object.values(projectsByYear[year]).reduce((total, monthProjects) => total + monthProjects.length, 0);
+        projectsHtml += `<div class="archive-year"><h3 id="projects-${year}">${year} <sup class="archive-count">${totalProjectsInYear}</sup></h3>`;
         Object.keys(projectsByYear[year])
           .sort((a, b) => new Date(`${b} 1, 2000`) - new Date(`${a} 1, 2000`))
           .forEach(month => {
             const monthProjects = projectsByYear[year][month];
             monthProjects.sort((a, b) => new Date(b.date) - new Date(a.date));
-            projectsHtml += `<details><summary>${month} <sup class="archive-count">${monthProjects.length}</sup></summary>`;
+            projectsHtml += `<details><summary><span class="month-name">${month}</span><span class="month-count">${monthProjects.length}</span></summary>`;
             monthProjects.forEach(project => {
               const dateStr = new Date(project.date).toLocaleDateString('en-US', {
                 day: 'numeric', month: 'short', year: 'numeric'
@@ -117,12 +190,16 @@ function generateArchive() {
       function showPosts() {
         archiveContent.innerHTML = postsHtml;
         showPostsBtn.classList.add('active');
+        showPostsBtn.setAttribute('aria-selected', 'true');
         showProjectsBtn.classList.remove('active');
+        showProjectsBtn.setAttribute('aria-selected', 'false');
       }
       function showProjects() {
         archiveContent.innerHTML = projectsHtml;
         showProjectsBtn.classList.add('active');
+        showProjectsBtn.setAttribute('aria-selected', 'true');
         showPostsBtn.classList.remove('active');
+        showPostsBtn.setAttribute('aria-selected', 'false');
       }
       // Default: show posts
       showPosts();

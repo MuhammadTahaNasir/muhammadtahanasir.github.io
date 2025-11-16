@@ -1,0 +1,53 @@
+/* Shared mobile bottom navigation */
+.bottom-nav { display: none; }
+
+@media (max-width: 768px) {
+  /* If a bottom-nav exists inside the sticky header, hide it and use the body-level injected one */
+  .header .bottom-nav { display: none !important; }
+
+  /* Reserve space so content doesn't sit under the nav */
+  body { padding-bottom: 100px; }
+
+  .bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    top: auto !important;
+    right: 0;
+    left: 0;
+    width: 100%;
+    transform: none !important;
+    pointer-events: auto;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--glass-border);
+    padding: 8px 0;
+  z-index: 2000;
+    box-shadow: var(--shadow-light);
+  }
+
+  .bottom-nav a {
+    color: var(--primary);
+    text-decoration: none;
+    text-align: center;
+    font-size: 12px;
+    padding: 6px 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    flex: 1;
+  }
+
+  .bottom-nav a.active { color: var(--accent); font-weight: bold; }
+  .bottom-nav a:hover { color: var(--accent-hover); }
+  .bottom-nav i { font-size: 26px; display: block; margin-bottom: 4px; }
+  .bottom-nav span { font-size: 10px; }
+}
+
+@media (max-width: 480px) {
+  .bottom-nav span { display: none; }
+  .bottom-nav i { font-size: 28px; }
+  .bottom-nav a { font-size: 0; padding: 10px 0; }
+}

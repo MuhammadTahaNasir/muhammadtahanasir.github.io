@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html dir="auto" lang="en">
+
+<head>
+    <link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png" />
+    <link href="/assets/images/favicon.ico" rel="shortcut icon" />
+    <link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta
+        content="A student’s survival log of the first semester at a reputed Pakistani institution, tackling coding challenges, sessional exams, and a language switch from Python to C while exploring ML and NLP."
+        name="description" />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="Programming, Python, C, Machine Learning, NLP, University" name="tags" />
+    <title>Surviving My First Semester: Coding Challenges in Uni</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+    </style>
+    <script>
+        // Apply theme immediately on page load
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+</head>
+
+<body class="dark" id="top" post-date="2023-10-22">
+    <!-- Loader Animation -->
+    <div class="loader" id="loader" aria-hidden="true">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+    
+    
+    <header class="header">
+        <nav class="nav">
+            <!-- Left: Logo -->
+            <div class="nav-left">
+                <a class="logo" href="../../index.html">&lt;terry/&gt;</a>
+            </div>
+            <!-- Center: Pills Navigation -->
+            <div class="nav-center">
+                <div class="pill-nav">
+                    <a href="../../resources.html">Resources</a>
+                    <a href="../../archives.html">Archives</a>
+                    <a href="../../resume.html">Resume</a>
+                    <a href="../../search.html">Search</a>
+                </div>
+            </div>
+            <!-- Right: Theme toggle -->
+            <div class="nav-right">
+                <button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
+                    <svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" x2="12" y1="1" y2="3"></line>
+                        <line x1="12" x2="12" y1="21" y2="23"></line>
+                        <line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+                        <line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+                        <line x1="1" x2="3" y1="12" y2="12"></line>
+                        <line x1="21" x2="23" y1="12" y2="12"></line>
+                        <line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+                        <line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+                    </svg>
+                    <svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
+        </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">Surviving My First Semester: Coding Challenges in Uni</h1>
+                <div class="post-meta">Oct 22, 2023 • 3 min • Muhammad Taha Nasir</div>
+            </header>
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#back-to-blogging">Back to Blogging</a></li>
+                        <li><a href="#first-semester-chaos">First Semester Chaos</a></li>
+                        <li><a href="#coding-struggles">Coding Struggles and the Amazon 100 Locker Problem</a></li>
+                        <li><a href="#language-switch">Switching from Python to C</a></li>
+                        <li><a href="#ml-and-nlp">Keeping Up with ML and NLP</a></li>
+                        <li><a href="#whats-next">What’s Next</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <!-- Social Sharing Floating Toolbar -->
+            <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+            <section id="back-to-blogging">
+                <h2>Back to Blogging</h2>
+                <p>Yo, it’s been a while! After a long gap since my last post, I’m back to blogging. The reason? I got
+                    admission into one of the well-reputed institutions in Pakistan, and I’m over the moon about it!
+                    This is a huge step for me, and I’m super excited to share my journey. Life’s been a whirlwind since
+                    then, so I figured it’s time for an update and sharing what’s going on, the challenges, and how I’m
+                    managing.</p>
+            </section>
+            <section id="first-semester-chaos">
+                <h2>First Semester Chaos</h2>
+                <p>My first semester is still ongoing, and it’s a total rollercoaster. Sessional exams just wrapped up,
+                    and the next set is looming next week, I’m prepping hard for those. The schedule here is insanely
+                    packed with lectures, labs, assignments, and workshops. It’s a lot to handle, but I’m trying to stay
+                    on top of it. The workload is tough, but it’s pushing me to grow, even if it means late-night study
+                    sessions!</p>
+            </section>
+            <section id="coding-struggles">
+                <h2>Coding Struggles and the Amazon 100 Locker Problem</h2>
+                <p>Coding in uni hit me hard. Debugging at 2 AM, confusing assignments, and new syntax everywhere it’s a
+                    whole new level. The assignments in Programming Fundamentals are way more complex than I expected,
+                    even beyond my wildest thoughts. One assignment that threw me off was the Amazon 100 Locker problem,
+                    loaded with extra complexities like optimization constraints. Seniors say most students fail this
+                    course, but so far, I’m holding my own. Here’s a snippet of the kind of code I’ve been wrestling
+                    with:</p>
+            </section>
+            <section id="language-switch">
+                <h2>Switching from Python to C</h2>
+                <p>The biggest shock? We switched from Python to C, and it’s a whole different beast. Python was smooth,
+                    but C’s pointers and manual memory management are messing with my head. It’s a struggle, but I’m
+                    adapting slowly. The language change has made things tougher, especially with the complex
+                    assignments piling up.</p>
+            </section>
+            <section id="ml-and-nlp">
+                <h2>Keeping Up with ML and NLP</h2>
+                <p>Despite the chaos, I’m still sneaking in time for Machine Learning (ML) and Python on the side.
+                    Remember the NLP stuff I talked about in my last post? I’m still working on that and planning a
+                    dedicated post about it soon. Plus, I’m starting my first ML project nothing fancy yet, but it’s
+                    exciting! Balancing uni and these passions is tough, but I’m managing so far.</p>
+            </section>
+            <section id="whats-next">
+                <h2>What’s Next</h2>
+                <p>Next week’s sessional exams are my focus right now, along with finishing those tricky assignments.
+                    After that, I’ll dive deeper into my ML project and that NLP post. Uni life is a grind, but I’m
+                    learning a ton. Stick around for more updates as I navigate this journey!</p>
+            </section>
+            <div class="tags-container" id="dynamic-tags">
+                <!-- Tags will be dynamically generated here -->
+            </div>
+            <hr class="divider" />
+            <section class="related-articles" id="related-series">
+                <h2 class="series-title">Article Series</h2>
+                <a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+                <div id="related-posts-container"></div>
+            </section>
+        </main>
+        <!-- Newsletter Subscription Section -->
+        <div class="newsletter-section">
+            <div class="newsletter-content">
+                <h3>Subscribe to our newsletter</h3>
+                <p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+                <p>Subscribe to the newsletter, and don't miss out.</p>
+                <div class="newsletter-form">
+                    <input class="newsletter-input" placeholder="Enter your email address" type="email" />
+                    <button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+        <div class="social-icons" style="margin-bottom:25px;">
+            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+        </div>
+        <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../../assets/js/each-post.js"></script>
+    <script src="../../assets/js/shared-bottom-nav.js"></script>
+    <script src="../../assets/js/nav-active.js"></script>
+</body>
+
+</html>

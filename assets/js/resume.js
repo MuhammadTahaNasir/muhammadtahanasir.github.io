@@ -1,91 +1,121 @@
-// ---------- 1. Theme Handling on Page Load ----------
-document.addEventListener("DOMContentLoaded", () => {
-    const savedTheme = localStorage.getItem("pref-theme"); // Retrieve saved theme
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches; // Check system dark mode preference
-    document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light')); // Set theme based on saved or system preference
-    updateThemeIcons(); // Update theme icons visibility
-});
+// Resume page JavaScript functionality
 
-// ---------- 2. Theme Toggle Button ----------
-document.getElementById("theme-toggle").addEventListener("click", () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; // Toggle theme
-    document.documentElement.setAttribute('data-theme', currentTheme); // Apply new theme
-    localStorage.setItem("pref-theme", currentTheme); // Save theme preference
-    updateThemeIcons(); // Update theme icons visibility
-});
+document.addEventListener('DOMContentLoaded', function() {
+  // Activate loader immediately on DOM ready
+  const loader = document.getElementById('loader');
+  if (loader) loader.classList.add('active');
 
-// ---------- 3. Update Theme Icons ----------
-function updateThemeIcons() {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark'; // Check if dark mode is active
-    document.getElementById("sun").style.display = isDark ? "none" : "block"; // Show/hide sun icon
-    document.getElementById("moon").style.display = isDark ? "block" : "none"; // Show/hide moon icon
-}
-
-// ---------- 4. System Theme Change Listener ----------
-window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-    if (!localStorage.getItem("pref-theme")) { // Check if no user theme preference is set
-        document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light'); // Update theme based on system preference
-        updateThemeIcons(); // Update theme icons visibility
+  // Page-wide fade-in
+  const main = document.querySelector('main.post-container');
+  if (main) main.classList.add('page-fade-in');
+  // Toggle functionality for resume sections
+  const toggleButtons = document.querySelectorAll('.toggle-btn');
+  const contentSections = document.querySelectorAll('.content-section');
+  
+  // Map timeline cards to their corresponding milestones for precise hover highlight
+  const timeline = document.querySelector('.timeline');
+  if (timeline) {
+    const cards = timeline.querySelectorAll('.timeline-card');
+    const milestones = timeline.querySelectorAll('.milestone');
+    // Ensure equal length pairing in order
+    const pairCount = Math.min(cards.length, milestones.length);
+    for (let i = 0; i < pairCount; i++) {
+      const card = cards[i];
+      const dot = milestones[i];
+      card.addEventListener('mouseenter', () => {
+        milestones.forEach(m => m.classList.remove('highlight'));
+        dot.classList.add('highlight');
+      });
+      card.addEventListener('mouseleave', () => {
+        dot.classList.remove('highlight');
+      });
     }
-});
+  }
 
-// ---------- 5. Scroll to Top Button Visibility ----------
-window.addEventListener("scroll", () => {
-    const scrollTopButton = document.getElementById("scrollTop"); // Get scroll-to-top button
-    if (scrollTopButton) {
-        scrollTopButton.style.display = window.scrollY > 200 ? "flex" : "none"; // Show button after 200px scroll
-    }
-});
+  toggleButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const targetId = this.id.replace('show-', '');
+      const targetSection = document.getElementById(targetId + '-section');
 
-// ---------- 6. Scroll to Top Button Click ----------
-document.getElementById("scrollTop").addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" }); // Smooth scroll to top
-});
+      // Remove active class from all buttons and sections
+      toggleButtons.forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
 
-// ---------- 7. Loader Animation on Page Load ----------
-window.addEventListener("load", () => {
-    const loader = document.getElementById("loader"); // Get loader element
-    const mainContent = document.querySelector("main.resume-container");
-    if (mainContent) mainContent.classList.add("blurred");
-    if (loader) {
-        loader.classList.add("active"); // Activate loader
-        setTimeout(() => {
-            loader.classList.add("no-blur"); // Remove blur effect after 900ms
-        }, 900);
-        setTimeout(() => {
-            loader.classList.add("hidden"); // Hide loader after 1200ms
-            loader.classList.remove("active"); // Deactivate loader
-            // Hide skeleton loader
-            const skeleton = document.getElementById("resume-skeleton");
-            if (skeleton) skeleton.style.display = "none";
-            // Remove skeleton-active from body
-            document.body.classList.remove("skeleton-active");
-            // Show footer and scroll-to-top button
-            const footer = document.querySelector("footer.footer");
-            if (footer) footer.style.display = "block";
-            const scrollBtn = document.getElementById("scrollTop");
-            if (scrollBtn) scrollBtn.style.display = "flex";
-            // Remove blur from main content
-            if (mainContent) mainContent.classList.remove("blurred");
-        }, 1200);
-    }
-});
+      contentSections.forEach(section => {
+        section.classList.remove('active');
+      });
 
-// ---------- 8. Timeline Card Animation ----------
-const cards = document.querySelectorAll('.timeline-card'); // Select all timeline cards
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('reveal'); // Add reveal class when in view
-        } else {
-            entry.target.classList.remove('reveal'); // Remove reveal class when out of view
-        }
+      // Add active class to clicked button and target section
+      this.classList.add('active');
+      this.setAttribute('aria-selected', 'true');
+      targetSection.classList.add('active');
     });
-}, {
-    threshold: 0.15, // Trigger when 15% of card is visible
-});
+  });
 
-cards.forEach(card => {
-    observer.observe(card); // Observe each timeline card
+  // Theme toggle functionality
+  const themeToggle = document.getElementById('theme-toggle');
+  const sunIcon = document.getElementById('sun');
+  const moonIcon = document.getElementById('moon');
+
+  function updateThemeIcon() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    if (currentTheme === 'dark') {
+      sunIcon.style.display = 'none';
+      moonIcon.style.display = 'block';
+    } else {
+      sunIcon.style.display = 'block';
+      moonIcon.style.display = 'none';
+    }
+  }
+
+  themeToggle.addEventListener('click', function() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('pref-theme', newTheme);
+    updateThemeIcon();
+  });
+
+  // Initialize theme icon
+  updateThemeIcon();
+
+  // Scroll to top functionality
+  const scrollTopBtn = document.getElementById('scrollTop');
+
+  window.addEventListener('scroll', function() {
+    if (!scrollTopBtn) return;
+    if (window.pageYOffset > 300) {
+      scrollTopBtn.classList.add('show');
+    } else {
+      scrollTopBtn.classList.remove('show');
+    }
+  });
+
+  scrollTopBtn.addEventListener('click', function() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  // Loader hide after full load
+  window.addEventListener('load', function() {
+    setTimeout(() => {
+      if (loader) loader.classList.add('hidden');
+    }, 500);
+  });
+
+  // Header scroll effect
+  const header = document.querySelector('.header');
+  
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 10) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
 });

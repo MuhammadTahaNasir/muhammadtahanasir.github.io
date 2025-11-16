@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html dir="auto" lang="en">
+
+<head>
+    <link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png" />
+    <link href="/assets/images/favicon.ico" rel="shortcut icon" />
+    <link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta
+        content="A student’s take on ChatGPT’s rise in 2023, exploring NLP with Python, preparing for university entrance tests, and thinking about AI’s future."
+        name="description" />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="ChatGPT, NLP, Python, Programming, Student Life" name="tags" />
+    <meta content="/assets/images/posts/chatgpt.jpeg" name="thumbnail" />
+    <title>The Rise of ChatGPT: A Student’s Take</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+    </style>
+    <script>
+        // Apply theme immediately on page load
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+</head>
+
+<body class="dark" id="top" post-date="2023-06-20">
+    <!-- Loader Animation -->
+    <div class="loader" id="loader" aria-hidden="true">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+    
+    
+    <header class="header">
+        <nav class="nav">
+            <!-- Left: Logo -->
+            <div class="nav-left">
+                <a class="logo" href="../../index.html">&lt;terry/&gt;</a>
+            </div>
+            <!-- Center: Pills Navigation -->
+            <div class="nav-center">
+                <div class="pill-nav">
+                    <a href="../../resources.html">Resources</a>
+                    <a href="../../archives.html">Archives</a>
+                    <a href="../../resume.html">Resume</a>
+                    <a href="../../search.html">Search</a>
+                </div>
+            </div>
+            <!-- Right: Theme toggle -->
+            <div class="nav-right">
+                <button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
+                    <svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" x2="12" y1="1" y2="3"></line>
+                        <line x1="12" x2="12" y1="21" y2="23"></line>
+                        <line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+                        <line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+                        <line x1="1" x2="3" y1="12" y2="12"></line>
+                        <line x1="21" x2="23" y1="12" y2="12"></line>
+                        <line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+                        <line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+                    </svg>
+                    <svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
+        </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">The Rise of ChatGPT: A Student’s Take</h1>
+                <div class="post-meta">June 20, 2023 • 3 min • Muhammad Taha Nasir</div>
+            </header>
+            <img alt="ChatGPT Journey 2023" src="../../assets/images/posts/chatgpt.jpeg"
+                style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;" />
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#why-the-gap">Why the Blogging Gap?</a></li>
+                        <li><a href="#chatgpt-impact">How ChatGPT Changed My Game</a></li>
+                        <li><a href="#nlp-experiments">Messing with NLP in Python</a></li>
+                        <li><a href="#ai-future">Thinking About AI’s Future</a></li>
+                        <li><a href="#whats-next">What’s Coming Up</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <!-- Social Sharing Floating Toolbar -->
+            <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+            <section id="why-the-gap">
+                <h2>Why the Blogging Gap?</h2>
+                <p>Yo, it’s June 2023, and I’m finally back with a post after months of silence. Since February, I’ve
+                    been buried in board exams and prepping for my university entrance tests, which are happening in
+                    July. Between cramming math and logic problems, I barely had time to breathe, let alone blog. That’s
+                    why I’ve been inconsistent, but I’m here now, ready to talk about something that’s kept me going:
+                    ChatGPT.</p>
+            </section>
+            <section id="chatgpt-impact">
+                <h2>How ChatGPT Changed My Game</h2>
+                <p>When ChatGPT hit in November 2022, it was a total mind-blow. I’d throw my messy Python code at it,
+                    and it’d fix it like it was no big deal, explaining stuff clearly without making me feel dumb. It
+                    even helped me come up with ideas for a college project on recommendation systems. AI went from this
+                    far-off concept to something I could actually work with. It’s built on GPT-3.5, from what I’ve read,
+                    which makes sense given how smart it is <a href="https://openai.com/blog/chatgpt">OpenAI Blog</a>.
+                </p>
+            </section>
+            <section id="nlp-experiments">
+                <h2>Messing with NLP in Python</h2>
+                <p>ChatGPT got me curious about how it understands my questions, so I started playing with Natural
+                    Language Processing (NLP). I used Python with NLTK and Scikit-learn to build a basic text classifier
+                    that sorts movie reviews into positive or negative. It’s not fancy, but seeing it work felt like I
+                    was cracking some secret code. Python’s libraries make this stuff doable, even for a guy like me
+                    who’s still dodging calculus.</p>
+                <p>Here’s a bit of the code I messed with:</p>
+                <div class="code-block">
+                    <pre class="language-python" data-lang="Python"><code>
+import nltk
+from nltk.corpus import movie_reviews
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
+
+# Basic NLP text classifier
+nltk.download('movie_reviews')
+documents = [(list(movie_reviews.words(fileid)), category)
+             for category in movie_reviews.categories()
+             for fileid in movie_reviews.fileids(category)]
+texts = [' '.join(doc) for doc, _ in documents]
+labels = [cat for _, cat in documents]
+vectorizer = TfidfVectorizer(max_features=1000)
+X = vectorizer.fit_transform(texts)
+clf = MultinomialNB().fit(X, labels)
+print("Classifier trained!")
+</code></pre>
+                </div>
+            </section>
+            <section id="ai-future">
+                <h2>Thinking About AI’s Future</h2>
+                <p>ChatGPT’s got me wondering where AI’s headed. It could do amazing things, like help doctors spot
+                    diseases faster or make education more personal. But there’s a catch what if AI starts making
+                    choices we don’t fully get? It’s a bit unnerving, but it makes me want to learn more about how to
+                    keep AI on the right track. I’m reading up on transformers, the tech behind ChatGPT, and it’s a lot,
+                    but it’s cool to see how it all fits together <a
+                        href="https://huggingface.co/docs/transformers">Transformers Explained</a>.</p>
+            </section>
+            <section id="whats-next">
+                <h2>What’s Coming Up</h2>
+                <p>Right now, I’m grinding for those July entrance tests, but I’m still sneaking in some coding. I want
+                    to build a small chatbot, maybe using Hugging Face’s transformers, just to see if I can pull it off.
+                    Once I’m in uni, I’ll be dealing with lectures and side projects, so I’ll write about how that goes.
+                    I’m also thinking about how AI needs to be used carefully to avoid problems down the line. More
+                    posts coming, so stick around!</p>
+            </section>
+            <div class="tags-container" id="dynamic-tags">
+                <!-- Tags will be dynamically generated here -->
+            </div>
+            <hr class="divider" />
+            <section class="related-articles" id="related-series">
+                <h2 class="series-title">Article Series</h2>
+                <a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+                <div id="related-posts-container"></div>
+            </section>
+        </main>
+        <!-- Newsletter Subscription Section -->
+        <div class="newsletter-section">
+            <div class="newsletter-content">
+                <h3>Subscribe to our newsletter</h3>
+                <p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+                <p>Subscribe to the newsletter, and don't miss out.</p>
+                <div class="newsletter-form">
+                    <input class="newsletter-input" placeholder="Enter your email address" type="email" />
+                    <button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+        <div class="social-icons" style="margin-bottom:25px;">
+            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+        </div>
+        <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../../assets/js/each-post.js"></script>
+    <script src="../../assets/js/shared-bottom-nav.js"></script>
+    <script src="../../assets/js/nav-active.js"></script>
+    <script>
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.innerText = "Copied!";
+                    setTimeout(() => button.innerText = "Copy", 1500);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

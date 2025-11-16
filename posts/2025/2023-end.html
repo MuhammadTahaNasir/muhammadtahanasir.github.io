@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html dir="auto" lang="en">
+
+<head>
+    <link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png" />
+    <link href="/assets/images/favicon.ico" rel="shortcut icon" />
+    <link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta
+        content="A tech blogger wraps up 2023 with ML flops, linear regression wins, and exam madness as Semester 1 ends."
+        name="description" />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="Machine Learning, Data Science, Student Life" name="tags" />
+    <meta content="/assets/images/posts/ML-2023.png" name="thumbnail" />
+    <title>Wrapping Up 2023: ML Lessons and Exam Chaos</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+    </style>
+    <script>
+        // Apply theme immediately on page load
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+</head>
+
+<body class="dark" id="top" post-date="2023-12-20">
+    <!-- Loader Animation -->
+    <div class="loader" id="loader" aria-hidden="true">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+    
+    
+    <header class="header">
+        <nav class="nav">
+            <!-- Left: Logo -->
+            <div class="nav-left">
+                <a class="logo" href="../../index.html">&lt;terry/&gt;</a>
+            </div>
+            <!-- Center: Pills Navigation -->
+            <div class="nav-center">
+                <div class="pill-nav">
+                    <a href="../../resources.html">Resources</a>
+                    <a href="../../archives.html">Archives</a>
+                    <a href="../../resume.html">Resume</a>
+                    <a href="../../search.html">Search</a>
+                </div>
+            </div>
+            <!-- Right: Theme toggle -->
+            <div class="nav-right">
+                <button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
+                    <svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" x2="12" y1="1" y2="3"></line>
+                        <line x1="12" x2="12" y1="21" y2="23"></line>
+                        <line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+                        <line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+                        <line x1="1" x2="3" y1="12" y2="12"></line>
+                        <line x1="21" x2="23" y1="12" y2="12"></line>
+                        <line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+                        <line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+                    </svg>
+                    <svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
+        </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">Wrapping Up 2023: ML Lessons and Exam Chaos</h1>
+                <div class="post-meta">Dec 20 2023 • 3 min • Muhammad Taha Nasir</div>
+            </header>
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#exam-craze">Exam Craze and Semester Farewell</a></li>
+                        <li><a href="#ml-mishap">The Epic ML Mishap That Schooled Me</a></li>
+                        <li><a href="#regression-victory">Regression Victory My First Win</a></li>
+                        <li><a href="#future-adventures">Future Adventures in 2024</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <!-- Social Sharing Floating Toolbar -->
+            <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+            <section id="exam-craze">
+                <h2>Exam Craze and Semester Farewell</h2>
+                <p>سلام, ٹیک فیم! Finals week is upon us, and I am prepping like crazy, fueled by coffee and sheer
+                    panic. Books and notes are scattered everywhere, marking the end of Semester 1. As I gear up for
+                    these final exams, I figured it is time to wrap up 2023 with my last post of the year. Before I dive
+                    into the books, let me share some ML tales full of flops and wins that taught me a ton!</p>
+            </section>
+            <img alt="Messy Desk with Code and Coffee" src="/assets/images/posts/ML-2023.png"
+                style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;" />
+            <section id="ml-mishap">
+                <h2>The Epic ML Mishap That Schooled Me</h2>
+                <p>Imagine me, a uni newbie, thinking I would nail my first machine learning project. I jumped into
+                    Scikit learn, threw together a basic model, and it crashed harder than my sleep schedule during exam
+                    season. The culprit? Messy data. I skipped cleaning it, tossed it in, and hoped for the best nope!
+                </p>
+                <p>That is when Pandas stepped in to save the day. I spent hours wrestling with missing values and odd
+                    outliers, learning the hard way that data prep is everything. Now I know why cleaning data is the
+                    unsung hero of ML. Newbies, take my advice do not skip this unless you love debugging tears!</p>
+            </section>
+            <section id="regression-victory">
+                <h2>Regression Victory My First Win</h2>
+                <p>After that flop, I needed a boost. So I built a simple linear regression model to predict marks based
+                    on study hours using Scikit learn. With some clean data this time, it actually worked! Seeing the
+                    predictions match up felt like magic, like I turned math into a superpower.</p>
+                <p>It was not flawless my R squared could use some work but it showed me how to adjust features and read
+                    results without overthinking. A small win, but it pumped me up. If you are starting ML, try this it
+                    is the perfect beginner step.</p>
+            </section>
+            <section id="future-adventures">
+                <h2>Future Adventures in 2024</h2>
+                <p>Exams are wrapping up, and 2023 is almost done, leaving me excited for what is next. I am dreaming of
+                    more ML experiments, neater code, and projects that do not fall apart. This semester taught me to
+                    push through bad data and tough slopes.</p>
+                <p>This might be my last post of the year, so thanks for sticking with me, fam! Share your exam tips or
+                    ML tricks in the comments I could use them. Here is a shair to sign off:</p>
+                <div class="quote-highlight urdu-shair">
+                    <p>پڑھائی کا زور, کوڈ کا شور</p>
+                    <p>سمسٹر ختم, اب نیا دور</p>
+                    <p class="urdu-small">— محمد طہ ناصر</p>
+                </div>
+                <p>Translation for my non Urdu friends: Study grind, code roar, semester ends, now a new era.</p>
+                <p>Happy holidays, see you in 2024!</p>
+            </section>
+            <div class="tags-container" id="dynamic-tags">
+                <!-- Tags will be dynamically generated here -->
+            </div>
+            <hr class="divider" />
+            <section class="related-articles" id="related-series">
+                <h2 class="series-title">Article Series</h2>
+                <a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+                <div id="related-posts-container"></div>
+            </section>
+        </main>
+        <!-- Newsletter Subscription Section -->
+        <div class="newsletter-section">
+            <div class="newsletter-content">
+                <h3>Subscribe to our newsletter</h3>
+                <p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+                <p>Subscribe to the newsletter, and don't miss out.</p>
+                <div class="newsletter-form">
+                    <input class="newsletter-input" placeholder="Enter your email address" type="email" />
+                    <button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+        <div class="social-icons" style="margin-bottom:25px;">
+            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+        </div>
+        <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../../assets/js/each-post.js"></script>
+    <script src="../../assets/js/shared-bottom-nav.js"></script>
+    <script src="../../assets/js/nav-active.js"></script>
+</body>
+
+</html>

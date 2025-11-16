@@ -1,24 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+
+<html dir="auto" lang="en">
 
 <head>
-    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
-    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="Terry" />
-    <link rel="manifest" href="/assets/images/site.webmanifest" />
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="description"
-        content="Explore the critical role of system design in the era of AI, understanding its importance, challenges, and the tools that facilitate this intersection.">
-    <meta name="author" content="Muhammad Taha Nasir">
-    <meta name="tags" content="System Design, AI, Machine Learning, Scalability, Reliability">
-    <meta name="thumbnail" content="/assets/images/posts/system-design-ai.png">
+    <link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png" />
+    <link href="/assets/images/favicon.ico" rel="shortcut icon" />
+    <link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta
+        content="Explore the critical role of system design in the era of AI, understanding its importance, challenges, and the tools that facilitate this intersection."
+        name="description" />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="System Design, AI, Machine Learning, Scalability, Reliability" name="tags" />
+    <meta content="/assets/images/posts/system-design-ai.png" name="thumbnail" />
     <title>The Importance and Relevance of System Design with AI</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="../../assets/css/each-post.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+    </style>
     <script>
         // Apply theme immediately on page load
         (function () {
@@ -29,15 +36,25 @@
     </script>
 </head>
 
-<body class="dark" id="top" post-date="2025-06-09T00:00:00Z">
+<body class="dark" id="top" post-date="2025-06-09">
+    <!-- Loader Animation -->
+    <div class="loader" id="loader" aria-hidden="true">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+    
+    
     <header class="header">
         <nav class="nav">
             <!-- Left: Logo -->
             <div class="nav-left">
-                <a href="/index.html" class="logo">&lt;terry/&gt;</a>
+                <a class="logo" href="../../index.html">&lt;terry/&gt;</a>
             </div>
-
-
             <!-- Center: Pills Navigation -->
             <div class="nav-center">
                 <div class="pill-nav">
@@ -47,25 +64,24 @@
                     <a href="../../search.html">Search</a>
                 </div>
             </div>
-
             <!-- Right: Theme toggle -->
             <div class="nav-right">
-                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
-                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5" />
-                        <line x1="12" y1="1" x2="12" y2="3" />
-                        <line x1="12" y1="21" x2="12" y2="23" />
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                        <line x1="1" y1="12" x2="3" y2="12" />
-                        <line x1="21" y1="12" x2="23" y2="12" />
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                <button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
+                    <svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" x2="12" y1="1" y2="3"></line>
+                        <line x1="12" x2="12" y1="21" y2="23"></line>
+                        <line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+                        <line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+                        <line x1="1" x2="3" y1="12" y2="12"></line>
+                        <line x1="21" x2="23" y1="12" y2="12"></line>
+                        <line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+                        <line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
                     </svg>
-                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    <svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
                     </svg>
                 </button>
             </div>
@@ -98,6 +114,15 @@
                     </ul>
                 </details>
             </aside>
+            <!-- Social Sharing Floating Toolbar -->
+            <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
             <section id="introduction">
                 <h2>Introduction</h2>
                 <p>Hey, tech fam! System design has always been the backbone of building solid software, but with
@@ -108,8 +133,8 @@
                     system design and AI work together. This article breaks down why system design is crucial for AI,
                     the challenges involved, and the tools that make it happen. Let’s dive in!</p>
             </section>
-            <img src="/assets/images/posts/system-design-ai.png" alt="System Design and AI Integration"
-                style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;">
+            <img alt="System Design and AI Integration" src="/assets/images/posts/system-design-ai.png"
+                style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;" />
             <section id="what-is-system-design">
                 <h2>What is System Design?</h2>
                 <p>System design is like planning a city for your software means laying out the roads (data flow),
@@ -242,14 +267,15 @@ async def predict(data: list):
                     <li><strong>Edge AI</strong>: Processing data on devices like phones, reducing latency.</li>
                     <li><strong>Explainable AI</strong>: Designs will focus on making AI decisions clear to users.</li>
                     <li
-                        Asc="https://www.geeksforgeeks.org/system-design/what-is-scalability-and-how-to-achieve-it-learn-system-design">
-                        GeeksforGeeks: Scalability in System Design</a>
+                        asc="https://www.geeksforgeeks.org/system-design/what-is-scalability-and-how-to-achieve-it-learn-system-design">
+                        GeeksforGeeks: Scalability in System Design
                     </li>
                     <li><a href="https://medium.com/fullstackai/building-ml-driven-applications-4e83cb95c0c">Medium:
                             Designing AI Systems</a></li>
                     <li><a href="https://microsoft.design/articles/design-systems-for-the-ai-era">Microsoft Design:
                             AI-First Design Systems</a></li>
-                    </ul>
+
+                </ol>
             </section>
             <section id="my-journey">
                 <h2>My Journey with System Design</h2>
@@ -267,19 +293,19 @@ async def predict(data: list):
                 <ul style="list-style: none; padding: 0;">
                     <li
                         style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
-                        <strong>GeeksforGeeks</strong>: Awesome guide on system design basics.<br>
+                        <strong>GeeksforGeeks</strong>: Awesome guide on system design basics.<br />
                         <a href="https://www.geeksforgeeks.org/system-design/what-is-system-design-learn-system-design">System
                             Design Basics</a>
                     </li>
                     <li
                         style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
-                        <strong>Medium</strong>: Deep dive into building AI systems.<br>
+                        <strong>Medium</strong>: Deep dive into building AI systems.<br />
                         <a href="https://medium.com/fullstackai/building-ml-driven-applications-4e83cb95c0c">Building AI
                             Systems</a>
                     </li>
                     <li
                         style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
-                        <strong>Microsoft Design</strong>: Insights on AI-first design systems.<br>
+                        <strong>Microsoft Design</strong>: Insights on AI-first design systems.<br />
                         <a href="https://microsoft.design/articles/design-systems-for-the-ai-era">AI-First Design
                             Systems</a>
                     </li>
@@ -288,29 +314,49 @@ async def predict(data: list):
             <div class="tags-container" id="dynamic-tags">
                 <!-- Tags will be dynamically generated here -->
             </div>
-            <hr class="divider">
-            
-            <section id="related-series" class="related-articles">
+            <hr class="divider" />
+            <section class="related-articles" id="related-series">
                 <h2 class="series-title">Article Series</h2>
-                <a href="../../posts.html" class="series-link">Zero to One: Dev Diaries</a>
+                <a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
                 <div id="related-posts-container"></div>
             </section>
         </main>
-        <footer class="footer">
-            <div class="social-icons">
-                <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i
-                        class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i
-                        class="fab fa-linkedin"></i></a>
-                <a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+        <!-- Newsletter Subscription Section -->
+        <div class="newsletter-section">
+            <div class="newsletter-content">
+                <h3>Subscribe to our newsletter</h3>
+                <p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+                <p>Subscribe to the newsletter, and don't miss out.</p>
+                <div class="newsletter-form">
+                    <input class="newsletter-input" placeholder="Enter your email address" type="email" />
+                    <button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+                </div>
             </div>
-            <p>© 2025 – Muhammad Taha Nasir</p>
-        </footer>
+        </div>
     </div>
-    <button id="scrollTop" aria-label="Scroll to top">
+    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+        <div class="social-icons" style="margin-bottom:25px;">
+            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+        </div>
+        <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
         <i class="fas fa-chevron-up"></i>
     </button>
     <script src="../../assets/js/each-post.js"></script>
+    <script src="../../assets/js/shared-bottom-nav.js"></script>
+    <script src="../../assets/js/nav-active.js"></script>
     <script>
         document.querySelectorAll('.copy-btn').forEach(button => {
             button.addEventListener('click', () => {

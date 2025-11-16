@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html dir="auto" lang="en">
+
+<head>
+    <link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png" />
+    <link href="/assets/images/favicon.ico" rel="shortcut icon" />
+    <link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta
+        content="My 2022 tech journey as a student and tech blog writer, learning Python, Java, grinding LeetCode, and using ChatGPT to tackle coding and college assignments."
+        name="description" />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="Tech Journey, Python, Java, LeetCode, ChatGPT, Programming" name="tags" />
+    <meta content="/assets/images/posts/wrapup-2022.png" name="thumbnail" />
+    <title>2022 Recap: The Year I Chased Logic and Found Myself</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+    </style>
+    <script>
+        // Apply theme immediately on page load
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+</head>
+
+<body class="dark" id="top" post-date="2022-12-31">
+    <!-- Loader Animation -->
+    <div class="loader" id="loader" aria-hidden="true">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+    
+    
+    <header class="header">
+        <nav class="nav">
+            <!-- Left: Logo -->
+            <div class="nav-left">
+                <a class="logo" href="../../index.html">&lt;terry/&gt;</a>
+            </div>
+            <!-- Center: Pills Navigation -->
+            <div class="nav-center">
+                <div class="pill-nav">
+                    <a href="../../resources.html">Resources</a>
+                    <a href="../../archives.html">Archives</a>
+                    <a href="../../resume.html">Resume</a>
+                    <a href="../../search.html">Search</a>
+                </div>
+            </div>
+            <!-- Right: Theme toggle -->
+            <div class="nav-right">
+                <button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
+                    <svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" x2="12" y1="1" y2="3"></line>
+                        <line x1="12" x2="12" y1="21" y2="23"></line>
+                        <line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+                        <line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+                        <line x1="1" x2="3" y1="12" y2="12"></line>
+                        <line x1="21" x2="23" y1="12" y2="12"></line>
+                        <line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+                        <line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+                    </svg>
+                    <svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
+        </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">2022 Recap: The Year I Chased Logic and Found Myself</h1>
+                <div class="post-meta">December 31, 2022 • 4 min • Muhammad Taha Nasir</div>
+            </header>
+            <img alt="Tech Journey 2022" src="../../assets/images/posts/wrapup-2022.png"
+                style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;" />
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#year-start">How It Started</a></li>
+                        <li><a href="#python-java">Python and Java Days</a></li>
+                        <li><a href="#leetcode">LeetCode Chaos</a></li>
+                        <li><a href="#chatgpt">ChatGPT Saves the Day</a></li>
+                        <li><a href="#lessons">What I Learned</a></li>
+                        <li><a href="#resources">Resources That Helped</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <!-- Social Sharing Floating Toolbar -->
+            <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+            <section id="year-start">
+                <h2>How It Started</h2>
+                <p>2022 was a wild year. I started learning the basics of computer science, right after winning a
+                    competition in my college’s CS department. The crazy part? I was still a chemistry pre-engineering
+                    student then. I chose CS over AI because it felt like the better starting point (check my <a
+                        href="cs-vs-ai.html">first post</a>). I'm just a guy trying out code, barely knowing what I was
+                    doing. By December, running this tech blog, and working with Python, Java, and some cool new stuff.
+                    That’s my 2022 messy, tough, but full of moments that shaped me.</p>
+                <p>I started with <a href="https://www.youtube.com/c/CodeWithHarry">CodeWithHarry</a> and <a
+                        href="https://www.youtube.com/c/ApnaCollege">Apna College</a>.
+                </p>
+            </section>
+            <section id="python-java">
+                <h2>Python and Java Days</h2>
+                <p>In May, I was grinding through Python and Java courses, and Python became my favorite, thanks to Zia
+                    Sir’s awesome classes (I wrote about it in my <a href="python-over-java.html">Python post</a>).
+                    Python was easy, less typing, more doing. I built a small script to track my study hours for a
+                    college assignment, and it felt like magic. Java was okay, but way too much work for simple stuff.
+                    By mid-year, I’d finished both courses, which was a big deal for someone who started from scratch.
+                </p>
+                <p>Below is my first assignment code given by my Sir :&gt; Still Remember this!!</p>
+                <div class="code-block">
+                    <pre>
+import pandas as pd
+
+# Simple script to track study hours (used for a python assignment)
+data = {'Date': ['2022-05-01', '2022-05-02', '2022-05-03'],
+        'Hours': [2, 3, 1.5]}
+df = pd.DataFrame(data)
+print(df)
+print(f"Total hours studied: {df['Hours'].sum()}")
+                    </pre>
+                </div>
+            </section>
+            <section id="leetcode">
+                <h2>LeetCode Chaos</h2>
+                <p>By September, I thought I’d level up with Data Structures and Algorithms on LeetCode. Wrong move. I
+                    shared the struggle in my <a href="learning-dsa-leetcode.html">DSA post</a>. Arrays and loops drove
+                    me nuts, and college exams made it worse. I’d spend hours on one problem, get “wrong answer,” and
+                    want to give up. Burnout hit, but Zia Sir’s tips and small wins kept me going. I’m not a DSA pro
+                    yet, but I’m still in the fight.</p>
+            </section>
+            <section id="chatgpt">
+                <h2>ChatGPT Saves the Day</h2>
+                <p>Then, November 2022 brought <a href="https://openai.com/chatgpt/">ChatGPT</a>. Man, it blew my mind
+                    and I could say that this thing was a lifesaver. I’d ask it why my Python code crashed or how to
+                    solve a LeetCode problem, and it explained it like a friend. It even helped with college assignments
+                    figuring out logic for a Java project or breaking down loops for me. It made coding less scary and
+                    got me thinking about what AI can do. As a blog writer, I know I’ll be writing about this a lot.</p>
+            </section>
+            <section id="lessons">
+                <h2>What I Learned</h2>
+                <p>2022 was rough but worth it. I learned Python and Java, survived LeetCode, and found ChatGPT. College
+                    stress taught me I can’t do everything at once. I’m ending the year with two languages, a blog I
+                    love, and big questions about AI’s future. The biggest takeaway? Keep going, even when it feels
+                    impossible.</p>
+                <p>For 2023, I’m taking it slow. No more late-night panic coding. I’ll keep blogging, coding, and
+                    exploring AI, one step at a time.</p>
+                <blockquote class="quote-highlight">
+                    <p><strong>Every error is a lesson.</strong> Keep coding, keep learning, keep moving forward.</p>
+                    <p><strong>– Muhammad Taha Nasir</strong></p>
+                </blockquote>
+            </section>
+            <section id="resources">
+                <h2>Resources That Helped</h2>
+                <p>Here’s what got me through 2022. If you’re learning to code or juggling college, give these a shot:
+                </p>
+                <ul style="list-style: none; padding: 0;">
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>freeCodeCamp</strong>: Tons of free Python and Java tutorials for beginners.<br />
+                        <a href="https://github.com/freeCodeCamp/freeCodeCamp">Check it out</a>
+                    </li>
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>Tech With Tim</strong>: YouTube channel with easy Python videos.<br />
+                        <a href="https://www.youtube.com/c/TechWithTim">Watch here</a>
+                    </li>
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>LeetCode</strong>: Hard but helpful for practicing coding problems.<br />
+                        <a href="https://leetcode.com">Try it</a>
+                    </li>
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>ChatGPT</strong>: AI tool for debugging code and assignments (launched Nov 2022).<br />
+                        <a href="https://openai.com/chatgpt">Explore it</a>
+                    </li>
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>Python Docs</strong>: Official guide for Python questions.<br />
+                        <a href="https://docs.python.org/3">Read it</a>
+                    </li>
+                </ul>
+                <p>More stuff in my <a href="../../resources.html">Resources section</a>.</p>
+            </section>
+            <div class="tags-container" id="dynamic-tags">
+                <!-- Tags will be dynamically generated here -->
+            </div>
+            <hr class="divider" />
+            <section class="related-articles" id="related-series">
+                <h2 class="series-title">Article Series</h2>
+                <a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+                <div id="related-posts-container"></div>
+            </section>
+        </main>
+        <!-- Newsletter Subscription Section -->
+        <div class="newsletter-section">
+            <div class="newsletter-content">
+                <h3>Subscribe to our newsletter</h3>
+                <p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+                <p>Subscribe to the newsletter, and don't miss out.</p>
+                <div class="newsletter-form">
+                    <input class="newsletter-input" placeholder="Enter your email address" type="email" />
+                    <button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+        <div class="social-icons" style="margin-bottom:25px;">
+            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+        </div>
+        <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../../assets/js/each-post.js"></script>
+    <script src="../../assets/js/shared-bottom-nav.js"></script>
+    <script src="../../assets/js/nav-active.js"></script>
+</body>
+
+</html>

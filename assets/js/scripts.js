@@ -14,110 +14,89 @@ function updateVisiblePosts(posts, startIndex) {
   
   if (posts.length === 0) {
     postsContainer.innerHTML = `
-      <p style="text-align: center; color: var(--secondary);">No posts found 😕</p>
+      <div style="width:100%;display:flex;align-items:center;justify-content:center;">
+        <p style="text-align:center;color: var(--secondary);">No posts found 😕</p>
+      </div>
     `;
+    // remove any existing view-more below the list
+    const existingViewMore = document.getElementById('view-more-posts');
+    if (existingViewMore && existingViewMore.parentNode) {
+      existingViewMore.parentNode.removeChild(existingViewMore);
+    }
   } else {
     const visiblePosts = posts.slice(startIndex, startIndex + postsPerPage);
 
     visiblePosts.forEach(post => {
       const thumbnailPath = post.thumbnail || null;
       const postTitle = post.title || 'Untitled Post';
-      if (!post.thumbnail) {
-        console.warn(`Thumbnail missing for post: ${postTitle}, image section hidden`);
-      }
       const date = new Date(post.date);
       const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       const formattedDate = `${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
       const readTime = post.time || '1 min';
-      const shortDescription = post.summary ? post.summary.split('. ')[0] + '.' : 'No description available.';
+      const shortDescription = post.summary ? post.summary : 'No description available.';
 
       const postCard = document.createElement('div');
-      postCard.className = 'post-card';
+      postCard.className = 'post-card' + (thumbnailPath ? '' : ' no-thumb');
       postCard.style.display = 'flex';
       postCard.style.flexDirection = 'column';
-      postCard.style.width = '180px';
-      postCard.style.minWidth = '180px';
-      postCard.style.maxWidth = '180px';
-      postCard.style.height = '180px';
+      postCard.style.width = '260px';
+      postCard.style.minWidth = '260px';
+      postCard.style.maxWidth = '260px';
       postCard.style.flexShrink = '0';
-      postCard.style.background = 'var(--entry)';
-      postCard.style.borderRadius = '8px';
-      postCard.style.padding = '8px';
-      postCard.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
-      postCard.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease';
       postCard.style.textAlign = 'left';
-      
-      // Add hover effect
+
+      // Hover effect
       postCard.addEventListener('mouseenter', () => {
         postCard.style.transform = 'translateY(-5px)';
-        postCard.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.15)';
       });
-      
       postCard.addEventListener('mouseleave', () => {
         postCard.style.transform = 'translateY(0)';
-        postCard.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
       });
-      
-      let cardContent = `
-        ${thumbnailPath ? `<img src="${thumbnailPath}" alt="${postTitle}" style="width: 100%; height: 80px; object-fit: cover; border-radius: 6px; margin-bottom: 5px;">` : ''}
-        <h3 style="font-size: 0.8em; font-weight: bold; margin: 0 0 3px; color: var(--primary); white-space: normal; word-wrap: break-word; height: 2.4em; overflow: hidden;">${postTitle}</h3>
-        <div style="font-size: 0.65em; color: var(--secondary); margin: 2px 0;">${formattedDate} · ${readTime}</div>
-      `;
-      if (!thumbnailPath) {
-        cardContent += `<p style="font-size: 0.7em; color: var(--content); margin: 5px 0; max-height: 2.8em; overflow: hidden; line-height: 1.4em;">${shortDescription}</p>`;
+
+      let cardContent = '';
+      if (thumbnailPath) {
+        cardContent += `<img class="post-image" src="${thumbnailPath}" alt="${postTitle}">`;
       }
       cardContent += `
-        <a href="${post.url}" target="_blank" style="display: inline-block; margin-top: auto; padding: 6px 12px; background: #3b82f6; color: #fff; text-decoration: none; border-radius: 6px; font-size: 0.7em; font-weight: 600; transition: background 0.3s ease;">Read More</a>
+        <h3 class="post-title">${postTitle}</h3>
+        <div class="post-meta">${formattedDate} · ${readTime}</div>
+        <p class="post-summary">${shortDescription}</p>
+        <a href="${post.url}" target="_blank" class="read-more">Read More</a>
       `;
       postCard.innerHTML = cardContent;
       postsContainer.appendChild(postCard);
     });
   }
 
-  // Always create View More button below posts container
-  const viewMoreButton = document.createElement('div');
-  viewMoreButton.style.textAlign = 'center';
-  viewMoreButton.style.margin = '40px 0 0 0'; // Increased top margin for more spacing
-  viewMoreButton.style.padding = '0 20px'; // Add horizontal padding for better centering
-  
-  // Mobile responsive styling
-  if (window.innerWidth <= 768) {
-    viewMoreButton.style.textAlign = 'left';
-    viewMoreButton.style.padding = '0 10px';
-    viewMoreButton.style.margin = '20px 0 0 0';
+  // Remove previously created View More button (avoid duplicates)
+  const existingViewMore = document.getElementById('view-more-posts');
+  if (existingViewMore && existingViewMore.parentNode) {
+    existingViewMore.parentNode.removeChild(existingViewMore);
   }
+
+  // Always create View More button below posts container (outside the scroll row)
+  const viewMoreButton = document.createElement('div');
+  viewMoreButton.id = 'view-more-posts';
+  viewMoreButton.style.textAlign = 'center';
+  viewMoreButton.style.margin = '20px 0 0 0';
+  viewMoreButton.style.padding = '0 20px';
+  viewMoreButton.style.width = '100%';
+  
+  // Keep centered on mobile as well
   
   const viewMore = document.createElement('a');
-  viewMore.className = 'view-more';
+  viewMore.className = 'tag view-more';
   viewMore.href = 'posts.html';
-  viewMore.style.display = 'inline-block';
-  viewMore.style.padding = '10px 20px'; // Slightly more padding
-  viewMore.style.background = 'transparent';
-  viewMore.style.color = 'var(--primary)';
-  viewMore.style.textDecoration = 'none';
-  viewMore.style.borderRadius = '20px'; // Slightly more rounded
-  viewMore.style.fontSize = '0.9em';
-  viewMore.style.fontWeight = '500';
-  viewMore.style.border = '1px solid var(--primary)';
-  viewMore.style.transition = 'all 0.3s ease';
-  viewMore.style.minWidth = '140px'; // Ensure consistent width
-  viewMore.innerHTML = '<span>View All Posts</span>';
-  
-  // Add hover effect to View More button
-  viewMore.addEventListener('mouseenter', () => {
-    viewMore.style.transform = 'translateY(-2px)';
-    viewMore.style.background = 'var(--primary)';
-    viewMore.style.color = 'var(--entry)';
-  });
-  
-  viewMore.addEventListener('mouseleave', () => {
-    viewMore.style.transform = 'translateY(0)';
-    viewMore.style.background = 'transparent';
-    viewMore.style.color = 'var(--primary)';
-  });
+  viewMore.innerHTML = '<span>View All Posts →</span>';
   
   viewMoreButton.appendChild(viewMore);
-  postsContainer.appendChild(viewMoreButton);
+  // Insert after the posts container so it appears centered below the cards
+  const parent = postsContainer.parentNode;
+  if (parent) {
+    parent.insertBefore(viewMoreButton, postsContainer.nextSibling);
+  } else {
+    postsContainer.appendChild(viewMoreButton);
+  }
 }
 
 // Handles section changes and UI updates
@@ -522,29 +501,9 @@ function showSection(section) {
             viewAllButton.style.margin = '20px 0 0 0';
             
             const viewAllLink = document.createElement('a');
+            viewAllLink.className = 'tag view-more';
             viewAllLink.href = 'projects.html';
-            viewAllLink.style.display = 'inline-block';
-            viewAllLink.style.padding = '8px 16px';
-            viewAllLink.style.background = 'transparent';
-            viewAllLink.style.color = 'var(--primary)';
-            viewAllLink.style.textDecoration = 'none';
-            viewAllLink.style.borderRadius = '15px';
-            viewAllLink.style.fontSize = '0.9em';
-            viewAllLink.style.fontWeight = '500';
-            viewAllLink.style.border = '1px solid var(--primary)';
-            viewAllLink.style.transition = 'all 0.3s ease';
-            viewAllLink.textContent = 'View All Projects';
-            
-            // Add hover effect
-            viewAllLink.addEventListener('mouseenter', () => {
-              viewAllLink.style.background = 'var(--primary)';
-              viewAllLink.style.color = 'var(--entry)';
-            });
-            
-            viewAllLink.addEventListener('mouseleave', () => {
-              viewAllLink.style.background = 'transparent';
-              viewAllLink.style.color = 'var(--primary)';
-            });
+            viewAllLink.textContent = 'View All Projects →';
             
             viewAllButton.appendChild(viewAllLink);
             projects.parentNode.insertBefore(viewAllButton, projects.nextSibling);
@@ -1019,11 +978,11 @@ window.addEventListener('DOMContentLoaded', () => {
     loader.classList.add('active');
     setTimeout(() => {
       loader.classList.add('no-blur');
-    }, 900);
+    }, 600);
     setTimeout(() => {
       loader.classList.add('hidden');
       loader.classList.remove('active');
-    }, 1200);
+    }, 800);
   }
 });
 
@@ -1047,3 +1006,121 @@ document.querySelectorAll('.action-buttons .button').forEach(button => {
     showSection(section);
   });
 });
+
+// ---------- 6. Scroll to Top Functionality ----------
+window.addEventListener('scroll', () => {
+  const scrollTopBtn = document.getElementById('scrollTop');
+  if (scrollTopBtn) {
+    scrollTopBtn.style.display = window.scrollY > 200 ? 'flex' : 'none';
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const scrollTopBtn = document.getElementById('scrollTop');
+  if (scrollTopBtn) {
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+});
+
+// ---------- Home page specific: Glass Waves background and role-typer ----------
+(function initHomeEnhancements(){
+  const canvas = document.getElementById('bg-waves');
+  if (!canvas) return; // Only on home page
+  const ctx = canvas.getContext('2d');
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+
+  function css(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+  let accent = css('--accent') || '#00b3ff';
+  let glass = css('--glass-bg') || 'rgba(255,255,255,0.15)';
+  let isDark = (document.documentElement.getAttribute('data-theme') === 'dark');
+
+  const state = { width: 0, height: 0, t: 0 };
+
+  function resize(){
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = Math.floor(rect.width * dpr);
+    canvas.height = Math.floor(rect.height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    state.width = Math.floor(rect.width);
+    state.height = Math.floor(rect.height);
+  }
+
+  function bgGradient(){
+    const g = ctx.createLinearGradient(0,0, state.width, state.height);
+    if (isDark) { g.addColorStop(0, 'rgba(0,0,0,0.85)'); g.addColorStop(1, 'rgba(0,0,0,0.95)'); }
+    else { g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(1, 'rgba(245,247,250,1)'); }
+    return g;
+  }
+
+  function drawWave(yBase, amp, freq, speed, hueShift){
+    ctx.save(); ctx.beginPath();
+    for (let x=0; x<=state.width; x+=6){
+      const y = yBase + Math.sin((x*freq) + state.t*speed + hueShift) * amp;
+      if (x===0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.lineTo(state.width, state.height); ctx.lineTo(0, state.height); ctx.closePath();
+    ctx.shadowBlur = isDark ? 40 : 24; ctx.shadowColor = isDark ? accent : 'rgba(0,0,0,0.15)';
+    const fill = ctx.createLinearGradient(0, yBase-amp, 0, state.height);
+    if (isDark) { fill.addColorStop(0, glass); fill.addColorStop(1, 'rgba(255,255,255,0.03)'); }
+    else { fill.addColorStop(0, 'rgba(0,0,0,0.08)'); fill.addColorStop(1, 'rgba(0,0,0,0.03)'); }
+    ctx.fillStyle = fill; ctx.fill();
+    ctx.shadowBlur = 0; ctx.lineWidth = 1.2; ctx.strokeStyle = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
+    ctx.stroke(); ctx.restore();
+  }
+
+  function drawBlobs(){
+    const blobs = 4;
+    for (let i=0;i<blobs;i++){
+      const x = (state.width/2) + Math.cos(state.t*0.2 + i)*state.width*0.25;
+      const y = (state.height*0.6) + Math.sin(state.t*0.25 + i*1.7)*120;
+      const r = 120 + 40*Math.sin(state.t*0.3 + i);
+      const g = ctx.createRadialGradient(x,y,0,x,y,r);
+      g.addColorStop(0, accent); g.addColorStop(1, 'transparent');
+      ctx.save(); ctx.globalAlpha = 0.08; ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill(); ctx.restore();
+    }
+  }
+
+  function draw(){
+    ctx.fillStyle = bgGradient(); ctx.fillRect(0,0,state.width,state.height);
+    if (isDark) { drawWave(state.height*0.65, 26, 0.012, 0.9, 0.0); drawWave(state.height*0.7,34,0.010,0.7,1.2); drawWave(state.height*0.75,42,0.009,0.55,2.4); drawWave(state.height*0.8,58,0.007,0.45,3.6); }
+    else { drawWave(state.height*0.70,18,0.012,0.9,0.0); drawWave(state.height*0.75,24,0.010,0.7,1.2); drawWave(state.height*0.80,30,0.009,0.55,2.4); drawWave(state.height*0.85,38,0.007,0.45,3.6); }
+    drawBlobs(); state.t += 0.016; requestAnimationFrame(draw);
+  }
+
+  const ro = new ResizeObserver(resize); ro.observe(canvas);
+  const themeObserver = new MutationObserver(() => {
+    accent = css('--accent') || accent; glass = css('--glass-bg') || glass; isDark = (document.documentElement.getAttribute('data-theme') === 'dark');
+  });
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  resize(); requestAnimationFrame(draw);
+
+  // Typewriter
+  const typer = document.getElementById('role-typer');
+  if (typer){
+    const phrases = ['FULL STACK DEV','AI/ ML ENGINEER','MERN STACK BUILDER'];
+    const typingSpeed = 80, eraseSpeed = 50, holdTime = 1100;
+    let phraseIndex = 0, charIndex = 0, typing = true;
+    function tick(){
+      const current = phrases[phraseIndex];
+      if (typing){
+        typer.textContent = current.slice(0, charIndex + 1); charIndex++;
+        if (charIndex === current.length){ typing = false; setTimeout(tick, holdTime); return; }
+        setTimeout(tick, typingSpeed);
+      } else {
+        typer.textContent = current.slice(0, charIndex - 1); charIndex--;
+        if (charIndex === 0){ typing = true; phraseIndex = (phraseIndex + 1) % phrases.length; setTimeout(tick, typingSpeed); return; }
+        setTimeout(tick, eraseSpeed);
+      }
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tick, { once: true }); else tick();
+  }
+
+  // Stop waving hand after a short intro (match previous behavior)
+  setTimeout(() => {
+    const waving = document.querySelector('.animate-wave');
+    if (waving) waving.classList.remove('animate-wave');
+  }, 3000);
+})();

@@ -9,31 +9,33 @@
   <link rel="manifest" href="/assets/images/site.webmanifest" />
 
   <!-- ---------- 1. Meta Tags ---------- -->
-  <meta charset="UTF-8" /> <!-- Set character encoding to UTF-8 -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Ensure responsive viewport scaling -->
-  <title>All Tags | Muhammad Taha Nasir</title> <!-- Page title for SEO and browser tab -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All Tags | Muhammad Taha Nasir</title>
+  <meta name="description" content="Browse all tags for posts and projects" />
 
   <!-- ---------- 2. Stylesheets ---------- -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <!-- Load Font Awesome for icons -->
-  <link rel="stylesheet" href="assets/css/tags.css" /> <!-- Load custom stylesheet for tags page -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/tags.css" />
+  <link rel="stylesheet" href="assets/css/bottom-nav.css" />
+  <style>
+    .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+    .loader.hidden{opacity:0;visibility:hidden}
+  </style>
 
   <!-- ---------- 3. Theme Initialization Script ---------- -->
   <script>
-    // Apply theme immediately on page load to prevent flash
-    (function () {
-      const savedTheme = localStorage.getItem('pref-theme'); // Retrieve saved theme from localStorage
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; // Check system dark mode preference
-      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-        document.documentElement.classList.add('dark'); // Apply dark theme
-      }
-    })();
+    // Apply saved theme immediately to prevent flash
+    const savedTheme = localStorage.getItem('pref-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
   </script>
 </head>
 
 <body>
   <!-- ---------- 4. Loader Animation ---------- -->
-  <div class="loader" id="loader">
+  <div class="loader" id="loader" aria-hidden="true">
     <div class="terry-animation">
       <span class="letter">t</span>
       <span class="letter">e</span>
@@ -41,32 +43,33 @@
       <span class="letter">r</span>
       <span class="letter">y</span>
     </div>
-  </div> <!-- Loader animation displayed during content loading -->
+  </div>
 
   <!-- ---------- 5. Header Navigation ---------- -->
-  <header class="header">
-    <nav class="nav">
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
       <!-- Left: Logo -->
       <div class="nav-left">
-        <a href="../index.html" class="logo">&lt;terry/&gt;</a>
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
       </div>
 
       <!-- Center: Pills Navigation -->
       <div class="nav-center">
-        <div class="pill-nav">
-          <a href="resources.html">Resources</a> <!-- Link to resources page -->
-          <a href="archives.html">Archives</a> <!-- Link to archives page -->
-          <a href="resume.html">Resume</a> <!-- Link to resume page -->
-          <a href="search.html">Search</a> <!-- Link to search page -->
+        <div class="pill-nav" role="tablist">
+          <a href="resources.html" role="tab">Resources</a>
+          <a href="archives.html" role="tab">Archives</a>
+          <a href="resume.html" role="tab">Resume</a>
+          <a href="search.html" role="tab">Search</a>
         </div>
       </div>
+      
 
-      <!-- Right: Theme Toggle -->
+      <!-- Right: Theme toggle -->
       <div class="nav-right">
-        <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+        <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
           <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5" /> <!-- Sun icon for light mode -->
+            stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5" />
             <line x1="12" y1="1" x2="12" y2="3" />
             <line x1="12" y1="21" x2="12" y2="23" />
             <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
@@ -77,8 +80,8 @@
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
           </svg>
           <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" /> <!-- Moon icon for dark mode -->
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
           </svg>
         </button>
       </div>
@@ -86,46 +89,100 @@
   </header>
 
   <!-- ---------- 6. Main Content ---------- -->
-  <div class="container">
-    <h1>Tags</h1> <!-- Page title for tags -->
-    <!-- ---------- 7. Search and Navigation ---------- -->
+  <main class="post-container page-fade-in" role="main">
+    <!-- Breadcrumb Navigation -->
+    <div class="header-bar">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span aria-hidden="true">»</span>
+        <a href="tags.html" aria-current="page">Tags</a>
+      </nav>
+      <h1>Explore Topics</h1>
+      <p class="subtitle">Browse posts and projects by technology and category</p>
+    </div>
+
+    <!-- Search Box -->
     <div class="search-box">
-      <input type="text" id="tagSearch" placeholder="Search tags..."> <!-- Input field for searching tags -->
-      <div class="search-actions">
-        <a href="../posts.html" class="all-posts-btn view-all-posts-btn">View All Posts</a>
-        <a href="../projects.html" class="all-posts-btn view-all-projects-btn">View All Projects</a>
+      <i class="fas fa-search"></i>
+      <input type="text" id="tagSearch" placeholder="Search tags..." aria-label="Search tags" />
+    </div>
+
+    <!-- Quick Links -->
+    <div class="quick-links">
+      <a href="posts.html" class="quick-link-card">
+        <i class="fas fa-blog"></i>
+        <span>All Posts</span>
+        <i class="fas fa-arrow-right arrow"></i>
+      </a>
+      <a href="projects.html" class="quick-link-card">
+        <i class="fas fa-code"></i>
+        <span>All Projects</span>
+        <i class="fas fa-arrow-right arrow"></i>
+      </a>
+    </div>
+
+    <!-- Popular Tags Section (Mobile Only) -->
+    <div class="popular-tags-section" id="popularTagsSection">
+      <h3 class="popular-tags-title">
+        <i class="fas fa-fire"></i> Popular Tags
+      </h3>
+      <div class="popular-tags-pills" id="popularTagsPills">
+        <!-- Popular tags will be dynamically inserted here -->
       </div>
     </div>
-    <!-- ---------- 8. Tags Grid ---------- -->
-    <div class="tags-grid" id="tagsGrid">
-      <!-- Skeleton UI for loading state -->
-      <div class="skeleton-tag"></div>
-      <div class="skeleton-tag"></div>
-      <div class="skeleton-tag"></div>
-      <div class="skeleton-tag"></div>
-      <div class="skeleton-tag"></div>
-    </div> <!-- Container for dynamically generated tags -->
-  </div>
 
-  <!-- ---------- 9. Footer ---------- -->
-  <footer class="footer">
-    <div class="social-icons">
-      <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-      <!-- GitHub social link -->
-      <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i
-          class="fab fa-linkedin"></i></a> <!-- LinkedIn social link -->
-      <a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a> <!-- Email link -->
+    <!-- Alphabet Jump Navigation (Mobile Only) -->
+    <div class="alphabet-nav" id="alphabetNav">
+      <!-- Alphabet letters will be dynamically inserted here -->
     </div>
-    <p>© 2025 – Muhammad Taha Nasir</p> <!-- Copyright notice -->
+
+    <!-- Tags Grid -->
+    <div class="tags-grid" id="tagsContainer">
+      <!-- Tags will be dynamically inserted here by JavaScript -->
+    </div>
+  </main>
+
+  
+
+  <!-- Bottom Nav (Mobile Only) -->
+  <nav class="bottom-nav">
+    <a href="index.html"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="resources.html"><i class="fas fa-book"></i><span>Resources</span></a>
+    <a href="archives.html"><i class="fas fa-archive"></i><span>Archives</span></a>
+    <a href="resume.html"><i class="fas fa-file-alt"></i><span>Resume</span></a>
+    <a href="search.html"><i class="fas fa-search"></i><span>Search</span></a>
+  </nav>
+
+  <!-- ---------- 7. Footer ---------- -->
+  <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+    <div class="social-icons" style="margin-bottom:25px;">
+      <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+        style="margin:0 5px; font-size:1.6em;">
+        <i class="fab fa-github" aria-hidden="true"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+        aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+        <i class="fab fa-linkedin" aria-hidden="true"></i>
+      </a>
+      <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+        style="margin:0 5px; font-size:1.6em;">
+        <i class="fas fa-envelope" aria-hidden="true"></i>
+      </a>
+    </div>
+    <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
   </footer>
 
-  <!-- ---------- 10. Scroll to Top Button ---------- -->
-  <button id="scrollTop" aria-label="Scroll to top">
-    <i class="fas fa-chevron-up"></i> <!-- Scroll-to-top button with chevron icon -->
+  <!-- ---------- 8. Scroll to Top Button ---------- -->
+  <button id="scrollTop" aria-label="Scroll to top" title="Scroll to top" type="button">
+    <i class="fas fa-chevron-up" aria-hidden="true"></i>
   </button>
 
-  <!-- ---------- 11. JavaScript Include ---------- -->
-  <script src="./assets/js/tags.js"></script> <!-- Load JavaScript for tags page functionality -->
+  <!-- ---------- 9. JavaScript Include ---------- -->
+  <script src="assets/js/tags.js"></script>
+  <script src="assets/js/header-scroll.js"></script>
+  <script src="assets/js/shared-bottom-nav.js"></script>
+  <script src="assets/js/nav-active.js"></script>
+  <script src="assets/js/instant-loader.js"></script>
 </body>
 
 </html>

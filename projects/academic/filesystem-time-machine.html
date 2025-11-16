@@ -12,20 +12,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="robots" content="index, follow">
-    <meta name="description" content="Filesystem Time Machine: A powerful file system monitoring and version control application with interactive OS concepts visualization, built with React and FastAPI.">
+    <meta name="description"
+        content="Filesystem Time Machine: A powerful file system monitoring and version control application with interactive OS concepts visualization, built with React and FastAPI.">
     <meta name="author" content="Muhammad Taha Nasir">
     <meta name="date" content="2025-04-10">
     <meta name="tab" content="academic">
     <meta name="subcategory" content="Operating Systems">
-    <meta name="features" content="React, FastAPI, python, File System Monitoring">
+    <meta name="features" content="React, FastAPI, Python, File System Monitoring">
     <meta name="thumbnail" content="/assets/images/projects/filesystem-time-machine/preview.png">
-    <meta name="github" content="https://github.com/MuhammadTahaNasir/fast-chronicles/tree/main/projects/operating-system/filesystem-time-machine">
+    <meta name="github"
+        content="https://github.com/MuhammadTahaNasir/fast-chronicles/tree/main/projects/operating-system/filesystem-time-machine">
     <meta name="hideWebLink" content="true">
     <title>Filesystem Time Machine: File System Monitoring & OS Visualization</title>
 
     <!-- ---------- 2. Stylesheets ---------- -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="/assets/css/each-project.css">
+    <link rel="stylesheet" href="/assets/css/bottom-nav.css">
 
     <!-- ---------- 3. Theme Initialization Script ---------- -->
     <script>
@@ -47,29 +50,49 @@
 </head>
 
 <body class="dark" id="top">
+    <!-- Loader Animation -->
+    <div class="loader" id="loader" aria-hidden="true">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+
     <!-- ---------- 4. Header Navigation ---------- -->
-    <header class="header">
-        <nav class="nav">
+    <header class="header"> <!-- Header section -->
+        <nav class="nav"> <!-- Navigation bar -->
             <!-- Left: Logo -->
             <div class="nav-left">
                 <a href="/index.html" class="logo">&lt;terry/&gt;</a>
             </div>
 
             <!-- Center: Pills Navigation -->
-            <div class="nav-center">
-                <div class="pill-nav">
-                    <a href="/resources.html">Resources</a>
-                    <a href="/archives.html">Archives</a>
-                    <a href="/resume.html">Resume</a>
-                    <a href="/search.html">Search</a>
+            <div class="nav-center"> <!-- Navigation links container -->
+                <div class="pill-nav"> <!-- Pill-style navigation -->
+                    <a href="/resources.html">Resources</a> <!-- Resources link -->
+                    <a href="/archives.html">Archives</a> <!-- Archives link -->
+                    <a href="/resume.html">Resume</a> <!-- Resume link -->
+                    <a href="/search.html">Search</a> <!-- Search link -->
                 </div>
             </div>
 
+            <!-- Bottom Nav (Mobile Only) -->
+            <nav class="bottom-nav">
+                <a href="/index.html"><i class="fas fa-home"></i><span>Home</span></a>
+                <a href="/resources.html"><i class="fas fa-book"></i><span>Resources</span></a>
+                <a href="/archives.html"><i class="fas fa-archive"></i><span>Archives</span></a>
+                <a href="/resume.html"><i class="fas fa-file-alt"></i><span>Resume</span></a>
+                <a href="/search.html"><i class="fas fa-search"></i><span>Search</span></a>
+            </nav>
+
             <!-- Right: Theme toggle -->
-            <div class="nav-right">
-                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+            <div class="nav-right"> <!-- Theme toggle container -->
+                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme"> <!-- Theme toggle button -->
                     <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
+                        stroke-linecap="round" stroke-linejoin="round"> <!-- Sun icon for light mode -->
                         <circle cx="12" cy="12" r="5" />
                         <line x1="12" y1="1" x2="12" y2="3" />
                         <line x1="12" y1="21" x2="12" y2="23" />
@@ -81,7 +104,7 @@
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
                     </svg>
                     <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
+                        stroke-linecap="round" stroke-linejoin="round"> <!-- Moon icon for dark mode -->
                         <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
                     </svg>
                 </button>
@@ -93,7 +116,9 @@
     <div class="container">
         <!-- Breadcrumb Navigation -->
         <nav class="breadcrumb">
-            <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a>
+            <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a> » <a
+                href="/projects/academic/filesystem-time-machine.html">Filesystem Time Machine: File System Monitoring & OS
+                Visualization</a>
         </nav>
 
         <!-- Project Content -->
@@ -107,55 +132,72 @@
             <div class="image-carousel">
                 <div class="carousel-container">
                     <div class="carousel-slide active">
-                        <img src="/assets/images/projects/filesystem-time-machine/preview.png" alt="Filesystem Time Machine Preview" class="carousel-image">
+                        <img src="/assets/images/projects/filesystem-time-machine/preview.png"
+                            alt="Filesystem Time Machine Preview" class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/filesystem-time-machine/landing_page.png" alt="Landing Page" class="carousel-image">
+                        <img src="/assets/images/projects/filesystem-time-machine/landing_page.png" alt="Landing Page"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/filesystem-time-machine/file_watcher.png" alt="File Watcher Interface" class="carousel-image">
+                        <img src="/assets/images/projects/filesystem-time-machine/file_watcher.png"
+                            alt="File Watcher Interface" class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/filesystem-time-machine/event_panel.png" alt="Event Panel" class="carousel-image">
+                        <img src="/assets/images/projects/filesystem-time-machine/event_panel.png" alt="Event Panel"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/filesystem-time-machine/snapshot_panel.png" alt="Snapshot Panel" class="carousel-image">
+                        <img src="/assets/images/projects/filesystem-time-machine/snapshot_panel.png"
+                            alt="Snapshot Panel" class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/filesystem-time-machine/timeline.png" alt="Theme Toggle" class="carousel-image">
+                        <img src="/assets/images/projects/filesystem-time-machine/timeline.png" alt="Theme Toggle"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/filesystem-time-machine/folder_browser.png" alt="API Documentation" class="carousel-image">
+                        <img src="/assets/images/projects/filesystem-time-machine/folder_browser.png"
+                            alt="API Documentation" class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/filesystem-time-machine/diff_viewer.png" alt="Diff Viewer" class="carousel-image">
+                        <img src="/assets/images/projects/filesystem-time-machine/diff_viewer.png" alt="Diff Viewer"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/filesystem-time-machine/anomaly_detection.png" alt="Restore Interface" class="carousel-image">
+                        <img src="/assets/images/projects/filesystem-time-machine/anomaly_detection.png"
+                            alt="Restore Interface" class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/filesystem-time-machine/os_visualization.png" alt="OS Concepts Visualization" class="carousel-image">
+                        <img src="/assets/images/projects/filesystem-time-machine/os_visualization.png"
+                            alt="OS Concepts Visualization" class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/filesystem-time-machine/process_monitor.png" alt="Process Monitoring" class="carousel-image">
+                        <img src="/assets/images/projects/filesystem-time-machine/process_monitor.png"
+                            alt="Process Monitoring" class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/filesystem-time-machine/memory_management.png" alt="Memory Management Visualization" class="carousel-image">
+                        <img src="/assets/images/projects/filesystem-time-machine/memory_management.png"
+                            alt="Memory Management Visualization" class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/filesystem-time-machine/disk_scheduling.png" alt="Disk Scheduling Simulation" class="carousel-image">
+                        <img src="/assets/images/projects/filesystem-time-machine/disk_scheduling.png"
+                            alt="Disk Scheduling Simulation" class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/filesystem-time-machine/file_system_tree.png" alt="File System Tree" class="carousel-image">
+                        <img src="/assets/images/projects/filesystem-time-machine/file_system_tree.png"
+                            alt="File System Tree" class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/filesystem-time-machine/storage_management.png" alt="Snapshot Comparison" class="carousel-image">
+                        <img src="/assets/images/projects/filesystem-time-machine/storage_management.png"
+                            alt="Snapshot Comparison" class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/filesystem-time-machine/fcfs.png" alt="Drag & Drop Interface" class="carousel-image">
+                        <img src="/assets/images/projects/filesystem-time-machine/fcfs.png" alt="Drag & Drop Interface"
+                            class="carousel-image">
                     </div>
                     <div class="carousel-slide">
-                        <img src="/assets/images/projects/filesystem-time-machine/file_system_compare.png" alt="Statistics Panel" class="carousel-image">
+                        <img src="/assets/images/projects/filesystem-time-machine/file_system_compare.png"
+                            alt="Statistics Panel" class="carousel-image">
                     </div>
                 </div>
 
@@ -215,7 +257,8 @@
 
             <!-- Button Section -->
             <div class="button-section">
-                <a href="https://github.com/MuhammadTahaNasir/fast-chronicles/tree/main/projects/operating-system/filesystem-time-machine" class="project-button github-link">
+                <a href="https://github.com/MuhammadTahaNasir/fast-chronicles/tree/main/projects/operating-system/filesystem-time-machine"
+                    class="project-button github-link">
                     <i class="fab fa-github"></i> Source Code
                 </a>
             </div>
@@ -223,19 +266,26 @@
             <!-- Project Overview -->
             <section id="overview">
                 <h2>Project Overview</h2>
-                <p>Filesystem Time Machine is a powerful file system monitoring and version control application built with React and FastAPI. It provides real-time file watching, smart snapshot creation, time-travel restore capabilities, and interactive visualizations of operating system concepts like file system structure, process management, memory allocation, and disk scheduling.</p>
+                <p>Filesystem Time Machine is a powerful file system monitoring and version control application built
+                    with React and FastAPI. It provides real-time file watching, smart snapshot creation, time-travel
+                    restore capabilities, and interactive visualizations of operating system concepts like file system
+                    structure, process management, memory allocation, and disk scheduling.</p>
             </section>
 
             <!-- Situation Section -->
             <section id="situation">
                 <h2>Situation</h2>
-                <p>Understanding and managing file system changes in real-time, along with learning complex operating system concepts, can be challenging without intuitive tools that combine monitoring, version control, and educational visualizations.</p>
+                <p>Understanding and managing file system changes in real-time, along with learning complex operating
+                    system concepts, can be challenging without intuitive tools that combine monitoring, version
+                    control, and educational visualizations.</p>
             </section>
 
             <!-- Task Section -->
             <section id="task">
                 <h2>Task</h2>
-                <p>Develop a user-friendly application that monitors file system changes in real-time, allows snapshot creation and restoration, and provides interactive visualizations of operating system concepts for academic and practical use.</p>
+                <p>Develop a user-friendly application that monitors file system changes in real-time, allows snapshot
+                    creation and restoration, and provides interactive visualizations of operating system concepts for
+                    academic and practical use.</p>
             </section>
 
             <!-- Actions Section -->
@@ -244,7 +294,8 @@
                 <ul>
                     <li>Built a React-based frontend with Vite for fast development and responsive design.</li>
                     <li>Developed a FastAPI backend for real-time file system monitoring and API endpoints.</li>
-                    <li>Implemented real-time file watching with event tracking for creation, modification, deletion, and movement.</li>
+                    <li>Implemented real-time file watching with event tracking for creation, modification, deletion,
+                        and movement.</li>
                     <li>Created a snapshot system for capturing and comparing file system states.</li>
                     <li>Designed a time-travel restore feature for recovering files and folders.</li>
                     <li>Integrated interactive visualizations for OS concepts using Chart.js and custom components.</li>
@@ -256,7 +307,9 @@
             <!-- Results Section -->
             <section id="results">
                 <h2>Results</h2>
-                <p>Filesystem Time Machine successfully provided a robust tool for file system monitoring, version control, and OS concept visualization. The project enhanced my skills in React, FastAPI, and system programming, delivering an intuitive and educational application for students and professionals.</p>
+                <p>Filesystem Time Machine successfully provided a robust tool for file system monitoring, version
+                    control, and OS concept visualization. The project enhanced my skills in React, FastAPI, and system
+                    programming, delivering an intuitive and educational application for students and professionals.</p>
             </section>
 
             <!-- Tech Stack Section -->
@@ -277,25 +330,36 @@
                 </div>
             </section>
         </main>
-
-        <!-- ---------- 6. Footer ---------- -->
-        <footer class="footer">
-            <div class="social-icons">
-                <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-            </div>
-            <p>© 2025 – Muhammad Taha Nasir</p>
-        </footer>
     </div>
 
+    <!-- ---------- 6. Footer ---------- -->
+    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+        <div class="social-icons" style="margin-bottom:25px;">
+            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+        </div>
+        <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+    </footer>
+
     <!-- ---------- 7. Scroll to Top Button ---------- -->
-    <button id="scrollTop" aria-label="Scroll to top">
-        <i class="fas fa-chevron-up"></i>
+    <button id="scrollTop" aria-label="Scroll to top"> <!-- Scroll to top button -->
+        <i class="fas fa-chevron-up"></i> <!-- Up arrow icon -->
     </button>
 
     <!-- ---------- 8. JavaScript Inclusion ---------- -->
     <script src="/assets/js/each-project.js"></script>
+    <script src="/assets/js/shared-bottom-nav.js"></script>
+    <script src="/assets/js/nav-active.js"></script>
 </body>
 
 </html>

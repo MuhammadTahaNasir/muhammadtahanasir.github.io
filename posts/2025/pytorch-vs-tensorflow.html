@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html dir="auto" lang="en">
+
+<head>
+    <link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png" />
+    <link href="/assets/images/favicon.ico" rel="shortcut icon" />
+    <link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta
+        content="A beginner’s guide to building a neural network with TensorFlow and a classifier with PyTorch, plus my take on which to choose."
+        name="description" />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="TensorFlow, PyTorch, Neural Network, Classifier, Machine Learning" name="tags" />
+    <meta content="/assets/images/posts/pytorch-vs-tensorflow.png" name="thumbnail" />
+    <title>TensorFlow vs PyTorch: Building My First Models and Choosing One</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+    </style>
+    <script>
+        // Apply theme immediately on page load
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+</head>
+
+<body class="dark" id="top" post-date="2024-06-23">
+    <!-- Loader Animation -->
+    <div class="loader" id="loader" aria-hidden="true">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+    
+    
+    <header class="header">
+        <nav class="nav">
+            <!-- Left: Logo -->
+            <div class="nav-left">
+                <a class="logo" href="../../index.html">&lt;terry/&gt;</a>
+            </div>
+            <!-- Center: Pills Navigation -->
+            <div class="nav-center">
+                <div class="pill-nav">
+                    <a href="../../resources.html">Resources</a>
+                    <a href="../../archives.html">Archives</a>
+                    <a href="../../resume.html">Resume</a>
+                    <a href="../../search.html">Search</a>
+                </div>
+            </div>
+            <!-- Right: Theme toggle -->
+            <div class="nav-right">
+                <button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
+                    <svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" x2="12" y1="1" y2="3"></line>
+                        <line x1="12" x2="12" y1="21" y2="23"></line>
+                        <line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+                        <line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+                        <line x1="1" x2="3" y1="12" y2="12"></line>
+                        <line x1="21" x2="23" y1="12" y2="12"></line>
+                        <line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+                        <line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+                    </svg>
+                    <svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
+        </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">TensorFlow vs PyTorch: Building My First Models and Choosing One</h1>
+                <div class="post-meta">June 23, 2024 • 4 min • Muhammad Taha Nasir</div>
+            </header>
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#my-ml-adventure">My Machine Learning Adventure</a></li>
+                        <li><a href="#tensorflow-nn">Building a Neural Network with TensorFlow</a></li>
+                        <li><a href="#pytorch-classifier">Training a Classifier with PyTorch</a></li>
+                        <li><a href="#tf-vs-pytorch">TensorFlow vs PyTorch: My Beginner’s Take</a></li>
+                        <li><a href="#what-to-choose">Which Should You Choose?</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <!-- Social Sharing Floating Toolbar -->
+            <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+            <section id="my-ml-adventure">
+                <h2>My Machine Learning Adventure</h2>
+                <p>I’m a uni student diving into machine learning with TensorFlow and PyTorch, using the MNIST dataset
+                    to build a neural network and classifier. As a beginner, I’m exploring which tool suits me best.</p>
+            </section>
+            <img alt="TensorFlow and PyTorch Code on Screen" src="/assets/images/posts/pytorch-vs-tensorflow.png"
+                style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;" />
+            <section id="tensorflow-nn">
+                <h2>Building a Neural Network with TensorFlow</h2>
+                <p>TensorFlow, backed by Google, feels like a massive toolbox that's powerful but intimidating. I
+                    started with installing it on my Python 3.8 setup using <code>pip install tensorflow==2.12.0</code>.
+                    Fair warning: it’s a heavy install, and I hit a wall with version mismatches and dependency errors.
+                    After some Stack Overflow heroics, I got it running. TensorFlow’s Keras API is a lifesaver for
+                    beginners,making the code feel less like rocket science.</p>
+                <p>I built a neural network to classify MNIST digits. First, I loaded and prepped the data:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-python" data-lang="Python"><code>
+import tensorflow as tf
+from tensorflow import keras
+(x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
+x_train, x_test = x_train / 255.0, x_test / 255.0  # Normalize pixel values
+                    </code></pre>
+                </div>
+                <p>Normalizing the data (dividing by 255) scales the pixel values from 0-255 to 0-1, which helps the
+                    model train better. Skipping this step? Big mistake my first model was a disaster because of it.</p>
+                <p>Next, I created a Sequential model with three layers: a Flatten layer to turn 28x28 images into a
+                    784-length vector, a Dense layer with 128 neurons and ReLU activation (to add non-linearity), and a
+                    Dense output layer with 10 neurons (one per digit) and softmax for classification probabilities:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-python" data-lang="Python"><code>
+model = keras.Sequential([
+    keras.layers.Flatten(input_shape=(28, 28)),
+    keras.layers.Dense(128, activation='relu'),
+    keras.layers.Dense(10, activation='softmax')
+])
+                    </code></pre>
+                </div>
+                <p>I compiled the model with the Adam optimizer, sparse categorical crossentropy loss (great for
+                    multi-class problems), and accuracy metrics:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-python" data-lang="Python"><code>
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+                    </code></pre>
+                </div>
+                <p>Then, I trained it with <code>model.fit(x_train, y_train, epochs=5)</code> for five passes through
+                    the data, hitting ~97% accuracy. Testing with <code>model.evaluate(x_test, y_test)</code> gave me
+                    ~96%. I used <code>model.predict(x_test)</code> to check some predictions, and Matplotlib to
+                    visualize them. Some digits (like 7s looking like 2s) tripped it up, but it was a solid start.</p>
+                <p>The process wasn’t smooth—I spent hours debugging a shape mismatch error and learning about batch
+                    sizes. TensorFlow’s structure is rigid, but its tools like TensorBoard for visualizing training are
+                    awesome for understanding what’s happening under the hood.</p>
+            </section>
+            <section id="pytorch-classifier">
+                <h2>Training a Classifier with PyTorch</h2>
+                <p>PyTorch, backed by Meta AI, feels more like coding with a friend Pythonic and flexible. Installing it
+                    was easier than TensorFlow: <code>pip install torch</code> worked without much drama. PyTorch’s
+                    dynamic computation graph makes debugging feel like a conversation, not a lecture, which is great
+                    for beginners like me.</p>
+                <p>I built a simple classifier for MNIST using torchvision:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-python" data-lang="Python"><code>
+import torch
+import torchvision
+import torchvision.transforms as transforms
+transform = transforms.Compose([transforms.ToTensor()])
+train_dataset = torchvision.datasets.MNIST(root='./data', train=True, transform=transform, download=True)
+test_dataset = torchvision.datasets.MNIST(root='./data', train=False, transform=transform, download=True)
+train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=64, shuffle=True)
+test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=64, shuffle=False)
+                    </code></pre>
+                </div>
+                <p>The <code>ToTensor()</code> transform normalizes the pixel values to 0-1, similar to TensorFlow. I
+                    defined a simple neural network with two linear layers (flattening is handled differently in
+                    PyTorch):</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-python" data-lang="Python"><code>
+import torch.nn as nn
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.flatten = nn.Flatten()
+        self.linear1 = nn.Linear(28 * 28, 128)
+        self.relu = nn.ReLU()
+        self.linear2 = nn.Linear(128, 10)
+    def forward(self, x):
+        x = self.flatten(x)
+        x = self.linear1(x)
+        x = self.relu(x)
+        x = self.linear2(x)
+        return x
+model = Net()
+                    </code></pre>
+                </div>
+                <p>I used the cross-entropy loss and SGD optimizer with momentum:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-python" data-lang="Python"><code>
+criterion = nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
+                    </code></pre>
+                </div>
+                <p>Training involved looping through the data loader for DOF5 epochs:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-python" data-lang="Python"><code>
+for epoch in range(5):
+    for data in train_loader:
+        images, labels = data
+        optimizer.zero_grad()
+        outputs = model(images)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
+                    </code></pre>
+                </div>
+                <p>I got ~96% accuracy on the test set after training. Debugging was easier than TensorFlow because
+                    PyTorch’s dynamic graphs let me print intermediate outputs. I visualized predictions with
+                    Matplotlib, spotting similar errors (e.g., 9s confused with 4s). PyTorch felt intuitive, but I
+                    missed TensorFlow’s polished visualization tools.</p>
+            </section>
+            <section id="tf-vs-pytorch">
+                <h2>TensorFlow vs PyTorch: My Beginner’s Take</h2>
+                <p>TensorFlow is like a corporate office structured, powerful, but complex. Its Keras API simplifies
+                    things, but the setup and static computation graphs can feel rigid. It’s got a huge ecosystem:
+                    TensorBoard for visualizations, TensorFlow Hub for pre-trained models, and support for
+                    production ready deployments. It’s great for big projects, but the learning curve is steep, like
+                    climbing a mountain in sandals. I struggled with installation and shape errors, but once it clicked,
+                    it felt rewarding.</p>
+                <p>PyTorch is like your chill coding buddy flexible, Pythonic, and forgiving. Its dynamic graphs make
+                    debugging feel like a breeze, and I could tweak the model on the fly. It’s a favorite in research
+                    because you can experiment quickly, but it lacks TensorFlow’s production polish. I found PyTorch
+                    easier to start with, especially since my Python skills are still wobbly, but it felt less
+                    enterprise-ready.</p>
+                <p>Both frameworks got me to ~96-97% accuracy on MNIST, but TensorFlow took more setup effort, while
+                    PyTorch let me jump in faster. TensorFlow’s tools are better for scaling up; PyTorch’s simplicity is
+                    better for learning and prototyping.</p>
+            </section>
+            <section id="what-to-choose">
+                <h2>Which Should You Choose?</h2>
+                <p>As a beginner, I found PyTorch easier to start with due to its flexibility. It’s great for small
+                    projects or learning. TensorFlow suits deployment and larger projects. I’m sticking with PyTorch for
+                    now but plan to use TensorFlow later.</p>
+            </section>
+            <div class="tags-container" id="dynamic-tags">
+                <!-- Tags will be dynamically generated here -->
+            </div>
+            <hr class="divider" />
+            <section class="related-articles" id="related-series">
+                <h2 class="series-title">Article Series</h2>
+                <a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+                <div id="related-posts-container"></div>
+            </section>
+        </main>
+        <!-- Newsletter Subscription Section -->
+        <div class="newsletter-section">
+            <div class="newsletter-content">
+                <h3>Subscribe to our newsletter</h3>
+                <p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+                <p>Subscribe to the newsletter, and don't miss out.</p>
+                <div class="newsletter-form">
+                    <input class="newsletter-input" placeholder="Enter your email address" type="email" />
+                    <button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+        <div class="social-icons" style="margin-bottom:25px;">
+            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+        </div>
+        <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../../assets/js/each-post.js"></script>
+    <script src="../../assets/js/shared-bottom-nav.js"></script>
+    <script src="../../assets/js/nav-active.js"></script>
+    <script>
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.innerText = "Copied!";
+                    setTimeout(() => button.innerText = "Copy", 1500);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

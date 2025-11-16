@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html dir="auto" lang="en">
+
+<head>
+    <link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png" />
+    <link href="/assets/images/favicon.ico" rel="shortcut icon" />
+    <link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta
+        content="From C++ classes to LeetCode battles, my DSA journey boosts ML speed. Arrays, stacks, and a not-so-scary grind!"
+        name="description" />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="Data Structures, LeetCode, C++, Machine Learning, Algorithms, University" name="tags" />
+    <title>DSA Finally Clicked!</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+    </style>
+    <script>
+        // Apply theme immediately on page load
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+</head>
+
+<body class="dark" id="top" post-date="2024-09-21">
+    <!-- Loader Animation -->
+    <div class="loader" id="loader" aria-hidden="true">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+    
+    
+    <header class="header">
+        <nav class="nav">
+            <!-- Left: Logo -->
+            <div class="nav-left">
+                <a class="logo" href="../../index.html">&lt;terry/&gt;</a>
+            </div>
+            <!-- Center: Pills Navigation -->
+            <div class="nav-center">
+                <div class="pill-nav">
+                    <a href="../../resources.html">Resources</a>
+                    <a href="../../archives.html">Archives</a>
+                    <a href="../../resume.html">Resume</a>
+                    <a href="../../search.html">Search</a>
+                </div>
+            </div>
+            <!-- Right: Theme toggle -->
+            <div class="nav-right">
+                <button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
+                    <svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" x2="12" y1="1" y2="3"></line>
+                        <line x1="12" x2="12" y1="21" y2="23"></line>
+                        <line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+                        <line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+                        <line x1="1" x2="3" y1="12" y2="12"></line>
+                        <line x1="21" x2="23" y1="12" y2="12"></line>
+                        <line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+                        <line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+                    </svg>
+                    <svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
+        </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">DSA Finally Clicked!</h1>
+                <div class="post-meta">September 21, 2024 • 3 min • Muhammad Taha Nasir</div>
+            </header>
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#back-at-it">Back at It with DSA</a></li>
+                        <li><a href="#uni-cplusplus">C++ and Data Structures at Uni</a></li>
+                        <li><a href="#leetcode-grind">LeetCode and My Go-To Resources</a></li>
+                        <li><a href="#not-so-tough">Not as Tough as They Say</a></li>
+                        <li><a href="#why-it-matters">Why Data Structures Matter</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <!-- Social Sharing Floating Toolbar -->
+            <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+            <section id="back-at-it">
+                <h2>Back at It with DSA</h2>
+                <p>Yo, remember my 2022 LeetCode meltdown? (Peep my <a href="../2022/learning-dsa-leetcode.html">earlier
+                        post</a> for the full drama.) I’m back, and
+                    this time, I’m diving headfirst into Data Structures and Algorithms (DSA). Arrays, linked lists,
+                    stacks, they’re not just interview prep; they’re like rocket fuel for my ML code. Thanks to my uni
+                    classes and some clutch resources, I’m finally on the right path. Let’s break down how I’m tackling
+                    this beast.</p>
+            </section>
+            <section id="uni-cplusplus">
+                <h2>C++ and Data Structures at Uni</h2>
+                <p>At uni, we’re grinding through data structures in C++, and it’s like switching from a bike to a
+                    spaceship. Our professor (big props to Zia Sir from my Python days) has us coding arrays, linked
+                    lists, and stacks from the ground up. C++ is intense pointers and memory management are no joke, but
+                    it’s making me see how data structures actually work. Check out this C++ linked list node I coded
+                    for class:</p>
+                <div class="code-block">
+                    <button class="copy-btn">Copy</button>
+                    <pre class="language-cpp" data-lang="C++"><code>
+#include <iostream>
+struct Node {
+    int data;
+    Node* next;
+    Node(int val) : data(val), next(nullptr) {}
+};
+class LinkedList {
+public:
+    Node* head;
+    LinkedList() : head(nullptr) {}
+    void insert(int val) {
+        Node* newNode = new Node(val);
+        newNode-&gt;next = head;
+        head = newNode;
+    }
+};
+                    </iostream></code></pre>
+                </div>
+                <p>This code was my “aha” moment, linked lists are like a chain of treasure chests, each pointing to the
+                    next. C++’s raw power helped me get why DSA is the backbone of efficient ML code.</p>
+            </section>
+            <section id="leetcode-grind">
+                <h2>LeetCode and My Go-To Resources</h2>
+                <p>With uni giving me a DSA foundation, I jumped back into LeetCode, and it’s less scary this time. I’ve
+                    tackled problems like Two Sum and Valid Parentheses, and each green checkmark feels like hitting a
+                    boundary in cricket. I’m no DSA rockstar yet but arrays still mess with my head but I’m making
+                    progress.
+                    To stay on track, I’ve been leaning on some awesome resources that break down DSA like a pro. Here’s
+                    what’s been saving me:</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>Striver’s A-Z DSA Sheet</strong><br />
+                        A structured guide with curated LeetCode problems to master DSA step-by-step. Check it out: <a
+                            href="https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2">takeuforward.org</a>
+                    </li>
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>Coder Army’s YouTube Tutorials</strong><br />
+                        Beginner-friendly DSA videos with clear explanations in English. Watch here: <a
+                            href="https://www.youtube.com/@CoderArmy9">youtube.com/@CoderArmy9</a>
+                    </li>
+                    <li
+                        style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+                        <strong>Abdul Bari’s YouTube Videos</strong><br />
+                        In-depth DSA concepts explained like a pro, perfect for uni students. Start here: <a
+                            href="https://www.youtube.com/@abdul_bari">youtube.com/@abdul_bari</a>
+                    </li>
+                </ul>
+            </section>
+            <section id="not-so-tough">
+                <h2>Not as Tough as They Say</h2>
+                <p>People hype up DSA like it’s the final boss of computer science. I bought into that fear, thinking
+                    I’d be lost in a maze of pointers forever. But after uni classes and some LeetCode practice, I’m
+                    like, “Bro, it’s not *that* bad!” Maybe I’m a bit cocky, but arrays, linked lists, and stacks are
+                    starting to feel like squad mates. The trick? Chip away daily, lean on resources like Striver and
+                    Coder Army, and laugh off those “Time Limit Exceeded” errors. It’s just LeetCode saying, “C’mon, you
+                    got this!”</p>
+            </section>
+            <section id="why-it-matters">
+                <h2>Why Data Structures Matter</h2>
+                <p>Data structures are the backbone of efficient programming, especially in fields like machine learning
+                    and AI. They help organize and manage data, making code faster and more scalable. Mastering arrays,
+                    linked lists, trees, and stacks builds a solid foundation for solving real-world problems. With
+                    resources like Striver's DSA sheet, Abdul Bari’s explanations, and platforms like LeetCode and
+                    GeeksforGeeks, anyone can level up their problem-solving skills and become a better developer.</p>
+            </section>
+            <div class="tags-container" id="dynamic-tags">
+                <!-- Tags will be dynamically generated here -->
+            </div>
+            <hr class="divider" />
+            <section class="related-articles" id="related-series">
+                <h2 class="series-title">Article Series</h2>
+                <a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+                <div id="related-posts-container"></div>
+            </section>
+        </main>
+        <!-- Newsletter Subscription Section -->
+        <div class="newsletter-section">
+            <div class="newsletter-content">
+                <h3>Subscribe to our newsletter</h3>
+                <p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+                <p>Subscribe to the newsletter, and don't miss out.</p>
+                <div class="newsletter-form">
+                    <input class="newsletter-input" placeholder="Enter your email address" type="email" />
+                    <button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+        <div class="social-icons" style="margin-bottom:25px;">
+            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+        </div>
+        <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../../assets/js/each-post.js"></script>
+    <script src="../../assets/js/shared-bottom-nav.js"></script>
+    <script src="../../assets/js/nav-active.js"></script>
+    <script>
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.innerText = "Copied!";
+                    setTimeout(() => button.innerText = "Copy", 1500);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

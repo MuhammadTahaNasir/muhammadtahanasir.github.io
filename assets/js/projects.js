@@ -21,6 +21,7 @@ const sortSelect = document.getElementById('sortSelect');
 const gridViewBtn = document.getElementById('gridViewBtn');
 const listViewBtn = document.getElementById('listViewBtn');
 const toggleButtons = document.querySelectorAll('.toggle-btn');
+const mobileToggleButtons = document.querySelectorAll('.mobile-toggle-btn');
 const scrollTopBtn = document.getElementById('scrollTop');
 const themeToggle = document.getElementById('theme-toggle');
 const loader = document.getElementById('loader');
@@ -126,7 +127,13 @@ function applyFilter() {
     projectsGrid.className = 'projects-grid' + (isListView ? ' list-view' : '');
 
     if (filteredProjects.length === 0) {
-        projectsGrid.classList.add('empty');
+        projectsGrid.innerHTML = `
+            <div class="no-results">
+                <i class="fas fa-folder-open"></i>
+                <h3>No projects found</h3>
+                <p>Try adjusting your search terms or filters</p>
+            </div>
+        `;
         return;
     }
 
@@ -140,22 +147,26 @@ function applyFilter() {
         card.setAttribute('data-date', project.date);
 
         // Conditionally include web link based on hideWebLink
+<<<<<<< HEAD
         const webLink = project.hideWebLink ? '' : `<a href="${project.web || project.url}" target="_blank" class="web-link"><i class="fas fa-globe"></i></a>`;
+=======
+        const webLink = project.hideWebLink ? '' : `<a href="${project.web || project.url}" target="_blank" class="web-link" title="Visit Website"><i class="fas fa-globe"></i></a>`;
+>>>>>>> c9292a4 (Site Updated: New Look)
 
         card.innerHTML = `
             <a href="${project.url}" target="_blank">
-                <img src="${project.thumbnail || 'https://via.placeholder.com/300x150'}" alt="${project.title}" loading="lazy">
+                <img src="${project.thumbnail || 'https://via.placeholder.com/300x200'}" alt="${project.title}" loading="lazy">
             </a>
             <div class="content-container">
                 <div class="category-tag">${formatCategory(project.subcategory, true)}</div>
                 <h3><a href="${project.url}" target="_blank">${project.title}</a></h3>
-                <p><a href="${project.url}" target="_blank">${project.description}</a></p>
+                <p>${project.description}</p>
                 <div class="features-tags">
                     ${project.features ? (project.features.length > 3 ? project.features.slice(0, 3).map(feature => `<span class="feature-tag">${feature}</span>`).join('') + `<span class="feature-tag extra">+${project.features.length - 3}</span>` : project.features.map(feature => `<span class="feature-tag">${feature}</span>`).join('')) : ''}
                 </div>
                 <div class="project-links">
                     ${webLink}
-                    ${project.github ? `<a href="${project.github}" target="_blank" class="github-link"><i class="fab fa-github"></i></a>` : ''}
+                    ${project.github ? `<a href="${project.github}" target="_blank" class="github-link" title="View on GitHub"><i class="fab fa-github"></i></a>` : ''}
                 </div>
             </div>
         `;
@@ -210,11 +221,35 @@ sortSelect.addEventListener('change', () => {
     applyFilter();
 });
 
+// Mobile Toggle Buttons Listener
+mobileToggleButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        mobileToggleButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentTab = btn.getAttribute('data-tab');
+        
+        // Sync desktop toggle buttons
+        toggleButtons.forEach(b => {
+            b.classList.toggle('active', b.getAttribute('data-tab') === currentTab);
+        });
+        
+        categorySelect.value = 'all';
+        currentCategory = 'all';
+        applyFilter();
+    });
+});
+
 toggleButtons.forEach(btn => {
     btn.addEventListener('click', () => {
         toggleButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentTab = btn.getAttribute('data-tab');
+        
+        // Sync mobile toggle buttons
+        mobileToggleButtons.forEach(b => {
+            b.classList.toggle('active', b.getAttribute('data-tab') === currentTab);
+        });
+        
         categorySelect.value = 'all';
         searchInput.value = '';
         searchQuery = '';

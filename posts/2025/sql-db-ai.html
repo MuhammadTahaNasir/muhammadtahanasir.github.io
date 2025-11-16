@@ -1,24 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+
+<html dir="auto" lang="en">
 
 <head>
-    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
-    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="Terry" />
-    <link rel="manifest" href="/assets/images/site.webmanifest" />
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="description"
-        content="This semester, I got into databases and learned a ton. I started with MySQL and SQLite, figuring out how to write queries to manage data. Then, I tried Neo4j and saw how it connects things like a web. I also checked out vector databases and how they help apps find stuff fast. Working on projects and seeing real examples made it clear how data is stored and used in apps today.">
-    <meta name="author" content="Muhammad Taha Nasir">
-    <meta name="tags" content="SQL, MySQL, SQLite, Neo4j, Vector Databases, Machine Learning, AI, Databases">
-    <meta name="thumbnail" content="/assets/images/posts/sql-db-ai.png">
+    <link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png" />
+    <link href="/assets/images/favicon.ico" rel="shortcut icon" />
+    <link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta
+        content="This semester, I got into databases and learned a ton. I started with MySQL and SQLite, figuring out how to write queries to manage data. Then, I tried Neo4j and saw how it connects things like a web. I also checked out vector databases and how they help apps find stuff fast. Working on projects and seeing real examples made it clear how data is stored and used in apps today."
+        name="description" />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="SQL, MySQL, SQLite, Neo4j, Vector Databases, Machine Learning, AI, Databases" name="tags" />
+    <meta content="/assets/images/posts/sql-db-ai.png" name="thumbnail" />
     <title>The Future of Data: What I Learned from SQL to Vector Databases</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="../../assets/css/each-post.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+    </style>
     <script>
         // Apply theme immediately on page load
         (function () {
@@ -29,14 +36,25 @@
     </script>
 </head>
 
-<body class="dark" id="top" post-date="2025-04-14T00:00:00Z">
+<body class="dark" id="top" post-date="2025-04-14">
+    <!-- Loader Animation -->
+    <div class="loader" id="loader" aria-hidden="true">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+    
+    
     <header class="header">
         <nav class="nav">
             <!-- Left: Logo -->
             <div class="nav-left">
-                <a href="../../index.html" class="logo">&lt;terry/&gt;</a>
+                <a class="logo" href="../../index.html">&lt;terry/&gt;</a>
             </div>
-
             <!-- Center: Pills Navigation -->
             <div class="nav-center">
                 <div class="pill-nav">
@@ -46,25 +64,24 @@
                     <a href="../../search.html">Search</a>
                 </div>
             </div>
-
             <!-- Right: Theme toggle -->
             <div class="nav-right">
-                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
-                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5" />
-                        <line x1="12" y1="1" x2="12" y2="3" />
-                        <line x1="12" y1="21" x2="12" y2="23" />
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                        <line x1="1" y1="12" x2="3" y2="12" />
-                        <line x1="21" y1="12" x2="23" y2="12" />
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                <button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
+                    <svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" x2="12" y1="1" y2="3"></line>
+                        <line x1="12" x2="12" y1="21" y2="23"></line>
+                        <line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+                        <line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+                        <line x1="1" x2="3" y1="12" y2="12"></line>
+                        <line x1="21" x2="23" y1="12" y2="12"></line>
+                        <line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+                        <line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
                     </svg>
-                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    <svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
                     </svg>
                 </button>
             </div>
@@ -92,6 +109,15 @@
                     </ul>
                 </details>
             </aside>
+            <!-- Social Sharing Floating Toolbar -->
+            <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
             <section id="database-journey">
                 <h2>My Database Journey Begins</h2>
                 <p>Yo, back in the day, I’d dodge anything with “data” in it like it was a bouncer in cricket. But this
@@ -100,8 +126,8 @@
                     straight-up crucial for AI. From building schemas to querying graphs, I learned how data powers
                     everything.</p>
             </section>
-            <img src="/assets/images/posts/sql-db-ai.png" alt="Database Code on Screen"
-                style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;">
+            <img alt="Database Code on Screen" src="/assets/images/posts/sql-db-ai.png"
+                style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;" />
             <section id="mysql-sqlite">
                 <h2>MySQL and SQLite: The Relational Roots</h2>
                 <p>MySQL and SQLite were my first stop. MySQL is like the captain of relational databases structured,
@@ -116,7 +142,7 @@ SELECT p.player_name, AVG(s.runs) as avg_runs
 FROM players p
 JOIN scores s ON p.player_id = s.player_id
 GROUP BY p.player_name
-HAVING AVG(s.runs) > 50;
+HAVING AVG(s.runs) &gt; 50;
                     </code></pre>
                 </div>
                 <p>This query finds players averaging over 50 runs clean and efficient, just like a well-placed cover
@@ -133,7 +159,7 @@ HAVING AVG(s.runs) > 50;
                 <div class="code-block">
                     <button class="copy-btn">Copy</button>
                     <pre class="language-cypher" data-lang="Cypher"><code>
-MATCH (user:Person {name: "Taha"})-[:FRIEND]->(friend)-[:FRIEND]->(fof)
+MATCH (user:Person {name: "Taha"})-[:FRIEND]-&gt;(friend)-[:FRIEND]-&gt;(fof)
 RETURN fof.name
                     </code></pre>
                 </div>
@@ -154,12 +180,12 @@ RETURN fof.name
                 <p>My two assignments were like batting practice against spinners means tough but rewarding. Check them
                     out on my <a href="https://github.com/yourusername/database-assignments" target="_blank">GitHub</a>!
                 </p>
-                <p><strong>Assignment 2: Expense Tracker (SQLite)</strong><br>I built a desktop app using Python,
+                <p><strong>Assignment 2: Expense Tracker (SQLite)</strong><br />I built a desktop app using Python,
                     Tkinter, SQLite, and Matplotlib. It lets users track expenses and income, with a dark-themed GUI,
                     user authentication, and charts (pie for expense breakdown, bar for income vs. expense). The SQLite
                     database had tables for users, expenses, and income, with foreign keys for integrity. I learned to
                     design schemas and query data, like tracking my biryani budget!</p>
-                <p><strong>Assignment 3: Movie Graph (Neo4j)</strong><br>I created a movie graph using Neo4j, loading
+                <p><strong>Assignment 3: Movie Graph (Neo4j)</strong><br />I created a movie graph using Neo4j, loading
                     data from movies.csv. I wrote Cypher queries to create nodes (Movie, Director, Actor, Genre,
                     Country) and relationships (DIRECTED_BY, ACTED_IN, IN_GENRE, PRODUCED_IN). For example, I linked
                     movies to genres and actors to films, perfect for a Netflix-style recommendation system. This showed
@@ -172,19 +198,19 @@ RETURN fof.name
                 <ul style="list-style: none; padding: 0;">
                     <li
                         style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
-                        <strong>MySQL Tutorial by W3Schools</strong><br>
+                        <strong>MySQL Tutorial by W3Schools</strong><br />
                         Clear, beginner-friendly SQL lessons with examples. Start here: <a
                             href="https://www.w3schools.com/mysql">w3schools.com</a>
                     </li>
                     <li
                         style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
-                        <strong>Neo4j Sandbox</strong><br>
+                        <strong>Neo4j Sandbox</strong><br />
                         Free playground to practice Cypher and graph modeling. Try it: <a
                             href="https://neo4j.com/sandbox">neo4j.com/sandbox</a>
                     </li>
                     <li
                         style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
-                        <strong>Weaviate’s Vector Database Guide</strong><br>
+                        <strong>Weaviate’s Vector Database Guide</strong><br />
                         Intro to vector DBs and AI applications. Check it out: <a
                             href="https://weaviate.io/developers/weaviate">weaviate.io</a>
                     </li>
@@ -193,9 +219,9 @@ RETURN fof.name
             <section id="why-it-matters">
                 <h2>Why Databases Matter for AI</h2>
                 <p>Databases are the backbone of AI. MySQL and SQLite handle structured data like user profiles in my
-                    upcoming Database Semester's Project , <a
-                        href="https://github.com/yourusername/database-assignments" target="_blank">Dishly</a> - (Smart
-                    Resources Management System). Neo4j powers recommendation systems by mapping relationships. Vector
+                    upcoming Database Semester's Project , <a href="/projects/academic/dishly.html"
+                        target="_blank">Dishly</a> - (Modern
+                    Recipe Management System). Neo4j powers recommendation systems by mapping relationships. Vector
                     databases like Pinecone or Weaviate make AI smart by finding patterns in embeddings, semantic search
                     or RAG in LLMs. This semester showed me databases aren’t just storage; they’re the engine for
                     real-world AI.</p>
@@ -203,28 +229,49 @@ RETURN fof.name
             <div class="tags-container" id="dynamic-tags">
                 <!-- Tags will be dynamically generated here -->
             </div>
-            <hr class="divider">
-            <section id="related-series" class="related-articles">
+            <hr class="divider" />
+            <section class="related-articles" id="related-series">
                 <h2 class="series-title">Article Series</h2>
-                <a href="../../posts.html" class="series-link">Zero to One: Dev Diaries</a>
+                <a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
                 <div id="related-posts-container"></div>
             </section>
         </main>
-        <footer class="footer">
-            <div class="social-icons">
-                <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i
-                        class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i
-                        class="fab fa-linkedin"></i></a>
-                <a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+        <!-- Newsletter Subscription Section -->
+        <div class="newsletter-section">
+            <div class="newsletter-content">
+                <h3>Subscribe to our newsletter</h3>
+                <p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+                <p>Subscribe to the newsletter, and don't miss out.</p>
+                <div class="newsletter-form">
+                    <input class="newsletter-input" placeholder="Enter your email address" type="email" />
+                    <button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+                </div>
             </div>
-            <p>© 2025 – Muhammad Taha Nasir</p>
-        </footer>
+        </div>
     </div>
-    <button id="scrollTop" aria-label="Scroll to top">
+    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+        <div class="social-icons" style="margin-bottom:25px;">
+            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+        </div>
+        <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
         <i class="fas fa-chevron-up"></i>
     </button>
     <script src="../../assets/js/each-post.js"></script>
+    <script src="../../assets/js/shared-bottom-nav.js"></script>
+    <script src="../../assets/js/nav-active.js"></script>
     <script>
         document.querySelectorAll('.copy-btn').forEach(button => {
             button.addEventListener('click', () => {

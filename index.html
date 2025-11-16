@@ -15,8 +15,12 @@
 
   <!-- ---------- 2. Stylesheets ---------- -->
   <link rel="stylesheet" href="assets/css/stylesheet.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Shared UI overrides (header, loader, bottom nav) -->
+  <link rel="stylesheet" href="assets/css/shared-ui.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+
 
   <!-- ---------- 3. Theme Initialization Script ---------- -->
   <script>
@@ -25,17 +29,13 @@
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const theme = savedTheme || (prefersDark ? 'dark' : 'light');
     document.documentElement.setAttribute('data-theme', theme);
-
-    // Stop wave animation after 3 seconds
-    setTimeout(() => {
-      document.querySelector('.animate-wave')?.classList.remove('animate-wave');
-    }, 3000);
   </script>
+
 </head>
 
 <body>
   <!-- ---------- 4. Loader Animation ---------- -->
-  <div class="loader" id="loader">
+  <div class="loader" id="loader" aria-hidden="true">
     <div class="terry-animation">
       <span class="letter">t</span>
       <span class="letter">e</span>
@@ -46,29 +46,29 @@
   </div>
 
   <!-- ---------- 5. Header Navigation ---------- -->
-  <header class="header">
-    <nav class="nav">
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
       <!-- Left: Logo -->
       <div class="nav-left">
-        <a href="/index.html" class="logo">&lt;terry/&gt;</a>
+        <a href="index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
       </div>
 
       <!-- Center: Pills Navigation -->
       <div class="nav-center">
-        <div class="pill-nav">
-          <a href="resources.html">Resources</a>
-          <a href="archives.html" class="active">Archives</a>
-          <a href="resume.html">Resume</a>
-          <a href="search.html">Search</a>
+        <div class="pill-nav" role="tablist">
+          <a href="resources.html" role="tab">Resources</a>
+          <a href="archives.html" role="tab">Archives</a>
+          <a href="resume.html" role="tab">Resume</a>
+          <a href="search.html" role="tab">Search</a>
         </div>
       </div>
+      
 
-      <!-- Right: Status and Theme Toggle -->
+      <!-- Right: Theme Toggle -->
       <div class="nav-right">
-        <a href="contact.html" class="status"><span class="dot"></span>Contact Me?</a>
-        <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+        <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
           <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
+            stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="5" />
             <line x1="12" y1="1" x2="12" y2="3" />
             <line x1="12" y1="21" x2="12" y2="23" />
@@ -80,7 +80,7 @@
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
           </svg>
           <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
+            stroke-linejoin="round" aria-hidden="true">
             <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
           </svg>
         </button>
@@ -88,23 +88,20 @@
     </nav>
   </header>
 
+  <!-- Full-page Glass Waves Background -->
+  <canvas class="bg-waves" id="bg-waves" aria-hidden="true"></canvas>
+
   <!-- ---------- 6. Main Content ---------- -->
   <div class="container">
     <!-- Profile Section -->
     <div class="profile-wrapper"
       style="position: relative; display: flex; justify-content: center; align-items: center; flex-direction: column;">
-      <!-- Bubbles Animation -->
-      <div class="animated-circles">
-        <div class="circle" style="height: 180px; width: 180px;"></div>
-        <div class="circle" style="height: 230px; width: 230px;"></div>
-        <div class="circle" style="height: 280px; width: 280px;"></div>
-        <div class="circle" style="height: 330px; width: 330px;"></div>
-        <div class="circle" style="height: 380px; width: 380px;"></div>
+      <div class="profile-image-container">
+        <img src="assets/images/profile.jpg" alt="Profile Picture" class="profile-img" id="profile-img">
       </div>
-
-      <!-- Profile Image and Text -->
-      <img src="assets/images/profile.jpg" alt="Profile Picture" class="profile-img" id="profile-img">
-      <div class="subtitle">Full Stack Dev × AI Engineer<p>(in making)</p>
+      <div class="subtitle" style="text-align:center;">
+        <span id="role-typer" class="role-typer"></span>
+        <p>(in making)</p>
       </div>
       <div class="typing-text" id="typing-text">
         Hi, I'm Taha <span class="animate-wave">👋</span>
@@ -144,20 +141,50 @@
       <div class="button" onclick="changeSection('tags')">Tags</div>
     </div>
 
-    <!-- ---------- 7. Footer ---------- -->
+    <!-- ---------- 7. Bottom Navigation (Mobile Only) ---------- -->
+    <nav class="bottom-nav">
+      <a href="index.html" class="active"><i class="fas fa-home"></i><span>Home</span></a>
+      <a href="resources.html"><i class="fas fa-book"></i><span>Resources</span></a>
+      <a href="archives.html"><i class="fas fa-archive"></i><span>Archives</span></a>
+      <a href="resume.html"><i class="fas fa-file-alt"></i><span>Resume</span></a>
+      <a href="search.html"><i class="fas fa-search"></i><span>Search</span></a>
+    </nav>
+
+    <!-- ---------- 8. Footer ---------- -->
     <!-- Social Icons -->
-    <div class="social-icons">
-      <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-      <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i
-          class="fab fa-linkedin"></i></a>
-      <a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+      <div class="social-icons" style="margin-bottom:25px;">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+          style="margin:0 5px; font-size:1.6em;">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+          aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+          style="margin:0 5px; font-size:1.6em;">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+    </footer>
+
+    <!-- Floating Chat Widget -->
+    <div class="floating-chat-widget">
+      <a href="contact.html" class="chat-widget-btn" title="Chat with me">
+        <i class="fas fa-comments"></i>
+      </a>
     </div>
-    <footer class="footer">© 2025 – Muhammad Taha Nasir</footer>
   </div>
 
-  <!-- ---------- 8. JavaScript Include ---------- -->
-  <script src="assets/js/theme-sync.js"></script>
+  <!-- ---------- 9. JavaScript Include ---------- -->
+  <script src="assets/js/shared-loader.js"></script>
   <script src="assets/js/scripts.js"></script>
+  <script src="assets/js/header-scroll.js"></script>
+  <script src="assets/js/shared-bottom-nav.js"></script>
+  <script src="assets/js/nav-active.js"></script>
+  <script src="assets/js/instant-loader.js"></script>
 </body>
 
 </html>

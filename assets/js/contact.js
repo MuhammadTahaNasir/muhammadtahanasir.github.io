@@ -101,3 +101,20 @@ function launchConfetti() {
         setTimeout(() => confetti.remove(), 2000);
     }
 }
+
+// ---------- Scroll to Top Functionality ----------
+window.addEventListener('scroll', () => {
+    const scrollTopBtn = document.getElementById('scrollTop');
+    if (scrollTopBtn) {
+        scrollTopBtn.style.display = window.scrollY > 200 ? 'flex' : 'none';
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const scrollTopBtn = document.getElementById('scrollTop');
+    if (scrollTopBtn) {
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+});

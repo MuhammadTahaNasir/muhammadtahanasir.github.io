@@ -42,7 +42,7 @@
     "tags": [
       "AI",
       "Machine Learning",
-      "personal growth"
+      "Personal Growth"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "3 min",
@@ -86,7 +86,7 @@
   {
     "title": "The Importance of Math in Machine Learning",
     "summary": "From dodging math to loving it: How linear algebra, calculus, and stats power ML, explained with simple examples.",
-    "url": "posts/2024/maths-for-ml.html",
+    "url": "posts/2025/maths-for-ml.html",
     "thumbnail": "",
     "tags": [
       "Machine Learning",
@@ -103,7 +103,7 @@
   {
     "title": "DSA Finally Clicked!",
     "summary": "From C++ classes to LeetCode battles, my DSA journey boosts ML speed. Arrays, stacks, and a not-so-scary grind!",
-    "url": "posts/2024/cracking-dsa.html",
+    "url": "posts/2025/cracking-dsa.html",
     "thumbnail": "",
     "tags": [
       "Data Structures",
@@ -111,7 +111,7 @@
       "C++",
       "Machine Learning",
       "Algorithms",
-      "university"
+      "University"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "3 min",
@@ -120,14 +120,14 @@
   {
     "title": "Deploying AI Projects: Flask vs Streamlit vs Vercel",
     "summary": "A beginner’s hilarious dive into deploying AI projects with Flask, Streamlit, and Vercel, with tales of bugs, late-night coding, and my Headstarter Fellowship adventures.",
-    "url": "posts/2024/deploy-ai-proj.html",
+    "url": "posts/2025/deploy-ai-proj.html",
     "thumbnail": "/assets/images/posts/ai-deployment.png",
     "tags": [
       "Flask",
       "Streamlit",
       "Vercel",
       "AI Deployment",
-      "python",
+      "Python",
       "WebDev"
     ],
     "author": "Muhammad Taha Nasir",
@@ -137,12 +137,12 @@
   {
     "title": "How I Built My First Streamlit App in 3 Days: My Headstarter Fellowship Journey",
     "summary": "A student’s journey building an AI Roadmap Generator with Streamlit during the Headstarter AI SWE Fellowship, plus lessons learned and related fellowship projects.",
-    "url": "posts/2024/streamlit-app.html",
+    "url": "posts/2025/streamlit-app.html",
     "thumbnail": "",
     "tags": [
       "Streamlit",
       "AI",
-      "python",
+      "Python",
       "Machine Learning",
       "WebDev"
     ],
@@ -153,7 +153,7 @@
   {
     "title": "TensorFlow vs PyTorch: Building My First Models and Choosing One",
     "summary": "A beginner’s guide to building a neural network with TensorFlow and a classifier with PyTorch, plus my take on which to choose.",
-    "url": "posts/2024/pytorch-vs-tensorflow.html",
+    "url": "posts/2025/pytorch-vs-tensorflow.html",
     "thumbnail": "/assets/images/posts/pytorch-vs-tensorflow.png",
     "tags": [
       "TensorFlow",
@@ -169,7 +169,7 @@
   {
     "title": "April 2024: Code, Clouds, and Crazy Days",
     "summary": "My April 2024 story: joining the AWS Cloud Club, surviving my first hackathon at GIKI, and tackling competitive programming prep.",
-    "url": "posts/2024/first-hackathon.html",
+    "url": "posts/2025/first-hackathon.html",
     "thumbnail": "",
     "tags": [
       "AWS",
@@ -184,7 +184,7 @@
   {
     "title": "NLP Struggles: My First Chatbot Attempt",
     "summary": "It's about the challenges of building a chatbot with NLTK during Ramzan, blending coding struggles",
-    "url": "posts/2024/2024-ramzan.html",
+    "url": "posts/2025/2024-ramzan.html",
     "thumbnail": "/assets/images/posts/nlp-hard.png",
     "tags": [
       "NLP",
@@ -198,7 +198,7 @@
   {
     "title": "Discovering Web Development: My Journey Starts with MLSA Session",
     "summary": "I'd be my start in web development after an MLSA session, exploring beginner courses, technologies, and AI integration.",
-    "url": "posts/2024/webdev-intro.html",
+    "url": "posts/2025/webdev-intro.html",
     "thumbnail": "/assets/images/posts/webdev-journey.png",
     "tags": [
       "WebDev"
@@ -210,13 +210,12 @@
   {
     "title": "Wrapping Up 2023: ML Lessons and Exam Chaos",
     "summary": "A tech blogger wraps up 2023 with ML flops, linear regression wins, and exam madness as Semester 1 ends.",
-    "url": "posts/2023/2023-end.html",
+    "url": "posts/2025/2023-end.html",
     "thumbnail": "/assets/images/posts/ML-2023.png",
     "tags": [
       "Machine Learning",
-      "coding",
-      "DataScience",
-      "student life"
+      "Data Science",
+      "Student Life"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "3 min",
@@ -225,15 +224,13 @@
   {
     "title": "Ethical AI: Why It’s More Than Hype",
     "summary": "A tech blogger’s reflection on AI ethics after a 1.5-hour session, exploring bias, responsibility, and personal growth with humor and insights.",
-    "url": "posts/2023/ethical-ai.html",
+    "url": "posts/2025/ethical-ai.html",
     "thumbnail": "/assets/images/posts/ethical-ai.jpg",
     "tags": [
-      "AI ethics",
-      "university",
-      "programming",
+      "AI Ethics",
       "Machine Learning",
-      "bias",
-      "research"
+      "Research",
+      "University"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "3 min",
@@ -242,15 +239,15 @@
   {
     "title": "Surviving My First Semester: Coding Challenges in Uni",
     "summary": "A student’s survival log of the first semester at a reputed Pakistani institution, tackling coding challenges, sessional exams, and a language switch from Python to C while exploring ML and NLP.",
-    "url": "posts/2023/surviving-first-semester.html",
+    "url": "posts/2025/surviving-first-semester.html",
     "thumbnail": "",
     "tags": [
-      "programming",
-      "python",
+      "Programming",
+      "Python",
       "C",
       "Machine Learning",
       "NLP",
-      "university"
+      "University"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "3 min",
@@ -259,14 +256,14 @@
   {
     "title": "The Rise of ChatGPT: A Student’s Take",
     "summary": "A student’s take on ChatGPT’s rise in 2023, exploring NLP with Python, preparing for university entrance tests, and thinking about AI’s future.",
-    "url": "posts/2023/rise-of-gpt.html",
+    "url": "posts/2025/rise-of-gpt.html",
     "thumbnail": "/assets/images/posts/chatgpt.jpeg",
     "tags": [
       "ChatGPT",
       "NLP",
-      "python",
-      "programming",
-      "student life"
+      "Python",
+      "Programming",
+      "Student Life"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "3 min",
@@ -275,17 +272,15 @@
   {
     "title": "2023 Kickoff: Chasing Uni Dreams, AI Vibes, and Python Magic",
     "summary": "My first post of 2023 as a tech blogger, navigating university entrance test prep, college studies, and self-learning. Exploring AI’s inspiration from ChatGPT, Python’s role in my journey, and balancing it all.",
-    "url": "posts/2023/kickoff-2023.html",
+    "url": "posts/2025/kickoff-2023.html",
     "thumbnail": "",
     "tags": [
-      "tech journey",
-      "python",
+      "Tech Journey",
+      "Python",
       "AI",
       "ChatGPT",
-      "university prep",
-      "self-learning",
-      "programming",
-      "pandas"
+      "Self Learning",
+      "Programming"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "3 min",
@@ -294,15 +289,15 @@
   {
     "title": "2022 Recap: The Year I Chased Logic and Found Myself",
     "summary": "My 2022 tech journey as a student and tech blog writer, learning Python, Java, grinding LeetCode, and using ChatGPT to tackle coding and college assignments.",
-    "url": "posts/2022/wrapup-2022.html",
+    "url": "posts/2025/wrapup-2022.html",
     "thumbnail": "/assets/images/posts/wrapup-2022.png",
     "tags": [
-      "tech journey",
-      "python",
-      "java",
+      "Tech Journey",
+      "Python",
+      "Java",
       "LeetCode",
       "ChatGPT",
-      "programming"
+      "Programming"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "3 min",
@@ -311,12 +306,12 @@
   {
     "title": "Breaking into DSA with LeetCode: The Real Struggle Behind the Grind",
     "summary": "My entry point into real problem-solving: LeetCode, Python, and the unexpected depth of DSA that made me rethink how I code.",
-    "url": "posts/2022/learning-dsa-leetcode.html",
+    "url": "posts/2025/learning-dsa-leetcode.html",
     "thumbnail": "/assets/images/posts/leetcode.jpg",
     "tags": [
       "Data Structures",
       "LeetCode",
-      "python"
+      "Python"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "3 min",
@@ -325,14 +320,13 @@
   {
     "title": "Why Python Stole My Heart Over Java",
     "summary": "Why I switched to Python over Java after taking courses in both, inspired by my teacher Sir Zia, with a focus on ease and libraries like Pandas and NumPy.",
-    "url": "posts/2022/python-over-java.html",
+    "url": "posts/2025/python-over-java.html",
     "thumbnail": "/assets/images/posts/python-vs-java.jpg",
     "tags": [
-      "python",
-      "java",
-      "coding",
-      "programming",
-      "projects"
+      "Python",
+      "Java",
+      "Programming",
+      "Projects"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "4 min",
@@ -341,14 +335,13 @@
   {
     "title": "Why I Chose CS Over AI",
     "summary": "Why I chose a Computer Science degree over a specialized AI path in 2022 for a strong foundation and more options.",
-    "url": "posts/2022/cs-vs-ai.html",
+    "url": "posts/2025/cs-vs-ai.html",
     "thumbnail": "",
     "tags": [
-      "computer science",
+      "Computer Science",
       "AI",
-      "education",
-      "coding",
-      "career"
+      "Education",
+      "Career"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "3 min",
