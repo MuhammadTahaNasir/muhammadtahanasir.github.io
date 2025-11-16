@@ -1,3 +1,51 @@
+// Immediately hide loader if coming from hash navigation
+(function() {
+    const loader = document.getElementById("loader");
+    if (window.location.hash && document.referrer.split('#')[0] === window.location.href.split('#')[0]) {
+        // Same page hash navigation - hide loader immediately
+        if (loader) {
+            loader.style.display = "none";
+            loader.classList.add("hidden");
+        }
+    }
+})();
+
+// Smooth scroll for anchor links (table of contents)
+document.addEventListener("DOMContentLoaded", () => {
+    // Add smooth scrolling to all anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href === '#' || href === '#top') return;
+            
+            e.preventDefault();
+            
+            const targetId = href.substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                // Hide loader immediately
+                const loader = document.getElementById("loader");
+                if (loader) {
+                    loader.style.display = "none";
+                    loader.style.opacity = "0";
+                    loader.style.visibility = "hidden";
+                    loader.classList.add("hidden");
+                }
+                
+                // Smooth scroll to target
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // Update URL without triggering page reload
+                history.pushState(null, null, href);
+            }
+        });
+    });
+});
+
 // Theme handling
 document.addEventListener("DOMContentLoaded", () => {
     const savedTheme = localStorage.getItem("pref-theme");
@@ -13,15 +61,35 @@ document.addEventListener("DOMContentLoaded", () => {
     incrementPostViewCount();
 });
 
-// Loader handling
+// Loader handling - only on actual page load, NOT on hash navigation
 window.addEventListener("load", () => {
     const loader = document.getElementById("loader");
-    if (loader) {
+    if (loader && !window.location.hash) {
         setTimeout(() => {
             loader.classList.add("hidden");
+            loader.classList.remove("active");
         }, 800);
+    } else if (loader && window.location.hash) {
+        // If there's a hash, hide immediately
+        loader.style.display = "none";
+        loader.classList.add("hidden");
     }
 });
+
+// Prevent loader from showing on hash navigation (table of contents)
+let lastHash = window.location.hash;
+window.addEventListener("hashchange", () => {
+    const loader = document.getElementById("loader");
+    if (loader) {
+        // Force loader to stay hidden on hash navigation
+        loader.classList.add("hidden");
+        loader.classList.remove("active");
+        loader.style.display = "none";
+        loader.style.opacity = "0";
+        loader.style.visibility = "hidden";
+    }
+    lastHash = window.location.hash;
+}, true);
 
 const themeToggle = document.getElementById("theme-toggle");
 if (themeToggle) {
