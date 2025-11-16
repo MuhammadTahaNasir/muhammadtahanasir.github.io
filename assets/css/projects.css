@@ -432,13 +432,6 @@ body {
   font-size: 0.8rem;
 }
 
-.dropdowns-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: nowrap;
-}
-
 .view-toggle {
   display: flex;
   gap: 4px;
@@ -1117,24 +1110,6 @@ body {
     order: 2;
     margin-left: auto;
   }
-<<<<<<< HEAD
-
-  .filter-bar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-    padding: 8px 12px;
-  }
-
-  .filter-bar input {
-    width: 100%;
-    min-width: auto;
-    flex: none;
-    padding: 8px 12px;
-    font-size: 14px;
-    border-radius: 6px;
-    border: none;
-=======
   
   #theme-toggle {
     width: 44px;
@@ -1194,53 +1169,22 @@ body {
     width: 100%;
     min-width: 0;
     max-width: 100%;
->>>>>>> c9292a4 (Site Updated: New Look)
     box-sizing: border-box;
-    margin-bottom: 0;
   }
 
-  .filter-bar .dropdowns-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: nowrap;
-    overflow-x: hidden;
-    padding: 8px 0;
-    width: 100%;
-  }
-
-<<<<<<< HEAD
-  .filter-bar select {
-    padding: 6px 8px;
-    font-size: 14px;
-    border-radius: 6px;
-    border: none;
-    width: 100%;
-    min-width: 0;
-    flex: 1;
-=======
   .dropdowns-row {
     width: 100%;
     justify-content: space-between;
     gap: 10px;
     flex-wrap: nowrap;
     box-sizing: border-box;
->>>>>>> c9292a4 (Site Updated: New Look)
   }
   
   .dropdown-container {
-<<<<<<< HEAD
-    position: relative;
-    min-width: 120px;
-    max-width: calc(50% - 5px);
-    flex: 1;
-=======
     flex: 1;
     min-width: 0;
     max-width: 50%;
     box-sizing: border-box;
->>>>>>> c9292a4 (Site Updated: New Look)
   }
   
   .dropdown-container select {
@@ -1334,12 +1278,7 @@ body {
   }
 
   .skeleton-post-card {
-<<<<<<< HEAD
-    padding: 8px 12px;
-    margin-bottom: 10px;
-=======
     padding: 0.6rem;
->>>>>>> c9292a4 (Site Updated: New Look)
   }
 
   .skeleton-title {

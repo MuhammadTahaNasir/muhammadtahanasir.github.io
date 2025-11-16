@@ -434,13 +434,11 @@ body.theme-applied {
     0% { 
         width: 0;
         right: 28px;
-        top: 90px;
         opacity: 0;
     }
     100% { 
         width: 70px;
         right: 28px;
-        top: 62px;
         opacity: 1;
     }
 }
@@ -830,13 +828,11 @@ body.theme-applied {
         0% { 
             width: 0;
             right: 22px;
-            top: 77px;
             opacity: 0;
         }
         100% { 
             width: 55px;
             right: 22px;
-            top: 49px;
             opacity: 1;
         }
     }
@@ -875,12 +871,12 @@ body.theme-applied {
     }
 
     .btn {
-        width: 100%;
+        width: calc(100% - 32px);
         max-width: 100%;
         justify-content: center;
         padding: 14px 24px;
         font-size: 0.95rem;
-        margin: 0;
+        margin: 0 auto;
     }
 
     .quick-links {
@@ -986,13 +982,11 @@ body.theme-applied {
         0% { 
             width: 0;
             right: 20px;
-            top: 70px;
             opacity: 0;
         }
         100% { 
             width: 50px;
             right: 20px;
-            top: 44px;
             opacity: 1;
         }
     }
@@ -1028,11 +1022,11 @@ body.theme-applied {
     }
 
     .btn {
-        width: 100%;
+        width: calc(100% - 24px);
         font-size: 0.9rem;
         padding: 13px 20px;
         gap: 8px;
-        margin: 0;
+        margin: 0 auto;
     }
 
     .btn i {
@@ -1144,13 +1138,11 @@ body.theme-applied {
         0% { 
             width: 0;
             right: 19px;
-            top: 66px;
             opacity: 0;
         }
         100% { 
             width: 48px;
             right: 19px;
-            top: 42px;
             opacity: 1;
         }
     }
@@ -1172,10 +1164,10 @@ body.theme-applied {
     }
 
     .btn {
-        width: 100%;
+        width: calc(100% - 24px);
         font-size: 0.88rem;
         padding: 12px 18px;
-        margin: 0;
+        margin: 0 auto;
     }
 
     .link-grid {

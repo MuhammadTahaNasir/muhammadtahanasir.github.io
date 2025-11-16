@@ -1303,32 +1303,13 @@ body.skeleton-active .resume-container {
   }
 
   .pill-nav {
-<<<<<<< HEAD
-    flex-wrap: nowrap;
-    gap: 18px;
-    padding: 6px 14px;
-    overflow-x: auto;
-    border-radius: 30px;
-    justify-content: flex-start;
-    margin: auto;
-    max-width: 100%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    background: var(--entry);
-=======
     display: flex;
->>>>>>> c9292a4 (Site Updated: New Look)
   }
 
   .nav-right {
     order: 2;
     margin-left: auto;
   }
-<<<<<<< HEAD
-  .pill-nav a {
-    font-size: 0.95em;
-    scroll-snap-align: start;
-    font-weight: 500;
-=======
 
   .header-bar h1 {
     font-size: 2.5rem;
@@ -1340,7 +1321,6 @@ body.skeleton-active .resume-container {
     font-family: 'Poppins', sans-serif;
     font-size: 1rem;
     text-transform: uppercase;
->>>>>>> c9292a4 (Site Updated: New Look)
     color: var(--secondary);
     letter-spacing: 8px;
     margin-bottom: 10px;

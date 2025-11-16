@@ -147,11 +147,7 @@ function applyFilter() {
         card.setAttribute('data-date', project.date);
 
         // Conditionally include web link based on hideWebLink
-<<<<<<< HEAD
-        const webLink = project.hideWebLink ? '' : `<a href="${project.web || project.url}" target="_blank" class="web-link"><i class="fas fa-globe"></i></a>`;
-=======
         const webLink = project.hideWebLink ? '' : `<a href="${project.web || project.url}" target="_blank" class="web-link" title="Visit Website"><i class="fas fa-globe"></i></a>`;
->>>>>>> c9292a4 (Site Updated: New Look)
 
         card.innerHTML = `
             <a href="${project.url}" target="_blank">
