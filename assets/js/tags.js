@@ -1,16 +1,22 @@
-// ---------- 0. Page Fade-in Animation ----------
+/**
+ * Tags Page Script
+ * Displays all tags from posts and projects with search and alphabetical navigation
+ */
+
+// Page fade-in animation
 document.addEventListener('DOMContentLoaded', function() {
-  // Page-wide fade-in
   const main = document.querySelector('.post-container');
   if (main) main.classList.add('page-fade-in');
 });
 
-// ---------- 1. Tag Management and Loading ----------
-let tagList = []; // Stores the list of tags with their counts
-let posts = []; // Stores the fetched posts data
-const loader = document.getElementById('loader'); // Reference to the loader element
+let tagList = [];
+let posts = [];
+const loader = document.getElementById('loader');
 
-// Asynchronously fetches and processes tags from JSON files
+/**
+ * Load and aggregate tags from posts and projects
+ * Creates tag map with counts and renders UI elements
+ */
 async function loadTags() {
     loader.classList.add('active'); // Show loader
     try {
@@ -54,7 +60,11 @@ async function loadTags() {
     }
 }
 
-// Safely escape HTML entities
+/**
+ * Escape HTML entities for safe rendering
+ * @param {string} str - String to escape
+ * @returns {string} - Escaped string
+ */
 function escapeHtml(str) {
     return String(str)
         .replace(/&/g, '&amp;')
@@ -64,7 +74,11 @@ function escapeHtml(str) {
         .replace(/'/g, '&#039;');
 }
 
-// Renders the provided list of tags to the DOM
+/**
+ * Render tags to DOM with responsive layout
+ * Mobile: Grouped by letter with headers; Desktop: Simple grid
+ * @param {Array} list - Array of [tag, count] tuples
+ */
 function renderTags(list) {
     const tagsContainer = document.getElementById("tagsContainer");
     tagsContainer.innerHTML = ''; // Clear existing content
@@ -126,7 +140,10 @@ function renderTags(list) {
     }
 }
 
-// Render popular tags section (top 6 by count)
+/**
+ * Render popular tags section (top 6 by count)
+ * @param {Array} list - Array of [tag, count] tuples
+ */
 function renderPopularTags(list) {
     const popularContainer = document.getElementById('popularTagsPills');
     if (!popularContainer) return;
@@ -146,7 +163,10 @@ function renderPopularTags(list) {
     }).join('');
 }
 
-// Render alphabet navigation
+/**
+ * Render alphabet navigation for mobile
+ * @param {Array} list - Array of [tag, count] tuples
+ */
 function renderAlphabetNav(list) {
     const alphabetNav = document.getElementById('alphabetNav');
     if (!alphabetNav) return;
@@ -189,7 +209,7 @@ function renderAlphabetNav(list) {
     });
 }
 
-// ---------- 2. Tag Search Functionality ----------
+// Tag search with live filtering
 const searchInput = document.getElementById("tagSearch");
 
 searchInput.addEventListener("input", e => {
@@ -216,7 +236,10 @@ searchInput.addEventListener("input", e => {
     }
 });
 
-// Simple tag rendering without sections (for search results)
+/**
+ * Render tags without sections (for search results)
+ * @param {Array} list - Filtered array of [tag, count] tuples
+ */
 function renderSimpleTags(list) {
     const tagsContainer = document.getElementById("tagsContainer");
     tagsContainer.innerHTML = '';
@@ -244,7 +267,7 @@ function renderSimpleTags(list) {
     }).join('');
 }
 
-// ---------- 3. Theme Toggle ----------
+// Theme toggle handler
 document.getElementById("theme-toggle").addEventListener("click", () => {
     const html = document.documentElement;
     const currentTheme = html.getAttribute('data-theme');
@@ -256,7 +279,7 @@ document.getElementById("theme-toggle").addEventListener("click", () => {
     localStorage.setItem('pref-theme', newTheme);
 });
 
-// ---------- 4. Scroll-to-Top Functionality ----------
+// Scroll to top button
 window.addEventListener("scroll", () => {
     document.getElementById("scrollTop").style.display = window.scrollY > 200 ? "flex" : "none";
 });
@@ -265,10 +288,13 @@ document.getElementById("scrollTop").addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-// ---------- 5. Initialize Tag Loading ----------
+// Initialize tags on page load
 loadTags();
 
-// Handle window resize to switch between mobile/desktop layouts
+/**
+ * Handle responsive layout switching on window resize
+ * Toggles between mobile (with sections) and desktop (grid) layouts
+ */
 let resizeTimer;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);

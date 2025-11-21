@@ -523,6 +523,8 @@ body {
   background: linear-gradient(135deg, rgba(0, 122, 255, 0.05) 0%, rgba(0, 122, 255, 0.02) 100%);
   opacity: 0;
   transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .resource-card:hover {
@@ -589,6 +591,9 @@ body {
   font-weight: 500;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: var(--shadow-light);
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
 }
 
 .card-btn:hover {

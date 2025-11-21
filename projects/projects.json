@@ -9,6 +9,7 @@
     "date": "2025-07-23",
     "tab": "side",
     "subcategory": "Data Science",
+    "state": "active",
     "features": [
       "Streamlit",
       "Python",
@@ -29,6 +30,7 @@
     "date": "2025-07-09",
     "tab": "side",
     "subcategory": "Web Development",
+    "state": "active",
     "features": [
       "Flask",
       "JavaScript",
@@ -48,6 +50,7 @@
     "date": "2025-05-30",
     "tab": "academic",
     "subcategory": "Database Management Systems",
+    "state": "completed",
     "features": [
       "PHP",
       "MySQL",
@@ -67,6 +70,7 @@
     "date": "2025-04-10",
     "tab": "academic",
     "subcategory": "Operating Systems",
+    "state": "completed",
     "features": [
       "React",
       "FastAPI",

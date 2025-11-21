@@ -19,8 +19,27 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <style>
     /* Critical to avoid black flash before external CSS arrives */
-    .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
-    .loader.hidden{opacity:0;visibility:hidden}
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 9999;
+      opacity: 1;
+      visibility: visible
+    }
+
+    .loader.hidden {
+      opacity: 0;
+      visibility: hidden
+    }
   </style>
 
   <!-- ---------- 3. Theme Initialization Script ---------- -->
@@ -30,6 +49,9 @@
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const theme = savedTheme || (prefersDark ? 'dark' : 'light');
     document.documentElement.setAttribute('data-theme', theme);
+
+    // Store saved tab for immediate application after DOM loads
+    window.__savedResumeTab = localStorage.getItem('resume-active-tab');
   </script>
 </head>
 
@@ -63,7 +85,7 @@
         </div>
       </div>
 
-      
+
 
       <!-- Right: Theme toggle -->
       <div class="nav-right">
@@ -91,7 +113,7 @@
 
   <!-- ---------- 6. Main Content ---------- -->
   <main class="post-container" role="main">
-    
+
     <!-- ---------- 7. Resume Header ---------- -->
     <div class="header-bar">
       <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -369,7 +391,9 @@
                 <h3><i class="fas fa-laptop-code"></i> Frontend Developer Intern</h3>
                 <span class="company">hwhelp.me</span>
               </div>
-              <p>Designed, developed, and maintained web applications using HTML, CSS, JavaScript, Bootstrap, PHP, and MySQL. Created responsive designs and assisted in debugging, testing, and deploying projects.</p> <!-- Job description -->
+              <p>Designed, developed, and maintained web applications using HTML, CSS, JavaScript, Bootstrap, PHP, and
+                MySQL. Created responsive designs and assisted in debugging, testing, and deploying projects.</p>
+              <!-- Job description -->
               <div class="tags"> <!-- Tags container -->
                 <span><i class="fab fa-html5"></i> HTML/CSS</span> <!-- Tag -->
                 <span><i class="fab fa-js"></i> JavaScript</span> <!-- Tag -->
@@ -426,17 +450,163 @@
       <div id="projects-section" class="content-section">
         <!-- ---------- 14. Projects Section ---------- -->
         <div class="resume-section"> <!-- Projects section -->
-          <h2><i class="fas fa-folder"></i> Projects</h2> <!-- Section title -->
-          <div class="project-box"> <!-- Projects container -->
-            <p>You can check out my projects <a href="projects.html" target="_blank">here</a>!</p>
-            <!-- Link to projects page -->
+          <h2><i class="fas fa-folder"></i> Featured Projects</h2> <!-- Section title -->
+
+          <!-- Projects Grid -->
+          <div class="projects-showcase-grid">
+            <!-- Project Card 1 -->
+            <div class="project-showcase-card">
+              <div class="project-showcase-image">
+                <img src="/assets/images/projects/terrag-ai/terrag-ai-preview.png" alt="Terrag AI" />
+                <div class="project-overlay">
+                  <span class="project-category">Data Science</span>
+                </div>
+              </div>
+              <div class="project-showcase-content">
+                <h3><span class="status-indicator active" title="Active"></span>Terrag AI</h3>
+                <p>AI-powered data analytics platform built with Streamlit for intelligent business insights.</p>
+                <div class="project-tech-tags">
+                  <span class="tech-with-icon"><img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                      alt="Python" /><span>Python</span></span>
+                  <span class="tech-with-icon"><img src="https://streamlit.io/images/brand/streamlit-mark-color.svg"
+                      alt="Streamlit" /><span>Streamlit</span></span>
+                  <span class="tech-with-icon"><img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg"
+                      alt="Pandas" /><span>Pandas</span></span>
+                  <span class="tech-with-icon"><img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg"
+                      alt="Scikit-learn" /><span>Scikit-learn</span></span>
+                </div>
+                <div class="project-links">
+                  <a href="/projects/side/terrag-ai.html" class="project-btn primary">
+                    <i class="fas fa-info-circle"></i> Details
+                  </a>
+                  <a href="https://github.com/MuhammadTahaNasir/advtrix-learning/tree/main/streamlit_app"
+                    target="_blank" class="project-btn secondary">
+                    <i class="fab fa-github"></i> Code
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Project Card 2 -->
+            <div class="project-showcase-card">
+              <div class="project-showcase-image">
+                <img src="/assets/images/projects/think-board/preview.png" alt="ThinkBoard" />
+                <div class="project-overlay">
+                  <span class="project-category">Web Development</span>
+                </div>
+              </div>
+              <div class="project-showcase-content">
+                <h3><span class="status-indicator active" title="Active"></span>ThinkBoard</h3>
+                <p>Data analytics dashboard with interactive visualizations and modern glassmorphism design.</p>
+                <div class="project-tech-tags">
+                  <span class="tech-with-icon"><img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg"
+                      alt="Flask" /><span>Flask</span></span>
+                  <span class="tech-with-icon"><img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                      alt="JavaScript" /><span>JavaScript</span></span>
+                  <span class="tech-with-icon"><img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg"
+                      alt="Pandas" /><span>Pandas</span></span>
+                  <span class="tech-with-icon"><img src="https://www.chartjs.org/img/chartjs-logo.svg"
+                      alt="Chart.js" /><span>Chart.js</span></span>
+                </div>
+                <div class="project-links">
+                  <a href="/projects/side/think-board.html" class="project-btn primary">
+                    <i class="fas fa-info-circle"></i> Details
+                  </a>
+                  <a href="https://github.com/MuhammadTahaNasir/ThinkBoard" target="_blank"
+                    class="project-btn secondary">
+                    <i class="fab fa-github"></i> Code
+                  </a>
+                  <a href="https://think-board.up.railway.app" target="_blank" class="project-btn secondary">
+                    <i class="fas fa-external-link-alt"></i> Live
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Project Card 3 -->
+            <div class="project-showcase-card">
+              <div class="project-showcase-image">
+                <img src="/assets/images/projects/dishly/signup.png" alt="Dishly" />
+                <div class="project-overlay">
+                  <span class="project-category">DBMS</span>
+                </div>
+              </div>
+              <div class="project-showcase-content">
+                <h3><span class="status-indicator completed" title="Completed"></span>Dishly</h3>
+                <p>Modern recipe management system with pantry tracking and social features.</p>
+                <div class="project-tech-tags">
+                  <span class="tech-with-icon"><img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg"
+                      alt="PHP" /><span>PHP</span></span>
+                  <span class="tech-with-icon"><img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
+                      alt="MySQL" /><span>MySQL</span></span>
+                  <span class="tech-with-icon"><img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
+                      alt="CSS" /><span>CSS</span></span>
+                </div>
+                <div class="project-links">
+                  <a href="/projects/academic/dishly.html" class="project-btn primary">
+                    <i class="fas fa-info-circle"></i> Details
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Project Card 4 -->
+            <div class="project-showcase-card">
+              <div class="project-showcase-image">
+                <img src="/assets/images/projects/filesystem-time-machine/preview.png" alt="Filesystem Time Machine" />
+                <div class="project-overlay">
+                  <span class="project-category">Operating Systems</span>
+                </div>
+              </div>
+              <div class="project-showcase-content">
+                <h3><span class="status-indicator completed" title="Completed"></span>Filesystem Time Machine</h3>
+                <p>File system monitoring with version control and interactive OS visualization.</p>
+                <div class="project-tech-tags">
+                  <span class="tech-with-icon"><img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                      alt="React" /><span>React</span></span>
+                  <span class="tech-with-icon"><img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg"
+                      alt="FastAPI" /><span>FastAPI</span></span>
+                  <span class="tech-with-icon"><img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                      alt="Python" /><span>Python</span></span>
+                </div>
+                <div class="project-links">
+                  <a href="/projects/academic/filesystem-time-machine.html" class="project-btn primary">
+                    <i class="fas fa-info-circle"></i> Details
+                  </a>
+                  <a href="https://github.com/MuhammadTahaNasir/fast-chronicles/tree/main/projects/operating-system/filesystem-time-machine"
+                    target="_blank" class="project-btn secondary">
+                    <i class="fab fa-github"></i> Code
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- View All Projects Button -->
+          <div class="view-all-projects">
+            <a href="projects.html" class="view-all-btn">
+              <i class="fas fa-folder-open"></i> View All Projects
+              <i class="fas fa-arrow-right"></i>
+            </a>
           </div>
         </div>
       </div>
     </div>
   </main>
 
-  
+
 
   <!-- Bottom Nav (Mobile Only) -->
   <nav class="bottom-nav">

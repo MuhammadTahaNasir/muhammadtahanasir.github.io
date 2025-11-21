@@ -1,7 +1,13 @@
-// Theme toggle
+/**
+ * Contact Page Script
+ * Handles theme toggle, form submission, and user feedback
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
     const html = document.documentElement;
     const themeToggle = document.getElementById('theme-toggle');
+    
+    // Theme toggle handler
     themeToggle.addEventListener('click', () => {
         const currentTheme = html.getAttribute('data-theme');
         const newTheme = currentTheme === 'light' ? 'dark' : 'light';
@@ -9,12 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
         html.classList.toggle('dark', newTheme === 'dark');
         localStorage.setItem('pref-theme', newTheme);
     });
-    // Form Submission
+    
+    // Form submission handler
     const form = document.getElementById('contact-form');
     if (form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const formData = new FormData(form);
+            
             try {
                 console.log('Sending form data to API...');
                 const response = await fetch('https://contact-form-plum-five.vercel.app/api/submit-contact', {
@@ -25,9 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         'Accept': 'application/json'
                     }
                 });
+                
                 console.log('Response status:', response.status);
                 const result = await response.json();
                 console.log('Response data:', result);
+                
                 if (response.ok) {
                     showToast('🎉 Message sent successfully!');
                     launchConfetti();
@@ -45,7 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Toast message
+/**
+ * Display toast notification
+ * @param {string} message - The message to display
+ */
 function showToast(message) {
     const toast = document.createElement('div');
     toast.textContent = message;
@@ -65,10 +78,12 @@ function showToast(message) {
         transition: 'opacity 0.4s ease, transform 0.3s ease',
     });
     document.body.appendChild(toast);
+    
     requestAnimationFrame(() => {
         toast.style.opacity = '1';
         toast.style.transform = 'translateX(-50%) translateY(-10px)';
     });
+    
     setTimeout(() => {
         toast.style.opacity = '0';
         toast.style.transform = 'translateX(-50%) translateY(0px)';
@@ -76,7 +91,9 @@ function showToast(message) {
     }, 3000);
 }
 
-// Confetti burst
+/**
+ * Launch confetti animation on successful form submission
+ */
 function launchConfetti() {
     for (let i = 0; i < 30; i++) {
         const confetti = document.createElement('div');
@@ -94,15 +111,17 @@ function launchConfetti() {
             transition: 'transform 2s ease-out, opacity 2s ease-out',
         });
         document.body.appendChild(confetti);
+        
         requestAnimationFrame(() => {
             confetti.style.transform = `translateY(${window.innerHeight}px) rotate(${Math.random() * 360}deg)`;
             confetti.style.opacity = 0;
         });
+        
         setTimeout(() => confetti.remove(), 2000);
     }
 }
 
-// ---------- Scroll to Top Functionality ----------
+// Scroll to top button visibility
 window.addEventListener('scroll', () => {
     const scrollTopBtn = document.getElementById('scrollTop');
     if (scrollTopBtn) {
@@ -110,6 +129,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
+// Scroll to top button handler
 document.addEventListener('DOMContentLoaded', () => {
     const scrollTopBtn = document.getElementById('scrollTop');
     if (scrollTopBtn) {

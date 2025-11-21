@@ -1,4 +1,45 @@
+# Python
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
 *.py
+
+# Environment variables
+.env
+.env.local
 backend/.env
+
+# Dependencies
 node_modules/
+package-lock.json
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+*.tmp
+*.temp
+*-backup.*
+backup/

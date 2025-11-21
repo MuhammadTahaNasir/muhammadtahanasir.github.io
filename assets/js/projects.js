@@ -1,9 +1,58 @@
+/**
+ * Projects Page Script
+ * Displays filterable and searchable project portfolio with grid/list views
+ */
+
+/**
+ * Format category name for display
+ * @param {string} subcategory - Raw category name
+ * @param {boolean} forDisplay - Whether to format for display
+ * @returns {string} - Formatted category name
+ */
 const formatCategory = (subcategory, forDisplay = false) => {
     if (!forDisplay) return subcategory; // Return raw subcategory for dropdown
     return subcategory
         .split('-')
         .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
         .join(' ');
+};
+
+// Technology Icon Mapper
+const technologyIcons = {
+    'Python': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
+    'JavaScript': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
+    'React': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
+    'Flask': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg',
+    'FastAPI': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg',
+    'PHP': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg',
+    'MySQL': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg',
+    'CSS': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg',
+    'Pandas': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg',
+    'Scikit-learn': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg',
+    'Streamlit': 'https://streamlit.io/images/brand/streamlit-mark-color.png',
+    'Chart.js': 'https://www.chartjs.org/img/chartjs-logo.svg',
+    'Node.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
+    'TypeScript': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
+    'Vue': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg',
+    'Angular': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg',
+    'Django': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg',
+    'PostgreSQL': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg',
+    'MongoDB': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg',
+    'Docker': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
+    'Git': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
+};
+
+/**
+ * Get technology icon HTML
+ * @param {string} technology - Technology name
+ * @returns {string|null} - HTML for icon or null if not found
+ */
+const getTechnologyIcon = (technology) => {
+    const icon = technologyIcons[technology];
+    if (icon) {
+        return `<img src="${icon}" alt="${technology}" title="${technology}">`;
+    }
+    return null;
 };
 
 // Global Variables
@@ -129,9 +178,14 @@ function applyFilter() {
     if (filteredProjects.length === 0) {
         projectsGrid.innerHTML = `
             <div class="no-results">
-                <i class="fas fa-folder-open"></i>
+                <div class="no-results-icon">
+                    <i class="fas fa-folder-open"></i>
+                </div>
                 <h3>No projects found</h3>
                 <p>Try adjusting your search terms or filters</p>
+                <button class="reset-filters-btn" onclick="resetFilters()">
+                    <i class="fas fa-redo"></i> Reset Filters
+                </button>
             </div>
         `;
         return;
@@ -146,23 +200,68 @@ function applyFilter() {
         card.setAttribute('data-title', project.title);
         card.setAttribute('data-date', project.date);
 
+        // Determine status indicator (subtle dot)
+        const projectState = project.state || 'active';
+        const statusDot = `<span class="status-indicator ${projectState}" title="${projectState.charAt(0).toUpperCase() + projectState.slice(1)}"></span>`;
+
+        // Create elegant overlay badges for image
+        const isPublic = !project.hideWebLink || project.github;
+        const statusBadge = isPublic 
+            ? `<span class="overlay-badge status-public"><i class="fas fa-globe"></i> Public</span>`
+            : `<span class="overlay-badge status-private"><i class="fas fa-lock"></i> Private</span>`;
+        
+        let stateBadge = '';
+        if (projectState === 'active') {
+            stateBadge = `<span class="overlay-badge state-active"><i class="fas fa-circle"></i> Active</span>`;
+        } else if (projectState === 'completed') {
+            stateBadge = `<span class="overlay-badge state-completed"><i class="fas fa-check"></i> Completed</span>`;
+        } else if (projectState === 'closed') {
+            stateBadge = `<span class="overlay-badge state-closed"><i class="fas fa-times"></i> Closed</span>`;
+        }
+
         // Conditionally include web link based on hideWebLink
-        const webLink = project.hideWebLink ? '' : `<a href="${project.web || project.url}" target="_blank" class="web-link" title="Visit Website"><i class="fas fa-globe"></i></a>`;
+        const webLink = project.hideWebLink ? '' : `<a href="${project.web || project.url}" class="web-link" title="Visit Website"><i class="fas fa-external-link-alt"></i> Live</a>`;
+
+        // Generate feature tags with icons where available
+        let featureTags = '';
+        if (project.features) {
+            const maxFeatures = 3;
+            const visibleFeatures = project.features.slice(0, maxFeatures);
+            
+            featureTags = visibleFeatures.map(feature => {
+                const icon = getTechnologyIcon(feature);
+                if (icon) {
+                    return `<span class="feature-tag feature-with-icon">${icon}<span>${feature}</span></span>`;
+                } else {
+                    return `<span class="feature-tag">${feature}</span>`;
+                }
+            }).join('');
+
+            if (project.features.length > maxFeatures) {
+                featureTags += `<span class="feature-tag extra">+${project.features.length - maxFeatures}</span>`;
+            }
+        }
 
         card.innerHTML = `
-            <a href="${project.url}" target="_blank">
-                <img src="${project.thumbnail || 'https://via.placeholder.com/300x200'}" alt="${project.title}" loading="lazy">
-            </a>
+            <div class="project-image-wrapper">
+                <a href="${project.url}">
+                    <img src="${project.thumbnail || 'https://via.placeholder.com/300x200'}" alt="${project.title}" loading="lazy">
+                </a>
+                <div class="project-badges">
+                    ${statusBadge}
+                    ${stateBadge}
+                </div>
+            </div>
             <div class="content-container">
                 <div class="category-tag">${formatCategory(project.subcategory, true)}</div>
-                <h3><a href="${project.url}" target="_blank">${project.title}</a></h3>
+                <h3><a href="${project.url}">${project.title}</a></h3>
                 <p>${project.description}</p>
                 <div class="features-tags">
-                    ${project.features ? (project.features.length > 3 ? project.features.slice(0, 3).map(feature => `<span class="feature-tag">${feature}</span>`).join('') + `<span class="feature-tag extra">+${project.features.length - 3}</span>` : project.features.map(feature => `<span class="feature-tag">${feature}</span>`).join('')) : ''}
+                    ${featureTags}
                 </div>
                 <div class="project-links">
                     ${webLink}
-                    ${project.github ? `<a href="${project.github}" target="_blank" class="github-link" title="View on GitHub"><i class="fab fa-github"></i></a>` : ''}
+                    ${project.github ? `<a href="${project.github}" class="github-link" title="View on GitHub"><i class="fab fa-github"></i> Code</a>` : ''}
                 </div>
             </div>
         `;
@@ -204,16 +303,19 @@ listViewBtn.addEventListener('click', () => {
 // Filter and Sort Listeners
 searchInput.addEventListener('input', debounce(() => {
     searchQuery = searchInput.value.trim();
+    localStorage.setItem('projects-search', searchQuery);
     applyFilter();
 }, 300));
 
 categorySelect.addEventListener('change', () => {
     currentCategory = categorySelect.value;
+    localStorage.setItem('projects-category', currentCategory);
     applyFilter();
 });
 
 sortSelect.addEventListener('change', () => {
     currentSort = sortSelect.value;
+    localStorage.setItem('projects-sort', currentSort);
     applyFilter();
 });
 
@@ -223,6 +325,7 @@ mobileToggleButtons.forEach(btn => {
         mobileToggleButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentTab = btn.getAttribute('data-tab');
+        localStorage.setItem('projects-tab', currentTab);
         
         // Sync desktop toggle buttons
         toggleButtons.forEach(b => {
@@ -240,6 +343,7 @@ toggleButtons.forEach(btn => {
         toggleButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentTab = btn.getAttribute('data-tab');
+        localStorage.setItem('projects-tab', currentTab);
         
         // Sync mobile toggle buttons
         mobileToggleButtons.forEach(b => {
@@ -262,13 +366,68 @@ window.addEventListener('scroll', () => {
     scrollTopBtn.classList.toggle('visible', window.scrollY > 300);
 });
 
+// Reset Filters Function
+function resetFilters() {
+    // Reset all filter values
+    searchInput.value = '';
+    searchQuery = '';
+    currentCategory = 'all';
+    categorySelect.value = 'all';
+    currentSort = 'newest';
+    sortSelect.value = 'newest';
+    currentTab = 'all';
+    
+    // Clear localStorage
+    localStorage.removeItem('projects-tab');
+    localStorage.removeItem('projects-search');
+    localStorage.removeItem('projects-category');
+    localStorage.removeItem('projects-sort');
+    
+    // Reset toggle buttons
+    toggleButtons.forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-tab') === 'all');
+    });
+    mobileToggleButtons.forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-tab') === 'all');
+    });
+    
+    // Reapply filters
+    applyFilter();
+    
+    // Smooth scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 // Initial Load
 document.addEventListener('DOMContentLoaded', () => {
     // Activate loader on page load
     loader.classList.add('active');
     
-    const defaultToggle = document.querySelector('.toggle-btn[data-tab="all"]');
-    if (defaultToggle) defaultToggle.classList.add('active');
+    // Restore filter states from localStorage
+    const savedTab = localStorage.getItem('projects-tab') || 'all';
+    const savedSearch = localStorage.getItem('projects-search') || '';
+    const savedCategory = localStorage.getItem('projects-category') || 'all';
+    const savedSort = localStorage.getItem('projects-sort') || 'newest';
+    
+    // Apply saved states
+    currentTab = savedTab;
+    searchQuery = savedSearch;
+    currentCategory = savedCategory;
+    currentSort = savedSort;
+    
+    // Update UI elements
+    searchInput.value = savedSearch;
+    categorySelect.value = savedCategory;
+    sortSelect.value = savedSort;
+    
+    // Set active toggle buttons based on saved tab
+    toggleButtons.forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-tab') === currentTab);
+    });
+    mobileToggleButtons.forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-tab') === currentTab);
+    });
+    
     gridViewBtn.classList.add('active');
     
     // Load projects after a short delay to show loader

@@ -1,5 +1,14 @@
-// Normalize and set active state for header pill-nav and bottom-nav
+/**
+ * Navigation Active State Manager
+ * Automatically highlights the current page link in navigation menus
+ */
+
 (function() {
+	/**
+	 * Extract filename from pathname
+	 * @param {string} pathname - URL pathname
+	 * @returns {string} - Normalized filename
+	 */
 	function getFileName(pathname) {
 		if (!pathname || pathname === '/' || pathname === '/index.html') return 'index.html';
 		const parts = pathname.split('/').filter(Boolean);
@@ -7,23 +16,30 @@
 		return last.includes('.') ? last : 'index.html';
 	}
 
+	/**
+	 * Normalize href to filename
+	 * @param {string} href - Link href attribute
+	 * @returns {string} - Normalized filename
+	 */
 	function normalizeHref(href) {
 		try {
-			// Handle both relative and absolute URLs
 			if (!href) return '';
-			// Remove leading slash if present
 			const cleanHref = href.replace(/^\//, '');
 			const url = new URL(cleanHref, window.location.origin);
 			return getFileName(url.pathname);
 		} catch (e) {
-			// Fallback for simple filenames
 			return href.replace(/^\//, '') || 'index.html';
 		}
 	}
 
+	/**
+	 * Update active state for navigation links
+	 * @param {string} selector - CSS selector for navigation container
+	 */
 	function updateActive(selector) {
 		const container = document.querySelector(selector);
 		if (!container) return;
+		
 		const links = Array.from(container.querySelectorAll('a'));
 		const current = getFileName(window.location.pathname);
 		
@@ -33,7 +49,6 @@
 			
 			const target = normalizeHref(href);
 			
-			// Remove or add active class based on match
 			if (target === current) {
 				a.classList.add('active');
 			} else {
@@ -47,14 +62,14 @@
 		updateActive('.bottom-nav');
 	}
 
-	// Run on load
+	// Initialize on page load
 	if (document.readyState === 'loading') {
 		document.addEventListener('DOMContentLoaded', run);
 	} else {
 		run();
 	}
 	
-	// Also update on page show (for back/forward navigation)
+	// Update on back/forward navigation
 	window.addEventListener('pageshow', run);
 })();
 

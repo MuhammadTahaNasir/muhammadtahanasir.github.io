@@ -1,5 +1,9 @@
-// ---------- 1. Global Variables ----------
-const loader = document.getElementById('loader'); // Loader element
+/**
+ * Resources Page Script
+ * Displays categorized and searchable learning resources (PDFs, videos, books, links)
+ */
+
+const loader = document.getElementById('loader');
 const resourcesContainer = document.getElementById('resources-content'); // Resources container
 const themeToggle = document.getElementById('theme-toggle'); // Theme toggle button
 const searchInput = document.getElementById('searchInput'); // Search input
@@ -20,19 +24,25 @@ let isResourcesLoaded = false; // Flag for resource loading status
 let currentCategory = 'all';
 let allResources = [];
 
-// ---------- 2. Update URL Parameters ----------
+/**
+ * Update URL with current state for bookmarkable searches
+ */
 function updateURL() {
-    const params = new URLSearchParams(); // Create URL params
+    const params = new URLSearchParams();
     if (currentPage > 1) params.set('page', currentPage); // Add page if not 1
     if (searchQuery) params.set('search', searchQuery); // Add search query if set
     if (currentCategory !== 'all') params.set('category', currentCategory); // Add category if set
     if (sortBy !== 'newest') params.set('sort', sortBy); // Add sort method if not default
     const newURL = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`; // Build URL
-    console.log('Updating URL:', newURL, 'State:', { page: currentPage, search: searchQuery, sort: sortBy, path: window.location.pathname }); // Log URL and state
-    history.pushState({ page: currentPage, search: searchQuery, sort: sortBy, path: window.location.pathname }, '', newURL); // Update browser history
+    console.log('Updating URL:', newURL, 'State:', { page: currentPage, search: searchQuery, sort: sortBy, category: currentCategory, path: window.location.pathname }); // Log URL and state
+    history.pushState({ page: currentPage, search: searchQuery, sort: sortBy, category: currentCategory, path: window.location.pathname }, '', newURL); // Update browser history
 }
 
-// ---------- 3. Load Resources Data ----------
+/**
+ * Load and filter resources with pagination
+ * @param {number} page - Page number to load
+ * @param {boolean} forceReload - Force data reload
+ */
 async function loadResources(page = 1, forceReload = false) {
     if (!isResourcesLoaded || forceReload) {
         loader.classList.add('active'); // Show loader
@@ -125,11 +135,16 @@ async function loadResources(page = 1, forceReload = false) {
         paginatedResources.forEach((r) => {
             const card = document.createElement("div"); // Create resource card
             card.className = "resource-card"; // Set card class
+            
+            // Determine if it should open in new tab
+            const isExternalLink = r.link.startsWith('http://') || r.link.startsWith('https://');
+            const targetAttr = isExternalLink ? 'target="_blank" rel="noopener noreferrer"' : '';
+            
             card.innerHTML = `
         <i class="${r.thumbnail} card-thumb"></i> <!-- Thumbnail icon -->
         <h3 class="card-title">${r.title}</h3> <!-- Resource title -->
         <p class="card-desc">${r.description || r.desc || 'No description available'}</p> <!-- Resource description -->
-        <a href="${r.link}" class="card-btn" ${r.type === "Link" ? 'target="_blank"' : ''}>View</a> <!-- View button -->
+        <a href="${r.link}" class="card-btn" ${targetAttr}>View</a> <!-- View button -->
       `;
             resourcesGrid.appendChild(card); // Append card to grid
         });
@@ -235,36 +250,42 @@ function setActiveButton(activeBtn) {
 showAllBtn.addEventListener('click', () => {
     setActiveButton(showAllBtn);
     currentCategory = 'all';
+    currentPage = 1;
     loadResources(1);
 });
 
 showPdfsBtn.addEventListener('click', () => {
     setActiveButton(showPdfsBtn);
     currentCategory = 'pdfs';
+    currentPage = 1;
     loadResources(1);
 });
 
 showImagesBtn.addEventListener('click', () => {
     setActiveButton(showImagesBtn);
     currentCategory = 'images';
+    currentPage = 1;
     loadResources(1);
 });
 
 showVideosBtn.addEventListener('click', () => {
     setActiveButton(showVideosBtn);
     currentCategory = 'videos';
+    currentPage = 1;
     loadResources(1);
 });
 
 showLinksBtn.addEventListener('click', () => {
     setActiveButton(showLinksBtn);
     currentCategory = 'links';
+    currentPage = 1;
     loadResources(1);
 });
 
 showBooksBtn.addEventListener('click', () => {
     setActiveButton(showBooksBtn);
     currentCategory = 'books';
+    currentPage = 1;
     loadResources(1);
 });
 

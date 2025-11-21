@@ -1,5 +1,10 @@
+/**
+ * Instant Loader Manager
+ * Prevents loader from showing on hash navigation and same-page anchor links
+ */
+
 (function () {
-	// Immediately check if page loaded with hash
+	// Hide loader immediately if page loaded with hash fragment
 	if (window.location.hash) {
 		var loader = document.getElementById('loader');
 		if (loader) {
@@ -10,28 +15,31 @@
 		}
 	}
 
+	/**
+	 * Check if anchor is an internal link
+	 * @param {HTMLAnchorElement} anchor - The anchor element to check
+	 * @returns {boolean} - True if internal link, false otherwise
+	 */
 	function isInternalLink(anchor) {
 		try {
 			var url = new URL(anchor.href, window.location.origin);
-			// Allow same-page hash links (table of contents, anchors)
-			if (url.hash) {
-				return false; // Skip loader for ANY hash links
-			}
+			// Skip loader for hash links (anchors/TOC)
+			if (url.hash) return false;
 			return url.origin === window.location.origin && !anchor.target;
 		} catch (_) {
 			return false;
 		}
 	}
 
+	// Handle click events on links
 	document.addEventListener('click', function (e) {
 		var anchor = e.target.closest('a');
 		if (!anchor) return;
 		
-		// Check if it's a same-page anchor link (table of contents)
 		var href = anchor.getAttribute('href') || '';
+		
+		// Hide loader for same-page anchor links
 		if (href.startsWith('#') || href.includes('#')) {
-			// Let browser handle smooth scroll to anchor, no loader
-			// Ensure loader stays hidden
 			var loader = document.getElementById('loader');
 			if (loader) {
 				loader.style.display = 'none';
@@ -45,15 +53,12 @@
 		
 		if (!isInternalLink(anchor)) return;
 
-		// Skip loader for file downloads or PDFs so browser can handle download natively
+		// Skip loader for downloads and PDFs
 		var isDownload = anchor.hasAttribute('download') || /\.pdf($|\?|#)/i.test(href);
 		if (isDownload) return;
-
-		// Don't prevent default - let browser handle navigation naturally
-		// This fixes loader getting stuck on page transitions
 	});
 	
-	// Also prevent loader on hashchange event globally - with capture phase
+	// Hide loader on hash change events
 	window.addEventListener('hashchange', function() {
 		var loader = document.getElementById('loader');
 		if (loader) {
@@ -65,7 +70,7 @@
 		}
 	}, true);
 	
-	// Run immediately on script load
+	// Ensure loader hidden on initial load with hash
 	if (window.location.hash) {
 		setTimeout(function() {
 			var loader = document.getElementById('loader');

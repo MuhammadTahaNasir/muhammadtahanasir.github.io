@@ -12,6 +12,40 @@ document.addEventListener('DOMContentLoaded', function() {
   const toggleButtons = document.querySelectorAll('.toggle-btn');
   const contentSections = document.querySelectorAll('.content-section');
   
+  // Function to activate a specific tab
+  function activateTab(tabId, saveToStorage = true) {
+    const targetSection = document.getElementById(tabId + '-section');
+    const targetButton = document.getElementById('show-' + tabId);
+    
+    if (!targetSection || !targetButton) return;
+
+    // Remove active class from all buttons and sections
+    toggleButtons.forEach(btn => {
+      btn.classList.remove('active');
+      btn.setAttribute('aria-selected', 'false');
+    });
+
+    contentSections.forEach(section => {
+      section.classList.remove('active');
+    });
+
+    // Add active class to target button and section
+    targetButton.classList.add('active');
+    targetButton.setAttribute('aria-selected', 'true');
+    targetSection.classList.add('active');
+    
+    // Save active tab to localStorage
+    if (saveToStorage) {
+      localStorage.setItem('resume-active-tab', tabId);
+    }
+  }
+  
+  // Restore active tab immediately if saved
+  const savedTab = window.__savedResumeTab;
+  if (savedTab) {
+    activateTab(savedTab, false);
+  }
+  
   // Map timeline cards to their corresponding milestones for precise hover highlight
   const timeline = document.querySelector('.timeline');
   if (timeline) {
@@ -35,22 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
   toggleButtons.forEach(button => {
     button.addEventListener('click', function() {
       const targetId = this.id.replace('show-', '');
-      const targetSection = document.getElementById(targetId + '-section');
-
-      // Remove active class from all buttons and sections
-      toggleButtons.forEach(btn => {
-        btn.classList.remove('active');
-        btn.setAttribute('aria-selected', 'false');
-      });
-
-      contentSections.forEach(section => {
-        section.classList.remove('active');
-      });
-
-      // Add active class to clicked button and target section
-      this.classList.add('active');
-      this.setAttribute('aria-selected', 'true');
-      targetSection.classList.add('active');
+      activateTab(targetId);
     });
   });
 
@@ -118,4 +137,25 @@ document.addEventListener('DOMContentLoaded', function() {
       header.classList.remove('scrolled');
     }
   });
+
+  // Scroll-reveal animation for project cards
+  function revealOnScroll() {
+    const projectCards = document.querySelectorAll('.project-showcase-card');
+    const windowHeight = window.innerHeight;
+    const revealPoint = 100;
+
+    projectCards.forEach(card => {
+      const cardTop = card.getBoundingClientRect().top;
+      
+      if (cardTop < windowHeight - revealPoint) {
+        card.classList.add('revealed');
+      }
+    });
+  }
+
+  // Run on scroll
+  window.addEventListener('scroll', revealOnScroll);
+  
+  // Run on load to catch any cards already in viewport
+  revealOnScroll();
 });

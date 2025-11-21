@@ -1,5 +1,9 @@
-// ---------- 1. Global Variables ----------
-let posts = []; // Array to store posts
+/**
+ * Search Page Script
+ * Provides unified search across posts, resources, and projects using Fuse.js
+ */
+
+let posts = [];
 let resources = []; // Array to store resources
 let projects = []; // Array to store projects
 let currentPage = 1; // Current page for pagination
@@ -14,7 +18,9 @@ const scrollTop = document.getElementById('scrollTop'); // Scroll to top button
 const themeToggle = document.getElementById('theme-toggle'); // Theme toggle button
 const clearBtn = document.getElementById('clearBtn'); // Clear search button (may not exist on all pages)
 
-// ---------- 2. Theme Handling ----------
+/**
+ * Initialize theme from localStorage or system preference
+ */
 function initializeTheme() {
     const savedTheme = localStorage.getItem('pref-theme'); // Get saved theme
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; // Check system dark mode
@@ -39,7 +45,7 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e)
     }
 });
 
-// ---------- 3. Scroll Handling ----------
+// Scroll to top button visibility
 window.addEventListener('scroll', () => {
     scrollTop.style.display = window.scrollY > 200 ? 'flex' : 'none'; // Show/hide scroll-to-top button
 });
@@ -48,7 +54,10 @@ scrollTop.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' }); // Smooth scroll to top
 });
 
-// ---------- 4. Update URL Parameters ----------
+/**
+ * Update URL with current search state
+ * @returns {string} - Updated URL
+ */
 function updateURL() {
     const params = new URLSearchParams(); // Create URL params
     if (currentPage > 1) params.set('page', currentPage); // Add page if not 1
@@ -57,7 +66,9 @@ function updateURL() {
     return newURL; // Return new URL
 }
 
-// ---------- 5. Load Posts Data ----------
+/**
+ * Load posts data from JSON
+ */
 async function loadPosts() {
     try {
         const res = await fetch('posts/posts.json'); // Fetch posts JSON
@@ -69,7 +80,9 @@ async function loadPosts() {
     }
 }
 
-// ---------- 6. Load Resources Data ----------
+/**
+ * Load resources data from JSON
+ */
 async function loadResources() {
     try {
         const res = await fetch('data/resources.json'); // Fetch resources JSON
@@ -81,7 +94,9 @@ async function loadResources() {
     }
 }
 
-// ---------- 6.5. Load Projects Data ----------
+/**
+ * Load projects data from JSON
+ */
 async function loadProjects() {
     try {
         const res = await fetch('projects/projects.json'); // Fetch projects JSON
@@ -93,9 +108,10 @@ async function loadProjects() {
     }
 }
 
-// ---------- 7. Initialize Data and Search ----------
+/**
+ * Initialize all data and configure Fuse.js search engine
+ */
 async function initializeData() {
-    // Only show loader if page is still loading (not already initialized)
     if (!fuse) {
         loader.classList.add('active'); // Show loader
     }

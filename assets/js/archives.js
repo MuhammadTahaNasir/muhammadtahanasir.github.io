@@ -1,8 +1,11 @@
-/* ---------- 1. Initialize Page ---------- */
+/**
+ * Archives Page Script
+ * Displays chronological archive of posts and projects grouped by year and month
+ */
+
 const loader = document.getElementById('loader');
 const header = document.querySelector('.header');
 
-// Header scroll behavior variables
 let lastScrollTop = 0;
 let isScrolling = false;
 
@@ -35,7 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-/* ---------- 2. Header Scroll Behavior ---------- */
+/**
+ * Initialize mobile header scroll behavior
+ * Hides header on scroll down, shows on scroll up
+ */
 function initHeaderScroll() {
   let lastScrollTop = 0;
   let ticking = false;
@@ -87,7 +93,7 @@ function initHeaderScroll() {
   });
 }
 
-/* ---------- 3. Smooth Internal Links ---------- */
+// Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
@@ -97,7 +103,10 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* ---------- 4. Archive Generator ---------- */
+/**
+ * Generate archive view from posts and projects JSON
+ * Groups items by year and month with collapsible sections
+ */
 function generateArchive() {
   const archiveContent = document.getElementById('archive-content');
   const showPostsBtn = document.getElementById('show-posts');
@@ -221,10 +230,12 @@ function generateArchive() {
     });
 }
 
-/* ---------- 4. Theme Toggle (Persisted) ---------- */
+// Theme toggle with persistence
 const toggleBtn = document.getElementById('theme-toggle');
 
-// Function to update theme icons
+/**
+ * Update theme icon visibility based on current theme
+ */
 function updateThemeIcons() {
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
   document.getElementById("sun").style.display = isDark ? "none" : "block";
@@ -256,7 +267,7 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e)
   }
 });
 
-/* ---------- 5. Scroll to Top Handler ---------- */
+// Scroll to top button visibility and handler
 window.addEventListener('scroll', () => {
   document.getElementById('scrollTop').style.display =
     window.scrollY > 200 ? 'flex' : 'none';
