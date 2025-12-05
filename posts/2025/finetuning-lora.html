@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html dir="auto" lang="en">
+<head>
+<link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/assets/images/favicon.ico" rel="shortcut icon"/>
+<link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<meta content="Terry" name="apple-mobile-web-app-title"/>
+<link href="/assets/images/site.webmanifest" rel="manifest"/>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<meta content="noindex, nofollow" name="robots"/>
+<meta content="How to fine-tune Large Language Models using Parameter-Efficient Fine-Tuning (PEFT) and LoRA on AWS instances." name="description"/>
+<meta content="Muhammad Taha Nasir" name="author"/>
+<meta content="Machine Learning, Cloud Architecture" name="tags"/>
+<meta content="/assets/images/posts/finetuning-lora.png" name="thumbnail"/>
+<title>Training LLMs Without Going Broke: A Deep Dive into LoRA on AWS</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+<link href="../../assets/css/each-post.css" rel="stylesheet"/>
+<link href="../../assets/css/bottom-nav.css" rel="stylesheet"/>
+<!-- Prism.js Okaidia High Contrast Theme -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/>
+<style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+        /* Force code blocks to be bright and override any dim CSS from each-post.css */
+        .code-block pre {
+            opacity: 1 !important;
+            color: #f8f8f2 !important;
+            text-shadow: 0 1px rgba(0, 0, 0, 0.3) !important;
+        }
+        .code-block code {
+            opacity: 1 !important;
+            color: inherit !important;
+        }
+    </style>
+<script>
+        // Apply theme immediately on page load
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+</head>
+<body class="dark" id="top" post-date="2025-12-05">
+<!-- Loader Animation -->
+<div aria-hidden="true" class="loader" id="loader">
+<div class="terry-animation">
+<span class="letter">t</span>
+<span class="letter">e</span>
+<span class="letter">r</span>
+<span class="letter">r</span>
+<span class="letter">y</span>
+</div>
+</div>
+<header class="header">
+<nav class="nav">
+<!-- Left: Logo -->
+<div class="nav-left">
+<a class="logo" href="/index.html">&lt;terry/&gt;</a>
+</div>
+<!-- Center: Pills Navigation -->
+<div class="nav-center">
+<div class="pill-nav">
+<a href="/projects.html">Projects</a>
+<a href="/archives.html">Archives</a>
+<a href="/resume.html">Resume</a>
+<a href="/search.html">Search</a>
+</div>
+</div>
+<!-- Right: Theme toggle -->
+<div class="nav-right">
+<button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
+<svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="5"></circle>
+<line x1="12" x2="12" y1="1" y2="3"></line>
+<line x1="12" x2="12" y1="21" y2="23"></line>
+<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+<line x1="1" x2="3" y1="12" y2="12"></line>
+<line x1="21" x2="23" y1="12" y2="12"></line>
+<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+</svg>
+<svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+</svg>
+</button>
+</div>
+</nav>
+</header>
+<div class="container">
+<nav class="breadcrumb">
+<a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
+</nav>
+<main class="post-content">
+<header class="post-header">
+<h1 class="post-title">Training LLMs Without Going Broke: A Deep Dive into LoRA on AWS</h1>
+<div class="post-meta">December 5, 2025 • 4 min • Muhammad Taha Nasir</div>
+</header>
+<img alt="Training LLMs Without Going Broke: A Deep Dive into LoRA on AWS" src="/assets/images/posts/finetuning-lora.png" style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;"/>
+<aside class="table-of-contents">
+<details>
+<summary>Table of Contents</summary>
+<ul>
+<li><a href="#prompting-wall">Hitting the Prompting Wall</a></li>
+<li><a href="#full-finetuning">The Cost of Full Fine-Tuning</a></li>
+<li><a href="#lora-math">The Math Behind LoRA</a></li>
+<li><a href="#aws-environment">Provisioning the AWS Environment</a></li>
+<li><a href="#data-prep">Data Preparation and JSONL</a></li>
+<li><a href="#training-script">The Training Script</a></li>
+<li><a href="#merging-weights">Merging and Deployment</a></li>
+</ul>
+</details>
+</aside>
+<!-- Social Sharing Floating Toolbar -->
+<div class="social-sharing-toolbar">
+<button class="social-btn subscribe-btn" title="Subscribe to newsletter">
+<i class="fas fa-envelope"></i>
+</button>
+<button class="social-btn share-btn" title="Share">
+<i class="fas fa-share-alt"></i>
+</button>
+</div>
+<section id="prompting-wall">
+<h2>Hitting the Prompting Wall</h2>
+<p>Everyone starts with prompt engineering. It is fast, easy, and requires zero infrastructure. But eventually, you hit a wall. I was trying to make an open-source 7B model generate specific SQL queries based on a massive, highly convoluted legacy database schema for a client project.</p>
+<p>I wrote massive system prompts detailing all the table relationships, foreign keys, and edge cases. I filled the context window to the brim. The result? The model kept forgetting the rules midway through the generation. It would hallucinate table names or invent columns that didn't exist. Prompt engineering was fundamentally the wrong tool for the job. I needed to actually bake the knowledge directly into the neural network's weights.</p>
+</section>
+<section id="full-finetuning">
+<h2>The Cost of Full Fine-Tuning</h2>
+<p>The traditional way to teach a model new tricks is full fine-tuning. You take the pre-trained model, feed it your dataset, and update every single parameter in the network through backpropagation. For a 7-billion parameter model, updating all 7 billion weights requires astronomical amounts of VRAM.</p>
+<p>You would need a cluster of high-end NVIDIA A100 or H100 GPUs. Renting those costs hundreds of dollars a day. I am an independent developer on a strict budget. Full fine-tuning was entirely out of the question.</p>
+</section>
+<section id="lora-math">
+<h2>The Math Behind LoRA</h2>
+<p>This is where Parameter-Efficient Fine-Tuning (PEFT) comes in, specifically a technique called LoRA (Low-Rank Adaptation). LoRA relies on a brilliant mathematical insight regarding matrix operations.</p>
+<p>Instead of updating all the billions of original weights, LoRA freezes the entire base model. It then injects tiny, trainable "adapter" matrices into the model's attention layers. Because these new matrices are low-rank, they contain a drastically smaller number of parameters—often less than 1 percent of the total model size.</p>
+<p>When you combine LoRA with 4-bit weight quantization (creating QLoRA), you can suddenly fine-tune a massive 7B model on a single, affordable GPU with just 24GB of VRAM.</p>
+</section>
+<section id="aws-environment">
+<h2>Provisioning the AWS Environment</h2>
+<p>I spun up a `g5.2xlarge` instance on AWS EC2. This instance provides a single NVIDIA A10G GPU with 24GB of VRAM, which is the perfect sweet spot for QLoRA. It costs slightly over a dollar an hour.</p>
+<p>Setting up the CUDA drivers and the PyTorch environment from scratch is usually a nightmare of version conflicts. I bypassed this by using a Deep Learning AMI (Amazon Machine Image) which came pre-installed with the correct NVIDIA drivers and PyTorch bindings.</p>
+</section>
+<section id="data-prep">
+<h2>Data Preparation and JSONL</h2>
+<p>Data quality dictates everything in fine-tuning. I spent hours manually formatting a dataset of 500 perfect text-to-SQL examples. I structured them into a JSONL (JSON Lines) file, where each line contained an instruction, the input schema context, and the ideal SQL output.</p>
+<p>If your dataset contains lazy answers or formatting errors, the model will aggressively learn to replicate those errors. Garbage in, absolute garbage out.</p>
+</section>
+<section id="training-script">
+<h2>The Training Script</h2>
+<p>Using the Hugging Face `transformers` and `peft` libraries, the actual training code is surprisingly compact. Here is the core logic I used to configure the LoRA adapters and launch the trainer.</p>
+<div class="code-block">
+<button class="copy-btn">Copy</button>
+<pre class="language-python" data-lang="Python"><code>
+import torch
+from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
+from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments
+from trl import SFTTrainer
+from datasets import load_dataset
+
+# 1. Load the base model in 4-bit precision to fit in 24GB VRAM
+model_id = "mistralai/Mistral-7B-v0.1"
+model = AutoModelForCausalLM.from_pretrained(
+    model_id, 
+    load_in_4bit=True, 
+    device_map="auto",
+    torch_dtype=torch.float16
+)
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+tokenizer.pad_token = tokenizer.eos_token
+
+# 2. Prepare for QLoRA
+model = prepare_model_for_kbit_training(model)
+
+# 3. Define the LoRA Configuration
+lora_config = LoraConfig(
+    r=16,               # Rank of the adapter matrices (higher = more capacity)
+    lora_alpha=32,      # Scaling factor
+    target_modules=["q_proj", "v_proj", "k_proj", "o_proj"], # Inject into attention layers
+    lora_dropout=0.05,
+    bias="none",
+    task_type="CAUSAL_LM"
+)
+
+# 4. Wrap the model with the adapters
+peft_model = get_peft_model(model, lora_config)
+peft_model.print_trainable_parameters()
+# Output: trainable params: 13,631,488 || all params: 7,255,363,584 || trainable%: 0.18%
+
+# 5. Define Training Arguments
+training_args = TrainingArguments(
+    output_dir="./lora-sql-results",
+    per_device_train_batch_size=4,
+    gradient_accumulation_steps=4,
+    optim="paged_adamw_32bit",
+    learning_rate=2e-4,
+    num_train_epochs=3,
+    logging_steps=10,
+    fp16=True
+)
+
+# 6. Initialize and run the trainer
+dataset = load_dataset("json", data_files="sql_training_data.jsonl", split="train")
+
+trainer = SFTTrainer(
+    model=peft_model,
+    train_dataset=dataset,
+    peft_config=lora_config,
+    dataset_text_field="text",
+    max_seq_length=512,
+    args=training_args
+)
+
+print("Starting training...")
+trainer.train()
+                    </code></pre>
+</div>
+</section>
+<section id="merging-weights">
+<h2>Merging and Deployment</h2>
+<p>Notice that print statement output in the code: I was only training 0.18 percent of the total model parameters. Because of this, the entire training process took just 3 hours on the EC2 instance, costing me roughly 4 dollars total.</p>
+<p>Once the training finished, the output wasn't a full model, but rather a tiny adapter folder containing the updated weights. To deploy it, I wrote a script to merge these LoRA weights back into the original 7B base model, exporting a final, unified model.</p>
+<p>The resulting model understood my client's chaotic database schema flawlessly. Fine-tuning used to be reserved for massive tech companies. QLoRA completely democratized it. If you haven't trained a custom adapter yet, you are missing out on the most powerful tool in modern AI engineering.</p>
+</section>
+<div class="tags-container" id="dynamic-tags">
+<!-- Tags will be dynamically generated here -->
+</div>
+<hr class="divider"/>
+<section class="related-articles" id="related-series">
+<h2 class="series-title">Article Series</h2>
+<a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+<div id="related-posts-container"></div>
+</section>
+</main>
+<!-- Newsletter Subscription Section -->
+<div class="newsletter-section">
+<div class="newsletter-content">
+<h3>Subscribe to our newsletter</h3>
+<p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+<p>Subscribe to the newsletter, and don't miss out.</p>
+<div class="newsletter-form">
+<input class="newsletter-input" placeholder="Enter your email address" type="email"/>
+<button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+</div>
+</div>
+</div>
+</div>
+<footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+<div class="social-icons" style="margin-bottom:25px;">
+<a aria-label="GitHub profile" href="https://github.com/MuhammadTahaNasir" style="margin:0 5px; font-size:1.6em;" target="_blank" title="GitHub">
+<i aria-hidden="true" class="fab fa-github"></i>
+</a>
+<a aria-label="LinkedIn profile" href="https://www.linkedin.com/in/muhammadtahanasir/" style="margin:0 5px; font-size:1.6em;" target="_blank" title="LinkedIn">
+<i aria-hidden="true" class="fab fa-linkedin"></i>
+</a>
+<a aria-label="Send email" href="mailto:m.tahanasir.cs@gmail.com" style="margin:0 5px; font-size:1.6em;" title="Email">
+<i aria-hidden="true" class="fas fa-envelope"></i>
+</a>
+</div>
+<p style="font-size:0.9em;">© 2026 – Muhammad Taha Nasir</p>
+</footer>
+<button aria-label="Scroll to top" id="scrollTop">
+<i class="fas fa-chevron-up"></i>
+</button>
+<script src="../../assets/js/each-post.js"></script>
+<script src="../../assets/js/shared-bottom-nav.js"></script>
+<script src="../../assets/js/nav-active.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.innerText = "Copied!";
+                    setTimeout(() => button.innerText = "Copy", 1500);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
