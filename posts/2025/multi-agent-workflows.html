@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html dir="auto" lang="en">
+<head>
+<link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/assets/images/favicon.ico" rel="shortcut icon"/>
+<link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<meta content="Terry" name="apple-mobile-web-app-title"/>
+<link href="/assets/images/site.webmanifest" rel="manifest"/>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<meta content="noindex, nofollow" name="robots"/>
+<meta content="Building multi-agent systems where specialized LLMs communicate and collaborate to solve complex, multi-step coding problems." name="description"/>
+<meta content="Muhammad Taha Nasir" name="author"/>
+<meta content="Agentic AI, System Architecture" name="tags"/>
+<meta content="/assets/images/posts/multi-agent-workflows-2025.png" name="thumbnail"/>
+<title>Architecting a Multi-Agent System with AutoGen and LangGraph</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+<link href="../../assets/css/each-post.css" rel="stylesheet"/>
+<link href="../../assets/css/bottom-nav.css" rel="stylesheet"/>
+<!-- Prism.js Okaidia High Contrast Theme -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/>
+<style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+        /* Force code blocks to be bright and override any dim CSS from each-post.css */
+        .code-block pre {
+            opacity: 1 !important;
+            color: #f8f8f2 !important;
+            text-shadow: 0 1px rgba(0, 0, 0, 0.3) !important;
+        }
+        .code-block code {
+            opacity: 1 !important;
+            color: inherit !important;
+        }
+    </style>
+<script>
+        // Apply theme immediately on page load
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+</head>
+<body class="dark" id="top" post-date="2025-12-22">
+<!-- Loader Animation -->
+<div aria-hidden="true" class="loader" id="loader">
+<div class="terry-animation">
+<span class="letter">t</span>
+<span class="letter">e</span>
+<span class="letter">r</span>
+<span class="letter">r</span>
+<span class="letter">y</span>
+</div>
+</div>
+<header class="header">
+<nav class="nav">
+<!-- Left: Logo -->
+<div class="nav-left">
+<a class="logo" href="/index.html">&lt;terry/&gt;</a>
+</div>
+<!-- Center: Pills Navigation -->
+<div class="nav-center">
+<div class="pill-nav">
+<a href="/projects.html">Projects</a>
+<a href="/archives.html">Archives</a>
+<a href="/resume.html">Resume</a>
+<a href="/search.html">Search</a>
+</div>
+</div>
+<!-- Right: Theme toggle -->
+<div class="nav-right">
+<button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
+<svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="5"></circle>
+<line x1="12" x2="12" y1="1" y2="3"></line>
+<line x1="12" x2="12" y1="21" y2="23"></line>
+<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+<line x1="1" x2="3" y1="12" y2="12"></line>
+<line x1="21" x2="23" y1="12" y2="12"></line>
+<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+</svg>
+<svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+</svg>
+</button>
+</div>
+</nav>
+</header>
+<div class="container">
+<nav class="breadcrumb">
+<a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
+</nav>
+<main class="post-content">
+<header class="post-header">
+<h1 class="post-title">Architecting a Multi-Agent System with AutoGen and LangGraph</h1>
+<div class="post-meta">December 22, 2025 • 3 min • Muhammad Taha Nasir</div>
+</header>
+<img alt="Architecting a Multi-Agent System with AutoGen and LangGraph" src="/assets/images/posts/multi-agent-workflows-2025.png" style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;"/>
+<aside class="table-of-contents">
+<details>
+<summary>Table of Contents</summary>
+<ul>
+<li><a href="#beyond-chat">Moving Beyond the Chat Interface</a></li>
+<li><a href="#the-agent-paradigm">The Agentic Paradigm</a></li>
+<li><a href="#defining-roles">Defining Specialized Roles</a></li>
+<li><a href="#autogen-implementation">Implementing with AutoGen</a></li>
+<li><a href="#infinite-loops">The Infinite Loop Problem</a></li>
+<li><a href="#state-management">State Management and LangGraph</a></li>
+</ul>
+</details>
+</aside>
+<!-- Social Sharing Floating Toolbar -->
+<div class="social-sharing-toolbar">
+<button class="social-btn subscribe-btn" title="Subscribe to newsletter">
+<i class="fas fa-envelope"></i>
+</button>
+<button class="social-btn share-btn" title="Share">
+<i class="fas fa-share-alt"></i>
+</button>
+</div>
+<section id="beyond-chat">
+<h2>Moving Beyond the Chat Interface</h2>
+<p>The standard way we interact with LLMs is fundamentally flawed for complex engineering tasks. You type a prompt, the model generates an output, and you read it. If you ask ChatGPT to write a complex web scraping script involving authentication, it will output a script. But what happens if that script throws a missing dependency error when you run it?</p>
+<p>A human developer would read the stack trace, realize the error, install the dependency, and run it again. An LLM in a single chat session cannot do this. It is a passive generator. To build systems that actually get work done, we have to move beyond passive chatbots and build autonomous agents.</p>
+</section>
+<section id="the-agent-paradigm">
+<h2>The Agentic Paradigm</h2>
+<p>Agentic AI involves giving an LLM access to tools (like a Python interpreter, a terminal shell, or web search) and allowing it to iteratively solve problems. Instead of a single massive prompt, you architect a system of multiple specialized agents that communicate with each other, critique each other's work, and loop until the task is successfully completed.</p>
+<p>I recently experimented with this by building an automated data-gathering system using Microsoft's AutoGen framework and LangGraph for state routing.</p>
+</section>
+<section id="defining-roles">
+<h2>Defining Specialized Roles</h2>
+<p>If you give one agent too many responsibilities, it gets confused and hallucinates. The trick is to split the workload into highly specialized personas. For my system, I designed three core agents:</p>
+<ul>
+<li><strong>The Planner:</strong> Takes the ambiguous user request and breaks it down into a strict, step-by-step markdown checklist.</li>
+<li><strong>The Coder:</strong> Receives the checklist and writes the actual Python scripts. It is instructed strictly to output code, not conversational filler.</li>
+<li><strong>The Executor:</strong> A proxy agent that takes the Coder's script, executes it in an isolated Docker container, and returns the terminal output (success or stack trace) back to the Coder.</li>
+</ul>
+</section>
+<section id="autogen-implementation">
+<h2>Implementing with AutoGen</h2>
+<p>Here is a conceptual look at how you define these distinct personas and initiate a collaborative loop using AutoGen:</p>
+<div class="code-block">
+<button class="copy-btn">Copy</button>
+<pre class="language-python" data-lang="Python"><code>
+import autogen
+
+# Load LLM configurations
+config_list = [{"model": "gpt-4-turbo", "api_key": "sk-your-key"}]
+llm_config = {"config_list": config_list, "temperature": 0.2}
+
+# 1. The Planner Agent
+planner = autogen.AssistantAgent(
+    name="Planner",
+    system_message='''You are the lead engineer. 
+    Break the user's task into a numbered list of technical steps. 
+    Do not write code. Only output the plan.''',
+    llm_config=llm_config
+)
+
+# 2. The Coder Agent
+coder = autogen.AssistantAgent(
+    name="Coder",
+    system_message='''You are a senior Python developer. 
+    Write clean, robust code based on the Planner's steps. 
+    If the Executor returns an error, analyze the stack trace and fix the code.
+    Wrap all code in standard markdown blocks.''',
+    llm_config=llm_config
+)
+
+# 3. The Executor (Runs locally on your machine or in Docker)
+executor = autogen.UserProxyAgent(
+    name="Executor",
+    human_input_mode="NEVER",
+    max_consecutive_auto_reply=10,
+    is_termination_msg=lambda x: "TERMINATE" in x.get("content", ""),
+    code_execution_config={
+        "work_dir": "./agent_workspace", 
+        "use_docker": True # Crucial for security
+    }
+)
+
+# Initiate the multi-agent chat
+executor.initiate_chat(
+    planner,
+    message="Create a script to scrape the top 10 posts from HackerNews and save them to a CSV. Execute it and confirm the CSV exists."
+)
+                    </code></pre>
+</div>
+</section>
+<section id="infinite-loops">
+<h2>The Infinite Loop Problem</h2>
+<p>Running this code for the first time was mesmerizing. Watching the Coder write a script, the Executor fail it due to a missing `requests` import, and the Coder immediately apologizing and rewriting the script with the import was incredible. It felt like watching a real engineering team work.</p>
+<p>But then, disaster struck. The Coder encountered a web scraping bot-protection error. It tried to fix it by changing headers. It failed again. It tried again. Before I realized what was happening, the agents had locked themselves into an infinite feedback loop, rapidly burning through API credits as they repeatedly failed and retried the exact same broken approach.</p>
+</section>
+<section id="state-management">
+<h2>State Management and LangGraph</h2>
+<p>The most difficult engineering challenge in multi-agent systems is state management and failure routing. AutoGen handles conversational turns well, but it lacks strict control flow.</p>
+<p>To solve the infinite loop issue, I had to introduce state graphs using LangGraph. LangGraph allows you to define the agent workflow as a directed cyclic graph. I implemented hard transition guards: if an agent fails three times consecutively, the execution flow breaks out of the loop and routes to a "Human Intervention" node, pausing the system and asking me for help.</p>
+<p>Designing agent networks feels entirely different from traditional programming. You are not writing logic; you are writing instructions for entities that write the logic. It is unpredictable, highly frustrating, but undeniably the future of software engineering.</p>
+</section>
+<div class="tags-container" id="dynamic-tags">
+<!-- Tags will be dynamically generated here -->
+</div>
+<hr class="divider"/>
+<section class="related-articles" id="related-series">
+<h2 class="series-title">Article Series</h2>
+<a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+<div id="related-posts-container"></div>
+</section>
+</main>
+<!-- Newsletter Subscription Section -->
+<div class="newsletter-section">
+<div class="newsletter-content">
+<h3>Subscribe to our newsletter</h3>
+<p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+<p>Subscribe to the newsletter, and don't miss out.</p>
+<div class="newsletter-form">
+<input class="newsletter-input" placeholder="Enter your email address" type="email"/>
+<button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+</div>
+</div>
+</div>
+</div>
+<footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+<div class="social-icons" style="margin-bottom:25px;">
+<a aria-label="GitHub profile" href="https://github.com/MuhammadTahaNasir" style="margin:0 5px; font-size:1.6em;" target="_blank" title="GitHub">
+<i aria-hidden="true" class="fab fa-github"></i>
+</a>
+<a aria-label="LinkedIn profile" href="https://www.linkedin.com/in/muhammadtahanasir/" style="margin:0 5px; font-size:1.6em;" target="_blank" title="LinkedIn">
+<i aria-hidden="true" class="fab fa-linkedin"></i>
+</a>
+<a aria-label="Send email" href="mailto:m.tahanasir.cs@gmail.com" style="margin:0 5px; font-size:1.6em;" title="Email">
+<i aria-hidden="true" class="fas fa-envelope"></i>
+</a>
+</div>
+<p style="font-size:0.9em;">© 2026 – Muhammad Taha Nasir</p>
+</footer>
+<button aria-label="Scroll to top" id="scrollTop">
+<i class="fas fa-chevron-up"></i>
+</button>
+<script src="../../assets/js/each-post.js"></script>
+<script src="../../assets/js/shared-bottom-nav.js"></script>
+<script src="../../assets/js/nav-active.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.innerText = "Copied!";
+                    setTimeout(() => button.innerText = "Copy", 1500);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
