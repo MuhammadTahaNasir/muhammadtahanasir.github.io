@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html dir="auto" lang="en">
+<head>
+<link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/assets/images/favicon.ico" rel="shortcut icon"/>
+<link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<meta content="Terry" name="apple-mobile-web-app-title"/>
+<link href="/assets/images/site.webmanifest" rel="manifest"/>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<meta content="noindex, nofollow" name="robots"/>
+<meta content="Architecting multi-agent systems where specialized LLMs communicate and collaborate to solve complex, multi-step problems." name="description"/>
+<meta content="Muhammad Taha Nasir" name="author"/>
+<meta content="Agentic AI, Multi-Agent Systems, LangChain, AutoGen" name="tags"/>
+<meta content="/assets/images/posts/multi-agent-workflows-2026.png" name="thumbnail"/>
+<title>Building Multi-Agent Workflows: How I Connected LLM Agents to Solve Complex Tasks</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+<link href="../../assets/css/each-post.css" rel="stylesheet"/>
+<link href="../../assets/css/bottom-nav.css" rel="stylesheet"/>
+<style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+    </style>
+<script>
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+</head>
+<body class="dark" id="top" post-date="2026-01-15">
+<div aria-hidden="true" class="loader" id="loader">
+<div class="terry-animation">
+<span class="letter">t</span>
+<span class="letter">e</span>
+<span class="letter">r</span>
+<span class="letter">r</span>
+<span class="letter">y</span>
+</div>
+</div>
+<header class="header">
+<nav class="nav">
+<div class="nav-left"><a class="logo" href="/index.html">&lt;terry/&gt;</a></div>
+<div class="nav-center">
+<div class="pill-nav">
+<a href="/projects.html">Projects</a>
+<a href="/archives.html">Archives</a>
+<a href="/resume.html">Resume</a>
+<a href="/search.html">Search</a>
+</div>
+</div>
+<div class="nav-right">
+<button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
+<svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="5"></circle>
+<line x1="12" x2="12" y1="1" y2="3"></line>
+<line x1="12" x2="12" y1="21" y2="23"></line>
+<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+<line x1="1" x2="3" y1="12" y2="12"></line>
+<line x1="21" x2="23" y1="12" y2="12"></line>
+<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+</svg>
+<svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+</svg>
+</button>
+</div>
+</nav>
+</header>
+<div class="container">
+<nav class="breadcrumb">
+<a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
+</nav>
+<main class="post-content">
+<header class="post-header">
+<h1 class="post-title">Building Multi-Agent Workflows: How I Connected LLM Agents to Solve Complex Tasks</h1>
+<div class="post-meta">January 15, 2026 • 2 min • Muhammad Taha Nasir</div>
+</header>
+<img alt="Building Multi-Agent Workflows: How I Connected LLM Agents to Solve Complex Tasks" src="/assets/images/posts/multi-agent-workflows-2026.png" style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;"/>
+<aside class="table-of-contents">
+<details>
+<summary>Table of Contents</summary>
+<ul>
+<li><a href="#the-grind">The Grind</a></li>
+<li><a href="#tech-deep-dive">Tech Deep Dive</a></li>
+<li><a href="#the-code">The Code</a></li>
+<li><a href="#lessons-learned">Lessons Learned</a></li>
+</ul>
+</details>
+</aside>
+<div class="social-sharing-toolbar">
+<button class="social-btn subscribe-btn" title="Subscribe to newsletter"><i class="fas fa-envelope"></i></button>
+<button class="social-btn share-btn" title="Share"><i class="fas fa-share-alt"></i></button>
+</div>
+<section id="the-grind">
+<h2>The Grind</h2>
+<p>Assalam o Alaikum, tech fam! Let me tell you, the era of typing a single prompt and getting a magical answer is officially over. Welcome to 2026, where we build armies of AI agents. I spent the last month architecting a system where multiple specialized LLMs literally talk to each other to solve problems. Bro, it felt like I was managing a tiny virtual tech team.</p>
+</section>
+<section id="tech-deep-dive">
+<h2>Tech Deep Dive</h2>
+<p>I used LangGraph and AutoGen to create a 'Planner' agent, a 'Researcher' agent, and a 'Coder' agent. The Planner breaks down a user prompt into sub-tasks. The Researcher browses the web for documentation, and the Coder writes the code. But the real magic is the feedback loop: if the Coder writes bad code, the 'Reviewer' agent sends it back with an error log. Managing the state and memory between these agents was like untangling headphones in the dark, but the results are insanely powerful.</p>
+</section>
+<section id="the-code">
+<h2>The Code</h2>
+<p>Here is a simplified conceptual look at defining agent roles using AutoGen:</p>
+<div class="code-block">
+<button class="copy-btn">Copy</button>
+<pre class="language-python" data-lang="Python"><code>import autogen
+
+config_list = [{"model": "gpt-4-turbo", "api_key": "your_api_key"}]
+
+# The Boss
+planner = autogen.AssistantAgent(
+    name="Planner",
+    system_message="You break down coding tasks into steps.",
+    llm_config={"config_list": config_list}
+)
+
+# The Dev
+coder = autogen.AssistantAgent(
+    name="Coder",
+    system_message="You write clean, documented Python code.",
+    llm_config={"config_list": config_list}
+)
+
+# The User Proxy initiates the chat
+user_proxy = autogen.UserProxyAgent(name="User", human_input_mode="NEVER")
+
+user_proxy.initiate_chat(
+    planner,
+    message="Create a Python script to scrape a website and save to CSV."
+)</code></pre>
+</div>
+</section>
+<section id="lessons-learned">
+<h2>Lessons Learned</h2>
+<p>Orchestrating AI agents taught me a lot about software architecture. You can't just rely on the LLM being smart; you have to design robust systems that handle failure, loop limits, and state tracking. This project blew my mind and proved that the future of SWE is managing AI workflows, not just writing syntax.</p>
+</section>
+<div class="tags-container" id="dynamic-tags"></div>
+<hr class="divider"/>
+<section class="related-articles" id="related-series">
+<h2 class="series-title">Article Series</h2>
+<a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+<div id="related-posts-container"></div>
+</section>
+</main>
+<div class="newsletter-section">
+<div class="newsletter-content">
+<h3>Subscribe to our newsletter</h3>
+<p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+<div class="newsletter-form">
+<input class="newsletter-input" placeholder="Enter your email address" type="email"/>
+<button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+</div>
+</div>
+</div>
+</div>
+<footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+<p style="font-size:0.9em;">© 2026 – Muhammad Taha Nasir</p>
+</footer>
+<button aria-label="Scroll to top" id="scrollTop">
+<i class="fas fa-chevron-up"></i>
+</button>
+<script src="../../assets/js/each-post.js"></script>
+<script src="../../assets/js/shared-bottom-nav.js"></script>
+<script src="../../assets/js/nav-active.js"></script>
+<script>
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.innerText = "Copied!";
+                    setTimeout(() => button.innerText = "Copy", 1500);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
