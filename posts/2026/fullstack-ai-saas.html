@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html dir="auto" lang="en">
+<head>
+<link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/assets/images/favicon.ico" rel="shortcut icon"/>
+<link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<meta content="Terry" name="apple-mobile-web-app-title"/>
+<link href="/assets/images/site.webmanifest" rel="manifest"/>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<meta content="noindex, nofollow" name="robots"/>
+<meta content="A comprehensive guide on building a scalable Full-Stack AI SaaS platform using modern web technologies and robust backend architecture." name="description"/>
+<meta content="Muhammad Taha Nasir" name="author"/>
+<meta content="Full-Stack Engineering, SaaS Architecture" name="tags"/>
+<meta content="/assets/images/posts/fullstack-ai-saas.png" name="thumbnail"/>
+<title>Scaling an AI Product: Next.js, FastAPI, and Postgres Architecture</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+<link href="../../assets/css/each-post.css" rel="stylesheet"/>
+<link href="../../assets/css/bottom-nav.css" rel="stylesheet"/>
+<!-- Prism.js Okaidia High Contrast Theme -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/>
+<style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+        /* Force code blocks to be bright and override any dim CSS from each-post.css */
+        .code-block pre {
+            opacity: 1 !important;
+            color: #f8f8f2 !important;
+            text-shadow: 0 1px rgba(0, 0, 0, 0.3) !important;
+        }
+        .code-block code {
+            opacity: 1 !important;
+            color: inherit !important;
+        }
+    </style>
+<script>
+        // Apply theme immediately on page load
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+</head>
+<body class="dark" id="top" post-date="2026-02-11">
+<!-- Loader Animation -->
+<div aria-hidden="true" class="loader" id="loader">
+<div class="terry-animation">
+<span class="letter">t</span>
+<span class="letter">e</span>
+<span class="letter">r</span>
+<span class="letter">r</span>
+<span class="letter">y</span>
+</div>
+</div>
+<header class="header">
+<nav class="nav">
+<!-- Left: Logo -->
+<div class="nav-left">
+<a class="logo" href="/index.html">&lt;terry/&gt;</a>
+</div>
+<!-- Center: Pills Navigation -->
+<div class="nav-center">
+<div class="pill-nav">
+<a href="/projects.html">Projects</a>
+<a href="/archives.html">Archives</a>
+<a href="/resume.html">Resume</a>
+<a href="/search.html">Search</a>
+</div>
+</div>
+<!-- Right: Theme toggle -->
+<div class="nav-right">
+<button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
+<svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="5"></circle>
+<line x1="12" x2="12" y1="1" y2="3"></line>
+<line x1="12" x2="12" y1="21" y2="23"></line>
+<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+<line x1="1" x2="3" y1="12" y2="12"></line>
+<line x1="21" x2="23" y1="12" y2="12"></line>
+<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+</svg>
+<svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+</svg>
+</button>
+</div>
+</nav>
+</header>
+<div class="container">
+<nav class="breadcrumb">
+<a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
+</nav>
+<main class="post-content">
+<header class="post-header">
+<h1 class="post-title">Scaling an AI Product: Next.js, FastAPI, and Postgres Architecture</h1>
+<div class="post-meta">February 11, 2026 • 3 min • Muhammad Taha Nasir</div>
+</header>
+<img alt="Scaling an AI Product: Next.js, FastAPI, and Postgres Architecture" src="/assets/images/posts/fullstack-ai-saas.png" style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;"/>
+<aside class="table-of-contents">
+<details>
+<summary>Table of Contents</summary>
+<ul>
+<li><a href="#beyond-notebooks">Moving Beyond Jupyter Notebooks</a></li>
+<li><a href="#decoupled-architecture">The Decoupled Architecture</a></li>
+<li><a href="#nextjs-frontend">Why Next.js for the Frontend?</a></li>
+<li><a href="#fastapi-backend">FastAPI: The ML Backend Standard</a></li>
+<li><a href="#async-concurrency">Handling Async Concurrency</a></li>
+<li><a href="#database-state">PostgreSQL for State Management</a></li>
+<li><a href="#lessons-learned">Deployment Lessons</a></li>
+</ul>
+</details>
+</aside>
+<!-- Social Sharing Floating Toolbar -->
+<div class="social-sharing-toolbar">
+<button class="social-btn subscribe-btn" title="Subscribe to newsletter">
+<i class="fas fa-envelope"></i>
+</button>
+<button class="social-btn share-btn" title="Share">
+<i class="fas fa-share-alt"></i>
+</button>
+</div>
+<section id="beyond-notebooks">
+<h2>Moving Beyond Jupyter Notebooks</h2>
+<p>Data scientists and ML engineers love Jupyter Notebooks. They are perfect for rapid prototyping, visualizing data, and training models in isolated cells. However, when you actually want to ship an AI feature to real users, a notebook is useless. Even quick dashboarding tools like Streamlit eventually hit severe limitations when you need custom authentication, complex routing, or highly responsive UI components.</p>
+<p>I recently architected a full-stack SaaS platform for AI-assisted resume generation. Building it required completely abandoning the data science mindset and adopting a strict software engineering architecture. You have to handle user sessions, database persistence, and long-running GPU inference tasks simultaneously.</p>
+</section>
+<section id="decoupled-architecture">
+<h2>The Decoupled Architecture</h2>
+<p>The biggest mistake beginners make is trying to cram the frontend, the backend, and the heavy machine learning logic into a single monolithic server. If the server is busy processing a massive text generation task, the entire website freezes for all other users.</p>
+<p>To prevent this, I utilized a completely decoupled architecture. The stack consists of a React-based frontend (Next.js), a Python backend API (FastAPI), and a relational database (PostgreSQL) hosted independently. They communicate entirely over REST APIs.</p>
+</section>
+<section id="nextjs-frontend">
+<h2>Why Next.js for the Frontend?</h2>
+<p>For the user interface, Next.js is unparalleled. The React ecosystem provides massive component libraries, making it easy to build slick, modern interfaces with TailwindCSS. More importantly, Next.js handles server-side rendering (SSR), which is crucial for SEO and initial page load speeds. When a user navigates to the dashboard, the UI loads instantly, completely independent of whatever heavy lifting the AI backend is currently doing.</p>
+</section>
+<section id="fastapi-backend">
+<h2>FastAPI: The ML Backend Standard</h2>
+<p>Traditionally, developers use Node.js or Express for web backends. But in AI, your ecosystem is Python. All the critical libraries—PyTorch, Pandas, LangChain, Transformers—are native to Python. Forcing a Node.js server to spawn Python child processes is a nightmare of latency and memory leaks.</p>
+<p>FastAPI bridges this gap flawlessly. It is a modern, high-performance web framework for Python. It validates data structures out of the box using Pydantic, automatically generates Swagger API documentation, and natively supports asynchronous programming.</p>
+</section>
+<section id="async-concurrency">
+<h2>Handling Async Concurrency</h2>
+<p>The asynchronous nature of FastAPI is its superpower. When an LLM generates a response, it might take 5 to 10 seconds. In a synchronous framework like Flask, that single request would block a worker thread, preventing the server from handling other users. With FastAPI's `async/await` syntax, the server hands the inference task off and immediately returns to listening for new requests.</p>
+<div class="code-block">
+<button class="copy-btn">Copy</button>
+<pre class="language-python" data-lang="Python"><code>
+from fastapi import FastAPI, BackgroundTasks, HTTPException
+from pydantic import BaseModel
+import asyncio
+import uuid
+
+app = FastAPI()
+
+# In-memory store for task status (use Redis in production)
+task_store = {}
+
+class ResumeRequest(BaseModel):
+    user_id: str
+    raw_experience: str
+
+# Mock heavy LLM inference function
+async def generate_optimized_resume(task_id: str, data: str):
+    await asyncio.sleep(8) # Simulating heavy API latency or GPU compute
+    optimized_text = f"Professionally formatted resume based on: {data}"
+    task_store[task_id] = {"status": "completed", "result": optimized_text}
+
+@app.post("/api/v1/resumes/generate")
+async def start_generation(req: ResumeRequest, background_tasks: BackgroundTasks):
+    task_id = str(uuid.uuid4())
+    task_store[task_id] = {"status": "processing"}
+    
+    # Offload the heavy task to the background, don't block the user
+    background_tasks.add_task(generate_optimized_resume, task_id, req.raw_experience)
+    
+    # Immediately return the tracking ID so the frontend can show a loading spinner
+    return {"message": "Generation started", "task_id": task_id}
+
+@app.get("/api/v1/resumes/status/{task_id}")
+async def check_status(task_id: str):
+    task = task_store.get(task_id)
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return task
+                    </code></pre>
+</div>
+</section>
+<section id="database-state">
+<h2>PostgreSQL for State Management</h2>
+<p>In the code above, I used a simple dictionary to store state. In production, this data is piped directly into a managed PostgreSQL database using SQLAlchemy as the ORM. Tracking every single inference request, its latency, and the resulting output is absolutely critical for analyzing user behavior and debugging prompt failures later on.</p>
+</section>
+<section id="lessons-learned">
+<h2>Deployment Lessons</h2>
+<p>Building this stack taught me that creating an AI product is 10 percent machine learning and 90 percent software engineering. Deploying the FastAPI container on AWS ECS, managing the database connection pools, and handling WebSocket connections for real-time frontend updates took significantly longer than writing the actual LLM prompts.</p>
+<p>If you want to build AI tools that people actually pay for, you have to master the full stack.</p>
+</section>
+<div class="tags-container" id="dynamic-tags">
+<!-- Tags will be dynamically generated here -->
+</div>
+<hr class="divider"/>
+<section class="related-articles" id="related-series">
+<h2 class="series-title">Article Series</h2>
+<a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+<div id="related-posts-container"></div>
+</section>
+</main>
+<!-- Newsletter Subscription Section -->
+<div class="newsletter-section">
+<div class="newsletter-content">
+<h3>Subscribe to our newsletter</h3>
+<p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+<p>Subscribe to the newsletter, and don't miss out.</p>
+<div class="newsletter-form">
+<input class="newsletter-input" placeholder="Enter your email address" type="email"/>
+<button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+</div>
+</div>
+</div>
+</div>
+<footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+<div class="social-icons" style="margin-bottom:25px;">
+<a aria-label="GitHub profile" href="https://github.com/MuhammadTahaNasir" style="margin:0 5px; font-size:1.6em;" target="_blank" title="GitHub">
+<i aria-hidden="true" class="fab fa-github"></i>
+</a>
+<a aria-label="LinkedIn profile" href="https://www.linkedin.com/in/muhammadtahanasir/" style="margin:0 5px; font-size:1.6em;" target="_blank" title="LinkedIn">
+<i aria-hidden="true" class="fab fa-linkedin"></i>
+</a>
+<a aria-label="Send email" href="mailto:m.tahanasir.cs@gmail.com" style="margin:0 5px; font-size:1.6em;" title="Email">
+<i aria-hidden="true" class="fas fa-envelope"></i>
+</a>
+</div>
+<p style="font-size:0.9em;">© 2026 – Muhammad Taha Nasir</p>
+</footer>
+<button aria-label="Scroll to top" id="scrollTop">
+<i class="fas fa-chevron-up"></i>
+</button>
+<script src="../../assets/js/each-post.js"></script>
+<script src="../../assets/js/shared-bottom-nav.js"></script>
+<script src="../../assets/js/nav-active.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.innerText = "Copied!";
+                    setTimeout(() => button.innerText = "Copy", 1500);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
