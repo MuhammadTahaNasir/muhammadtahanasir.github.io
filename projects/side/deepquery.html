@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="DeepQuery" />
+    <link rel="manifest" href="/assets/images/site.webmanifest" />
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="index, follow">
+    <meta name="description"
+        content="DeepQuery: A deep learning framework that profiles SQL execution plans, predicting performance bottlenecks and ranking alternative query formulations without requiring expensive test executions.">
+    <meta name="author" content="Muhammad Taha Nasir">
+    <meta name="date" content="2026-03-02">
+    <meta name="tab" content="side">
+    <meta name="subcategory" content="Deep Learning">
+    <meta name="features" content="Python, TensorFlow, Flask, SQLite, Keras, Deep Learning, Explainable AI, SQL Optimization">
+    <meta name="thumbnail" content="/assets/images/projects/deep-query/5.png">
+    <meta name="github" content="https://github.com/MuhammadTahaNasir/DeepQuery">
+    <meta name="web" content="">
+    <meta name="hideWebLink" content="true">
+    <title>DeepQuery: AI-Powered SQL Intelligence & Optimization Console</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/each-project.css">
+    <link rel="stylesheet" href="/assets/css/bottom-nav.css">
+
+    <!-- Theme Initialization Script -->
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.documentElement.style.background = '#1a1a1a';
+                document.documentElement.style.color = '#d1d5db';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                document.documentElement.style.background = '#f9fafc';
+                document.documentElement.style.color = '#333';
+            }
+        })();
+    </script>
+</head>
+
+<body class="dark" id="top">
+    <!-- Loader Animation -->
+    <div class="loader" id="loader" aria-hidden="true">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="header">
+        <nav class="nav">
+            <!-- Left: Logo -->
+            <div class="nav-left">
+                <a href="/index.html" class="logo">&lt;terry/&gt;</a>
+            </div>
+
+            <!-- Center: Pills Navigation -->
+            <div class="nav-center">
+                <div class="pill-nav">
+                    <a href="/projects.html">Projects</a>
+                    <a href="/archives.html">Archives</a>
+                    <a href="/resume.html">Resume</a>
+                    <a href="/search.html">Search</a>
+                </div>
+            </div>
+            <!-- Right: Theme toggle -->
+            <div class="nav-right">
+                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb">
+            <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a> » <a
+                href="/projects/side/deepquery.html">DeepQuery</a>
+        </nav>
+
+        <!-- Project Content -->
+        <main class="project-content">
+            <header class="project-header">
+                <h1 class="project-title">🧠 DeepQuery: AI-Powered SQL Optimization Console</h1>
+                <div class="project-meta">March 2 2026 • Muhammad Taha Nasir</div>
+            </header>
+
+            <!-- Image Carousel -->
+            <div class="image-carousel">
+                <div class="carousel-container">
+                    <div class="carousel-slide active">
+                        <img src="/assets/images/projects/deep-query/1.png"
+                            alt="DeepQuery Console Welcome Screen" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/deep-query/2.png"
+                            alt="Database Model Training Benchmarks" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/deep-query/3.png"
+                            alt="Fitted Models Performance Ranks" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/deep-query/4.png"
+                            alt="Explainable AI SQL Parser Features" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/deep-query/5.png"
+                            alt="DeepQuery Multi-Candidate SQL Evaluation Console" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/deep-query/6.png"
+                            alt="Neural Network Performance Rankings with XAI Diagnostics" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/deep-query/7.png"
+                            alt="Comparative Execution Time & Analytics View" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/deep-query/8.png"
+                            alt="3-Tier Progressive Database Benchmark Schema" class="carousel-image">
+                    </div>
+                </div>
+
+                <!-- Navigation Arrows -->
+                <div class="carousel-center-nav">
+                    <button class="carousel-btn prev-btn" aria-label="Previous image">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-btn next-btn" aria-label="Next image">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- Carousel Dots -->
+                <div class="carousel-dots-container">
+                    <div class="carousel-dots">
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                        <span class="dot" data-slide="3"></span>
+                        <span class="dot" data-slide="4"></span>
+                        <span class="dot" data-slide="5"></span>
+                        <span class="dot" data-slide="6"></span>
+                        <span class="dot" data-slide="7"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Image Modal -->
+            <div class="image-modal" id="imageModal">
+                <div class="modal-content">
+                    <button class="modal-close" id="modalClose">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="modal-image-container">
+                        <img src="" alt="Full size image" id="modalImage" class="modal-image">
+                    </div>
+                    <div class="modal-nav">
+                        <button class="modal-btn prev-btn" id="modalPrev">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="modal-btn next-btn" id="modalNext">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button Section -->
+            <div class="button-section">
+                <a href="https://github.com/MuhammadTahaNasir/DeepQuery"
+                    class="project-button github-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i> View Source Code
+                </a>
+            </div>
+
+            <!-- Project Overview -->
+            <section id="overview">
+                <h2>Project Overview</h2>
+                <p>DeepQuery is a deep learning-powered intelligence console designed to bridge the gap between machine learning and database engineering. Relational databases can execute a single logical data query in dozens of syntactically valid ways, but execution efficiency can vary dramatically based on indexing, join order, and structural composition. DeepQuery walks SQL Abstract Syntax Trees (AST) and profiles execution costs to extract a 14-dimensional feature vector, passing it through a 4-layer Artificial Neural Network (ANN) to predict performance bottleneck rankings before queries are executed.</p>
+                <p>Equipped with an interactive web dashboard and Explainable AI (XAI) heuristics, the system predicts and compares query efficiency side-by-side, saving administrators hours of trial-and-error database testing.</p>
+            </section>
+
+            <!-- Situation -->
+            <section id="situation">
+                <h2>Situation</h2>
+                <p>In high-throughput enterprise databases, poor query structures lead to server lockups, slow response times, and high infrastructure costs. Determining whether an alternate SQL formulation is more efficient usually requires running the queries directly. In production databases, running untested, complex analytical queries can cause immediate performance degradation or service outages. There was a critical need for an offline, predictive model that could analyze queries statically and estimate performance costs before physical execution.</p>
+            </section>
+
+            <!-- Task -->
+            <section id="task">
+                <h2>Task</h2>
+                <p>Build a machine learning platform that evaluates up to 8 candidate SQL formulations statically and ranks them. The system needs to parse SQL text structures, generate execution plan costs, feed standardized inputs into a deep learning neural network, and present Explainable AI warnings alongside numeric execution score estimates.</p>
+            </section>
+
+            <!-- Actions -->
+            <section id="actions">
+                <h2>Actions</h2>
+                <ul>
+                    <li><strong>Engineered Neural Network Architecture:</strong> Designed and trained a 4-layer Sequential Artificial Neural Network (Dense MLP) in Keras, mapping extracted query features to normalized performance scores from 5.0 to 99.0.</li>
+                    <li><strong>Built AST Feature Extractor:</strong> Programmed a SQL Abstract Syntax Tree (AST) token walker to parse and extract structural database heuristics (joins count, table references, WHERE clauses, and scalar functions).</li>
+                    <li><strong>Integrated Explainable AI (XAI):</strong> Developed a heuristic heuristics diagnostic engine that automatically triggers warnings (e.g. index bypass penalties, SELECT * warnings) and highlights scan efficiencies.</li>
+                    <li><strong>Created 3-Tier Benchmarking Suite:</strong> Structured progressive SQLite databases ranging from a synthetic baseline to dvd rental schemas, and industry-standard TPC-H analytical benchmarks.</li>
+                    <li><strong>Developed Web Dashboard:</strong> Programmed a Flask application with SVG progress gauge rings, execution comparison graphs, and real-time toast alerts for query profiling.</li>
+                </ul>
+            </section>
+
+            <!-- Results -->
+            <section id="results">
+                <h2>Results</h2>
+                <p>DeepQuery successfully evaluates multi-candidate SQL formulations with a neural network performance score of <strong>R² = 0.4256</strong>, a Mean Absolute Error (MAE) of <strong>0.1127</strong>, and Root Mean Squared Error (RMSE) of <strong>0.1659</strong>. By identifying non-optimal join patterns and scalar indices statically, the console allows developers to catch performance bottlenecks early during query drafting, preventing slow executions in production environments.</p>
+            </section>
+
+            <!-- Team Section -->
+            <section id="team">
+                <h2>Team</h2>
+                <ul>
+                    <li><strong>Muhammad Taha Nasir</strong>: Solo Developer (ML Architecture, AST parsing, RAG/explainers, benchmark suite, and Flask UI Console development)</li>
+                </ul>
+            </section>
+
+            <!-- Tech Stack -->
+            <section id="tech-stack">
+                <h2>Tech Stack</h2>
+                <ul>
+                    <li><strong>Python (3.10+)</strong>: Primary coding language.</li>
+                    <li><strong>TensorFlow & Keras</strong>: Frameworks used to build and compile the 4-layer Sequential MLP.</li>
+                    <li><strong>Flask</strong>: Micro web framework serving the analysis REST API and developer console.</li>
+                    <li><strong>SQLite</strong>: Relational database engine powering the 3-tier progressive benchmark suite.</li>
+                    <li><strong>NumPy & Pandas</strong>: Scientific computing libraries for feature extraction matrices and dataset preparation.</li>
+                    <li><strong>Scikit-Learn</strong>: Standard preprocessing scaling tools.</li>
+                </ul>
+                <div class="tools-section">
+                    <span class="tools-label">Tools:</span>
+                    <div id="project-tools-tags"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+        <div class="social-icons" style="margin-bottom:25px;">
+            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+        </div>
+        <p style="font-size:0.9em;">© 2026 – Muhammad Taha Nasir</p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTop" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="/assets/js/each-project.js"></script>
+    <script src="/assets/js/shared-bottom-nav.js"></script>
+    <script src="/assets/js/nav-active.js"></script>
+</body>
+
+</html>
