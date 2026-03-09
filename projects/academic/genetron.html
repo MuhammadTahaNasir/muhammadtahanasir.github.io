@@ -1,0 +1,363 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Genetron" />
+    <link rel="manifest" href="/assets/images/site.webmanifest" />
+    <!-- ---------- 1. Meta Tags ---------- -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="index, follow">
+    <meta name="description"
+        content="Genetron: A spatial AI and optimization platform that leverages NSGA-II genetic algorithms and high-fidelity spectral modeling to determine mathematically optimal 5G base station placements in dense urban environments.">
+    <meta name="author" content="Muhammad Taha Nasir">
+    <meta name="date" content="2026-05-09">
+    <meta name="tab" content="academic">
+    <meta name="subcategory" content="Artificial Intelligence">
+    <meta name="features" content="React, FastAPI, Python, NSGA-II, Genetic Algorithm, NumPy, D3.js, OpenStreetMap">
+    <meta name="thumbnail" content="/assets/images/projects/genetron-5G_tower_optimzation/1.png">
+    <meta name="github" content="https://github.com/Aleesha-hayat20/5g-Tower-Optimizer">
+    <meta name="hideWebLink" content="true">
+    <title>Genetron: 5G Tower Placement Optimizer</title>
+
+    <!-- ---------- 2. Stylesheets ---------- -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/each-project.css">
+    <link rel="stylesheet" href="/assets/css/bottom-nav.css">
+
+    <!-- ---------- 3. Theme Initialization Script ---------- -->
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.documentElement.style.background = '#1a1a1a';
+                document.documentElement.style.color = '#d1d5db';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                document.documentElement.style.background = '#f9fafc';
+                document.documentElement.style.color = '#333';
+            }
+        })();
+    </script>
+</head>
+
+<body class="dark" id="top">
+    <!-- Loader Animation -->
+    <div class="loader" id="loader" aria-hidden="true">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+
+    <!-- ---------- 4. Header Navigation ---------- -->
+    <header class="header">
+        <nav class="nav">
+            <!-- Left: Logo -->
+            <div class="nav-left">
+                <a href="/index.html" class="logo">&lt;terry/&gt;</a>
+            </div>
+
+            <!-- Center: Pills Navigation -->
+            <div class="nav-center">
+                <div class="pill-nav">
+                    <a href="/projects.html">Projects</a>
+                    <a href="/archives.html">Archives</a>
+                    <a href="/resume.html">Resume</a>
+                    <a href="/search.html">Search</a>
+                </div>
+            </div>
+<!-- Right: Theme toggle -->
+            <div class="nav-right">
+                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ---------- 5. Main Content ---------- -->
+    <div class="container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb">
+            <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a> » <a
+                href="/projects/academic/genetron.html">Genetron: 5G Tower Placement Optimizer</a>
+        </nav>
+
+        <!-- Project Content -->
+        <main class="project-content">
+            <header class="project-header">
+                <h1 class="project-title">Genetron: 5G Tower Placement Optimizer</h1>
+                <div class="project-meta">May 9 2026 • Muhammad Taha Nasir</div>
+            </header>
+
+            <!-- Project Image Carousel -->
+            <div class="image-carousel">
+                <div class="carousel-container">
+                    <div class="carousel-slide active">
+                        <img src="/assets/images/projects/genetron-5G_tower_optimzation/1.png"
+                            alt="Genetron Landing Page" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/genetron-5G_tower_optimzation/2.png"
+                            alt="Optimization Pipeline Overview" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/genetron-5G_tower_optimzation/3.png"
+                            alt="NSGA-II Solver Dashboard" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/genetron-5G_tower_optimzation/4.png"
+                            alt="Spectral Heatmap Visualization" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/genetron-5G_tower_optimzation/5.png"
+                            alt="Tower Cluster Spatial Map" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/genetron-5G_tower_optimzation/6.png"
+                            alt="Coverage vs Cost Pareto Front" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/genetron-5G_tower_optimzation/7.png"
+                            alt="OSM Building Geometry Ingestion" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/genetron-5G_tower_optimzation/8.png"
+                            alt="Signal Propagation Model" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/genetron-5G_tower_optimzation/9.png"
+                            alt="Comparative Scenario Analysis" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/genetron-5G_tower_optimzation/10.png"
+                            alt="SNR Matrix Calculation" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/genetron-5G_tower_optimzation/11.png"
+                            alt="Solver API Terminal View" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/genetron-5G_tower_optimzation/12.png"
+                            alt="Final Optimization Results" class="carousel-image">
+                    </div>
+                </div>
+
+                <!-- Center Navigation Arrows -->
+                <div class="carousel-center-nav">
+                    <button class="carousel-btn prev-btn" aria-label="Previous image">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-btn next-btn" aria-label="Next image">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- Bottom Dots -->
+                <div class="carousel-dots-container">
+                    <div class="carousel-dots">
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                        <span class="dot" data-slide="3"></span>
+                        <span class="dot" data-slide="4"></span>
+                        <span class="dot" data-slide="5"></span>
+                        <span class="dot" data-slide="6"></span>
+                        <span class="dot" data-slide="7"></span>
+                        <span class="dot" data-slide="8"></span>
+                        <span class="dot" data-slide="9"></span>
+                        <span class="dot" data-slide="10"></span>
+                        <span class="dot" data-slide="11"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Image Modal -->
+            <div class="image-modal" id="imageModal">
+                <div class="modal-content">
+                    <button class="modal-close" id="modalClose">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="modal-image-container">
+                        <img src="" alt="Full size image" id="modalImage" class="modal-image">
+                    </div>
+                    <div class="modal-nav">
+                        <button class="modal-btn prev-btn" id="modalPrev">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="modal-btn next-btn" id="modalNext">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button Section -->
+            <div class="button-section">
+                <a href="https://github.com/Aleesha-hayat20/5g-Tower-Optimizer"
+                    class="project-button github-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i> Source Code
+                </a>
+            </div>
+
+            <!-- Project Overview -->
+            <section id="overview">
+                <h2>Project Overview</h2>
+                <p>Genetron is a spatial AI and optimization platform built to solve the 5G tower placement paradox: the challenge of maximizing population coverage while minimizing interference and deployment cost
+                    across dense urban environments. It combines a multi-objective NSGA-II genetic algorithm core with
+                    a high-fidelity vectorized signal propagation engine, real-time spatial visualizations, and direct
+                    OpenStreetMap data ingestion to produce mathematically optimal tower placement strategies.</p>
+                <p>Developed as the Spring 2026 End-of-Semester AI Project, Genetron simulates how telecom operators
+                    can place a fixed number of 5G base stations across a city to maximize network efficiency, reduce
+                    dead zones, and minimize signal overlap, all at the same time.</p>
+            </section>
+
+            <!-- Situation Section -->
+            <section id="situation">
+                <h2>Situation</h2>
+                <p>Telecom operators face a combinatorially explosive placement problem: given a dense urban grid with
+                    thousands of candidate sites, buildings causing signal shadows, and competing objectives (coverage,
+                    interference, cost), finding the optimal tower configuration is computationally intractable with
+                    brute-force methods. Existing tools either oversimplify propagation physics or ignore multi-objective
+                    trade-offs entirely, leaving engineers with suboptimal heuristics.</p>
+            </section>
+
+            <!-- Task Section -->
+            <section id="task">
+                <h2>Task</h2>
+                <p>Design and implement a full-stack spatial AI platform that:</p>
+                <ul>
+                    <li>Ingests real OpenStreetMap building geometries to model signal diffraction and shadowing.</li>
+                    <li>Runs a vectorized SNR propagation engine across high-resolution urban grids.</li>
+                    <li>Applies NSGA-II to simultaneously optimize coverage, interference, and cost objectives.</li>
+                    <li>Renders interactive spectral heatmaps and tower cluster maps in real time.</li>
+                    <li>Supports side-by-side scenario comparison (e.g., Coverage Focus vs. Cost Efficiency).</li>
+                </ul>
+            </section>
+
+            <!-- Actions Section -->
+            <section id="actions">
+                <h2>Actions</h2>
+                <ul>
+                    <li>Architected a FastAPI backend with a modular solver core separating GA logic, fitness
+                        evaluation, and propagation modeling.</li>
+                    <li>Implemented the GN-NSGA-II solver with tournament selection, elitism, and Pareto-front
+                        ranking across three simultaneous fitness objectives.</li>
+                    <li>Built a vectorized propagation engine using NumPy to compute SNR matrices via Path Loss and
+                        Urban Diffraction models at scale.</li>
+                    <li>Developed a Python data pipeline (Pandas + GeoPandas) to ingest and pre-process OSM building
+                        geometries into signal shadow masks for Peshawar and other urban grids.</li>
+                    <li>Built the React frontend with D3.js for real-time spectral heatmap rendering and Framer Motion
+                        for animated tower cluster transitions.</li>
+                    <li>Implemented a comparative analysis module allowing dynamic side-by-side scenario evaluation
+                        with live metric deltas.</li>
+                    <li>Styled the entire UI with Tailwind CSS and Lucide Icons for a clean, data-dense dashboard
+                        aesthetic.</li>
+                    <li>Coordinated a three-person team across frontend, backend, and data pipeline tracks with clear
+                        API contracts and shared data schemas.</li>
+                </ul>
+            </section>
+
+            <!-- Results Section -->
+            <section id="results">
+                <h2>Results</h2>
+                <p>Genetron achieved a simulated peak coverage of <strong>99.4%</strong> with a network efficiency
+                    score of <strong>84.2%</strong> across the Peshawar urban grid, processing 1,240 candidate nodes
+                    through the GN-NSGA-II solver. The platform demonstrated that multi-objective evolutionary
+                    optimization can outperform single-objective greedy placement by a significant margin,
+                    producing Pareto-optimal configurations that no single-metric approach could discover.</p>
+                <p>The project deepened my expertise in evolutionary computation, vectorized scientific computing,
+                    spatial data engineering, and full-stack AI system design.</p>
+            </section>
+
+            <!-- Team Section -->
+            <section id="team">
+                <h2>Team</h2>
+                <ul>
+                    <li><strong>Muhammad Taha Nasir</strong>: Frontend Lead & Visualization Specialist</li>
+                    <li><strong>Aleesha Syeda Hayat</strong>: Backend Architecture & API Integration</li>
+                    <li><strong>Laiba Afridi</strong>: Data Pipeline & Signal Propagation Modeling</li>
+                </ul>
+            </section>
+
+            <!-- Tech Stack Section -->
+            <section id="tech-stack">
+                <h2>Tech Stack</h2>
+                <ul>
+                    <li><strong>React.js</strong>: Frontend framework for the interactive optimization dashboard.</li>
+                    <li><strong>D3.js</strong>: Real-time spectral heatmap and spatial cluster rendering.</li>
+                    <li><strong>Tailwind CSS</strong>: Utility-first styling for the data-dense UI.</li>
+                    <li><strong>Framer Motion</strong>: Animated tower cluster transitions and UI micro-interactions.</li>
+                    <li><strong>Lucide Icons</strong>: Consistent iconography across the dashboard.</li>
+                    <li><strong>FastAPI (Python)</strong>: High-performance backend serving the solver API.</li>
+                    <li><strong>Uvicorn</strong>: ASGI server for the FastAPI application.</li>
+                    <li><strong>NumPy</strong>: Vectorized SNR matrix computation and propagation math.</li>
+                    <li><strong>NSGA-II (Custom)</strong>: Multi-objective genetic algorithm with tournament selection
+                        and elitism.</li>
+                    <li><strong>Pandas & GeoPandas</strong>: OSM data ingestion and urban grid pre-processing.</li>
+                    <li><strong>OpenStreetMap</strong>: Real building geometry source for diffraction modeling.</li>
+                </ul>
+                <div class="tools-section">
+                    <span class="tools-label">Tools:</span>
+                    <div id="project-tools-tags"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ---------- 6. Footer ---------- -->
+    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+        <div class="social-icons" style="margin-bottom:25px;">
+            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+        </div>
+        <p style="font-size:0.9em;">© 2026 – Muhammad Taha Nasir</p>
+    </footer>
+
+    <!-- ---------- 7. Scroll to Top Button ---------- -->
+    <button id="scrollTop" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- ---------- 8. JavaScript Inclusion ---------- -->
+    <script src="/assets/js/each-project.js"></script>
+    <script src="/assets/js/shared-bottom-nav.js"></script>
+    <script src="/assets/js/nav-active.js"></script>
+</body>
+
+</html>
