@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Veriflow" />
+    <link rel="manifest" href="/assets/images/site.webmanifest" />
+    
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Veriflow: A production-oriented dual-model machine learning compliance system that flags price variances and freight overcharges using SQLite transaction history and Random Forest models.">
+    <meta name="author" content="Muhammad Taha Nasir">
+    <meta name="date" content="2026-05-30">
+    <meta name="tab" content="side">
+    <meta name="subcategory" content="Machine Learning">
+    <meta name="features" content="Streamlit, Python, SQLite, Scikit-learn, Random Forest, Feature Engineering">
+    <meta name="thumbnail" content="/assets/images/projects/veriflow/dashboard_overview.png">
+    <meta name="github" content="https://github.com/MuhammadTahaNasir/Veriflow">
+    <title>Veriflow: B2B Revenue Leakage & Invoice Auditing System</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/each-project.css">
+    <link rel="stylesheet" href="/assets/css/bottom-nav.css">
+
+    <!-- Theme Initialization Script -->
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('pref-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.documentElement.style.background = '#1a1a1a';
+                document.documentElement.style.color = '#d1d5db';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                document.documentElement.style.background = '#f9fafc';
+                document.documentElement.style.color = '#333';
+            }
+        })();
+    </script>
+</head>
+
+<body class="dark" id="top">
+    <!-- Loader Animation -->
+    <div class="loader" id="loader" aria-hidden="true">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="header">
+        <nav class="nav">
+            <!-- Left: Logo -->
+            <div class="nav-left">
+                <a href="/index.html" class="logo">&lt;terry/&gt;</a>
+            </div>
+
+            <!-- Center: Pills Navigation -->
+            <div class="nav-center">
+                <div class="pill-nav">
+                    <a href="/projects.html">Projects</a>
+                    <a href="/archives.html">Archives</a>
+                    <a href="/resume.html">Resume</a>
+                    <a href="/search.html">Search</a>
+                </div>
+            </div>
+
+            <!-- Right: Theme toggle -->
+            <div class="nav-right">
+                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb">
+            <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a> » <a
+                href="/projects/side/veriflow.html">Veriflow: B2B Revenue Leakage & Invoice Auditing System</a>
+        </nav>
+
+        <!-- Project Content -->
+        <main class="project-content">
+            <header class="project-header">
+                <h1 class="project-title">Veriflow: B2B Revenue Leakage & Invoice Auditing System</h1>
+                <div class="project-meta">May 30 2026 • Muhammad Taha Nasir</div>
+            </header>
+
+            <!-- Image Carousel -->
+            <div class="image-carousel">
+                <div class="carousel-container">
+                    <div class="carousel-slide active">
+                        <img src="/assets/images/projects/veriflow/dashboard_overview.png" alt="Veriflow Executive Compliance Dashboard"
+                            class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/veriflow/simulator_landing.png" alt="Veriflow Compliance Simulator"
+                            class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/veriflow/simulator_flagged.png" alt="Veriflow Flagged for Audit"
+                            class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/veriflow/simulator_approved.png" alt="Veriflow Auto-Approved Invoice"
+                            class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/veriflow/audit_ledger.png" alt="Veriflow Database Audit Ledger"
+                            class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/images/projects/veriflow/ledger_landing.png" alt="Veriflow Ledger Landing"
+                            class="carousel-image">
+                    </div>
+                </div>
+
+                <!-- Navigation Arrows -->
+                <div class="carousel-center-nav">
+                    <button class="carousel-btn prev-btn" aria-label="Previous image">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-btn next-btn" aria-label="Next image">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- Carousel Dots -->
+                <div class="carousel-dots-container">
+                    <div class="carousel-dots">
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                        <span class="dot" data-slide="3"></span>
+                        <span class="dot" data-slide="4"></span>
+                        <span class="dot" data-slide="5"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Image Modal -->
+            <div class="image-modal" id="imageModal">
+                <div class="modal-content">
+                    <button class="modal-close" id="modalClose">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="modal-image-container">
+                        <img src="" alt="Full size image" id="modalImage" class="modal-image">
+                    </div>
+                    <div class="modal-nav">
+                        <button class="modal-btn prev-btn" id="modalPrev">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="modal-btn next-btn" id="modalNext">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button Section -->
+            <div class="button-section">
+                <a href="https://github.com/MuhammadTahaNasir/Veriflow"
+                    class="project-button github-link">
+                    <i class="fab fa-github"></i> Source Code
+                </a>
+            </div>
+
+            <!-- Project Overview -->
+            <section id="overview">
+                <h2>Project Overview</h2>
+                <p>Veriflow is a production-oriented dual-model machine learning compliance platform that automatically monitors B2B transactions, identifies pricing discrepancies, and flags suspicious shipping rates to eliminate revenue leakage in enterprise supply chains. Connected to a 424MB relational SQLite database containing millions of retail wine and spirits distribution logs, the system helps corporate financial auditors isolate overcharges before payments are finalized.</p>
+                <div style="margin-top: 15px;">
+                    <strong>Core Business Benefits:</strong>
+                    <ul style="margin-top: 5px;">
+                        <li><strong>Automated Clearance:</strong> Approves baseline, low-risk invoices, saving audit resources.</li>
+                        <li><strong>Plugs Revenue Leakages:</strong> Detects inflated shipping costs and cost variances.</li>
+                        <li><strong>Tracks Vendor Compliance:</strong> Highlights delays and inflation trends per supplier.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Situation Section -->
+            <section id="situation">
+                <h2>Situation</h2>
+                <p>Large retail and logistics companies process thousands of B2B transactions every month. Due to highly complex contracts, multi-tiered shipping rates, and manual processing errors, enterprise organizations routinely overpay suppliers by <strong>1% to 5% annually</strong>. For Bibitor, LLC (the distribution catalog represented in the relational schema), auditing millions in billed volume manually is extremely resource-intensive, making automated leakage detection crucial.</p>
+            </section>
+
+            <!-- Task Section -->
+            <section id="task">
+                <h2>Task</h2>
+                <p>The goal was to engineer a production-ready machine learning framework and an interactive compliance dashboard that connects directly to the historical transaction database, extracts complex relational logs, builds highly expressive features, and implements a robust dual-model architecture to forecast expected logistics costs and classify high-risk billing anomalies.</p>
+            </section>
+
+            <!-- Actions Section -->
+            <section id="actions">
+                <h2>Actions</h2>
+                <ul>
+                    <li><strong>Database Integration & Join Querying:</strong> Connected the platform to the SQLite data store, performing complex left-joins across <code>purchases</code>, <code>vendor_invoice</code>, <code>purchase_prices</code>, and inventory tables.</li>
+                    <li><strong>Expressive Feature Engineering:</strong> Derived features to isolate overcharges, including:
+                        <ul>
+                            <li><em>Price Variance:</em> Discrepancies between contract purchase orders and billed invoice totals.</li>
+                            <li><em>Quantity Discrepancies:</em> Tracking if quantity billed exceeded quantity ordered.</li>
+                            <li><em>Freight-to-Invoice Ratio & Freight-per-Unit:</em> Normalizing shipping costs to detect padded shipping bills.</li>
+                            <li><em>Billing Delays:</em> Calculating days elapsed between purchase orders and invoice dates.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Dual-Model Machine Learning Pipeline:</strong> 
+                        <ul>
+                            <li><em>Expected Cost Regressor:</em> Trained a Random Forest Regressor ($R^2 = 0.9661$) to predict fair, baseline freight charges.</li>
+                            <li><em>Risk Classifier:</em> Trained a Random Forest Classifier (90% weighted F1-Score) to flag compliance violations.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Edge-Case Safeguarding:</strong> Implemented robust exception handling including unknown vendor ignoring via one-hot encoding setups, zero-division offset protection (+1e-5), and PO fallback layers.</li>
+                    <li><strong>Compliance Dashboard:</strong> Developed a premium Streamlit interface equipped with executive variance stats, an interactive simulation auditing desk, and a filtered SQL ledger with CSV exporting.</li>
+                </ul>
+            </section>
+
+            <!-- Results Section -->
+            <section id="results">
+                <h2>Results</h2>
+                <p>Veriflow analyzed <strong>5,543 enterprise transactions</strong> totaling <strong>$21,080,266.39</strong> in audited billing volume. The dual-model compliance pipeline successfully isolated <strong>86 extreme freight overcharge anomalies</strong> (where shipping bills exceeded >0.8% of invoice values), offering immediate audit clarity and demonstrating significant potential for corporate savings.</p>
+            </section>
+
+            <!-- Tech Stack Section -->
+            <section id="tech-stack">
+                <h2>Tech Stack</h2>
+                <ul>
+                    <li><strong>Streamlit</strong>: Framework for the premium compliance dashboard UI.</li>
+                    <li><strong>Scikit-learn</strong>: Employed for Random Forest models, preprocessors, and training validation metrics.</li>
+                    <li><strong>SQLite</strong>: Relational relational database backend.</li>
+                    <li><strong>Pandas & NumPy</strong>: Libraries for processing relational datasets and complex array metrics.</li>
+                    <li><strong>Python</strong>: Scripting core for data extraction and modular inference APIs.</li>
+                </ul>
+                <div class="tools-section">
+                    <span class="tools-label">Tools:</span>
+                    <div id="project-tools-tags"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
+        <div class="social-icons" style="margin-bottom:25px;">
+            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
+                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
+                style="margin:0 5px; font-size:1.6em;">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+        </div>
+        <p style="font-size:0.9em;">© 2026 – Muhammad Taha Nasir</p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTop" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- JavaScript Inclusion -->
+    <script src="../../assets/js/each-project.js"></script>
+    <script src="/assets/js/shared-bottom-nav.js"></script>
+    <script src="/assets/js/nav-active.js"></script>
+</body>
+
+</html>
