@@ -1,5 +1,28 @@
 [
   {
+    "title": "AI Dental Receptionist: Front-Desk Voice Agent",
+    "description": "AI Dental Receptionist: A production-grade voice agent platform developed during an internship at Verxeon Technologies. Features a cascaded STT → LangGraph State Machine → TTS pipeline, real-time Google Calendar integration, Chroma-based semantic RAG search, and WebRTC streaming.",
+    "thumbnail": "/assets/images/projects/ai-dental-receptionist/1.png",
+    "url": "/projects/featured/ai-dental-receptionist.html",
+    "github": "",
+    "web": "",
+    "date": "2026-07-22",
+    "tab": "featured",
+    "subcategory": "Artificial Intelligence",
+    "features": [
+      "LangGraph",
+      "Pipecat",
+      "Python",
+      "Google Calendar API",
+      "Deepgram Nova-2",
+      "Chroma DB",
+      "FastAPI",
+      "WebRTC",
+      "LangChain"
+    ],
+    "hideWebLink": true
+  },
+  {
     "title": "Veriflow: B2B Revenue Leakage & Invoice Auditing System",
     "description": "Veriflow: A production-oriented dual-model machine learning compliance system that flags price variances and freight overcharges using SQLite transaction history and Random Forest models.",
     "thumbnail": "/assets/images/projects/veriflow/dashboard_overview.png",
