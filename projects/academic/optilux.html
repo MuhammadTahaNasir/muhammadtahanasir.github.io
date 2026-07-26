@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en" dir="auto">
+  <head>
+    <link
+      rel="icon"
+      type="image/png"
+      href="/assets/images/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/images/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="OptiLux" />
+    <link rel="manifest" href="/assets/images/site.webmanifest" />
+    <!-- Meta Tags -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta
+      name="description"
+      content="OptiLux is a professional-grade web application designed for digital image processing (DIP) and restoration. Features point processing, spatial filtering, and morphological operations with a decoupled architecture."
+    />
+    <meta name="author" content="Muhammad Taha Nasir" />
+    <meta name="date" content="2026-06-17" />
+    <meta name="tab" content="academic" />
+    <meta name="subcategory" content="Digital Image Processing" />
+    <meta
+      name="features"
+      content="OpenCV, NumPy, FastAPI, Python, HTML5, CSS3, JavaScript, Tailwind CSS, Image Processing, Filters"
+    />
+    <meta
+      name="thumbnail"
+      content="/assets/images/projects/optilux/social-preview.png"
+    />
+    <meta
+      name="github"
+      content="https://github.com/MuhammadTahaNasir/OptiLux"
+    />
+    <meta name="web" content="" />
+    <meta name="hideWebLink" content="true" />
+    <title>OptiLux: Advanced Image Restoration Workspace</title>
+
+    <!-- Stylesheets -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/assets/css/each-project.css" />
+    <link rel="stylesheet" href="/assets/css/bottom-nav.css" />
+
+    <!-- Theme Initialization Script -->
+    <script>
+      (function () {
+        const savedTheme = localStorage.getItem("pref-theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+          document.documentElement.setAttribute("data-theme", "dark");
+          document.documentElement.style.background = "#1a1a1a";
+          document.documentElement.style.color = "#d1d5db";
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+          document.documentElement.style.background = "#f9fafc";
+          document.documentElement.style.color = "#333";
+        }
+      })();
+    </script>
+  </head>
+
+  <body class="dark" id="top">
+    <!-- Loader Animation -->
+    <div class="loader" id="loader" aria-hidden="true">
+      <div class="terry-animation">
+        <span class="letter">t</span>
+        <span class="letter">e</span>
+        <span class="letter">r</span>
+        <span class="letter">r</span>
+        <span class="letter">y</span>
+      </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="header">
+      <nav class="nav">
+        <div class="nav-left">
+          <a href="/index.html" class="logo">&lt;terry/&gt;</a>
+        </div>
+        <div class="nav-center">
+          <div class="pill-nav">
+            <a href="/projects.html">Projects</a>
+            <a href="/archives.html">Archives</a>
+            <a href="/resume.html">Resume</a>
+            <a href="/search.html">Search</a>
+          </div>
+        </div>
+        <div class="nav-right">
+          <button
+            id="theme-toggle"
+            aria-label="Toggle theme"
+            title="Toggle theme"
+          >
+            <svg
+              id="sun"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg
+              id="moon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+      <!-- Breadcrumb Navigation -->
+      <nav class="breadcrumb">
+        <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a> »
+        <a href="/projects/academic/optilux.html">OptiLux</a>
+      </nav>
+
+      <!-- Project Content -->
+      <main class="project-content">
+        <header class="project-header">
+          <h1 class="project-title">
+            OptiLux: Advanced Image Restoration Workspace
+          </h1>
+          <div class="project-meta">June 17 2026 • Muhammad Taha Nasir</div>
+        </header>
+
+        <!-- Image Carousel -->
+        <div class="image-carousel">
+          <div class="carousel-container">
+            <div class="carousel-slide active">
+              <img
+                src="/assets/images/projects/optilux/1.png"
+                alt="OptiLux Screenshot 1"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/optilux/2.png"
+                alt="OptiLux Screenshot 2"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/optilux/3.png"
+                alt="OptiLux Screenshot 3"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/optilux/4.png"
+                alt="OptiLux Screenshot 4"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/optilux/5.png"
+                alt="OptiLux Screenshot 5"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/optilux/6.png"
+                alt="OptiLux Screenshot 6"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/optilux/7.png"
+                alt="OptiLux Screenshot 7"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/optilux/8.png"
+                alt="OptiLux Screenshot 8"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/optilux/9.png"
+                alt="OptiLux Screenshot 9"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/optilux/10.png"
+                alt="OptiLux Screenshot 10"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/optilux/11.png"
+                alt="OptiLux Screenshot 11"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/optilux/12.png"
+                alt="OptiLux Screenshot 12"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/optilux/13.png"
+                alt="OptiLux Screenshot 13"
+                class="carousel-image"
+              />
+            </div>
+          </div>
+
+          <!-- Navigation Arrows -->
+          <div class="carousel-center-nav">
+            <button class="carousel-btn prev-btn" aria-label="Previous image">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn next-btn" aria-label="Next image">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <!-- Carousel Dots -->
+          <div class="carousel-dots-container">
+            <div class="carousel-dots">
+              <span class="dot active" data-slide="0"></span>
+              <span class="dot" data-slide="1"></span>
+              <span class="dot" data-slide="2"></span>
+              <span class="dot" data-slide="3"></span>
+              <span class="dot" data-slide="4"></span>
+              <span class="dot" data-slide="5"></span>
+              <span class="dot" data-slide="6"></span>
+              <span class="dot" data-slide="7"></span>
+              <span class="dot" data-slide="8"></span>
+              <span class="dot" data-slide="9"></span>
+              <span class="dot" data-slide="10"></span>
+              <span class="dot" data-slide="11"></span>
+              <span class="dot" data-slide="12"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Full Image Modal -->
+        <div class="image-modal" id="imageModal">
+          <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+              <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-image-container">
+              <img
+                src=""
+                alt="Full size image"
+                id="modalImage"
+                class="modal-image"
+              />
+            </div>
+            <div class="modal-nav">
+              <button class="modal-btn prev-btn" id="modalPrev">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="modal-btn next-btn" id="modalNext">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Button Section -->
+        <div class="button-section">
+          <a
+            href="https://github.com/MuhammadTahaNasir/OptiLux"
+            class="project-button github-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fab fa-github"></i> View Source Code
+          </a>
+        </div>
+
+        <!-- Situation -->
+        <section id="situation">
+          <h2>Situation</h2>
+          <p>
+            Digital image processing and restoration traditionally rely on heavy
+            desktop software, which often lacks modern usability and seamless
+            workflows. There was a need for a professional-grade web application
+            that brings complex mathematical image enhancement to the browser
+            using a decoupled architecture, without sacrificing performance.
+          </p>
+        </section>
+
+        <!-- Task -->
+        <section id="task">
+          <h2>Task</h2>
+          <p>
+            Build a web-based Advanced Image Restoration Workspace that allows
+            users to apply point processing, spatial filtering, and
+            morphological operations. The platform required a premium,
+            Apple-inspired "glassmorphism" UI with real-time feedback and an
+            asynchronous data flow to eliminate disk-write bottlenecks.
+          </p>
+        </section>
+
+        <!-- Actions -->
+        <section id="actions">
+          <h2>Actions</h2>
+          <ul>
+            <li>
+              <strong>Frontend Development:</strong> Built with Vanilla HTML5,
+              CSS3, and JavaScript styled with Tailwind CSS. Designed with a
+              premium "dark moss and clay" color palette featuring
+              micro-animations, glassmorphism panels, and a highly responsive
+              grid layout.
+            </li>
+            <li>
+              <strong>Backend & Processing:</strong> Created a high-performance
+              FastAPI (Python) server. Leveraged OpenCV and NumPy to handle the
+              heavy lifting for mathematical pixel transformations and matrix
+              convolutions.
+            </li>
+            <li>
+              <strong>Optimized Data Flow:</strong> Used asynchronous fetch APIs
+              and in-memory Base64 image transfers to eliminate disk-write
+              bottlenecks, ensuring rapid, real-time feedback.
+            </li>
+            <li>
+              <strong>Iterative Processing (Layering):</strong> Users don't have
+              to download and re-upload images to apply multiple effects. The
+              "Use as Source" feature allows an enhanced image to immediately be
+              looped back as the input for a new algorithm.
+            </li>
+            <li>
+              <strong>Spectral Analysis Canvas:</strong> Automatically generates
+              and displays side-by-side histograms of the original vs. enhanced
+              image, allowing users to mathematically verify the contrast shift.
+            </li>
+            <li>
+              <strong>Execution Log & Gallery:</strong> Added a scrollable,
+              timestamped terminal log that records every filter applied during
+              the session, and a grid-based Session History Gallery that
+              temporarily stores all generated images.
+            </li>
+          </ul>
+
+          <h3>Core Image Processing Features Implemented:</h3>
+          <h4>1. Point Processing (Pixel-Level Transformations)</h4>
+          <ul>
+            <li>
+              <strong>Histogram Equalization:</strong> Spreads out the most
+              frequent intensity values to drastically improve the global
+              contrast of washed-out images.
+            </li>
+            <li>
+              <strong>CLAHE:</strong> A superior version of standard
+              equalization that operates on small data tiles rather than the
+              entire image, improving local contrast while actively preventing
+              noise amplification.
+            </li>
+            <li>
+              <strong>Gamma Correction:</strong> Applies a non-linear power-law
+              transformation to correct severely underexposed or overexposed
+              images.
+            </li>
+            <li>
+              <strong>Contrast Stretching:</strong> Normalizes pixel intensities
+              to stretch across the full 0-255 spectrum, expanding dynamic
+              range.
+            </li>
+          </ul>
+
+          <h4>2. Spatial Filtering (Neighborhood Processing)</h4>
+          <ul>
+            <li>
+              <strong>Median Filter:</strong> Highly effective at removing
+              "salt-and-pepper" noise while perfectly preserving sharp edges.
+            </li>
+            <li>
+              <strong>Gaussian Blur:</strong> Uses a Gaussian function to
+              calculate the transformation, resulting in a smooth, highly
+              natural blur.
+            </li>
+            <li>
+              <strong>Sharpening:</strong> Applies a custom high-pass
+              convolution matrix to exaggerate the differences between adjacent
+              pixels.
+            </li>
+            <li>
+              <strong>Sobel Edge Detection:</strong> Computes an approximation
+              of the gradient of the image intensity function to highlight
+              distinct edges.
+            </li>
+          </ul>
+
+          <h4>3. Morphological Operations (Shape & Structure Processing)</h4>
+          <ul>
+            <li>
+              <strong>Erosion & Dilation:</strong> Erosion strips away outer
+              layers of foreground objects; Dilation adds pixels to the
+              boundaries of objects.
+            </li>
+            <li>
+              <strong>Opening (Erosion + Dilation):</strong> Powerful tool for
+              removing small, unwanted white noise (speckles) from a dark
+              background.
+            </li>
+            <li>
+              <strong>Closing (Dilation + Erosion):</strong> The inverse of
+              opening; used to fill in small black holes or gaps inside white
+              foreground objects.
+            </li>
+          </ul>
+        </section>
+
+        <!-- Results -->
+        <section id="results">
+          <h2>Results</h2>
+          <p>
+            OptiLux successfully delivers real-time, professional-grade image
+            enhancement directly in the browser, offering a seamless and
+            intuitive user experience. Users can layer multiple complex filters
+            iteratively without re-uploading files, and mathematically verify
+            contrast shifts via the Spectral Analysis Canvas.
+          </p>
+        </section>
+
+        <!-- Tech Stack -->
+        <section id="tech-stack">
+          <h2>Tech Stack</h2>
+          <ul>
+            <li>
+              <strong>Frontend:</strong> HTML5, CSS3, JavaScript, Tailwind CSS
+            </li>
+            <li><strong>Backend:</strong> FastAPI, Python</li>
+            <li><strong>Processing Engine:</strong> OpenCV, NumPy</li>
+          </ul>
+          <div class="tools-section">
+            <span class="tools-label">Tools:</span>
+            <div id="project-tools-tags"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Footer -->
+    <footer
+      class="footer"
+      role="contentinfo"
+      style="padding: 20px; text-align: center"
+    >
+      <div class="social-icons" style="margin-bottom: 25px">
+        <a
+          href="https://github.com/MuhammadTahaNasir"
+          target="_blank"
+          title="GitHub"
+          aria-label="GitHub profile"
+          style="margin: 0 5px; font-size: 1.6em"
+        >
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/muhammadtahanasir/"
+          target="_blank"
+          title="LinkedIn"
+          aria-label="LinkedIn profile"
+          style="margin: 0 5px; font-size: 1.6em"
+        >
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a
+          href="mailto:m.tahanasir.cs@gmail.com"
+          title="Email"
+          aria-label="Send email"
+          style="margin: 0 5px; font-size: 1.6em"
+        >
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p style="font-size: 0.9em">© 2026 – Muhammad Taha Nasir</p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTop" aria-label="Scroll to top">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="/assets/js/each-project.js"></script>
+    <script src="/assets/js/shared-bottom-nav.js"></script>
+    <script src="/assets/js/nav-active.js"></script>
+  </body>
+</html>
