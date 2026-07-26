@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en" dir="auto">
+  <head>
+    <link
+      rel="icon"
+      type="image/png"
+      href="/assets/images/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/images/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="ApexKV" />
+    <link rel="manifest" href="/assets/images/site.webmanifest" />
+    <!-- Meta Tags -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta
+      name="description"
+      content="ApexKV: A high-performance in-memory cache engine built in Java. Features include TTL Scheduling, WAL Persistence, Runtime Eviction Policies, Pub/Sub Messaging, a Web Analytics Dashboard, and a TCP Server."
+    />
+    <meta name="author" content="Muhammad Taha Nasir" />
+    <meta name="date" content="2025-09-17" />
+    <meta name="tab" content="academic" />
+    <meta name="subcategory" content="Software Design and Analysis" />
+    <meta
+      name="features"
+      content="Java 17+, HTML5, CSS3, JavaScript, TTL Scheduling, WAL Persistence, Eviction Policies, Pub/Sub, TCP Server"
+    />
+    <meta name="thumbnail" content="/assets/images/projects/apex-kv/1.png" />
+    <meta name="github" content="https://github.com/MuhammadTahaNasir/ApexKV" />
+    <meta name="web" content="" />
+    <meta name="hideWebLink" content="true" />
+    <title>ApexKV: High-Performance In-Memory Cache Engine</title>
+
+    <!-- Stylesheets -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/assets/css/each-project.css" />
+    <link rel="stylesheet" href="/assets/css/bottom-nav.css" />
+
+    <!-- Theme Initialization Script -->
+    <script>
+      (function () {
+        const savedTheme = localStorage.getItem("pref-theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+          document.documentElement.setAttribute("data-theme", "dark");
+          document.documentElement.style.background = "#1a1a1a";
+          document.documentElement.style.color = "#d1d5db";
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+          document.documentElement.style.background = "#f9fafc";
+          document.documentElement.style.color = "#333";
+        }
+      })();
+    </script>
+  </head>
+
+  <body class="dark" id="top">
+    <!-- Loader Animation -->
+    <div class="loader" id="loader" aria-hidden="true">
+      <div class="terry-animation">
+        <span class="letter">t</span>
+        <span class="letter">e</span>
+        <span class="letter">r</span>
+        <span class="letter">r</span>
+        <span class="letter">y</span>
+      </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="header">
+      <nav class="nav">
+        <!-- Left: Logo -->
+        <div class="nav-left">
+          <a href="/index.html" class="logo">&lt;terry/&gt;</a>
+        </div>
+
+        <!-- Center: Pills Navigation -->
+        <div class="nav-center">
+          <div class="pill-nav">
+            <a href="/projects.html">Projects</a>
+            <a href="/archives.html">Archives</a>
+            <a href="/resume.html">Resume</a>
+            <a href="/search.html">Search</a>
+          </div>
+        </div>
+        <!-- Right: Theme toggle -->
+        <div class="nav-right">
+          <button
+            id="theme-toggle"
+            aria-label="Toggle theme"
+            title="Toggle theme"
+          >
+            <svg
+              id="sun"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg
+              id="moon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+      <!-- Breadcrumb Navigation -->
+      <nav class="breadcrumb">
+        <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a> »
+        <a href="/projects/academic/apex-kv.html">ApexKV</a>
+      </nav>
+
+      <!-- Project Content -->
+      <main class="project-content">
+        <header class="project-header">
+          <h1 class="project-title">
+            ApexKV: High-Performance In-Memory Cache Engine Built in Java
+          </h1>
+          <div class="project-meta">
+            September 17 2025 • Muhammad Taha Nasir
+          </div>
+        </header>
+
+        <!-- Image Carousel -->
+        <div class="image-carousel">
+          <div class="carousel-container">
+            <div class="carousel-slide active">
+              <img
+                src="/assets/images/projects/apex-kv/1.png"
+                alt="ApexKV Overview"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/apex-kv/2.png"
+                alt="ApexKV Dashboard"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/apex-kv/3.png"
+                alt="ApexKV Metrics and Hot-Key tracking"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/apex-kv/4.png"
+                alt="ApexKV Architecture"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/apex-kv/5.png"
+                alt="ApexKV Analytics"
+                class="carousel-image"
+              />
+            </div>
+          </div>
+
+          <!-- Navigation Arrows -->
+          <div class="carousel-center-nav">
+            <button class="carousel-btn prev-btn" aria-label="Previous image">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn next-btn" aria-label="Next image">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <!-- Carousel Dots -->
+          <div class="carousel-dots-container">
+            <div class="carousel-dots">
+              <span class="dot active" data-slide="0"></span>
+              <span class="dot" data-slide="1"></span>
+              <span class="dot" data-slide="2"></span>
+              <span class="dot" data-slide="3"></span>
+              <span class="dot" data-slide="4"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Full Image Modal -->
+        <div class="image-modal" id="imageModal">
+          <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+              <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-image-container">
+              <img
+                src=""
+                alt="Full size image"
+                id="modalImage"
+                class="modal-image"
+              />
+            </div>
+            <div class="modal-nav">
+              <button class="modal-btn prev-btn" id="modalPrev">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="modal-btn next-btn" id="modalNext">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Overview -->
+        <section id="overview">
+          <h2>Project Overview</h2>
+          <p>
+            <strong>ApexKV</strong> is a production-grade, high-performance
+            in-memory cache engine built entirely in Java as part of the
+            <strong>Software Design and Analysis</strong> course. It eliminates
+            the latency of repeatedly querying disk-backed databases by
+            providing lightning-fast memory access. Unlike basic hash maps,
+            ApexKV brings enterprise-level database features—such as dual ACID
+            persistence (Write-Ahead Logging and Snapshots), multi-thread
+            safety, intelligent dynamic eviction, and priority-queue expiration
+            into a lightweight, standalone system without any external
+            dependencies.
+          </p>
+        </section>
+
+        <!-- Situation -->
+        <section id="situation">
+          <h2>Situation</h2>
+          <p>
+            Modern distributed applications often suffer from significant
+            performance bottlenecks when scaling due to slow I/O operations from
+            traditional relational databases. A robust, low-latency caching
+            layer is essential for modern web applications. The challenge was to
+            engineer a standalone, highly concurrent key-value store from
+            scratch that provides robust data integrity and resilience, without
+            relying on massive third-party database engines, while strictly
+            adhering to proven <strong>Software Design Patterns</strong>.
+          </p>
+        </section>
+
+        <!-- Task -->
+        <section id="task">
+          <h2>Task</h2>
+          <p>
+            The goal was to design, develop, and extensively test an
+            enterprise-grade caching engine featuring:
+          </p>
+          <ul>
+            <li>
+              Dynamic, hot-swappable cache eviction policies (LRU, LFU, FIFO,
+              MRU, RANDOM).
+            </li>
+            <li>
+              Highly efficient deterministic key expiration using $O(\log N)$
+              TTL Scheduling.
+            </li>
+            <li>
+              Crash-resilient transactions via Dual Persistence (Snapshots and
+              WAL).
+            </li>
+            <li>
+              Multi-protocol accessibility (REST API, CLI, and TCP Server).
+            </li>
+            <li>
+              A real-time analytics dashboard to monitor performance metrics and
+              hot-key detection.
+            </li>
+          </ul>
+        </section>
+
+        <!-- Actions -->
+        <section id="actions">
+          <h2>Actions</h2>
+          <ul>
+            <li>
+              <strong>Implemented Software Design Patterns:</strong> Utilized
+              the <em>Factory Pattern</em> for dynamic data types (Strings,
+              Sets, Hashes, Binary), <em>Strategy Pattern</em> for
+              runtime-swappable eviction algorithms,
+              <em>Observer Pattern</em> for Pub/Sub messaging,
+              <em>Scheduler Pattern</em> for background TTL cleanup, and
+              <em>Singleton Pattern</em> for shared centralized states.
+            </li>
+            <li>
+              <strong>Engineered Dual Persistence:</strong> Developed an
+              ACID-compliant storage layer employing both point-in-time
+              Snapshots and a Write-Ahead Log (WAL) for 100% state restoration
+              in case of crashes.
+            </li>
+            <li>
+              <strong>Built the Core Caching Engine:</strong> Engineered a
+              highly concurrent, thread-safe memory manager capable of
+              seamlessly handling thousands of simultaneous read/write
+              operations without race conditions.
+            </li>
+            <li>
+              <strong>Developed Multi-Protocol Access:</strong> Built embedded
+              HTTP/REST and TCP Socket servers, along with an interactive
+              terminal client, enabling easy interaction from various client
+              applications.
+            </li>
+            <li>
+              <strong>Created the Analytics Dashboard:</strong> Designed a
+              responsive, glassmorphism web console providing live KPI tracking,
+              real-time analytics, and benchmark execution.
+            </li>
+          </ul>
+        </section>
+
+        <!-- Results -->
+        <section id="results">
+          <h2>Results</h2>
+          <p>
+            ApexKV demonstrated exceptional performance and reliability during
+            rigorous benchmarking and validation:
+          </p>
+          <ul>
+            <li>
+              Achieved <strong>25,000+ Concurrent Operations</strong> per second
+              with an average latency of <strong>~1.8ms</strong> and a hit rate
+              exceeding 96.4%.
+            </li>
+            <li>
+              The comprehensive <code>CacheTestSuite</code> continuously
+              validated data integrity, resulting in a
+              <strong>100% Success Rate</strong> across all independent test
+              vectors (CRUD, TTL, Concurrency, and Recovery).
+            </li>
+            <li>
+              Verified completely race-condition-free operation during peak
+              multi-threaded simulations, providing a highly scalable and robust
+              software architecture.
+            </li>
+          </ul>
+        </section>
+
+        <!-- Tech Stack -->
+        <section id="tech-stack">
+          <h2>Tech Stack</h2>
+          <ul>
+            <li><strong>Core Language:</strong> Java 17+</li>
+            <li>
+              <strong>Frontend:</strong> HTML5, CSS3, Vanilla JavaScript (for
+              Dashboard)
+            </li>
+            <li>
+              <strong>Architecture:</strong> Factory, Strategy, Observer,
+              Scheduler, Singleton Patterns
+            </li>
+            <li>
+              <strong>Features:</strong> TCP Socket Server, Embedded HTTP
+              Server, PriorityBlockingQueue for TTL, Write-Ahead Logging (WAL)
+            </li>
+          </ul>
+          <div class="tools-section">
+            <span class="tools-label">Tools:</span>
+            <div id="project-tools-tags"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Footer -->
+    <footer
+      class="footer"
+      role="contentinfo"
+      style="padding: 20px; text-align: center"
+    >
+      <div class="social-icons" style="margin-bottom: 25px">
+        <a
+          href="https://github.com/MuhammadTahaNasir"
+          target="_blank"
+          title="GitHub"
+          aria-label="GitHub profile"
+          style="margin: 0 5px; font-size: 1.6em"
+        >
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/muhammadtahanasir/"
+          target="_blank"
+          title="LinkedIn"
+          aria-label="LinkedIn profile"
+          style="margin: 0 5px; font-size: 1.6em"
+        >
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a
+          href="mailto:m.tahanasir.cs@gmail.com"
+          title="Email"
+          aria-label="Send email"
+          style="margin: 0 5px; font-size: 1.6em"
+        >
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p style="font-size: 0.9em">© 2026 – Muhammad Taha Nasir</p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTop" aria-label="Scroll to top">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="/assets/js/each-project.js"></script>
+    <script src="/assets/js/shared-bottom-nav.js"></script>
+    <script src="/assets/js/nav-active.js"></script>
+  </body>
+</html>
