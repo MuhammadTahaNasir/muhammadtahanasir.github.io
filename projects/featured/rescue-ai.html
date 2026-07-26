@@ -1,323 +1,463 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" dir="auto">
-
-<head>
-    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
+  <head>
+    <link
+      rel="icon"
+      type="image/png"
+      href="/assets/images/favicon-96x96.png"
+      sizes="96x96"
+    />
     <link rel="shortcut icon" href="/assets/images/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/images/apple-touch-icon.png"
+    />
     <meta name="apple-mobile-web-app-title" content="RescueAI" />
     <link rel="manifest" href="/assets/images/site.webmanifest" />
     <!-- Meta Tags -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="robots" content="index, follow">
-    <meta name="description"
-        content="RescueAI: A bilingual (English/Urdu) AI emergency response platform for Pakistan. Features instant GPS-SOS alerts, live responder tracking, and ARIA, a real-time AI assistant for critical emergency guidance.">
-    <meta name="author" content="Muhammad Taha Nasir">
-    <meta name="date" content="2026-05-09">
-    <meta name="tab" content="featured">
-    <meta name="subcategory" content="Artificial Intelligence">
-    <meta name="features" content="React, FastAPI, Python, Groq LLaMA, Whisper, gTTS, Tailwind CSS, RTL">
-    <meta name="thumbnail" content="/assets/images/projects/rescue-ai/1.png">
-    <meta name="github" content="https://github.com/MuhammadTahaNasir/RescueAI">
-    <meta name="web" content="https://rescueai-pakistan.vercel.app/">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta
+      name="description"
+      content="RescueAI: A bilingual (English/Urdu) AI emergency response platform for Pakistan. Features instant GPS-SOS alerts, live responder tracking, and ARIA, a real-time AI assistant for critical emergency guidance."
+    />
+    <meta name="author" content="Muhammad Taha Nasir" />
+    <meta name="date" content="2026-05-09" />
+    <meta name="tab" content="featured" />
+    <meta name="subcategory" content="Artificial Intelligence" />
+    <meta
+      name="features"
+      content="React, FastAPI, Python, Groq LLaMA, Whisper, gTTS, Tailwind CSS, RTL"
+    />
+    <meta name="thumbnail" content="/assets/images/projects/rescue-ai/1.png" />
+    <meta
+      name="github"
+      content="https://github.com/MuhammadTahaNasir/RescueAI"
+    />
+    <meta name="web" content="https://rescueai-pakistan.vercel.app/" />
     <title>RescueAI: AI Emergency Response Platform</title>
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="/assets/css/each-project.css">
-    <link rel="stylesheet" href="/assets/css/bottom-nav.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/assets/css/each-project.css" />
+    <link rel="stylesheet" href="/assets/css/bottom-nav.css" />
 
     <!-- Theme Initialization Script -->
     <script>
-        (function () {
-            const savedTheme = localStorage.getItem('pref-theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                document.documentElement.style.background = '#1a1a1a';
-                document.documentElement.style.color = '#d1d5db';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-                document.documentElement.style.background = '#f9fafc';
-                document.documentElement.style.color = '#333';
-            }
-        })();
+      (function () {
+        const savedTheme = localStorage.getItem("pref-theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+          document.documentElement.setAttribute("data-theme", "dark");
+          document.documentElement.style.background = "#1a1a1a";
+          document.documentElement.style.color = "#d1d5db";
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+          document.documentElement.style.background = "#f9fafc";
+          document.documentElement.style.color = "#333";
+        }
+      })();
     </script>
-</head>
+  </head>
 
-<body class="dark" id="top">
+  <body class="dark" id="top">
     <!-- Loader Animation -->
     <div class="loader" id="loader" aria-hidden="true">
-        <div class="terry-animation">
-            <span class="letter">t</span>
-            <span class="letter">e</span>
-            <span class="letter">r</span>
-            <span class="letter">r</span>
-            <span class="letter">y</span>
-        </div>
+      <div class="terry-animation">
+        <span class="letter">t</span>
+        <span class="letter">e</span>
+        <span class="letter">r</span>
+        <span class="letter">r</span>
+        <span class="letter">y</span>
+      </div>
     </div>
 
     <!-- Header Navigation -->
     <header class="header">
-        <nav class="nav">
-            <!-- Left: Logo -->
-            <div class="nav-left">
-                <a href="/index.html" class="logo">&lt;terry/&gt;</a>
-            </div>
+      <nav class="nav">
+        <!-- Left: Logo -->
+        <div class="nav-left">
+          <a href="/index.html" class="logo">&lt;terry/&gt;</a>
+        </div>
 
-            <!-- Center: Pills Navigation -->
-            <div class="nav-center">
-                <div class="pill-nav">
-                    <a href="/projects.html">Projects</a>
-                    <a href="/archives.html">Archives</a>
-                    <a href="/resume.html">Resume</a>
-                    <a href="/search.html">Search</a>
-                </div>
-            </div>
-<!-- Right: Theme toggle -->
-            <div class="nav-right">
-                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
-                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5" />
-                        <line x1="12" y1="1" x2="12" y2="3" />
-                        <line x1="12" y1="21" x2="12" y2="23" />
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                        <line x1="1" y1="12" x2="3" y2="12" />
-                        <line x1="21" y1="12" x2="23" y2="12" />
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                    </svg>
-                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-                    </svg>
-                </button>
-            </div>
-        </nav>
+        <!-- Center: Pills Navigation -->
+        <div class="nav-center">
+          <div class="pill-nav">
+            <a href="/projects.html">Projects</a>
+            <a href="/archives.html">Archives</a>
+            <a href="/resume.html">Resume</a>
+            <a href="/search.html">Search</a>
+          </div>
+        </div>
+        <!-- Right: Theme toggle -->
+        <div class="nav-right">
+          <button
+            id="theme-toggle"
+            aria-label="Toggle theme"
+            title="Toggle theme"
+          >
+            <svg
+              id="sun"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg
+              id="moon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+        </div>
+      </nav>
     </header>
 
     <!-- Main Content -->
     <div class="container">
-        <!-- Breadcrumb Navigation -->
-        <nav class="breadcrumb">
-            <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a> » <a
-                href="/projects/featured/rescue-ai.html">RescueAI: AI Emergency Response Platform</a>
-        </nav>
+      <!-- Breadcrumb Navigation -->
+      <nav class="breadcrumb">
+        <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a> »
+        <a href="/projects/featured/rescue-ai.html"
+          >RescueAI: AI Emergency Response Platform</a
+        >
+      </nav>
 
-        <!-- Project Content -->
-        <main class="project-content">
-            <header class="project-header">
-                <h1 class="project-title">🚨 RescueAI: ریسکیو اے آئی</h1>
-                <div class="project-meta">May 9 2026 • Muhammad Taha Nasir</div>
-            </header>
+      <!-- Project Content -->
+      <main class="project-content">
+        <header class="project-header">
+          <h1 class="project-title">RescueAI: ریسکیو اے آئی</h1>
+          <div class="project-meta">May 9 2026 • Muhammad Taha Nasir</div>
+        </header>
 
-            <!-- Image Carousel -->
-            <div class="image-carousel">
-                <div class="carousel-container">
-                    <div class="carousel-slide active">
-                        <img src="/assets/images/projects/rescue-ai/1.png"
-                            alt="RescueAI Screen 1" class="carousel-image">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="/assets/images/projects/rescue-ai/2.png"
-                            alt="RescueAI Screen 2" class="carousel-image">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="/assets/images/projects/rescue-ai/3.png"
-                            alt="RescueAI Screen 3" class="carousel-image">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="/assets/images/projects/rescue-ai/4.png"
-                            alt="RescueAI Screen 4" class="carousel-image">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="/assets/images/projects/rescue-ai/5.png"
-                            alt="RescueAI Screen 5" class="carousel-image">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="/assets/images/projects/rescue-ai/6.png"
-                            alt="RescueAI Screen 6" class="carousel-image">
-                    </div>
-                </div>
-
-                <!-- Navigation Arrows -->
-                <div class="carousel-center-nav">
-                    <button class="carousel-btn prev-btn" aria-label="Previous image">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="carousel-btn next-btn" aria-label="Next image">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-
-                <!-- Carousel Dots -->
-                <div class="carousel-dots-container">
-                    <div class="carousel-dots">
-                        <span class="dot active" data-slide="0"></span>
-                        <span class="dot" data-slide="1"></span>
-                        <span class="dot" data-slide="2"></span>
-                        <span class="dot" data-slide="3"></span>
-                        <span class="dot" data-slide="4"></span>
-                        <span class="dot" data-slide="5"></span>
-                    </div>
-                </div>
+        <!-- Image Carousel -->
+        <div class="image-carousel">
+          <div class="carousel-container">
+            <div class="carousel-slide active">
+              <img
+                src="/assets/images/projects/rescue-ai/1.png"
+                alt="RescueAI Screen 1"
+                class="carousel-image"
+              />
             </div>
-
-            <!-- Full Image Modal -->
-            <div class="image-modal" id="imageModal">
-                <div class="modal-content">
-                    <button class="modal-close" id="modalClose">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <div class="modal-image-container">
-                        <img src="" alt="Full size image" id="modalImage" class="modal-image">
-                    </div>
-                    <div class="modal-nav">
-                        <button class="modal-btn prev-btn" id="modalPrev">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="modal-btn next-btn" id="modalNext">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/rescue-ai/2.png"
+                alt="RescueAI Screen 2"
+                class="carousel-image"
+              />
             </div>
-
-            <!-- Button Section -->
-            <div class="button-section">
-                <a href="https://github.com/MuhammadTahaNasir/RescueAI"
-                    class="project-button github-link">
-                    <i class="fab fa-github"></i> View Source Code
-                </a>
-                <a href="https://rescueai-pakistan.vercel.app/" class="project-button demo-link">
-                    <i class="fas fa-globe"></i> Live Demo
-                </a>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/rescue-ai/3.png"
+                alt="RescueAI Screen 3"
+                class="carousel-image"
+              />
             </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/rescue-ai/4.png"
+                alt="RescueAI Screen 4"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/rescue-ai/5.png"
+                alt="RescueAI Screen 5"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/rescue-ai/6.png"
+                alt="RescueAI Screen 6"
+                class="carousel-image"
+              />
+            </div>
+          </div>
 
-            <!-- Project Overview -->
-            <section id="overview">
-                <h2>Project Overview</h2>
-                <p>RescueAI is a bilingual (English/Urdu) AI-powered emergency response platform built for Pakistan.
-                    Anyone can trigger a one-tap SOS alert that sends their GPS coordinates, auto-assigns a responder
-                    unit with a live ETA, and immediately connects them to ARIA, an AI assistant that provides
-                    real-time, voice-enabled guidance for CPR, bleeding control, burns, choking, and more. The entire
-                    platform works in both English and Urdu, with full RTL layout support.</p>
-            </section>
+          <!-- Navigation Arrows -->
+          <div class="carousel-center-nav">
+            <button class="carousel-btn prev-btn" aria-label="Previous image">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn next-btn" aria-label="Next image">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
 
-            <!-- Situation -->
-            <section id="situation">
-                <h2>Situation</h2>
-                <p>In Pakistan, emergency response infrastructure is fragmented and slow. During a crisis like a cardiac
-                    arrest, a road accident, or a fire, people lose precious minutes navigating government portals or
-                    waiting on hold. There was no single platform that combined instant location-based alerting,
-                    responder dispatch, and AI-guided first-aid instructions in a language most Pakistanis speak
-                    natively: Urdu.</p>
-            </section>
+          <!-- Carousel Dots -->
+          <div class="carousel-dots-container">
+            <div class="carousel-dots">
+              <span class="dot active" data-slide="0"></span>
+              <span class="dot" data-slide="1"></span>
+              <span class="dot" data-slide="2"></span>
+              <span class="dot" data-slide="3"></span>
+              <span class="dot" data-slide="4"></span>
+              <span class="dot" data-slide="5"></span>
+            </div>
+          </div>
+        </div>
 
-            <!-- Task -->
-            <section id="task">
-                <h2>Task</h2>
-                <p>Design and build a full-stack emergency response platform that works under pressure: one-tap SOS
-                    with GPS, structured incident reporting with AI-generated response protocols, live dispatch
-                    tracking, and a conversational AI assistant (ARIA) that can be operated entirely by voice in both
-                    English and Urdu, with spoken responses read back to the user.</p>
-            </section>
+        <!-- Full Image Modal -->
+        <div class="image-modal" id="imageModal">
+          <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+              <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-image-container">
+              <img
+                src=""
+                alt="Full size image"
+                id="modalImage"
+                class="modal-image"
+              />
+            </div>
+            <div class="modal-nav">
+              <button class="modal-btn prev-btn" id="modalPrev">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="modal-btn next-btn" id="modalNext">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
 
-            <!-- Actions -->
-            <section id="actions">
-                <h2>Actions</h2>
-                <ul>
-                    <li>Built a FastAPI backend with async endpoints for SOS alerts, incident reports, and live
-                        tracking, designed for zero-latency under emergency load.</li>
-                    <li>Integrated Groq LLaMA 3.3 70B for ARIA's conversational AI pipeline, providing fast,
-                        multilingual emergency guidance.</li>
-                    <li>Used Groq Whisper v3 for voice input transcription, chosen for its superior Urdu accuracy
-                        over alternatives.</li>
-                    <li>Implemented Google gTTS for Urdu text-to-speech so ARIA can speak responses back in correct
-                        Urdu script rendering.</li>
-                    <li>Built the frontend in React 19 + Vite with Tailwind CSS v4, including a full RTL layout
-                        switch for Urdu mode.</li>
-                    <li>Designed the Emergency SOS flow: one tap captures GPS coordinates, assigns the nearest
-                        responder unit, and returns a live ETA.</li>
-                    <li>Built the Incident Reporting module with AI-generated response protocols per incident type
-                        (fire, medical, accident, etc.).</li>
-                    <li>Deployed the frontend on Vercel and the backend on a separate service for decoupled,
-                        high-availability architecture.</li>
-                </ul>
-            </section>
+        <!-- Button Section -->
+        <div class="button-section">
+          <a
+            href="https://github.com/MuhammadTahaNasir/RescueAI"
+            class="project-button github-link"
+          >
+            <i class="fab fa-github"></i> View Source Code
+          </a>
+          <a
+            href="https://rescueai-pakistan.vercel.app/"
+            class="project-button demo-link"
+          >
+            <i class="fas fa-globe"></i> Live Demo
+          </a>
+        </div>
 
-            <!-- Results -->
-            <section id="results">
-                <h2>Results</h2>
-                <p>RescueAI is live at <a href="https://rescueai-pakistan.vercel.app/" target="_blank"
-                        rel="noopener noreferrer">rescueai-pakistan.vercel.app</a>. The platform delivers
-                    sub-second SOS alert processing, full bilingual UI with RTL Urdu support, and hands-free
-                    voice operation through ARIA. It demonstrates a practical, deployable model for AI-assisted
-                    emergency response in underserved markets where language and infrastructure barriers are
-                    critical obstacles.</p>
-            </section>
+        <!-- Project Overview -->
+        <section id="overview">
+          <h2>Project Overview</h2>
+          <p>
+            RescueAI is a bilingual (English/Urdu) AI-powered emergency response
+            platform built for Pakistan. Anyone can trigger a one-tap SOS alert
+            that sends their GPS coordinates, auto-assigns a responder unit with
+            a live ETA, and immediately connects them to ARIA, an AI assistant
+            that provides real-time, voice-enabled guidance for CPR, bleeding
+            control, burns, choking, and more. The entire platform works in both
+            English and Urdu, with full RTL layout support.
+          </p>
+        </section>
 
-            <!-- Tech Stack -->
-            <section id="tech-stack">
-                <h2>Tech Stack</h2>
-                <ul>
-                    <li><strong>Groq LLaMA 3.3 70B</strong>: Core AI model powering ARIA, fast inference with
-                        strong multilingual (Urdu/English) support.</li>
-                    <li><strong>Groq Whisper v3</strong>: Voice-to-text transcription with best-in-class Urdu
-                        accuracy for hands-free operation.</li>
-                    <li><strong>Google gTTS</strong>: Urdu text-to-speech for ARIA's spoken responses with correct
-                        script rendering.</li>
-                    <li><strong>FastAPI</strong>: High-performance async Python backend for emergency-grade API
-                        endpoints.</li>
-                    <li><strong>React 19 + Vite</strong>: Modern, snappy frontend with fast HMR and optimized
-                        builds.</li>
-                    <li><strong>Tailwind CSS v4</strong>: Utility-first styling with RTL support for the Urdu
-                        layout.</li>
-                    <li><strong>Web Speech API</strong>: Browser-native speech recognition for English voice
-                        input.</li>
-                    <li><strong>Vercel</strong>: Frontend deployment with global CDN for low-latency access across
-                        Pakistan.</li>
-                </ul>
-                <div class="tools-section">
-                    <span class="tools-label">Tools:</span>
-                    <div id="project-tools-tags"></div>
-                </div>
-            </section>
-        </main>
+        <!-- Situation -->
+        <section id="situation">
+          <h2>Situation</h2>
+          <p>
+            In Pakistan, emergency response infrastructure is fragmented and
+            slow. During a crisis like a cardiac arrest, a road accident, or a
+            fire, people lose precious minutes navigating government portals or
+            waiting on hold. There was no single platform that combined instant
+            location-based alerting, responder dispatch, and AI-guided first-aid
+            instructions in a language most Pakistanis speak natively: Urdu.
+          </p>
+        </section>
+
+        <!-- Task -->
+        <section id="task">
+          <h2>Task</h2>
+          <p>
+            Design and build a full-stack emergency response platform that works
+            under pressure: one-tap SOS with GPS, structured incident reporting
+            with AI-generated response protocols, live dispatch tracking, and a
+            conversational AI assistant (ARIA) that can be operated entirely by
+            voice in both English and Urdu, with spoken responses read back to
+            the user.
+          </p>
+        </section>
+
+        <!-- Actions -->
+        <section id="actions">
+          <h2>Actions</h2>
+          <ul>
+            <li>
+              Built a FastAPI backend with async endpoints for SOS alerts,
+              incident reports, and live tracking, designed for zero-latency
+              under emergency load.
+            </li>
+            <li>
+              Integrated Groq LLaMA 3.3 70B for ARIA's conversational AI
+              pipeline, providing fast, multilingual emergency guidance.
+            </li>
+            <li>
+              Used Groq Whisper v3 for voice input transcription, chosen for its
+              superior Urdu accuracy over alternatives.
+            </li>
+            <li>
+              Implemented Google gTTS for Urdu text-to-speech so ARIA can speak
+              responses back in correct Urdu script rendering.
+            </li>
+            <li>
+              Built the frontend in React 19 + Vite with Tailwind CSS v4,
+              including a full RTL layout switch for Urdu mode.
+            </li>
+            <li>
+              Designed the Emergency SOS flow: one tap captures GPS coordinates,
+              assigns the nearest responder unit, and returns a live ETA.
+            </li>
+            <li>
+              Built the Incident Reporting module with AI-generated response
+              protocols per incident type (fire, medical, accident, etc.).
+            </li>
+            <li>
+              Deployed the frontend on Vercel and the backend on a separate
+              service for decoupled, high-availability architecture.
+            </li>
+          </ul>
+        </section>
+
+        <!-- Results -->
+        <section id="results">
+          <h2>Results</h2>
+          <p>
+            RescueAI is live at
+            <a
+              href="https://rescueai-pakistan.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >rescueai-pakistan.vercel.app</a
+            >. The platform delivers sub-second SOS alert processing, full
+            bilingual UI with RTL Urdu support, and hands-free voice operation
+            through ARIA. It demonstrates a practical, deployable model for
+            AI-assisted emergency response in underserved markets where language
+            and infrastructure barriers are critical obstacles.
+          </p>
+        </section>
+
+        <!-- Tech Stack -->
+        <section id="tech-stack">
+          <h2>Tech Stack</h2>
+          <ul>
+            <li>
+              <strong>Groq LLaMA 3.3 70B</strong>: Core AI model powering ARIA,
+              fast inference with strong multilingual (Urdu/English) support.
+            </li>
+            <li>
+              <strong>Groq Whisper v3</strong>: Voice-to-text transcription with
+              best-in-class Urdu accuracy for hands-free operation.
+            </li>
+            <li>
+              <strong>Google gTTS</strong>: Urdu text-to-speech for ARIA's
+              spoken responses with correct script rendering.
+            </li>
+            <li>
+              <strong>FastAPI</strong>: High-performance async Python backend
+              for emergency-grade API endpoints.
+            </li>
+            <li>
+              <strong>React 19 + Vite</strong>: Modern, snappy frontend with
+              fast HMR and optimized builds.
+            </li>
+            <li>
+              <strong>Tailwind CSS v4</strong>: Utility-first styling with RTL
+              support for the Urdu layout.
+            </li>
+            <li>
+              <strong>Web Speech API</strong>: Browser-native speech recognition
+              for English voice input.
+            </li>
+            <li>
+              <strong>Vercel</strong>: Frontend deployment with global CDN for
+              low-latency access across Pakistan.
+            </li>
+          </ul>
+          <div class="tools-section">
+            <span class="tools-label">Tools:</span>
+            <div id="project-tools-tags"></div>
+          </div>
+        </section>
+      </main>
     </div>
 
     <!-- Footer -->
-    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
-        <div class="social-icons" style="margin-bottom:25px;">
-            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
-                style="margin:0 5px; font-size:1.6em;">
-                <i class="fab fa-github" aria-hidden="true"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
-                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
-                <i class="fab fa-linkedin" aria-hidden="true"></i>
-            </a>
-            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
-                style="margin:0 5px; font-size:1.6em;">
-                <i class="fas fa-envelope" aria-hidden="true"></i>
-            </a>
-        </div>
-        <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+    <footer
+      class="footer"
+      role="contentinfo"
+      style="padding: 20px; text-align: center"
+    >
+      <div class="social-icons" style="margin-bottom: 25px">
+        <a
+          href="https://github.com/MuhammadTahaNasir"
+          target="_blank"
+          title="GitHub"
+          aria-label="GitHub profile"
+          style="margin: 0 5px; font-size: 1.6em"
+        >
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/muhammadtahanasir/"
+          target="_blank"
+          title="LinkedIn"
+          aria-label="LinkedIn profile"
+          style="margin: 0 5px; font-size: 1.6em"
+        >
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a
+          href="mailto:m.tahanasir.cs@gmail.com"
+          title="Email"
+          aria-label="Send email"
+          style="margin: 0 5px; font-size: 1.6em"
+        >
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p style="font-size: 0.9em">© 2025 – Muhammad Taha Nasir</p>
     </footer>
 
     <!-- Scroll to Top Button -->
     <button id="scrollTop" aria-label="Scroll to top">
-        <i class="fas fa-chevron-up"></i>
+      <i class="fas fa-chevron-up"></i>
     </button>
 
     <!-- JavaScript -->
     <script src="/assets/js/each-project.js"></script>
     <script src="/assets/js/shared-bottom-nav.js"></script>
     <script src="/assets/js/nav-active.js"></script>
-</body>
-
+  </body>
 </html>

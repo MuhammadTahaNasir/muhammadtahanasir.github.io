@@ -23,6 +23,30 @@
     "hideWebLink": true
   },
   {
+    "title": "OptiLux: Advanced Image Restoration Workspace",
+    "description": "OptiLux is a professional-grade web application designed for digital image processing (DIP) and restoration. Features point processing, spatial filtering, and morphological operations with a decoupled architecture.",
+    "thumbnail": "/assets/images/projects/optilux/social-preview.png",
+    "url": "/projects/academic/optilux.html",
+    "github": "https://github.com/MuhammadTahaNasir/OptiLux",
+    "web": "",
+    "date": "2026-06-17",
+    "tab": "academic",
+    "subcategory": "Digital Image Processing",
+    "features": [
+      "OpenCV",
+      "NumPy",
+      "FastAPI",
+      "Python",
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Tailwind CSS",
+      "Image Processing",
+      "Filters"
+    ],
+    "hideWebLink": true
+  },
+  {
     "title": "Veriflow: B2B Revenue Leakage & Invoice Auditing System",
     "description": "Veriflow: A production-oriented dual-model machine learning compliance system that flags price variances and freight overcharges using SQLite transaction history and Random Forest models.",
     "thumbnail": "/assets/images/projects/veriflow/dashboard_overview.png",
@@ -125,6 +149,29 @@
       "Deep Learning",
       "Explainable AI",
       "SQL Optimization"
+    ],
+    "hideWebLink": true
+  },
+  {
+    "title": "ApexKV: High-Performance In-Memory Cache Engine",
+    "description": "ApexKV: A high-performance in-memory cache engine built in Java. Features include TTL Scheduling, WAL Persistence, Runtime Eviction Policies, Pub/Sub Messaging, a Web Analytics Dashboard, and a TCP Server.",
+    "thumbnail": "/assets/images/projects/apex-kv/1.png",
+    "url": "/projects/side/apex-kv.html",
+    "github": "https://github.com/MuhammadTahaNasir/ApexKV",
+    "web": "",
+    "date": "2025-09-17",
+    "tab": "academic",
+    "subcategory": "Software Design and Analysis",
+    "features": [
+      "Java 17+",
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "TTL Scheduling",
+      "WAL Persistence",
+      "Eviction Policies",
+      "Pub/Sub",
+      "TCP Server"
     ],
     "hideWebLink": true
   },

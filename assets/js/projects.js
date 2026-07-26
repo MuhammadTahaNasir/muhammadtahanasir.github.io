@@ -25,6 +25,7 @@ const mobileToggleButtons = document.querySelectorAll('.mobile-toggle-btn');
 const scrollTopBtn = document.getElementById('scrollTop');
 const themeToggle = document.getElementById('theme-toggle');
 const loader = document.getElementById('loader');
+const filterBar = document.querySelector('.filter-bar');
 
 // Debounce function to limit rapid calls
 function debounce(func, wait) {
@@ -69,8 +70,9 @@ async function loadProjects() {
         }
         projects = await response.json();
 
-        // Extract unique subcategories and update dropdown
-        const uniqueCategories = ['all', ...new Set(projects.map(project => project.subcategory))];
+        // Extract unique subcategories from non-academic projects and update dropdown
+        const nonAcademicProjects = projects.filter(project => project.tab !== 'academic');
+        const uniqueCategories = ['all', ...new Set(nonAcademicProjects.map(project => project.subcategory))];
         updateCategoryDropdown(uniqueCategories);
 
         // Check URL parameters for search query
@@ -220,6 +222,7 @@ mobileToggleButtons.forEach(btn => {
         mobileToggleButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentTab = btn.getAttribute('data-tab');
+        filterBar.style.display = currentTab === 'all' ? '' : 'none';
         
         // Sync desktop toggle buttons
         toggleButtons.forEach(b => {
@@ -237,6 +240,7 @@ toggleButtons.forEach(btn => {
         toggleButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentTab = btn.getAttribute('data-tab');
+        filterBar.style.display = currentTab === 'all' ? '' : 'none';
         
         // Sync mobile toggle buttons
         mobileToggleButtons.forEach(b => {
