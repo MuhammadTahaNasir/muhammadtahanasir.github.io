@@ -1,311 +1,533 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" dir="auto">
-
-<head>
-    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
+  <head>
+    <link
+      rel="icon"
+      type="image/png"
+      href="/assets/images/favicon-96x96.png"
+      sizes="96x96"
+    />
     <link rel="shortcut icon" href="/assets/images/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/images/apple-touch-icon.png"
+    />
     <meta name="apple-mobile-web-app-title" content="AI Dental Receptionist" />
     <link rel="manifest" href="/assets/images/site.webmanifest" />
     <!-- Meta Tags -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="robots" content="index, follow">
-    <meta name="description"
-        content="AI Dental Receptionist: A production-grade voice agent platform developed during an internship at Verxeon Technologies. Features a cascaded STT → LangGraph State Machine → TTS pipeline, real-time Google Calendar integration, Chroma-based semantic RAG search, and WebRTC streaming.">
-    <meta name="author" content="Muhammad Taha Nasir">
-    <meta name="date" content="2026-07-22">
-    <meta name="tab" content="featured">
-    <meta name="subcategory" content="Artificial Intelligence">
-    <meta name="features" content="LangGraph, Pipecat, Python, Google Calendar API, Deepgram Nova-2, Chroma DB, FastAPI, WebRTC, LangChain">
-    <meta name="thumbnail" content="/assets/images/projects/ai-dental-receptionist/1.png">
-    <meta name="github" content="">
-    <meta name="web" content="">
-    <meta name="hideWebLink" content="true">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta
+      name="description"
+      content="AI Dental Receptionist: A production-grade voice agent platform developed during an internship at Verxeon Technologies. Features a cascaded STT → LangGraph State Machine → TTS pipeline, real-time Google Calendar integration, Chroma-based semantic RAG search, and WebRTC streaming."
+    />
+    <meta name="author" content="Muhammad Taha Nasir" />
+    <meta name="date" content="2026-07-22" />
+    <meta name="tab" content="featured" />
+    <meta name="subcategory" content="Artificial Intelligence" />
+    <meta
+      name="features"
+      content="LangGraph, Pipecat, Python, Google Calendar API, Deepgram Nova-2, Chroma DB, FastAPI, WebRTC, LangChain"
+    />
+    <meta
+      name="thumbnail"
+      content="/assets/images/projects/ai-dental-receptionist/1.png"
+    />
+    <meta name="github" content="" />
+    <meta name="web" content="" />
+    <meta name="hideWebLink" content="true" />
     <title>AI Dental Receptionist: Front-Desk Voice Agent</title>
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="/assets/css/each-project.css">
-    <link rel="stylesheet" href="/assets/css/bottom-nav.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/assets/css/each-project.css" />
+    <link rel="stylesheet" href="/assets/css/bottom-nav.css" />
 
     <!-- Theme Initialization Script -->
     <script>
-        (function () {
-            const savedTheme = localStorage.getItem('pref-theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                document.documentElement.style.background = '#1a1a1a';
-                document.documentElement.style.color = '#d1d5db';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-                document.documentElement.style.background = '#f9fafc';
-                document.documentElement.style.color = '#333';
-            }
-        })();
+      (function () {
+        const savedTheme = localStorage.getItem("pref-theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+          document.documentElement.setAttribute("data-theme", "dark");
+          document.documentElement.style.background = "#1a1a1a";
+          document.documentElement.style.color = "#d1d5db";
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+          document.documentElement.style.background = "#f9fafc";
+          document.documentElement.style.color = "#333";
+        }
+      })();
     </script>
-</head>
+  </head>
 
-<body class="dark" id="top">
+  <body class="dark" id="top">
     <!-- Loader Animation -->
     <div class="loader" id="loader" aria-hidden="true">
-        <div class="terry-animation">
-            <span class="letter">t</span>
-            <span class="letter">e</span>
-            <span class="letter">r</span>
-            <span class="letter">r</span>
-            <span class="letter">y</span>
-        </div>
+      <div class="terry-animation">
+        <span class="letter">t</span>
+        <span class="letter">e</span>
+        <span class="letter">r</span>
+        <span class="letter">r</span>
+        <span class="letter">y</span>
+      </div>
     </div>
 
     <!-- Header Navigation -->
     <header class="header">
-        <nav class="nav">
-            <!-- Left: Logo -->
-            <div class="nav-left">
-                <a href="/index.html" class="logo">&lt;terry/&gt;</a>
-            </div>
+      <nav class="nav">
+        <!-- Left: Logo -->
+        <div class="nav-left">
+          <a href="/index.html" class="logo">&lt;terry/&gt;</a>
+        </div>
 
-            <!-- Center: Pills Navigation -->
-            <div class="nav-center">
-                <div class="pill-nav">
-                    <a href="/projects.html">Projects</a>
-                    <a href="/archives.html">Archives</a>
-                    <a href="/resume.html">Resume</a>
-                    <a href="/search.html">Search</a>
-                </div>
-            </div>
-            <!-- Right: Theme toggle -->
-            <div class="nav-right">
-                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
-                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5" />
-                        <line x1="12" y1="1" x2="12" y2="3" />
-                        <line x1="12" y1="21" x2="12" y2="23" />
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                        <line x1="1" y1="12" x2="3" y2="12" />
-                        <line x1="21" y1="12" x2="23" y2="12" />
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                    </svg>
-                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-                    </svg>
-                </button>
-            </div>
-        </nav>
+        <!-- Center: Pills Navigation -->
+        <div class="nav-center">
+          <div class="pill-nav">
+            <a href="/projects.html">Projects</a>
+            <a href="/archives.html">Archives</a>
+            <a href="/resume.html">Resume</a>
+            <a href="/search.html">Search</a>
+          </div>
+        </div>
+        <!-- Right: Theme toggle -->
+        <div class="nav-right">
+          <button
+            id="theme-toggle"
+            aria-label="Toggle theme"
+            title="Toggle theme"
+          >
+            <svg
+              id="sun"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg
+              id="moon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+        </div>
+      </nav>
     </header>
 
     <!-- Main Content -->
     <div class="container">
-        <!-- Breadcrumb Navigation -->
-        <nav class="breadcrumb">
-            <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a> » <a
-                href="/projects/featured/ai-dental-receptionist.html">AI Dental Receptionist</a>
-        </nav>
+      <!-- Breadcrumb Navigation -->
+      <nav class="breadcrumb">
+        <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a> »
+        <a href="/projects/featured/ai-dental-receptionist.html"
+          >AI Dental Receptionist</a
+        >
+      </nav>
 
-        <!-- Project Content -->
-        <main class="project-content">
-            <header class="project-header">
-                <h1 class="project-title">🎙️ AI Dental Receptionist: Front-Desk Voice Agent</h1>
-                <div class="project-meta">July 22 2026 • Muhammad Taha Nasir</div>
-            </header>
+      <!-- Project Content -->
+      <main class="project-content">
+        <header class="project-header">
+          <h1 class="project-title">
+            AI Dental Receptionist: Front-Desk Voice Agent
+          </h1>
+          <div class="project-meta">July 22 2026 • Muhammad Taha Nasir</div>
+        </header>
 
-            <!-- Image Carousel -->
-            <div class="image-carousel">
-                <div class="carousel-container">
-                    <div class="carousel-slide active">
-                        <img src="/assets/images/projects/ai-dental-receptionist/1.png"
-                            alt="AI Dental Receptionist Dashboard" class="carousel-image">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="/assets/images/projects/ai-dental-receptionist/2.png"
-                            alt="WebRTC Voice Agent Browser Interface" class="carousel-image">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="/assets/images/projects/ai-dental-receptionist/3.png"
-                            alt="Real-Time Google Calendar Synchronization" class="carousel-image">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="/assets/images/projects/ai-dental-receptionist/4.png"
-                            alt="LangGraph Conversation State Flow Graph" class="carousel-image">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="/assets/images/projects/ai-dental-receptionist/5.png"
-                            alt="Chroma DB RAG Knowledge Base Ingestion" class="carousel-image">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="/assets/images/projects/ai-dental-receptionist/6.png"
-                            alt="Call Transcripts & History Manager" class="carousel-image">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="/assets/images/projects/ai-dental-receptionist/7.png"
-                            alt="SMS and Email Notification Settings" class="carousel-image">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="/assets/images/projects/ai-dental-receptionist/8.png"
-                            alt="System Latency Profiling Dashboard" class="carousel-image">
-                    </div>
-                </div>
-
-                <!-- Navigation Arrows -->
-                <div class="carousel-center-nav">
-                    <button class="carousel-btn prev-btn" aria-label="Previous image">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="carousel-btn next-btn" aria-label="Next image">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-
-                <!-- Carousel Dots -->
-                <div class="carousel-dots-container">
-                    <div class="carousel-dots">
-                        <span class="dot active" data-slide="0"></span>
-                        <span class="dot" data-slide="1"></span>
-                        <span class="dot" data-slide="2"></span>
-                        <span class="dot" data-slide="3"></span>
-                        <span class="dot" data-slide="4"></span>
-                        <span class="dot" data-slide="5"></span>
-                        <span class="dot" data-slide="6"></span>
-                        <span class="dot" data-slide="7"></span>
-                    </div>
-                </div>
+        <!-- Image Carousel -->
+        <div class="image-carousel">
+          <div class="carousel-container">
+            <div class="carousel-slide active">
+              <img
+                src="/assets/images/projects/ai-dental-receptionist/1.png"
+                alt="AI Dental Receptionist Dashboard"
+                class="carousel-image"
+              />
             </div>
-
-            <!-- Full Image Modal -->
-            <div class="image-modal" id="imageModal">
-                <div class="modal-content">
-                    <button class="modal-close" id="modalClose">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <div class="modal-image-container">
-                        <img src="" alt="Full size image" id="modalImage" class="modal-image">
-                    </div>
-                    <div class="modal-nav">
-                        <button class="modal-btn prev-btn" id="modalPrev">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="modal-btn next-btn" id="modalNext">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/ai-dental-receptionist/2.png"
+                alt="WebRTC Voice Agent Browser Interface"
+                class="carousel-image"
+              />
             </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/ai-dental-receptionist/3.png"
+                alt="Real-Time Google Calendar Synchronization"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/ai-dental-receptionist/4.png"
+                alt="LangGraph Conversation State Flow Graph"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/ai-dental-receptionist/5.png"
+                alt="Chroma DB RAG Knowledge Base Ingestion"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/ai-dental-receptionist/6.png"
+                alt="Call Transcripts & History Manager"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/ai-dental-receptionist/7.png"
+                alt="SMS and Email Notification Settings"
+                class="carousel-image"
+              />
+            </div>
+            <div class="carousel-slide">
+              <img
+                src="/assets/images/projects/ai-dental-receptionist/8.png"
+                alt="System Latency Profiling Dashboard"
+                class="carousel-image"
+              />
+            </div>
+          </div>
 
+          <!-- Navigation Arrows -->
+          <div class="carousel-center-nav">
+            <button class="carousel-btn prev-btn" aria-label="Previous image">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn next-btn" aria-label="Next image">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
 
+          <!-- Carousel Dots -->
+          <div class="carousel-dots-container">
+            <div class="carousel-dots">
+              <span class="dot active" data-slide="0"></span>
+              <span class="dot" data-slide="1"></span>
+              <span class="dot" data-slide="2"></span>
+              <span class="dot" data-slide="3"></span>
+              <span class="dot" data-slide="4"></span>
+              <span class="dot" data-slide="5"></span>
+              <span class="dot" data-slide="6"></span>
+              <span class="dot" data-slide="7"></span>
+            </div>
+          </div>
+        </div>
 
-            <!-- Project Overview -->
-            <section id="overview">
-                <h2>Project Overview</h2>
-                <p>The AI Dental Receptionist is a production-ready, tenant-isolated front-desk voice agent designed for dental clinics. Developed during my engineering internship at <strong>Verxeon Technologies</strong>, the system utilizes a cascaded STT → Brain → TTS architecture. The real-time audio loop and WebRTC turn-taking are orchestrated by Pipecat, while the conversational reasoning state machine lives in a LangGraph State Machine. The receptionist runs 24/7, booking appointments against Google Calendar, answering patient questions via RAG, and escalating complex clinical queries to human receptionists.</p>
-                <p>This project was built to address critical staffing limitations in busy dental clinics, preventing missed patient opportunities after hours. The design is modular, meaning the core engine can be reused for any clinic by simply swapping the knowledge base documents, business rules, and Google Calendar service account credentials.</p>
-            </section>
+        <!-- Full Image Modal -->
+        <div class="image-modal" id="imageModal">
+          <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+              <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-image-container">
+              <img
+                src=""
+                alt="Full size image"
+                id="modalImage"
+                class="modal-image"
+              />
+            </div>
+            <div class="modal-nav">
+              <button class="modal-btn prev-btn" id="modalPrev">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="modal-btn next-btn" id="modalNext">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
 
-            <!-- Situation -->
-            <section id="situation">
-                <h2>Situation</h2>
-                <p>Dental clinics frequently lose prospective patients and revenue because inbound calls go unanswered during peak hours or after business hours. Front-desk staff are often overloaded, spending a disproportionate amount of time answering repetitive, routine questions regarding pricing, location, parking, and opening hours, rather than focusing on the patients physically present in the clinic. They need a scalable system that can automate scheduling and routine FAQs with high precision, while ensuring zero clinical risk by routing medical advice requests to human receptionists.</p>
-            </section>
+        <!-- Project Overview -->
+        <section id="overview">
+          <h2>Project Overview</h2>
+          <p>
+            The AI Dental Receptionist is a production-ready, tenant-isolated
+            front-desk voice agent designed for dental clinics. Developed during
+            my engineering internship at <strong>Verxeon Technologies</strong>,
+            the system utilizes a cascaded STT → Brain → TTS architecture. The
+            real-time audio loop and WebRTC turn-taking are orchestrated by
+            Pipecat, while the conversational reasoning state machine lives in a
+            LangGraph State Machine. The receptionist runs 24/7, booking
+            appointments against Google Calendar, answering patient questions
+            via RAG, and escalating complex clinical queries to human
+            receptionists.
+          </p>
+          <p>
+            This project was built to address critical staffing limitations in
+            busy dental clinics, preventing missed patient opportunities after
+            hours. The design is modular, meaning the core engine can be reused
+            for any clinic by simply swapping the knowledge base documents,
+            business rules, and Google Calendar service account credentials.
+          </p>
+        </section>
 
-            <!-- Task -->
-            <section id="task">
-                <h2>Task</h2>
-                <p>Design, implement, test, and document a reliable, production-quality AI voice agent that:</p>
-                <ul>
-                    <li>Engages callers in natural, low-latency spoken conversations via browser/WebRTC.</li>
-                    <li>Maintains conversational state, parses intents, and collects required slots (name, reason, phone, date/time) for bookings.</li>
-                    <li>Performs live availability checks and schedules appointments against Google Calendar.</li>
-                    <li>Grounds answers in a clinic-specific RAG knowledge base to answer administrative questions.</li>
-                    <li>Prevents hallucinating medical answers by automatically escalating medical queries.</li>
-                    <li>Provides clinic admins with a real-time dashboard to monitor ongoing calls, transcripts, and booking logs.</li>
-                </ul>
-            </section>
+        <!-- Situation -->
+        <section id="situation">
+          <h2>Situation</h2>
+          <p>
+            Dental clinics frequently lose prospective patients and revenue
+            because inbound calls go unanswered during peak hours or after
+            business hours. Front-desk staff are often overloaded, spending a
+            disproportionate amount of time answering repetitive, routine
+            questions regarding pricing, location, parking, and opening hours,
+            rather than focusing on the patients physically present in the
+            clinic. They need a scalable system that can automate scheduling and
+            routine FAQs with high precision, while ensuring zero clinical risk
+            by routing medical advice requests to human receptionists.
+          </p>
+        </section>
 
-            <!-- Actions (Focusing on Taha's contributions) -->
-            <section id="actions">
-                <h2>Actions</h2>
-                <ul>
-                    <li><strong>Architected the LangGraph Conversational Brain:</strong> Designed the core state machine, specifying nodes for Greeting, Intent Routing, Slot Filling, Confirmation, and Escalation to handle multi-turn dialogs and recover missing information gracefully.</li>
-                    <li><strong>Designed Google Calendar API Integration:</strong> Implemented secure OAuth 2.0 service account authentication to execute real-time free/busy queries, reservation locks, rescheduling, and cancellation requests.</li>
-                    <li><strong>Built LLM Orchestration & Prompts:</strong> Configured LangChain wrappers for GitHub Models (OpenAI GPT-4o-mini) with highly tuned system prompts and functional schemas to drive zero-shot intent classification and reliable tool calling.</li>
-                    <li><strong>Developed custom FastAPI REST API:</strong> Built the backend infrastructure to manage active WebRTC connections, parse incoming transcripts, persist call data, and expose data endpoints.</li>
-                    <li><strong>Created the Admin Dashboard UI:</strong> Coded a responsive dashboard in vanilla CSS and JavaScript to display live call logs, search through transcript archives, and display real-time calendar bookings.</li>
-                    <li><strong>Implemented Twilio SMS API Integrations:</strong> Configured automated triggers to send instant appointment details and confirmation links to callers upon successful calendar bookings.</li>
-                    <li><strong>Conducted End-to-End Testing:</strong> Authored unit and integration tests (pytest) covering the LangGraph router, slots extraction, tool callbacks, and calendar updates under edge-case states.</li>
-                </ul>
-            </section>
+        <!-- Task -->
+        <section id="task">
+          <h2>Task</h2>
+          <p>
+            Design, implement, test, and document a reliable, production-quality
+            AI voice agent that:
+          </p>
+          <ul>
+            <li>
+              Engages callers in natural, low-latency spoken conversations via
+              browser/WebRTC.
+            </li>
+            <li>
+              Maintains conversational state, parses intents, and collects
+              required slots (name, reason, phone, date/time) for bookings.
+            </li>
+            <li>
+              Performs live availability checks and schedules appointments
+              against Google Calendar.
+            </li>
+            <li>
+              Grounds answers in a clinic-specific RAG knowledge base to answer
+              administrative questions.
+            </li>
+            <li>
+              Prevents hallucinating medical answers by automatically escalating
+              medical queries.
+            </li>
+            <li>
+              Provides clinic admins with a real-time dashboard to monitor
+              ongoing calls, transcripts, and booking logs.
+            </li>
+          </ul>
+        </section>
 
-            <!-- Results -->
-            <section id="results">
-                <h2>Results</h2>
-                <p>The AI Dental Receptionist successfully handles multi-turn spoken conversations with average turn-around latencies under <strong>1.2 seconds</strong>. The scheduling tool dynamically resolves calendar overlaps, respects clinic business hours, and writes appointment details directly to Google Calendar. In evaluations, the system achieved a <strong>100% accuracy</strong> in filtering and escalating clinical advice inquiries, preventing unauthorized medical instruction. The project showcases how production-grade voice applications are decoupled for independent testability, enabling rapid, multi-tenant clinic onboarding.</p>
-            </section>
+        <!-- Actions (Focusing on Taha's contributions) -->
+        <section id="actions">
+          <h2>Actions</h2>
+          <ul>
+            <li>
+              <strong>Architected the LangGraph Conversational Brain:</strong>
+              Designed the core state machine, specifying nodes for Greeting,
+              Intent Routing, Slot Filling, Confirmation, and Escalation to
+              handle multi-turn dialogs and recover missing information
+              gracefully.
+            </li>
+            <li>
+              <strong>Designed Google Calendar API Integration:</strong>
+              Implemented secure OAuth 2.0 service account authentication to
+              execute real-time free/busy queries, reservation locks,
+              rescheduling, and cancellation requests.
+            </li>
+            <li>
+              <strong>Built LLM Orchestration & Prompts:</strong> Configured
+              LangChain wrappers for GitHub Models (OpenAI GPT-4o-mini) with
+              highly tuned system prompts and functional schemas to drive
+              zero-shot intent classification and reliable tool calling.
+            </li>
+            <li>
+              <strong>Developed custom FastAPI REST API:</strong> Built the
+              backend infrastructure to manage active WebRTC connections, parse
+              incoming transcripts, persist call data, and expose data
+              endpoints.
+            </li>
+            <li>
+              <strong>Created the Admin Dashboard UI:</strong> Coded a
+              responsive dashboard in vanilla CSS and JavaScript to display live
+              call logs, search through transcript archives, and display
+              real-time calendar bookings.
+            </li>
+            <li>
+              <strong>Implemented Twilio SMS API Integrations:</strong>
+              Configured automated triggers to send instant appointment details
+              and confirmation links to callers upon successful calendar
+              bookings.
+            </li>
+            <li>
+              <strong>Conducted End-to-End Testing:</strong> Authored unit and
+              integration tests (pytest) covering the LangGraph router, slots
+              extraction, tool callbacks, and calendar updates under edge-case
+              states.
+            </li>
+          </ul>
+        </section>
 
-            <!-- Team -->
-            <section id="team">
-                <h2>Team</h2>
-                <ul>
-                    <li><strong>Muhammad Taha Nasir</strong>: Lead Architect & Core Brain Developer (LangGraph State Machine, LLM Routing, Google Calendar API Integration, FastAPI Backend, SMS Notification Integration, & Admin Dashboard UI)</li>
-                    <li><strong>Hamza Ahmed</strong>: Voice Loop & RAG Ingestion (Pipecat Audio Pipeline, Deepgram STT/TTS Integration, Silero VAD Tuning, and Chroma DB Ingestion)</li>
-                </ul>
-            </section>
+        <!-- Results -->
+        <section id="results">
+          <h2>Results</h2>
+          <p>
+            The AI Dental Receptionist successfully handles multi-turn spoken
+            conversations with average turn-around latencies under
+            <strong>1.2 seconds</strong>. The scheduling tool dynamically
+            resolves calendar overlaps, respects clinic business hours, and
+            writes appointment details directly to Google Calendar. In
+            evaluations, the system achieved a <strong>100% accuracy</strong> in
+            filtering and escalating clinical advice inquiries, preventing
+            unauthorized medical instruction. The project showcases how
+            production-grade voice applications are decoupled for independent
+            testability, enabling rapid, multi-tenant clinic onboarding.
+          </p>
+        </section>
 
-            <!-- Tech Stack -->
-            <section id="tech-stack">
-                <h2>Tech Stack</h2>
-                <ul>
-                    <li><strong>LangGraph & LangChain:</strong> Conversational state management, memory handling, and reasoning logic.</li>
-                    <li><strong>GitHub Models (OpenAI GPT-4o-mini):</strong> Main LLM engine powering intent classification and slot extraction.</li>
-                    <li><strong>Pipecat:</strong> Open-source framework for orchestrating real-time voice, turn-taking, and audio streaming.</li>
-                    <li><strong>Deepgram Nova-2 & Aura:</strong> High-speed streaming Speech-to-Text and Text-to-Speech engines for natural vocal flow.</li>
-                    <li><strong>Google Calendar API:</strong> Enterprise calendar integration via service account credentials.</li>
-                    <li><strong>Chroma DB:</strong> Vector database used locally to store and query embedded clinic knowledge base chunks.</li>
-                    <li><strong>FastAPI (Python 3.12):</strong> High-performance asynchronous backend powering the signaling server and dashboard API.</li>
-                    <li><strong>WebRTC:</strong> Low-latency audio transmission directly from the caller's web browser.</li>
-                    <li><strong>Twilio API:</strong> Integration for automated SMS confirmations.</li>
-                </ul>
-                <div class="tools-section">
-                    <span class="tools-label">Tools:</span>
-                    <div id="project-tools-tags"></div>
-                </div>
-            </section>
-        </main>
+        <!-- Team -->
+        <section id="team">
+          <h2>Team</h2>
+          <ul>
+            <li>
+              <strong>Muhammad Taha Nasir</strong>: Lead Architect & Core Brain
+              Developer (LangGraph State Machine, LLM Routing, Google Calendar
+              API Integration, FastAPI Backend, SMS Notification Integration, &
+              Admin Dashboard UI)
+            </li>
+            <li>
+              <strong>Hamza Ahmed</strong>: Voice Loop & RAG Ingestion (Pipecat
+              Audio Pipeline, Deepgram STT/TTS Integration, Silero VAD Tuning,
+              and Chroma DB Ingestion)
+            </li>
+          </ul>
+        </section>
+
+        <!-- Tech Stack -->
+        <section id="tech-stack">
+          <h2>Tech Stack</h2>
+          <ul>
+            <li>
+              <strong>LangGraph & LangChain:</strong> Conversational state
+              management, memory handling, and reasoning logic.
+            </li>
+            <li>
+              <strong>GitHub Models (OpenAI GPT-4o-mini):</strong> Main LLM
+              engine powering intent classification and slot extraction.
+            </li>
+            <li>
+              <strong>Pipecat:</strong> Open-source framework for orchestrating
+              real-time voice, turn-taking, and audio streaming.
+            </li>
+            <li>
+              <strong>Deepgram Nova-2 & Aura:</strong> High-speed streaming
+              Speech-to-Text and Text-to-Speech engines for natural vocal flow.
+            </li>
+            <li>
+              <strong>Google Calendar API:</strong> Enterprise calendar
+              integration via service account credentials.
+            </li>
+            <li>
+              <strong>Chroma DB:</strong> Vector database used locally to store
+              and query embedded clinic knowledge base chunks.
+            </li>
+            <li>
+              <strong>FastAPI (Python 3.12):</strong> High-performance
+              asynchronous backend powering the signaling server and dashboard
+              API.
+            </li>
+            <li>
+              <strong>WebRTC:</strong> Low-latency audio transmission directly
+              from the caller's web browser.
+            </li>
+            <li>
+              <strong>Twilio API:</strong> Integration for automated SMS
+              confirmations.
+            </li>
+          </ul>
+          <div class="tools-section">
+            <span class="tools-label">Tools:</span>
+            <div id="project-tools-tags"></div>
+          </div>
+        </section>
+      </main>
     </div>
 
     <!-- Footer -->
-    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
-        <div class="social-icons" style="margin-bottom:25px;">
-            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
-                style="margin:0 5px; font-size:1.6em;">
-                <i class="fab fa-github" aria-hidden="true"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
-                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
-                <i class="fab fa-linkedin" aria-hidden="true"></i>
-            </a>
-            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
-                style="margin:0 5px; font-size:1.6em;">
-                <i class="fas fa-envelope" aria-hidden="true"></i>
-            </a>
-        </div>
-        <p style="font-size:0.9em;">© 2026 – Muhammad Taha Nasir</p>
+    <footer
+      class="footer"
+      role="contentinfo"
+      style="padding: 20px; text-align: center"
+    >
+      <div class="social-icons" style="margin-bottom: 25px">
+        <a
+          href="https://github.com/MuhammadTahaNasir"
+          target="_blank"
+          title="GitHub"
+          aria-label="GitHub profile"
+          style="margin: 0 5px; font-size: 1.6em"
+        >
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/muhammadtahanasir/"
+          target="_blank"
+          title="LinkedIn"
+          aria-label="LinkedIn profile"
+          style="margin: 0 5px; font-size: 1.6em"
+        >
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a
+          href="mailto:m.tahanasir.cs@gmail.com"
+          title="Email"
+          aria-label="Send email"
+          style="margin: 0 5px; font-size: 1.6em"
+        >
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p style="font-size: 0.9em">© 2026 – Muhammad Taha Nasir</p>
     </footer>
 
     <!-- Scroll to Top Button -->
     <button id="scrollTop" aria-label="Scroll to top">
-        <i class="fas fa-chevron-up"></i>
+      <i class="fas fa-chevron-up"></i>
     </button>
 
     <!-- JavaScript -->
     <script src="/assets/js/each-project.js"></script>
     <script src="/assets/js/shared-bottom-nav.js"></script>
     <script src="/assets/js/nav-active.js"></script>
-</body>
-
+  </body>
 </html>
