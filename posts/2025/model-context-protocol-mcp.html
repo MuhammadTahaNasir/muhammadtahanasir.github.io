@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html dir="auto" lang="en">
+<head>
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>');
+    })();
+  </script>
+    <link href="/assets/images/favicon-96x96.png?v=5" rel="icon" sizes="96x96" type="image/png" />
+    <link href="/assets/images/favicon.ico?v=5" rel="shortcut icon" />
+    <link href="/assets/images/apple-touch-icon.png?v=5" rel="apple-touch-icon" sizes="180x180" />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta content="Understanding Anthropic's Model Context Protocol standard, building custom MCP servers in Python, and securing enterprise context." name="description" />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="Model Context Protocol, MCP, AI Agents, System Architecture" name="tags" />
+    <meta name="thumbnail" content="/assets/images/posts/model-context-protocol-mcp.png" />
+    <title>What is Model Context Protocol (MCP)? Connecting LLMs to Enterprise Data</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/stylesheet.css" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+        .code-block { position: relative; margin: 25px 0; border-radius: 10px; background: #0d1117 !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; overflow: hidden; }
+        .code-block pre, .code-block pre[class*="language-"] { background: #0d1117 !important; color: #e6edf3 !important; text-shadow: none !important; padding: 20px 22px !important; margin: 0 !important; font-family: "SF Mono", "Fira Code", monospace !important; font-size: 0.94rem !important; line-height: 1.6 !important; border-radius: 10px !important; }
+        .code-block code { opacity: 1 !important; color: #e6edf3 !important; background: transparent !important; text-shadow: none !important; }
+        
+
+        .cinematic-intro-card {
+            background: var(--entry);
+            border-left: 4px solid var(--accent);
+            border-top: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            border-radius: 0 12px 12px 0;
+            padding: 24px 28px;
+            margin: 25px 0 35px 0;
+            box-shadow: var(--shadow-medium);
+        }
+        .cinematic-intro-card p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            color: var(--primary);
+        }
+        .cinematic-intro-card p:last-child {
+            margin-bottom: 0;
+        }
+        .hero-banner-img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            margin: 20px 0 30px 0;
+            border-radius: 12px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--border);
+            display: block;
+        }
+        .svg-diagram-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; background: var(--entry) !important; border: 1px solid var(--border) !important; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-small); transition: background 0.3s ease, border-color 0.3s ease; }
+        .svg-diagram {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .hero-banner-img { margin: 15px 0 20px 0; }
+            .cinematic-intro-card { padding: 18px 20px; margin: 20px 0 25px 0; }
+            .cinematic-intro-card p { font-size: 0.98rem; line-height: 1.6; margin-bottom: 10px; }
+        }
+        @media (max-width: 480px) {
+            .hero-banner-img { border-radius: 8px; }
+            .cinematic-intro-card { padding: 14px 16px; border-left-width: 3px; }
+        }
+    </style>
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="../../assets/js/bg-canvas.js"></script>
+</head>
+<body id="top" post-date="2025-11-05T00:00:00Z">
+    <div aria-hidden="true" class="loader" id="loader">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+        <!-- ---------- Header Navigation ---------- -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+    <div class="container">
+        <nav class="breadcrumb">
+      <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a> » <span class="breadcrumb-current">What is Model Context Protocol (MCP)? Connecting LLMs to Enterprise Data</span>
+    </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">What is Model Context Protocol (MCP)? Connecting LLMs to Enterprise Data</h1>
+                <div class="post-meta">November 5, 2025 • 3 min • Muhammad Taha Nasir</div>
+            </header>
+            <img alt="What is Model Context Protocol (MCP)? Connecting LLMs to Enterprise Data" class="hero-banner-img" src="/assets/images/posts/model-context-protocol-mcp.png"/>
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#introduction">Introduction &amp; The N×M Integration Problem</a></li>
+                        <li><a href="#architectural-anatomy">Architectural Anatomy: Host, Client, and Server</a></li>
+                        <li><a href="#core-mcp-primitives">Core MCP Primitives</a></li>
+                        <li><a href="#building-mcp-server-python">Building an Enterprise MCP Server in Python</a></li>
+                        <li><a href="#security-governance-rules">Key Security &amp; Governance Rules for Enterprise Deployments</a></li>
+                        <li><a href="#summary">Architectural Summary</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter" type="button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share article" type="button">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+
+            <div class="cinematic-intro-card">
+                <p>"Building enterprise AI applications used to mean tackling an N×M integration problem. How Anthropic's Model Context Protocol acts as an open standard, the USB-C port for AI, to unify LLM connectivity to enterprise data."</p>
+            </div>
+
+<section id="introduction">
+    <h2>Introduction &amp; The N×M Integration Problem</h2>
+    <p>Building enterprise AI applications used to mean tackling a painful N×M integration problem. Every AI host application or workflow system required custom connectors for every internal database, CRM, and cloud API. If you wanted Claude, ChatGPT, or an internal agent to query PostgreSQL, GitHub, and Jira, you ended up writing and maintaining bespoke API wrappers for each combination.</p>
+    
+    <p>Introduced by Anthropic, the <strong>Model Context Protocol (MCP)</strong> acts as an open standard, often called the "USB-C port for AI", that unifies how LLMs connect to external data sources, tools, and execution environments.</p>
+
+    <p>Instead of building fragmented custom connectors, developers write an MCP server once, allowing any compatible LLM host (Claude Desktop, Cursor, AI agents, enterprise pipelines) to safely interact with those data sources.</p>
+</section>
+
+<section id="architectural-anatomy">
+    <h2>Architectural Anatomy: Host, Client, and Server</h2>
+    <p>MCP separates concerns by defining clear boundaries between the user application, the LLM orchestration layer, and external data systems:</p>
+
+    <div class="svg-diagram-wrapper">
+        <svg class="svg-diagram" viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="860" height="280" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+
+            <!-- Tier 1: MCP Host Application -->
+            <rect x="30" y="30" width="230" height="240" rx="8" fill="var(--svg-blue-bg)" stroke="var(--svg-blue-border)" stroke-width="2"/>
+            <text x="145" y="60" fill="var(--svg-text-main)" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">MCP Host Environment</text>
+            <text x="145" y="78" fill="var(--svg-text-muted)" font-family="monospace" font-size="10" text-anchor="middle">(Claude / Cursor / Custom Agent)</text>
+
+            <rect x="50" y="95" width="190" height="40" rx="6" fill="var(--svg-card-bg)" stroke="var(--svg-blue-border)" stroke-width="1"/>
+            <text x="145" y="120" fill="var(--svg-blue-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">LLM Reasoning Loop</text>
+
+            <rect x="50" y="150" width="190" height="100" rx="6" fill="#1e1e38" stroke="var(--svg-purple-border)" stroke-width="1.5"/>
+            <text x="145" y="172" fill="var(--svg-purple-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">MCP Client Engine</text>
+            <text x="145" y="195" fill="#a78bfa" font-family="monospace" font-size="9" text-anchor="middle">Capability Negotiation</text>
+            <text x="145" y="215" fill="#a78bfa" font-family="monospace" font-size="9" text-anchor="middle">JSON-RPC Message Router</text>
+            <text x="145" y="235" fill="#a78bfa" font-family="monospace" font-size="9" text-anchor="middle">Approval Prompt Handler</text>
+
+            <!-- Transport Pipe -->
+            <path d="M 260 200 L 340 200" stroke="var(--svg-orange-border)" stroke-width="3" stroke-dasharray="4"/>
+            <rect x="270" y="165" width="60" height="24" rx="4" fill="var(--svg-orange-bg)" stroke="var(--svg-orange-border)" stroke-width="1"/>
+            <text x="300" y="181" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" font-weight="bold" text-anchor="middle">stdio / SSE</text>
+            <text x="300" y="218" fill="var(--svg-orange-text)" font-family="monospace" font-size="9" font-weight="bold" text-anchor="middle">JSON-RPC 2.0</text>
+
+            <!-- Tier 2: MCP Server -->
+            <rect x="340" y="30" width="280" height="240" rx="8" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="2"/>
+            <text x="480" y="58" fill="var(--svg-green-text)" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Enterprise MCP Server</text>
+            <text x="480" y="75" fill="var(--svg-green-text)" font-family="monospace" font-size="10" text-anchor="middle">mcp.server.stdio Microservice</text>
+
+            <!-- 3 Primitives Boxes -->
+            <rect x="360" y="90" width="240" height="45" rx="5" fill="var(--svg-green-bg)" stroke="#34d399" stroke-width="1"/>
+            <text x="375" y="117" fill="#6ee7b7" font-family="monospace" font-size="11" font-weight="bold">📁 Resources:</text>
+            <text x="475" y="117" fill="var(--svg-green-text)" font-family="monospace" font-size="10">postgres://, file://</text>
+
+            <rect x="360" y="145" width="240" height="45" rx="5" fill="var(--svg-green-bg)" stroke="#34d399" stroke-width="1"/>
+            <text x="375" y="172" fill="#6ee7b7" font-family="monospace" font-size="11" font-weight="bold">⚙️ Tools:</text>
+            <text x="445" y="172" fill="var(--svg-green-text)" font-family="monospace" font-size="10">query_db(), call_api()</text>
+
+            <rect x="360" y="200" width="240" height="45" rx="5" fill="var(--svg-green-bg)" stroke="#34d399" stroke-width="1"/>
+            <text x="375" y="227" fill="#6ee7b7" font-family="monospace" font-size="11" font-weight="bold">💬 Prompts:</text>
+            <text x="460" y="227" fill="var(--svg-green-text)" font-family="monospace" font-size="10">Template Schemas</text>
+
+            <!-- Connections to Target Systems -->
+            <path d="M 620 112 L 670 112" stroke="#34d399" stroke-width="2"/>
+            <path d="M 620 167 L 670 167" stroke="#34d399" stroke-width="2"/>
+            <path d="M 620 222 L 670 222" stroke="#34d399" stroke-width="2"/>
+
+            <!-- Tier 3: Target Enterprise Systems -->
+            <rect x="670" y="30" width="180" height="240" rx="8" fill="var(--svg-indigo-bg)" stroke="var(--svg-indigo-border)" stroke-width="2"/>
+            <text x="760" y="58" fill="var(--svg-text-muted)" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Enterprise Systems</text>
+            
+            <rect x="685" y="85" width="150" height="35" rx="4" fill="#312e81"/>
+            <text x="760" y="107" fill="var(--svg-text-muted)" font-family="monospace" font-size="10" text-anchor="middle">🗄️ Postgres DB (Replica)</text>
+
+            <rect x="685" y="130" width="150" height="35" rx="4" fill="#312e81"/>
+            <text x="760" y="152" fill="var(--svg-text-muted)" font-family="monospace" font-size="10" text-anchor="middle">📦 S3 Data Lake</text>
+
+            <rect x="685" y="175" width="150" height="35" rx="4" fill="#312e81"/>
+            <text x="760" y="197" fill="var(--svg-text-muted)" font-family="monospace" font-size="10" text-anchor="middle">🔗 Internal REST APIs</text>
+
+            <rect x="685" y="220" width="150" height="35" rx="4" fill="#4338ca"/>
+            <text x="760" y="242" fill="var(--svg-text-muted)" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle">🛡️ Row-Level Security</text>
+        </svg>
+    </div>
+
+    <ul>
+        <li><strong>MCP Host:</strong> The front-end or environment where the AI user session lives (e.g., IDEs, internal agent frameworks).</li>
+        <li><strong>MCP Client:</strong> Embedded within the host, handles connection lifecycle, capability negotiation, and protocol enforcement with MCP servers.</li>
+        <li><strong>MCP Server:</strong> A lightweight microservice exposing distinct primitives (Resources, Tools, and Prompts) over JSON-RPC 2.0 transports.</li>
+    </ul>
+</section>
+
+<section id="core-mcp-primitives">
+    <h2>Core MCP Primitives</h2>
+    <p>An MCP server exposes three main primitives to the AI host:</p>
+
+    <div class="table-responsive">
+<table class="benchmark-table">
+        <thead>
+            <tr>
+                <th>Primitive</th>
+                <th>Nature</th>
+                <th>Concept</th>
+                <th>Example Use Case</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Resources</strong></td>
+                <td>Read-Only</td>
+                <td>Static or dynamic context payloads exposed as URI schemes (postgres://, file://).</td>
+                <td>Reading a PDF contract, pulling a customer schema.</td>
+            </tr>
+            <tr>
+                <td><strong>Tools</strong></td>
+                <td>Action-Oriented</td>
+                <td>Callable functions with defined input parameters that execute actions or mutations.</td>
+                <td>Executing a database query, triggering a webhook, creating a ticket.</td>
+            </tr>
+            <tr>
+                <td><strong>Prompts</strong></td>
+                <td>Pre-packaged</td>
+                <td>Standardized context templates provided by the server.</td>
+                <td>"Debug build failure", "Generate quarterly report".</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</section>
+
+<section id="building-mcp-server-python">
+    <h2>Building an Enterprise MCP Server in Python</h2>
+    <p>Below is an example of an MCP server implemented using the official <code>mcp</code> Python SDK. It exposes a secure, read-only enterprise database lookup tool:</p>
+
+    <div class="code-block">
+
+<pre><code class="language-python">import asyncio
+from mcp.server import Server, NotificationOptions
+from mcp.server.models import InitializationOptions
+import mcp.server.stdio
+import mcp.types as types
+
+# Initialize the MCP Server instance
+app = Server("enterprise-db-server")
+
+@app.list_tools()
+async def handle_list_tools() -> list[types.Tool]:
+    """Expose available database tools to the MCP client."""
+    return [
+        types.Tool(
+            name="query-customer-record",
+            description="Securely fetches customer details by Account ID.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "account_id": {
+                        "type": "string", 
+                        "description": "Unique enterprise account ID (e.g. ACC-1092)"
+                    }
+                },
+                "required": ["account_id"],
+            },
+        )
+    ]
+
+@app.call_tool()
+async def handle_call_tool(
+    name: str, 
+    arguments: dict | None
+) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
+    """Execute tool requests coming from the LLM via the MCP Client."""
+    if name == "query-customer-record":
+        account_id = arguments.get("account_id") if arguments else None
+        
+        # In production, query read-replicas behind access-controlled VPCs
+        record = f"Account {account_id}: Tier=Enterprise, Status=Active, SLA=99.99%"
+        
+        return [
+            types.TextContent(
+                type="text",
+                text=record
+            )
+        ]
+    
+    raise ValueError(f"Unknown tool request: {name}")
+
+async def main():
+    # Run the server over stdio for local sidecar process communication
+    async with mcp.server.stdio.stdio_server() as (read_stream, write_stream):
+        await app.run(
+            read_stream,
+            write_stream,
+            InitializationOptions(
+                server_name="enterprise-db-server",
+                server_version="1.0.0",
+                capabilities=app.get_capabilities(
+                    notification_options=NotificationOptions(),
+                    experimental_capabilities={},
+                ),
+            ),
+        )
+
+if __name__ == "__main__":
+    asyncio.run(main())
+</code></pre>
+    </div>
+</section>
+
+<section id="security-governance-rules">
+    <h2>Key Security &amp; Governance Rules for Enterprise Deployments</h2>
+    <p>Connecting LLMs directly to internal infrastructure carries inherent risk. When rolling out MCP servers across enterprise teams, follow these core security practices:</p>
+    
+    <ol>
+        <li>
+            <strong>Enforce Human-in-the-Loop Approval:</strong> Destructive or mutating tools (such as <code>drop_table</code> or <code>send_payment</code>) should require explicit confirmation at the MCP Client/Host level before execution.
+        </li>
+        <li>
+            <strong>Principle of Least Privilege:</strong> Deploy MCP servers with minimal scoped credentials. Database servers should default to read-only connections with row-level security enabled.
+        </li>
+        <li>
+            <strong>Avoid Context Window Pollution:</strong> When exposing hundreds of enterprise tools, avoid passing full schemas into every context window. Use code-execution patterns or dynamic discovery to keep context windows efficient.
+        </li>
+    </ol>
+</section>
+
+<section id="summary">
+    <h2>Architectural Summary</h2>
+    <p>The Model Context Protocol establishes a clean separation between AI client host applications and underlying enterprise datasets. By standardizing interfaces through MCP, organizations can build modular, secure tool ecosystems that work seamlessly across various LLM architectures.</p>
+</section>
+
+            <div class="tags-container" id="dynamic-tags"></div>
+            <hr class="divider" />
+            <section class="related-articles" id="related-series">
+                <h2 class="series-title">Article Series</h2>
+                <a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+                <div id="related-posts-container"></div>
+            </section>
+        </main>
+        <div class="newsletter-section">
+            <div class="newsletter-content">
+                <h3>Subscribe to our newsletter</h3>
+                <p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+                <p>Subscribe to the newsletter, and don't miss out.</p>
+                <div class="newsletter-form">
+                    <input class="newsletter-input" placeholder="Enter your email address" type="email" />
+                    <button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../../assets/js/each-post.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="../../assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal()){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/shared-bottom-nav.js"></script>
+</body>
+</html>

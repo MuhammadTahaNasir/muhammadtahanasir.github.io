@@ -1,268 +1,631 @@
-﻿<!DOCTYPE html>
+<!doctype html>
 
 <html dir="auto" lang="en">
-<head>
-<link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
-<link href="/assets/images/favicon.ico" rel="shortcut icon"/>
-<link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
-<meta content="Terry" name="apple-mobile-web-app-title"/>
-<link href="/assets/images/site.webmanifest" rel="manifest"/>
-<meta charset="utf-8"/>
-<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
-<meta content="noindex, nofollow" name="robots"/>
-<meta content="This semester, I got into databases and learned a ton. I started with MySQL and SQLite, figuring out how to write queries to manage data. Then, I tried Neo4j and saw how it connects things like a web. I also checked out vector databases and how they help apps find stuff fast. Working on projects and seeing real examples made it clear how data is stored and used in apps today." name="description"/>
-<meta content="Muhammad Taha Nasir" name="author"/>
-<meta content="System Architecture, Database Systems" name="tags"/>
-<meta content="/assets/images/posts/sql-db-ai.png" name="thumbnail"/>
-<title>The Future of Data: What I Learned from SQL to Vector Databases</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
-<link href="../../assets/css/each-post.css" rel="stylesheet"/>
-<link href="../../assets/css/bottom-nav.css" rel="stylesheet"/>
-<style>
-        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
-        .loader.hidden{opacity:0;visibility:hidden}
+  <head>
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>');
+    })();
+  </script>
+    <link
+      href="/assets/images/favicon-96x96.png?v=5"
+      rel="icon"
+      sizes="96x96"
+      type="image/png"
+    />
+    <link href="/assets/images/favicon.ico?v=5" rel="shortcut icon" />
+    <link
+      href="/assets/images/apple-touch-icon.png?v=5"
+      rel="apple-touch-icon"
+      sizes="180x180"
+    />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      name="viewport"
+    />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta
+      content="Deconstructing autonomous AI agents: memory mechanisms, planning loops, tool execution, and self-reflection patterns."
+      name="description"
+    />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="Databases, SQL, Vector Search, Database Internals, Data Engineering" name="tags" />
+    <meta name="thumbnail" content="/assets/images/posts/sql-db-ai.png" />
+    <title>From SQL to Vector Databases: How Data Architectures Adapted for AI</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/stylesheet.css" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        z-index: 9999;
+        opacity: 1;
+        visibility: visible;
+      }
+      .loader.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .code-block { position: relative; margin: 25px 0; border-radius: 10px; background: #0d1117 !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; overflow: hidden; }
+        .code-block pre, .code-block pre[class*="language-"] { background: #0d1117 !important; color: #e6edf3 !important; text-shadow: none !important; padding: 20px 22px !important; margin: 0 !important; font-family: "SF Mono", "Fira Code", monospace !important; font-size: 0.94rem !important; line-height: 1.6 !important; border-radius: 10px !important; }
+        .code-block code { opacity: 1 !important; color: #e6edf3 !important; background: transparent !important; text-shadow: none !important; }
+      
+
+      .svg-diagram-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; background: var(--entry) !important; border: 1px solid var(--border) !important; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-small); transition: background 0.3s ease, border-color 0.3s ease; }
+
+      .svg-diagram {
+        max-width: 800px;
+        min-width: 600px;
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+
+      .cinematic-intro-card {
+        background: linear-gradient(
+          135deg,
+          var(--glass-bg),
+          rgba(0, 122, 255, 0.05)
+        );
+        border-left: 4px solid var(--accent);
+        padding: 20px 25px;
+        margin: 30px 0;
+        border-radius: 0 12px 12px 0;
+        box-shadow: var(--shadow-light);
+        font-style: italic;
+        color: var(--secondary);
+      }
     </style>
-<script>
-        // Apply theme immediately on page load
-        (function () {
-            const savedTheme = localStorage.getItem('pref-theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
-        })();
-    </script>
+    <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="../../assets/js/bg-canvas.js"></script>
 </head>
-<body class="dark" id="top" post-date="2025-04-14">
-<!-- Loader Animation -->
-<div aria-hidden="true" class="loader" id="loader">
-<div class="terry-animation">
-<span class="letter">t</span>
-<span class="letter">e</span>
-<span class="letter">r</span>
-<span class="letter">r</span>
-<span class="letter">y</span>
+  <body id="top" post-date="2024-09-15T00:00:00Z">
+    <div aria-hidden="true" class="loader" id="loader">
+      <div class="terry-animation">
+        <span class="letter">t</span>
+        <span class="letter">e</span>
+        <span class="letter">r</span>
+        <span class="letter">r</span>
+        <span class="letter">y</span>
+      </div>
+    </div>
+        <!-- Header Navigation -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+    <div class="container">
+      <nav class="breadcrumb">
+      <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a> » <span class="breadcrumb-current">From SQL to Vector Databases: How Data Architectures Adapted for AI</span>
+    </nav>
+      <main class="post-content">
+
+  <header class="post-header">
+    <h1 class="post-title">From SQL to Vector Databases: How Data Architectures Adapted for AI</h1>
+    <div class="post-meta">April 14, 2025 • 5 min • Muhammad Taha Nasir</div>
+  </header>
+  
+  <img alt="Databases and AI" src="/assets/images/posts/sql-db-ai.png" style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;"/>
+  
+  <aside class="table-of-contents">
+    <details>
+      <summary>Table of Contents</summary>
+      <ul>
+        <li><a href="#the-database-paradigm-shift">The Database Paradigm Shift</a></li>
+        <li><a href="#under-the-hood">Under the Hood</a></li>
+        <li><a href="#the-architecture-gauntlet">The Data Architecture Gauntlet</a></li>
+        <li><a href="#systems-engineer-rant">Why Database Choice Matters</a></li>
+        <li><a href="#semester-project-realities">Semester Project &amp; Lab Realities</a></li>
+        <li><a href="#why-databases-matter-for-ai">Why Databases Matter for AI</a></li>
+      </ul>
+    </details>
+  </aside>
+
+  <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter" type="button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share article" type="button">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+
+<p>Back in the day, I'd dodge anything with "data" in its title like it was a 150 km/h bouncer in cricket. But this semester at FAST NUCES under Sir Shoaib's guidance completely flipped the script.</p>
+<p>My database course threw me into <strong>MySQL</strong>, <strong>SQLite</strong>, <strong>Neo4j</strong>, and eventually <strong>Vector Databases</strong> - which are straight-up crucial for modern AI infrastructure. From designing normalized relational schemas to writing Cypher graph traversals and executing vector similarity searches, I learned how data architectures adapted to power the generative AI revolution.</p>
+
+<section id="the-database-paradigm-shift">
+<h2>The Database Paradigm Shift</h2>
+<p>I've been living inside database engines for the past few months, and if you've been tracking software architecture over the last couple of years, you know we have officially moved past the era where one database engine fits all use cases.</p>
+
+<div class="svg-diagram-wrapper">
+  <svg class="svg-diagram" viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg">
+    <!-- Relational -->
+    <text x="20" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="14" font-weight="bold">Relational (SQL):</text>
+    <rect x="200" y="20" width="160" height="30" rx="4" fill="rgba(59, 130, 246, 0.1)" stroke="#3b82f6" stroke-width="2"/>
+    <text x="280" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">Normalized Tables</text>
+    <path d="M 360 35 L 400 35" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="395,30 405,35 395,40" fill="var(--svg-text-muted)"/>
+    <rect x="410" y="20" width="160" height="30" rx="4" fill="rgba(16, 185, 129, 0.1)" stroke="var(--svg-green-border)" stroke-width="2"/>
+    <text x="490" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">Exact B-Tree Index</text>
+    <path d="M 570 35 L 610 35" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="605,30 615,35 605,40" fill="var(--svg-text-muted)"/>
+    <rect x="620" y="20" width="160" height="30" rx="4" fill="rgba(245, 158, 11, 0.1)" stroke="var(--svg-orange-border)" stroke-width="2"/>
+    <text x="700" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">ACID Integrity</text>
+
+    <!-- Graph -->
+    <text x="20" y="90" fill="var(--svg-text-main)" font-family="monospace" font-size="14" font-weight="bold">Graph (Cypher):</text>
+    <rect x="200" y="70" width="160" height="30" rx="4" fill="rgba(139, 92, 246, 0.1)" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="280" y="90" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">Nodes &amp; Edges</text>
+    <path d="M 360 85 L 400 85" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="395,80 405,85 395,90" fill="var(--svg-text-muted)"/>
+    <rect x="410" y="70" width="160" height="30" rx="4" fill="rgba(16, 185, 129, 0.1)" stroke="var(--svg-green-border)" stroke-width="2"/>
+    <text x="490" y="90" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">Pointer Traversal</text>
+    <path d="M 570 85 L 610 85" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="605,80 615,85 605,90" fill="var(--svg-text-muted)"/>
+    <rect x="620" y="70" width="160" height="30" rx="4" fill="rgba(245, 158, 11, 0.1)" stroke="var(--svg-orange-border)" stroke-width="2"/>
+    <text x="700" y="90" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">Complex Relations</text>
+
+    <!-- Vector -->
+    <text x="20" y="140" fill="var(--svg-text-main)" font-family="monospace" font-size="14" font-weight="bold">Vector (Embeds):</text>
+    <rect x="200" y="120" width="160" height="30" rx="4" fill="rgba(236, 72, 153, 0.1)" stroke="#ec4899" stroke-width="2"/>
+    <text x="280" y="140" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">High-Dim Floating</text>
+    <path d="M 360 135 L 400 135" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="395,130 405,135 395,140" fill="var(--svg-text-muted)"/>
+    <rect x="410" y="120" width="160" height="30" rx="4" fill="rgba(16, 185, 129, 0.1)" stroke="var(--svg-green-border)" stroke-width="2"/>
+    <text x="490" y="140" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">HNSW Graph / ANN</text>
+    <path d="M 570 135 L 610 135" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="605,130 615,135 605,140" fill="var(--svg-text-muted)"/>
+    <rect x="620" y="120" width="160" height="30" rx="4" fill="rgba(245, 158, 11, 0.1)" stroke="var(--svg-orange-border)" stroke-width="2"/>
+    <text x="700" y="140" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">Semantic Meaning</text>
+  </svg>
 </div>
-</div>
-<header class="header">
-<nav class="nav">
-<!-- Left: Logo -->
-<div class="nav-left">
-<a class="logo" href="/index.html">&lt;terry/&gt;</a>
-</div>
-<!-- Center: Pills Navigation -->
-<div class="nav-center">
-<div class="pill-nav">
-<a href="/projects.html">Projects</a>
-<a href="/archives.html">Archives</a>
-<a href="/resume.html">Resume</a>
-<a href="/search.html">Search</a>
-</div>
-</div>
-<!-- Right: Theme toggle -->
-<div class="nav-right">
-<button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
-<svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<circle cx="12" cy="12" r="5"></circle>
-<line x1="12" x2="12" y1="1" y2="3"></line>
-<line x1="12" x2="12" y1="21" y2="23"></line>
-<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
-<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
-<line x1="1" x2="3" y1="12" y2="12"></line>
-<line x1="21" x2="23" y1="12" y2="12"></line>
-<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
-<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
-</svg>
-<svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-</svg>
-</button>
-</div>
-</nav>
-</header>
-<div class="container">
-<nav class="breadcrumb">
-<a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
-</nav>
-<main class="post-content">
-<header class="post-header">
-<h1 class="post-title">The Future of Data: What I Learned from SQL to Vector Databases</h1>
-<div class="post-meta">April 14, 2025 • 4 min • Muhammad Taha Nasir</div>
-</header>
-<aside class="table-of-contents">
-<details>
-<summary>Table of Contents</summary>
-<ul>
-<li><a href="#database-journey">My Database Journey Begins</a></li>
-<li><a href="#mysql-sqlite">MySQL and SQLite: The Relational Roots</a></li>
-<li><a href="#neo4j-graphs">Neo4j: Grappling with Graphs</a></li>
-<li><a href="#vector-databases">Vector Databases: The AI Game-Changer</a></li>
-<li><a href="#assignments">Assignments That Leveled Me Up</a></li>
-<li><a href="#resources">Resources That Kept Me Sane</a></li>
-</ul>
-</details>
-</aside>
-<!-- Social Sharing Floating Toolbar -->
-<div class="social-sharing-toolbar">
-<button class="social-btn subscribe-btn" title="Subscribe to newsletter">
-<i class="fas fa-envelope"></i>
-</button>
-<button class="social-btn share-btn" title="Share">
-<i class="fas fa-share-alt"></i>
-</button>
-</div>
-<section id="database-journey">
-<h2>My Database Journey Begins</h2>
-<p>Yo, back in the day, I’d dodge anything with “data” in it like it was a bouncer in cricket. But this
-                    semester at FAST NUCES under Sir Shoaib’s guidance,flipped the script. My database
-                    course threw me into MySQL, SQLite, Neo4j, and even discovered vector databases, which are
-                    straight-up crucial for AI. From building schemas to querying graphs, I learned how data powers
-                    everything.</p>
+
+<p>Going from relational tables to high-dimensional vector spaces feels like moving from a standard 2D spreadsheet to a hyper-dimensional coordinate map.</p>
+<p>In classical relational databases, everything is built for precise, deterministic scalar lookups - you ask for <code>user_id = 588</code> and get an exact row match. In graph databases, you trace explicit entity relationships. But in AI engineering, queries aren't exact; they are <strong>semantic</strong>. You pass a dense embedding vector and ask the engine: <em>"Which 5 data points in 1,536-dimensional space are closest to this context?"</em></p>
+<p>The build quality across modern database architectures is incredible, but using the wrong engine for an AI pipeline will hit you with massive performance bottlenecks. Let's break down how each paradigm functions under the hood.</p>
 </section>
-<img alt="Database Code on Screen" src="/assets/images/posts/sql-db-ai.png" style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;"/>
-<section id="mysql-sqlite">
-<h2>MySQL and SQLite: The Relational Roots</h2>
-<p>MySQL and SQLite were my first stop. MySQL is like the captain of relational databases structured,
-                    reliable, perfect for business apps like e-commerce. SQLite, its lightweight cousin, is the go-to
-                    for mobile apps or IoT, no server needed. I learned to design tables, normalize data (1NF, 2NF,
-                    3NF), and write SQL queries with joins and aggregates. Think of it like organizing your cricket
-                    team’s stats runs, wickets, averages all in neat tables. Here’s a sample SQL query I wrote:</p>
+
+<section id="under-the-hood">
+<h2>Under the Hood</h2>
+<p>Imagine trying to run an Approximate Nearest Neighbor (ANN) search across 1,000,000 high-dimensional vectors using a relational B-Tree index. Your CPU hits 100% load, memory usage explodes, and your latency spikes to the moon. Welcome to modern data engineering.</p>
+
+<div class="svg-diagram-wrapper">
+  <svg class="svg-diagram" viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg">
+    <rect x="200" y="20" width="400" height="40" rx="4" fill="var(--code-bg)" stroke="#30363d" stroke-width="2"/>
+    <text x="400" y="45" fill="var(--svg-text-main)" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">THE EVOLUTION OF DATA ENGINES</text>
+    
+    <path d="M 400 60 L 400 90" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 200 90 L 600 90" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    
+    <!-- Paths Down -->
+    <path d="M 200 90 L 200 120" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="195,115 205,115 200,120" fill="var(--svg-text-muted)"/>
+
+    <path d="M 400 90 L 400 120" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="395,115 405,115 400,120" fill="var(--svg-text-muted)"/>
+
+    <path d="M 600 90 L 600 120" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="595,115 605,115 600,120" fill="var(--svg-text-muted)"/>
+
+    <!-- Database Nodes -->
+    <rect x="120" y="120" width="160" height="50" rx="8" fill="rgba(59, 130, 246, 0.1)" stroke="#3b82f6" stroke-width="2"/>
+    <text x="200" y="140" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">MySQL / SQLite</text>
+    <text x="200" y="160" fill="var(--svg-text-muted)" font-family="monospace" font-size="11" text-anchor="middle">(Relational)</text>
+
+    <rect x="320" y="120" width="160" height="50" rx="8" fill="rgba(139, 92, 246, 0.1)" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="400" y="140" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">Neo4j</text>
+    <text x="400" y="160" fill="var(--svg-text-muted)" font-family="monospace" font-size="11" text-anchor="middle">(Property Graph)</text>
+
+    <rect x="520" y="120" width="160" height="50" rx="8" fill="rgba(236, 72, 153, 0.1)" stroke="#ec4899" stroke-width="2"/>
+    <text x="600" y="140" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">Pinecone/Weav</text>
+    <text x="600" y="160" fill="var(--svg-text-muted)" font-family="monospace" font-size="11" text-anchor="middle">(Vector DB)</text>
+
+    <!-- Path to Features -->
+    <path d="M 200 170 L 200 190" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="195,185 205,185 200,190" fill="var(--svg-text-muted)"/>
+    <text x="200" y="210" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">[B-Tree / ACID]</text>
+    <text x="200" y="230" fill="var(--svg-text-muted)" font-family="monospace" font-size="11" text-anchor="middle">(Exact Match)</text>
+
+    <path d="M 400 170 L 400 190" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="395,185 405,185 400,190" fill="var(--svg-text-muted)"/>
+    <text x="400" y="210" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">[Cypher Graph]</text>
+    <text x="400" y="230" fill="var(--svg-text-muted)" font-family="monospace" font-size="11" text-anchor="middle">(Relationship Traversal)</text>
+
+    <path d="M 600 170 L 600 190" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="595,185 605,185 600,190" fill="var(--svg-text-muted)"/>
+    <text x="600" y="210" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">[HNSW / ANN]</text>
+    <text x="600" y="230" fill="var(--svg-text-muted)" font-family="monospace" font-size="11" text-anchor="middle">(Semantic Similarity)</text>
+  </svg>
+</div>
+
+<h3>1. MySQL &amp; SQLite: The Relational Roots</h3>
+<p>MySQL is the captain of relational databases - structured, reliable, and backed by strict ACID transactions. SQLite is its zero-config, serverless cousin, perfect for desktop apps or lightweight local storage.</p>
+
 <div class="code-block">
-<button class="copy-btn">Copy</button>
-<pre class="language-sql" data-lang="SQL"><code>
+
+<pre><code class="language-sql">-- Relational Query: Finding players averaging over 50 runs
 SELECT p.player_name, AVG(s.runs) as avg_runs
 FROM players p
 JOIN scores s ON p.player_id = s.player_id
 GROUP BY p.player_name
-HAVING AVG(s.runs) &gt; 50;
-                    </code></pre>
+HAVING AVG(s.runs) > 50;</code></pre>
 </div>
-<p>This query finds players averaging over 50 runs clean and efficient, just like a well-placed cover
-                    drive.</p>
-</section>
-<section id="neo4j-graphs">
-<h2>Neo4j: Grappling with Graphs</h2>
-<p>Then came Neo4j, the graph database king. Unlike tables, it’s all about nodes (e.g., people, movies)
-                    and relationships (e.g., friends, acted in) think your social media network, where friends are
-                    connected. We can say it's like mapping your WhatsApp group’s connections. It’s all about nodes and
-                    relationships. I learned Cypher, Neo4j’s query language, to model stuff like recommendation systems.
-                    It’s perfect for AI apps where relationships matter, like suggesting friends or products. Here’s a
-                    Cypher query to find friends of friends:</p>
+
+<p><em>Indexing Mechanism:</em> Uses <strong>B-Trees / B+ Trees</strong> to perform $O(\log N)$ exact lookups or range scans on sorted keys.</p>
+
+<h3>2. Neo4j: Grappling with Graphs</h3>
+<p>Neo4j replaces foreign key joins with native index-free adjacency. Nodes represent entities, while edges represent relationships.</p>
+
 <div class="code-block">
-<button class="copy-btn">Copy</button>
-<pre class="language-cypher" data-lang="Cypher"><code>
-MATCH (user:Person {name: "Taha"})-[:FRIEND]-&gt;(friend)-[:FRIEND]-&gt;(fof)
-RETURN fof.name
-                    </code></pre>
+
+<pre><code class="language-cypher">// Graph Query: Traversing social recommendations
+MATCH (user:Person {name: "Taha"})-[:FRIEND]->(friend)-[:FRIEND]->(fof)
+RETURN fof.name</code></pre>
 </div>
-<p>This query is like asking, “Who’s in my extended squad?” Neo4j made me see how AI can leverage
-                    connections for smarter predictions.</p>
+
+<p><em>Indexing Mechanism:</em> Uses <strong>Pointer Chains</strong> to traverse connected relationships in constant $O(1)$ hop times per node, regardless of total dataset size.</p>
+
+<h3>3. Vector Databases: The AI Game-Changer</h3>
+<p>Vector databases (like Pinecone, Weaviate, or <code>pgvector</code>) store dense floating-point numerical arrays (embeddings) generated by models.</p>
+
+<p>$$\text{Cosine Similarity}(\mathbf{A}, \mathbf{B}) = \frac{\mathbf{A} \cdot \mathbf{B}}{\Vert{}\mathbf{A}\Vert{} \Vert{}\mathbf{B}\Vert{}}$$</p>
+
+<p><em>Indexing Mechanism:</em> Uses <strong>HNSW (Hierarchical Navigable Small World)</strong> graphs or <strong>IVF (Inverted File)</strong> indexes to execute Approximate Nearest Neighbor (ANN) searches in high-dimensional spaces without scanning every single vector.</p>
+
+<p>If you try to index 1,536-dimensional vectors using standard B-Trees, the "curse of dimensionality" breaks your index partitioning completely.</p>
 </section>
-<section id="vector-databases">
-<h2>Vector Databases: The AI Game-Changer</h2>
-<p>Here’s where it got wild: vector databases. These bad boys store high-dimensional vectors, think
-                    numerical representations of words, images, or user preferences. They’re the backbone of AI apps
-                    like ChatGPT or image search. Instead of exact matches, they find *similar* items using approximate
-                    nearest neighbor (ANN) search. Picture searching “biryani” and getting recipes with similar vibes,
-                    not just exact matches. Vector DBs like Pinecone or Weaviate power semantic search and Retrieval
-                    Augmented Generation (RAG) in LLMs. They’re why AI feels so smart.</p>
+
+<section id="the-architecture-gauntlet">
+<h2>The Data Architecture Gauntlet</h2>
+<p>I put Relational Databases, Property Graph Databases, and Vector Databases through a side-by-side performance and use-case gauntlet:</p>
+
+<div class="svg-diagram-wrapper">
+  <svg class="svg-diagram" viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg">
+    <!-- Top Row -->
+    <text x="180" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">[Structured Transactions]</text>
+    <text x="400" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">[Entity Relationship Traversal]</text>
+    <text x="620" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">[Unstructured AI Embeddings]</text>
+    
+    <!-- Connectors -->
+    <path d="M 180 50 L 180 80" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 120 80 L 240 80" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 120 80 L 120 100" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="115,95 125,95 120,100" fill="var(--svg-text-muted)"/>
+    <path d="M 240 80 L 240 100" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="235,95 245,95 240,100" fill="var(--svg-text-muted)"/>
+
+    <path d="M 400 50 L 400 80" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 340 80 L 460 80" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 340 80 L 340 100" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="335,95 345,95 340,100" fill="var(--svg-text-muted)"/>
+    <path d="M 460 80 L 460 100" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="455,95 465,95 460,100" fill="var(--svg-text-muted)"/>
+
+    <path d="M 620 50 L 620 80" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 560 80 L 680 80" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 560 80 L 560 100" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="555,95 565,95 560,100" fill="var(--svg-text-muted)"/>
+    <path d="M 680 80 L 680 100" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="675,95 685,95 680,100" fill="var(--svg-text-muted)"/>
+
+    <!-- Bottom Nodes -->
+    <text x="120" y="130" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[MySQL/SQLite]</text>
+    <text x="120" y="150" fill="var(--svg-green-text)" font-family="monospace" font-size="11" text-anchor="middle">(100% ACID)</text>
+
+    <text x="240" y="130" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Vector DB]</text>
+    <text x="240" y="150" fill="var(--svg-red-text)" font-family="monospace" font-size="11" text-anchor="middle">(No ACID)</text>
+
+    <text x="340" y="130" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Neo4j]</text>
+    <text x="340" y="150" fill="var(--svg-green-text)" font-family="monospace" font-size="11" text-anchor="middle">(O(1) Hops)</text>
+
+    <text x="460" y="130" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Relational]</text>
+    <text x="460" y="150" fill="var(--svg-red-text)" font-family="monospace" font-size="11" text-anchor="middle">(Heavy Joins)</text>
+
+    <text x="560" y="130" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Vector DB]</text>
+    <text x="560" y="150" fill="var(--svg-green-text)" font-family="monospace" font-size="11" text-anchor="middle">(Semantic Search)</text>
+
+    <text x="680" y="130" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Relational]</text>
+    <text x="680" y="150" fill="var(--svg-red-text)" font-family="monospace" font-size="11" text-anchor="middle">(Keyword Only)</text>
+  </svg>
+</div>
+
+<p>Here is how the paradigms break down across production workloads:</p>
+
+<div class="table-responsive">
+<table class="benchmark-table">
+  <thead>
+    <tr>
+      <th>Metric / Dimension</th>
+      <th>Relational (MySQL / SQLite)</th>
+      <th>Property Graph (Neo4j)</th>
+      <th>Vector Databases (Pinecone / Weaviate)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Primary Data Unit</strong></td>
+      <td>Structured Tables &amp; Rows</td>
+      <td>Nodes, Edges &amp; Properties</td>
+      <td>High-Dimensional Vectors (Embeddings)</td>
+    </tr>
+    <tr>
+      <td><strong>Indexing Strategy</strong></td>
+      <td>B-Tree / B+ Tree</td>
+      <td>Index-Free Adjacency / Pointer Chains</td>
+      <td>HNSW Graphs / IVF Indexing</td>
+    </tr>
+    <tr>
+      <td><strong>Query Paradigm</strong></td>
+      <td>Exact Scalar Match (<code>WHERE id = 5</code>)</td>
+      <td>Traversal (<code>MATCH (a)-[:REL]-&gt;(b)</code>)</td>
+      <td>Similarity (<code>CosSim(v1, v2)</code>)</td>
+    </tr>
+    <tr>
+      <td><strong>Consistency Model</strong></td>
+      <td>Strict ACID Compliance</td>
+      <td>Eventual or Strong Consistency</td>
+      <td>Eventual Consistency (ANN Trade-offs)</td>
+    </tr>
+    <tr>
+      <td><strong>Core AI Use Case</strong></td>
+      <td>User accounts, transactions, profiles</td>
+      <td>Knowledge graphs &amp; recommendation engines</td>
+      <td>Semantic RAG, search, &amp; LLM memory</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 </section>
-<section id="assignments">
-<h2>Assignments That Leveled Me Up</h2>
-<p>My two assignments were like batting practice against spinners means tough but rewarding. Check them
-                    out on my <a href="https://github.com/yourusername/database-assignments" target="_blank">GitHub</a>!
-                </p>
-<p><strong>Assignment 2: Expense Tracker (SQLite)</strong><br/>I built a desktop app using Python,
-                    Tkinter, SQLite, and Matplotlib. It lets users track expenses and income, with a dark-themed GUI,
-                    user authentication, and charts (pie for expense breakdown, bar for income vs. expense). The SQLite
-                    database had tables for users, expenses, and income, with foreign keys for integrity. I learned to
-                    design schemas and query data, like tracking my biryani budget!</p>
-<p><strong>Assignment 3: Movie Graph (Neo4j)</strong><br/>I created a movie graph using Neo4j, loading
-                    data from movies.csv. I wrote Cypher queries to create nodes (Movie, Director, Actor, Genre,
-                    Country) and relationships (DIRECTED_BY, ACTED_IN, IN_GENRE, PRODUCED_IN). For example, I linked
-                    movies to genres and actors to films, perfect for a Netflix-style recommendation system. This showed
-                    me how graphs shine in AI for finding patterns.</p>
+
+<section id="systems-engineer-rant">
+<h2>Why Database Choice Matters</h2>
+<p>It is painful to watch developers attempt to perform semantic vector similarity search by writing custom Python loops to calculate cosine distance over 500,000 raw NumPy arrays stored in a MySQL BLOB column.</p>
+
+<div class="code-block">
+
+<pre><code class="language-python"># What developers write when they don't understand vector indexing:
+# Fetching 500k rows from SQL and calculating cosine similarity in raw Python memory!
+for row in cursor.fetchall():
+    dist = np.dot(query_vector, row.embedding) # O(N) SLOW BRUTE FORCE DISASTER! 💥</code></pre>
+</div>
+
+<p>Building "AI backends" without using specialized vector index graphs like <strong>HNSW</strong> is a recipe for system exhaustion.</p>
+
+<div class="svg-diagram-wrapper">
+  <svg class="svg-diagram" viewBox="0 0 800 150" xmlns="http://www.w3.org/2000/svg">
+    <!-- Raw Python Search -->
+    <text x="20" y="40" fill="var(--svg-red-text)" font-family="monospace" font-size="12" font-weight="bold">Raw Python Search:</text>
+    <rect x="180" y="20" width="120" height="30" rx="4" fill="var(--code-bg)" stroke="#30363d" stroke-width="2"/>
+    <text x="240" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[SQL Fetch]</text>
+    <path d="M 300 35 L 340 35" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="335,30 345,35 335,40" fill="var(--svg-text-muted)"/>
+    
+    <rect x="350" y="20" width="160" height="30" rx="4" fill="rgba(245, 158, 11, 0.2)" stroke="var(--svg-orange-border)" stroke-width="2"/>
+    <text x="430" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[500k Numpy Scans]</text>
+    <path d="M 510 35 L 550 35" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="545,30 555,35 545,40" fill="var(--svg-text-muted)"/>
+    
+    <rect x="560" y="20" width="220" height="30" rx="4" fill="rgba(239, 68, 68, 0.4)" stroke="var(--svg-red-border)" stroke-width="2"/>
+    <text x="670" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[O(N) CPU Exhaustion] 🛑</text>
+
+    <!-- HNSW Pipeline -->
+    <text x="20" y="100" fill="var(--svg-green-text)" font-family="monospace" font-size="12" font-weight="bold">HNSW Graph Search:</text>
+    <rect x="180" y="80" width="120" height="30" rx="4" fill="var(--code-bg)" stroke="#30363d" stroke-width="2"/>
+    <text x="240" y="100" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Vector DB]</text>
+    <path d="M 300 95 L 340 95" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="335,90 345,95 335,100" fill="var(--svg-text-muted)"/>
+    
+    <rect x="350" y="80" width="160" height="30" rx="4" fill="rgba(59, 130, 246, 0.2)" stroke="#3b82f6" stroke-width="2"/>
+    <text x="430" y="100" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[HNSW Layer Hops]</text>
+    <path d="M 510 95 L 550 95" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="545,90 555,95 545,100" fill="var(--svg-text-muted)"/>
+    
+    <rect x="560" y="80" width="220" height="30" rx="4" fill="rgba(16, 185, 129, 0.2)" stroke="var(--svg-green-border)" stroke-width="2"/>
+    <text x="670" y="100" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[O(log N) ANN Match] ⚡</text>
+  </svg>
+</div>
+
+<p>If you don't understand why B-Trees fail on 1,536-dimensional vectors, or why HNSW graphs require memory-mapped RAM, you are running an unoptimized script that will choke under load.</p>
+<p>Stop looping over raw arrays in memory and use an engine with built-in HNSW indexing!</p>
 </section>
-<section id="resources">
-<h2>Resources That Kept Me Sane</h2>
-<p>Databases can feel like a googly, but these resources were my coaches, breaking it down for a newbie
-                    like me:</p>
-<ul style="list-style: none; padding: 0;">
-<li style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
-<strong>MySQL Tutorial by W3Schools</strong><br/>
-                        Clear, beginner-friendly SQL lessons with examples. Start here: <a href="https://www.w3schools.com/mysql">w3schools.com</a>
-</li>
-<li style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
-<strong>Neo4j Sandbox</strong><br/>
-                        Free playground to practice Cypher and graph modeling. Try it: <a href="https://neo4j.com/sandbox">neo4j.com/sandbox</a>
-</li>
-<li style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
-<strong>Weaviate’s Vector Database Guide</strong><br/>
-                        Intro to vector DBs and AI applications. Check it out: <a href="https://weaviate.io/developers/weaviate">weaviate.io</a>
-</li>
-</ul>
+
+<section id="semester-project-realities">
+<h2>Semester Project &amp; Lab Realities</h2>
+<p>Learning database theory in lectures is one thing. But building real systems - like my upcoming database semester project <a href="../../projects/academic/dishly.html"><strong>Dishly (A Modern Recipe Management System)</strong></a> - forces you to combine these paradigms under tight submission deadlines!</p>
+<p>For our assignments, we had to put theory into practice:</p>
+
+<div class="code-block">
+
+<pre><code class="language-plaintext">Assignment 2: Desktop Expense Tracker (SQLite + Tkinter + Matplotlib)
+  └── Custom schemas for users, expenses, & income with FK integrity.
+
+Assignment 3: Netflix-Style Recommendation Graph (Neo4j + Cypher)
+  └── Loaded movies.csv to link Directors, Actors, Genres, & Countries into property graphs.</code></pre>
+</div>
+
+<div class="svg-diagram-wrapper">
+  <svg class="svg-diagram" viewBox="0 0 800 160" xmlns="http://www.w3.org/2000/svg">
+    <rect x="30" y="40" width="180" height="40" rx="8" fill="var(--code-bg)" stroke="#30363d" stroke-width="2"/>
+    <text x="120" y="65" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Late-Night Lab Build]</text>
+    
+    <path d="M 210 60 L 310 60" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="305,55 315,60 305,65" fill="var(--svg-text-muted)"/>
+    
+    <rect x="320" y="40" width="420" height="40" rx="8" fill="rgba(139, 92, 246, 0.1)" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="530" y="65" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">(Running SQLite Queries + Neo4j Cypher Imports)</text>
+
+    <path d="M 530 80 L 530 110" stroke="var(--svg-red-border)" stroke-width="2" fill="none"/>
+    <polygon points="525,105 535,105 530,110" fill="var(--svg-red-text)"/>
+
+    <rect x="410" y="110" width="240" height="40" rx="8" fill="rgba(239, 68, 68, 0.2)" stroke="var(--svg-red-border)" stroke-width="2"/>
+    <text x="530" y="135" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">[Graph Memory Overhead Spike] 💥</text>
+  </svg>
+</div>
+
+<p>When you load massive graph relationships or high-dimensional vectors, memory allocation gets tested hard. Neo4j graph traversals and vector HNSW indexes require active RAM allocation to keep queries blazingly fast.</p>
+<p>Understanding schema normalization for relational tables, index-free adjacency for graph nodes, and approximate nearest neighbor graphs for vectors is what separates a fragile lab submission from production-grade data infrastructure!</p>
 </section>
-<section id="why-it-matters">
+
+<section id="why-databases-matter-for-ai">
 <h2>Why Databases Matter for AI</h2>
-<p>Databases are the backbone of AI. MySQL and SQLite handle structured data like user profiles in my
-                    upcoming Database Semester's Project , <a href="/projects/academic/dishly.html" target="_blank">Dishly</a> - (Modern
-                    Recipe Management System). Neo4j powers recommendation systems by mapping relationships. Vector
-                    databases like Pinecone or Weaviate make AI smart by finding patterns in embeddings, semantic search
-                    or RAG in LLMs. This semester showed me databases aren’t just storage; they’re the engine for
-                    real-world AI.</p>
+<p>Databases aren't just passive storage buckets - they are the core execution engines behind real-world AI applications.</p>
+
+<div class="svg-diagram-wrapper">
+  <svg class="svg-diagram" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+    <rect x="150" y="20" width="500" height="40" rx="4" fill="var(--code-bg)" stroke="#30363d" stroke-width="2"/>
+    <text x="400" y="45" fill="var(--svg-text-main)" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">THE AI DATA ECOSYSTEM</text>
+    
+    <!-- Table Borders -->
+    <rect x="150" y="60" width="250" height="120" fill="none" stroke="#30363d" stroke-width="2"/>
+    <rect x="400" y="60" width="250" height="120" fill="none" stroke="#30363d" stroke-width="2"/>
+
+    <!-- Row 1 -->
+    <text x="170" y="90" fill="var(--svg-text-main)" font-family="monospace" font-size="12">Relational (SQL)</text>
+    <text x="420" y="90" fill="var(--svg-text-muted)" font-family="monospace" font-size="12">User Profiles &amp; Payments</text>
+    <line x1="150" y1="100" x2="650" y2="100" stroke="#30363d" stroke-width="1"/>
+
+    <!-- Row 2 -->
+    <text x="170" y="130" fill="var(--svg-text-main)" font-family="monospace" font-size="12">Graph (Neo4j)</text>
+    <text x="420" y="130" fill="var(--svg-text-muted)" font-family="monospace" font-size="12">Entity &amp; Knowledge Graphs</text>
+    <line x1="150" y1="140" x2="650" y2="140" stroke="#30363d" stroke-width="1"/>
+
+    <!-- Row 3 -->
+    <text x="170" y="170" fill="var(--svg-text-main)" font-family="monospace" font-size="12">Vector (Pinecone/Weaviate)</text>
+    <text x="420" y="170" fill="var(--svg-text-muted)" font-family="monospace" font-size="12">RAG Memory &amp; Embeddings</text>
+  </svg>
+</div>
+
+<p>MySQL and SQLite handle structured business data like user accounts and financial transactions (like in <a href="../../projects/academic/dishly.html"><strong>Dishly</strong></a>). Neo4j maps entity relationships to power recommendation engines. And vector databases like Pinecone or Weaviate make LLMs smart by enabling instant semantic search and Retrieval-Augmented Generation (RAG).</p>
+<p>Master your data models, index your high-dimensional space, and build smart!</p>
 </section>
-<div class="tags-container" id="dynamic-tags">
-<!-- Tags will be dynamically generated here -->
-</div>
-<hr class="divider"/>
-<section class="related-articles" id="related-series">
-<h2 class="series-title">Article Series</h2>
-<a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
-<div id="related-posts-container"></div>
-</section>
-</main>
-<!-- Newsletter Subscription Section -->
-<div class="newsletter-section">
-<div class="newsletter-content">
-<h3>Subscribe to our newsletter</h3>
-<p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
-<p>Subscribe to the newsletter, and don't miss out.</p>
-<div class="newsletter-form">
-<input class="newsletter-input" placeholder="Enter your email address" type="email"/>
-<button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
-</div>
-</div>
-</div>
-</div>
-<footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
-<div class="social-icons" style="margin-bottom:25px;">
-<a aria-label="GitHub profile" href="https://github.com/MuhammadTahaNasir" style="margin:0 5px; font-size:1.6em;" target="_blank" title="GitHub">
-<i aria-hidden="true" class="fab fa-github"></i>
-</a>
-<a aria-label="LinkedIn profile" href="https://www.linkedin.com/in/muhammadtahanasir/" style="margin:0 5px; font-size:1.6em;" target="_blank" title="LinkedIn">
-<i aria-hidden="true" class="fab fa-linkedin"></i>
-</a>
-<a aria-label="Send email" href="mailto:m.tahanasir.cs@gmail.com" style="margin:0 5px; font-size:1.6em;" title="Email">
-<i aria-hidden="true" class="fas fa-envelope"></i>
-</a>
-</div>
-<p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
-</footer>
-<button aria-label="Scroll to top" id="scrollTop">
-<i class="fas fa-chevron-up"></i>
-</button>
-<script src="../../assets/js/each-post.js"></script>
-<script src="../../assets/js/shared-bottom-nav.js"></script>
-<script src="../../assets/js/nav-active.js"></script>
-<script>
-        document.querySelectorAll('.copy-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                    button.innerText = "Copied!";
-                    setTimeout(() => button.innerText = "Copy", 1500);
-                });
-            });
-        });
-    </script>
+
+<p class="next-post-link" style="margin-top: 25px; font-size: 1.05rem;">
+          <em>Next: <a href="system_design.html">System Design for AI Systems: Scaling Ingestion, Retrieval, & Inference &rarr;</a></em>
+        </p>
+        <div class="tags-container" id="dynamic-tags"></div>
+        <hr class="divider" />
+        <section class="related-articles" id="related-series">
+          <h2 class="series-title">Article Series</h2>
+          <a class="series-link" href="../../posts.html"
+            >Zero to One: Dev Diaries</a
+          >
+          <div id="related-posts-container"></div>
+        </section>
+      </main>
+      <div class="newsletter-section">
+        <div class="newsletter-content">
+          <h3>Subscribe to our newsletter</h3>
+          <p>
+            Read articles from <strong>&lt;terry/&gt;</strong> directly inside
+            your inbox.
+          </p>
+          <p>Subscribe to the newsletter, and don't miss out.</p>
+          <div class="newsletter-form">
+            <input
+              class="newsletter-input"
+              placeholder="Enter your email address"
+              type="email"
+            />
+            <button
+              class="newsletter-btn"
+              onclick="handleNewsletterSubmit(event)"
+            >
+              SUBSCRIBE
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../../assets/js/each-post.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+      <script src="../../assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/shared-bottom-nav.js"></script>
 </body>
 </html>

@@ -1,154 +1,410 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html dir="auto" lang="en">
 <head>
-<link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
-<link href="/assets/images/favicon.ico" rel="shortcut icon"/>
-<link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}        .code-block { position: relative; margin: 25px 0; border-radius: 10px; background: #0d1117 !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; overflow: hidden; }
+        .code-block pre, .code-block pre[class*="language-"] { background: #0d1117 !important; color: #e6edf3 !important; text-shadow: none !important; padding: 20px 22px !important; margin: 0 !important; font-family: "SF Mono", "Fira Code", monospace !important; font-size: 0.94rem !important; line-height: 1.6 !important; border-radius: 10px !important; }
+        .code-block code { opacity: 1 !important; color: #e6edf3 !important; background: transparent !important; text-shadow: none !important; }
+    </style>');
+    })();
+  </script>
+<link href="/assets/images/favicon-96x96.png?v=5" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/assets/images/favicon.ico?v=5" rel="shortcut icon"/>
+<link href="/assets/images/apple-touch-icon.png?v=5" rel="apple-touch-icon" sizes="180x180"/>
 <meta content="Terry" name="apple-mobile-web-app-title"/>
 <link href="/assets/images/site.webmanifest" rel="manifest"/>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
 <meta content="noindex, nofollow" name="robots"/>
-<meta content="Why I chose a Computer Science degree over a specialized AI path in 2022 for a strong foundation and more options." name="description"/>
+<meta content="Why I chose a Computer Science degree over a specialized AI path in March 2022 for a strong foundation and long-term engineering adaptability." name="description"/>
 <meta content="Muhammad Taha Nasir" name="author"/>
-<meta content="Generative AI" name="tags"/>
-<title>Why I Chose CS Over AI</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
-<link href="../../assets/css/each-post.css" rel="stylesheet"/>
-<script>
-        // Apply theme immediately on page load
-        (function () {
-            const savedTheme = localStorage.getItem('pref-theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
-        })();
-    </script>
+<meta content="Computer Science, AI, Software Engineering, Career Reflection" name="tags"/>
+<meta name="thumbnail" content="/assets/images/posts/cs-vs-ai-cover.png" />
+<title>Why I Chose Computer Science Over a Specialized AI Degree</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/css/stylesheet.css" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet"/>
+<link href="../../assets/css/bottom-nav.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/>
+<style>
+         .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+        
+        /* Clean Theme-Adaptive Styling */
+        .cinematic-intro-card {
+            background: var(--entry);
+            border-left: 4px solid var(--accent);
+            border-top: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            border-radius: 0 12px 12px 0;
+            padding: 24px 28px;
+            margin: 25px 0 35px 0;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .cinematic-intro-card p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            color: var(--primary);
+        }
+        
+        .cinematic-intro-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .svg-diagram-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; background: var(--entry) !important; border: 1px solid var(--border) !important; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-small); transition: background 0.3s ease, border-color 0.3s ease; }
+        
+        .svg-diagram { 
+            max-width: 500px; 
+            width: 100%; 
+            height: auto; 
+            background: transparent; 
+            padding: 24px; 
+        }
+
+        .thought-card {
+            background: var(--entry);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 26px;
+            margin: 32px 0;
+            color: var(--primary);
+            box-shadow: var(--shadow-light);
+        }
+
+        .thought-card ul li {
+            margin-bottom: 10px;
+        }
+
+        .hero-banner-img {
+            max-width: 100%;
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            margin: 20px 0 30px 0;
+            border-radius: 12px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--border);
+            display: block;
+        }
+
+        .handwritten-quote {
+            font-family: 'Caveat', cursive, sans-serif;
+            font-size: 1.9rem;
+            line-height: 1.35;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .handwritten-signature {
+            font-family: 'Caveat', cursive, sans-serif;
+            font-size: 1.6rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 25px 0;
+        }
+
+        /* Transparent Scrollbars (Mobile & Desktop) */
+        .table-responsive, .code-block, .code-block pre, pre, pre[class*="language-"] {
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+
+        .table-responsive::-webkit-scrollbar, .code-block::-webkit-scrollbar, .code-block pre::-webkit-scrollbar, pre::-webkit-scrollbar, pre[class*="language-"]::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            background: transparent !important;
+        }
+
+        /* Mobile Media Queries */
+        @media (max-width: 768px) {
+            .hero-banner-img {
+                max-height: 260px;
+                margin: 15px 0 20px 0;
+            }
+
+            .cinematic-intro-card {
+                padding: 18px 20px;
+                margin: 20px 0 25px 0;
+            }
+
+            .cinematic-intro-card p {
+                font-size: 0.98rem;
+                line-height: 1.6;
+                margin-bottom: 10px;
+            }
+
+            .handwritten-quote {
+                font-size: 1.5rem;
+                line-height: 1.3;
+            }
+
+            .handwritten-signature {
+                font-size: 1.3rem;
+            }
+
+            .svg-diagram {
+                padding: 14px 8px;
+            }
+
+            .thought-card {
+                padding: 18px 20px;
+                margin: 20px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-banner-img {
+                max-height: 200px;
+                border-radius: 8px;
+            }
+
+            .cinematic-intro-card {
+                padding: 14px 16px;
+                border-left-width: 3px;
+            }
+
+            .handwritten-quote {
+                font-size: 1.35rem;
+            }
+
+            .handwritten-signature {
+                font-size: 1.15rem;
+            }
+        }
+    </style>
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="../../assets/js/bg-canvas.js"></script>
 </head>
-<body class="dark" id="top" post-date="2022-03-15T00:00:00Z">
-<header class="header">
-<nav class="nav">
-<!-- Left: Logo -->
-<div class="nav-left">
-<a class="logo" href="/index.html">&lt;terry/&gt;</a>
-</div>
-<!-- Center: Pills Navigation -->
-<div class="nav-center">
-<div class="pill-nav">
-<a href="/projects.html">Projects</a>
-<a href="/archives.html">Archives</a>
-<a href="/resume.html">Resume</a>
-<a href="/search.html">Search</a>
+<body id="top" post-date="2022-03-15T00:00:00Z">
+<div aria-hidden="true" class="loader" id="loader">
+<div class="terry-animation">
+<span class="letter">t</span>
+<span class="letter">e</span>
+<span class="letter">r</span>
+<span class="letter">r</span>
+<span class="letter">y</span>
 </div>
 </div>
-<!-- Right: Theme toggle -->
-<div class="nav-right">
-<button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
-<svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<circle cx="12" cy="12" r="5"></circle>
-<line x1="12" x2="12" y1="1" y2="3"></line>
-<line x1="12" x2="12" y1="21" y2="23"></line>
-<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
-<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
-<line x1="1" x2="3" y1="12" y2="12"></line>
-<line x1="21" x2="23" y1="12" y2="12"></line>
-<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
-<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
-</svg>
-<svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-</svg>
-</button>
-</div>
-</nav>
-</header>
+    <!-- Header Navigation -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
 <div class="container">
 <nav class="breadcrumb">
-<a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
-</nav>
+      <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a> » <span class="breadcrumb-current">Why I Chose Computer Science Over a Specialized AI Degree</span>
+    </nav>
 <main class="post-content">
 <header class="post-header">
-<h1 class="post-title">Why I Chose CS Over AI: My Decision Process</h1>
-<div class="post-meta">March 15, 2022 • 3 min • Muhammad Taha Nasir</div>
+<h1 class="post-title">Why I Chose Computer Science Over a Specialized AI Degree</h1>
+<div class="post-meta">March 15, 2022 • 5 min • Muhammad Taha Nasir</div>
 </header>
+<img alt="Computer Science vs Artificial Intelligence Degree Cover" class="hero-banner-img" src="/assets/images/posts/cs-vs-ai-cover.png"/>
+<div class="cinematic-intro-card">
+<p><em>Artificial Intelligence is everywhere.</em></p>
+<p>Open YouTube, and you'll find another video predicting that AI will replace programmers. Browse Twitter, and someone is showing a neural network generating artwork that looks almost human. University brochures suddenly have "Artificial Intelligence" printed across their front pages, promising students they're stepping into the future.</p>
+<p>It feels like the entire technology industry has collectively agreed on one thing: <strong>AI is the future.</strong></p>
+<p>Which naturally leads to another question: <em>If Artificial Intelligence is the future, why would anyone choose Computer Science instead?</em></p>
+</div>
 <aside class="table-of-contents">
 <details>
 <summary>Table of Contents</summary>
 <ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#why-cs">Why I Picked CS</a></li>
-<li><a href="#how-i-decided">How I Made My Choice</a></li>
-<li><a href="#what-i-learned">What I Learned</a></li>
-<li><a href="#things-i-considered">Things I Considered</a></li>
-<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#hype-is-real">The Hype Is Real</a></li>
+<li><a href="#beyond-buzzwords">Looking Beyond the Buzzwords</a></li>
+<li><a href="#cs-not-just-programming">Computer Science Isn't About Programming</a></li>
+<li><a href="#thought-experiment">A Thought Experiment</a></li>
+<li><a href="#tech-never-stops">Technology Never Stops Moving</a></li>
+<li><a href="#why-cs">So... Why Computer Science?</a></li>
+<li><a href="#reality-check">Reality Check</a></li>
+<li><a href="#final-thoughts">Final Thoughts</a></li>
 </ul>
 </details>
 </aside>
-<section id="introduction">
-<h2>Introduction</h2>
-<p>It’s March 2022, and I’m a 12th grader trying to figure out what to study in uninversity and later
-                    persuing my career. I’ve been hearing a lot about Artificial Intelligence with things like
-                    self-driving cars and chatbots, but I’m also looking at Computer Science. After thinking it over, I
-                    decided to go with CS. This post is about why I made that choice and what went into it.</p>
+<div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter" type="button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share article" type="button">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+<section id="intro">
+<p>For the past few weeks, I've been asking myself exactly that.</p>
+<p>Every career discussion eventually reaches the same conclusion. AI is growing. Companies are investing billions into research. Universities are launching specialized degrees. Everyone seems convinced that machine learning engineers will become one of the most valuable professionals of the next decade.</p>
+<p>So shouldn't I just study AI?</p>
+<p>It sounds logical. It sounds efficient. And honestly, it sounds exciting.</p>
+<p>But the more I researched universities, degree plans, and the engineers building the software I admired, the more one thing kept bothering me.</p>
+<p>Almost none of them started with AI. They started with Computer Science.</p>
+<p>That felt... strange.</p>
+<p>Why would people building tomorrow's technology spend years learning things like linked lists, memory allocation, operating systems, and computer architecture instead of jumping directly into neural networks?</p>
+<p>There had to be a reason. So I started digging.</p>
+</section>
+<section id="hype-is-real">
+<h2>The Hype Is Real</h2>
+<p>Artificial Intelligence isn't just another trend. For the first time in years, it genuinely feels like software is entering a completely new era.</p>
+<p>Recommendation systems are getting smarter. Voice assistants are improving. Computer vision is becoming surprisingly accurate. Self-driving cars are no longer science fiction.</p>
+<p>Every week seems to introduce another breakthrough. It's hard <strong>not</strong> to be fascinated.</p>
+<p>And maybe that's exactly why so many students (including me) are tempted to skip straight to AI.</p>
+<p>Why spend months learning pointers in C++ when you could be training neural networks? Why study operating systems when you could build intelligent applications?</p>
+<p>At first glance, the answer seems obvious. Skip the boring part. Start with the exciting part.</p>
+<p>But engineering rarely rewards shortcuts.</p>
+</section>
+<section id="beyond-buzzwords">
+<h2>Looking Beyond the Buzzwords</h2>
+<p>The more I explored AI, the more I noticed something interesting. Every explanation eventually relied on concepts I didn't fully understand yet.</p>
+<p>People talked about optimization. Algorithms. Memory efficiency. Parallel computing. Data structures. Complexity analysis. Distributed systems.</p>
+<p>These weren't AI concepts. These were Computer Science concepts.</p>
+<p>It felt like trying to understand modern architecture without first understanding how foundations support a building. The skyscraper is impressive. But nobody talks about the concrete underneath.</p>
+<!-- Fully Theme-Adaptive Vector SVG Diagram -->
+<div class="svg-diagram-wrapper">
+<svg class="svg-diagram" viewbox="0 0 450 340" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arrow" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="5" refy="5" viewbox="0 0 10 10">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="var(--svg-text-muted)"></path>
+</marker>
+</defs>
+<!-- Box 1: AI Applications -->
+<rect fill="#6366f1" height="44" rx="8" width="350" x="50" y="20"></rect>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="225" y="47">AI Applications</text>
+<!-- Arrow 1 -->
+<line marker-end="url(#arrow)" stroke="#94a3b8" stroke-width="2" x1="225" x2="225" y1="64" y2="82"></line>
+<!-- Box 2: Machine Learning Models -->
+<rect fill="#0284c7" height="44" rx="8" width="320" x="65" y="84"></rect>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="225" y="111">Machine Learning Models</text>
+<!-- Arrow 2 -->
+<line marker-end="url(#arrow)" stroke="#94a3b8" stroke-width="2" x1="225" x2="225" y1="128" y2="146"></line>
+<!-- Box 3: Algorithms & Mathematics -->
+<rect fill="#0d9488" height="44" rx="8" width="290" x="80" y="148"></rect>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="225" y="175">Algorithms &amp; Mathematics</text>
+<!-- Arrow 3 -->
+<line marker-end="url(#arrow)" stroke="#94a3b8" stroke-width="2" x1="225" x2="225" y1="192" y2="210"></line>
+<!-- Box 4: Computer Science Principles -->
+<rect fill="#7c3aed" height="44" rx="8" width="260" x="95" y="212"></rect>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="225" y="239">Computer Science Principles</text>
+<!-- Arrow 4 -->
+<line marker-end="url(#arrow)" stroke="#94a3b8" stroke-width="2" x1="225" x2="225" y1="256" y2="274"></line>
+<!-- Box 5: Computer Hardware -->
+<rect fill="#059669" height="44" rx="8" width="230" x="110" y="276"></rect>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="225" y="303">Computer Hardware</text>
+</svg>
+</div>
+<p>The higher I looked, the more I realized everything eventually pointed downward. Toward the fundamentals.</p>
+</section>
+<section id="cs-not-just-programming">
+<h2>Computer Science Isn't About Programming</h2>
+<p>This was probably my biggest misconception. I used to think Computer Science meant learning programming languages. Learn C++. Learn Java. Build software. Graduate. Simple.</p>
+<p>But that's only the surface. Programming is just the tool.</p>
+<p>Computer Science is really the science behind why software works in the first place:</p>
+<ul>
+<li>Why one algorithm finishes in milliseconds while another takes minutes.</li>
+<li>Why memory behaves differently on the stack and the heap.</li>
+<li>Why operating systems schedule processes the way they do.</li>
+<li>Why databases can retrieve millions of records almost instantly.</li>
+<li>Why distributed systems remain reliable even when machines fail.</li>
+</ul>
+<p>Those questions fascinated me far more than I expected. Because once you understand them, every technology built on top suddenly starts making a lot more sense. Including AI.</p>
+</section>
+<section id="thought-experiment">
+<h2>A Thought Experiment</h2>
+<div class="thought-card">
+<p>Imagine two students graduating five years from now:</p>
+<ul>
+<li><strong>Student A:</strong> Spent university mastering the latest AI frameworks.</li>
+<li><strong>Student B:</strong> Spent the same time building a deep understanding of algorithms, systems, networking, databases, and software engineering while learning AI alongside those fundamentals.</li>
+</ul>
+<p style="margin-top: 15px;">Now imagine the industry changes. New frameworks replace old ones. Different models dominate the market. Entire workflows evolve.</p>
+<p><strong>Which engineer adapts faster?</strong></p>
+</div>
+<p>I don't know the answer with certainty. But I have a feeling fundamentals survive longer than tools. History certainly seems to agree.</p>
+</section>
+<section id="tech-never-stops">
+<h2>Technology Never Stops Moving</h2>
+<p>Ten years ago, mobile development dominated conversations. Then cloud computing. Then DevOps. Now AI.</p>
+<p>Technology doesn't stand still. Every generation believes it has found the final answer. Then something new appears.</p>
+<p>That's why I'm becoming increasingly convinced that chasing technologies isn't nearly as valuable as understanding the principles underneath them. Languages evolve. Libraries disappear. Frameworks get rewritten. Good engineering doesn't.</p>
 </section>
 <section id="why-cs">
-<h2>Why I Picked CS</h2>
-<p>Computer Science feels like a solid starting point. It teaches you the basics, like algorithms,
-                    coding in languages like C or Java, and how systems work. AI sounds interesting, but it seems like
-                    you need to know a lot already to get into it. CS gives me a foundation I can build on, and I can
-                    always learn AI later if I want.</p>
-<ul>
-<li>Strong base: CS skills like coding and problem-solving seem useful everywhere.</li>
-<li>Options: I can explore AI or other fields after learning the fundamentals.</li>
-<li>Control: Writing code in C or Java feels straightforward compared to AI’s complexity.</li>
-</ul>
+<h2>So... Why Computer Science?</h2>
+<p>Because I don't just want to know <strong>how</strong> to build software. I want to understand <strong>why</strong> it works.</p>
+<p>I want to understand why algorithms scale. Why systems fail. Why memory matters. Why operating systems behave the way they do. Why networks introduce latency. Why software architecture determines whether an application survives growth or collapses under it.</p>
+<p>Those ideas don't become obsolete every few years. They're timeless. And maybe that's exactly what makes Computer Science such a powerful foundation.</p>
+<p>Not because it's trendy. But because it isn't.</p>
 </section>
-<section id="how-i-decided">
-<h2>How I Made My Choice</h2>
-<ol>
-<li>I spent time reading online. AI was all over the news, but CS seemed to be the backbone of
-                        everything, from apps to websites.</li>
-<li>I tried coding a bit in Python and Java. CS felt more approachable, while AI seemed tough to
-                        start without a lot of prep.</li>
-<li>I thought about my future. I want a career where I can try different things, and CS seemed to
-                        give me more paths to choose from.</li>
-</ol>
+<section id="reality-check">
+<h2>Reality Check</h2>
+<p>Will studying Computer Science automatically make someone a better AI engineer? Of course not.</p>
+<p>It still takes curiosity. Practice. Projects. Failures. Thousands of lines of code. Late nights debugging problems that probably shouldn't exist.</p>
+<p>But if AI really becomes the future everyone predicts, I want to enter that future standing on a solid foundation instead of chasing every new headline.</p>
 </section>
-<section id="what-i-learned">
-<h2>What I Learned</h2>
-<ul>
-<li>CS applies to a lot of areas, like games, apps, or even healthcare, not just one thing like AI.
-                    </li>
-<li>AI felt like a big jump for someone just starting out. CS gives me a way to ease into things.
-                    </li>
-<li>A senior I talked to said AI jobs often ask for experience. CS skills are easier to start with
-                        as a beginner.</li>
-</ul>
-<p>I also found that CS fits how I like to learn. There are tons of free coding tutorials online, which
-                    makes it easier to get started. AI resources were harder to find and understand, so CS
-                    felt like the better choice for now.</p>
+<section id="final-thoughts">
+<h2>Final Thoughts</h2>
+<p>Maybe I'll read this a few years from now and completely disagree with myself. Maybe AI programs will become the standard. Maybe universities will redesign how engineering is taught.</p>
+<p>Or maybe I'll discover that this decision quietly shaped everything that came afterward.</p>
+<p>Right now, I don't know.</p>
+<p>What I do know is this:</p>
+<blockquote class="quote-highlight" style="margin: 35px 0;">
+<p class="handwritten-quote">Artificial Intelligence may be the destination. But Computer Science feels like the best place to begin the journey.</p>
+<p class="handwritten-signature">– Muhammad Taha Nasir</p>
+</blockquote>
+<p class="next-post-link" style="margin-top: 25px; font-size: 1.05rem;">
+          <em>Next: <a href="cpp-vs-python-cp.html">From C++ Competitive Programming to Python: Trade-offs in Memory & Speed &rarr;</a></em>
+        </p>
 </section>
-<section id="things-i-considered">
-<h2>Things I Considered</h2>
-<ul>
-<li>Resources: There are plenty of CS tutorials and books out there, more than what I found for AI ,
-                        internet still needs more information about it, which I cant find currently.</li>
-<li>Future plans: With CS, I can pick up AI later once I have the basics down.</li>
-<li>My pace: CS lets me learn step by step without feeling rushed into one specific field.</li>
-</ul>
-<p>I also noticed job postings often asked for basic coding skills, which CS covers. AI jobs seemed to
-                    want more experience than I have right now, so CS made more sense to start with.</p>
-</section>
-<section id="conclusion">
-<h2>Conclusion</h2>
-<p>Choosing CS over AI in today is about building a strong foundation and keeping my options open.
-                    It feels like the right step for me as a student just starting out. I’m looking forward to learning
-                    more and sharing my journey here. This is my first post, and I’ll keep writing as I go!</p>
-</section>
-<div class="tags-container" id="dynamic-tags">
-<!-- Tags will be dynamically generated here -->
-</div>
+<div class="tags-container" id="dynamic-tags"></div>
 <hr class="divider"/>
 <section class="related-articles" id="related-series">
 <h2 class="series-title">Article Series</h2>
@@ -156,18 +412,47 @@
 <div id="related-posts-container"></div>
 </section>
 </main>
-<footer class="footer">
-<div class="social-icons">
-<a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-<a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-<a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+<div class="newsletter-section">
+<div class="newsletter-content">
+<h3>Subscribe to our newsletter</h3>
+<p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+<p>Subscribe to the newsletter, and don't miss out.</p>
+<div class="newsletter-form">
+<input class="newsletter-input" placeholder="Enter your email address" type="email"/>
+<button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
 </div>
-<p>© 2022 – Muhammad Taha Nasir</p>
-</footer>
 </div>
+</div>
+</div>
+<footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
 <button aria-label="Scroll to top" id="scrollTop">
 <i class="fas fa-chevron-up"></i>
 </button>
 <script src="../../assets/js/each-post.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="../../assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/shared-bottom-nav.js"></script>
 </body>
 </html>

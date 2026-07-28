@@ -1,260 +1,571 @@
 <!DOCTYPE html>
-
 <html dir="auto" lang="en">
 <head>
-<link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
-<link href="/assets/images/favicon.ico" rel="shortcut icon"/>
-<link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
-<meta content="Terry" name="apple-mobile-web-app-title"/>
-<link href="/assets/images/site.webmanifest" rel="manifest"/>
-<meta charset="utf-8"/>
-<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
-<meta content="noindex, nofollow" name="robots"/>
-<meta content="A technical guide on optimizing local LLM inference using Ollama and quantization on constrained hardware." name="description"/>
-<meta content="Muhammad Taha Nasir" name="author"/>
-<meta content="LLM Inference, Hardware Optimization" name="tags"/>
-<meta content="/assets/images/posts/local-llms-ollama.png" name="thumbnail"/>
-<title>Ditching Cloud APIs: Running Llama Locally on Constrained Hardware</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
-<link href="../../assets/css/each-post.css" rel="stylesheet"/>
-<link href="../../assets/css/bottom-nav.css" rel="stylesheet"/>
-<!-- Prism.js Okaidia High Contrast Theme -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/>
-<style>
-        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>');
+    })();
+  </script>
+    <link href="/assets/images/favicon-96x96.png?v=5" rel="icon" sizes="96x96" type="image/png" />
+    <link href="/assets/images/favicon.ico?v=5" rel="shortcut icon" />
+    <link href="/assets/images/apple-touch-icon.png?v=5" rel="apple-touch-icon" sizes="180x180" />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta content="Optimizing local LLM inference using Ollama, GGUF quantization formats, VRAM management, and hardware acceleration." name="description" />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="Local LLMs, Ollama, Quantization, PyTorch, GGUF" name="tags" />
+    <meta name="thumbnail" content="/assets/images/posts/local-llms-ollama.png" />
+    <title>Ditching Cloud APIs: Running Local LLMs with Ollama &amp; Quantization</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/stylesheet.css" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}
         .loader.hidden{opacity:0;visibility:hidden}
-        /* Force code blocks to be bright and override any dim CSS from each-post.css */
-        .code-block pre {
-            opacity: 1 !important;
-            color: #f8f8f2 !important;
-            text-shadow: 0 1px rgba(0, 0, 0, 0.3) !important;
+        .code-block { position: relative; margin: 25px 0; border-radius: 10px; background: #0d1117 !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; overflow: hidden; }
+        .code-block pre, .code-block pre[class*="language-"] { background: #0d1117 !important; color: #e6edf3 !important; text-shadow: none !important; padding: 20px 22px !important; margin: 0 !important; font-family: "SF Mono", "Fira Code", monospace !important; font-size: 0.94rem !important; line-height: 1.6 !important; border-radius: 10px !important; }
+        .code-block code { opacity: 1 !important; color: #e6edf3 !important; background: transparent !important; text-shadow: none !important; }
+        
+
+        .cinematic-intro-card {
+            background: var(--entry);
+            border-left: 4px solid var(--accent);
+            border-top: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            border-radius: 0 12px 12px 0;
+            padding: 24px 28px;
+            margin: 25px 0 35px 0;
+            box-shadow: var(--shadow-medium);
         }
-        .code-block code {
-            opacity: 1 !important;
-            color: inherit !important;
+        .cinematic-intro-card p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            color: var(--primary);
+        }
+        .cinematic-intro-card p:last-child {
+            margin-bottom: 0;
+        }
+        .hero-banner-img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            margin: 20px 0 30px 0;
+            border-radius: 12px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--border);
+            display: block;
+        }
+        .svg-diagram-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; background: var(--entry) !important; border: 1px solid var(--border) !important; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-small); transition: background 0.3s ease, border-color 0.3s ease; }
+        .svg-diagram {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Authentic Ubuntu Terminal Component */
+        .ubuntu-terminal-window {
+            background: #300a24;
+            border-radius: 8px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+            border: 1px solid #5e2750;
+            margin: 30px 0;
+            overflow: hidden;
+            font-family: 'Ubuntu Mono', 'Consolas', 'Courier New', monospace;
+        }
+        .terminal-header {
+            background: #3c3b37;
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #292825;
+        }
+        .terminal-buttons {
+            display: flex;
+            gap: 8px;
+            z-index: 2;
+        }
+        .terminal-buttons span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .btn-close { background: #df4b16; }
+        .btn-minimize { background: #dcdcdd; }
+        .btn-maximize { background: #dcdcdd; }
+        .terminal-title {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            text-align: center;
+            color: #dfdfdf;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .terminal-body {
+            padding: 16px 20px;
+            color: #ffffff;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+        .terminal-line { margin-bottom: 8px; }
+        .prompt { color: #4e9a06; font-weight: bold; }
+        .cmd { color: #ffffff; }
+        .terminal-output { color: #888a85; margin-bottom: 6px; }
+        .terminal-output.success { color: #4e9a06; font-weight: bold; }
+        .terminal-prompt { color: #729fcf; margin: 10px 0 6px 0; font-weight: bold; }
+        .terminal-response { color: #eeeeec; background: rgba(0, 0, 0, 0.25); padding: 12px 14px; border-radius: 6px; border-left: 3px solid #729fcf; margin-bottom: 12px; }
+        .terminal-stats { color: #fce94f; font-size: 0.82rem; border-top: 1px dashed rgba(255, 255, 255, 0.2); padding-top: 8px; margin-top: 10px; }
+
+        @media (max-width: 768px) {
+            .hero-banner-img { margin: 15px 0 20px 0; }
+            .cinematic-intro-card { padding: 18px 20px; margin: 20px 0 25px 0; }
+            .cinematic-intro-card p { font-size: 0.98rem; line-height: 1.6; margin-bottom: 10px; }
+            .terminal-body { padding: 12px 14px; font-size: 0.84rem; }
+        }
+        @media (max-width: 480px) {
+            .hero-banner-img { border-radius: 8px; }
+            .cinematic-intro-card { padding: 14px 16px; border-left-width: 3px; }
         }
     </style>
-<script>
-        // Apply theme immediately on page load
-        (function () {
-            const savedTheme = localStorage.getItem('pref-theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
-        })();
-    </script>
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="../../assets/js/bg-canvas.js"></script>
 </head>
-<body class="dark" id="top" post-date="2025-10-14">
-<!-- Loader Animation -->
-<div aria-hidden="true" class="loader" id="loader">
-<div class="terry-animation">
-<span class="letter">t</span>
-<span class="letter">e</span>
-<span class="letter">r</span>
-<span class="letter">r</span>
-<span class="letter">y</span>
-</div>
-</div>
-<header class="header">
-<nav class="nav">
-<!-- Left: Logo -->
-<div class="nav-left">
-<a class="logo" href="/index.html">&lt;terry/&gt;</a>
-</div>
-<!-- Center: Pills Navigation -->
-<div class="nav-center">
-<div class="pill-nav">
-<a href="/projects.html">Projects</a>
-<a href="/archives.html">Archives</a>
-<a href="/resume.html">Resume</a>
-<a href="/search.html">Search</a>
-</div>
-</div>
-<!-- Right: Theme toggle -->
-<div class="nav-right">
-<button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
-<svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<circle cx="12" cy="12" r="5"></circle>
-<line x1="12" x2="12" y1="1" y2="3"></line>
-<line x1="12" x2="12" y1="21" y2="23"></line>
-<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
-<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
-<line x1="1" x2="3" y1="12" y2="12"></line>
-<line x1="21" x2="23" y1="12" y2="12"></line>
-<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
-<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
-</svg>
-<svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-</svg>
-</button>
-</div>
-</nav>
-</header>
-<div class="container">
-<nav class="breadcrumb">
-<a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
-</nav>
-<main class="post-content">
-<header class="post-header">
-<h1 class="post-title">Ditching Cloud APIs: Running Llama Locally on Constrained Hardware</h1>
-<div class="post-meta">October 14, 2025 • 4 min • Muhammad Taha Nasir</div>
-</header>
-<img alt="Ditching Cloud APIs: Running Llama Locally on Constrained Hardware" src="/assets/images/posts/local-llms-ollama.png" style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;"/>
-<aside class="table-of-contents">
-<details>
-<summary>Table of Contents</summary>
-<ul>
-<li><a href="#cloud-costs">The Real Cost of Cloud APIs</a></li>
-<li><a href="#vram-bottlenecks">Understanding VRAM Bottlenecks</a></li>
-<li><a href="#quantization">How Quantization Actually Works</a></li>
-<li><a href="#gguf-format">The Magic of the GGUF Format</a></li>
-<li><a href="#ollama-setup">Deploying with Ollama</a></li>
-<li><a href="#python-integration">Python API Integration</a></li>
-<li><a href="#performance">Performance Tuning</a></li>
-</ul>
-</details>
-</aside>
-<!-- Social Sharing Floating Toolbar -->
-<div class="social-sharing-toolbar">
-<button class="social-btn subscribe-btn" title="Subscribe to newsletter">
-<i class="fas fa-envelope"></i>
-</button>
-<button class="social-btn share-btn" title="Share">
-<i class="fas fa-share-alt"></i>
-</button>
-</div>
-<section id="cloud-costs">
-<h2>The Real Cost of Cloud APIs</h2>
-<p>Let's talk about API bills. Building AI applications is incredibly fun until you look at your credit card statement at the end of the month. During a recent hackathon, I was building an automated document parsing tool that processed hundreds of pages of messy PDF text. I relied heavily on OpenAI's endpoints.</p>
-<p>Because I was iterating rapidly, my code had bugs. At one point, an infinite loop triggered hundreds of API calls before I caught it. It cost me real, actual money. Beyond the financial cost, relying on cloud APIs means latency spikes, rate limits, and massive privacy concerns if you are dealing with sensitive user data. I needed to move inference entirely to my local machine.</p>
-</section>
-<section id="vram-bottlenecks">
-<h2>Understanding VRAM Bottlenecks</h2>
-<p>I decided to run Meta's Llama 3 locally. The problem? Running an 8-billion parameter model requires significant hardware. In standard 16-bit floating-point precision (FP16), an 8B model takes roughly 16GB of Video RAM (VRAM) just to load into memory, and that doesn't even account for the context window overhead during generation.</p>
-<p>My laptop definitely did not have 16GB of dedicated VRAM. If a model cannot fit into your GPU's VRAM, it spills over into your system's regular RAM. Because system RAM is drastically slower than VRAM, your inference speed immediately drops from a snappy 40 tokens per second to a painful 2 seconds per token. The model becomes practically unusable.</p>
-</section>
-<section id="quantization">
-<h2>How Quantization Actually Works</h2>
-<p>This is where quantization saves the day. Quantization is a compression technique that reduces the precision of the numbers used to represent the neural network's weights. By converting the weights from 16-bit floats to 4-bit integers, you drastically slash the memory footprint.</p>
-<p>Suddenly, that massive 16GB model compresses down to just 4.5GB. It easily fits inside an entry-level GPU or even unified Apple Silicon memory. The tradeoff is a slight degradation in the model's reasoning capabilities, but for 95 percent of standard tasks like summarization, entity extraction, or basic coding, the difference is completely negligible.</p>
-</section>
-<section id="gguf-format">
-<h2>The Magic of the GGUF Format</h2>
-<p>To run these quantized models efficiently, the community developed the GGUF (GPT-Generated Unified Format) file structure. GGUF is optimized for rapid loading and execution on both CPUs and GPUs. It stores all the tensors, metadata, and tokenization rules in a single, highly efficient binary file.</p>
-<p>Instead of downloading massive directories of PyTorch bin files and writing custom inference scripts, you just download a single `.gguf` file and execute it. It completely revolutionized the local AI scene.</p>
-</section>
-<section id="ollama-setup">
-<h2>Deploying with Ollama</h2>
-<p>The easiest way to run these GGUF models is using Ollama. Ollama acts very much like Docker, but specifically for LLMs. It manages your local model registry, handles the heavy lifting of loading weights into memory, and instantly spins up a local REST API that perfectly mimics the OpenAI endpoint structure.</p>
-<p>You can run a model from the terminal by simply typing `ollama run llama3`. But the real power is unleashed when you integrate it directly into your backend architecture.</p>
-</section>
-<section id="python-integration">
-<h2>Python API Integration</h2>
-<p>Here is how I modified my Python backend to hit the local Ollama instance instead of the cloud. It is incredibly straightforward.</p>
-<div class="code-block">
-<button class="copy-btn">Copy</button>
-<pre class="language-python" data-lang="Python"><code>
-import requests
-import json
-import time
+<body id="top" post-date="2025-10-10T00:00:00Z">
+    <div aria-hidden="true" class="loader" id="loader">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+        <!-- ---------- Header Navigation ---------- -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+    <div class="container">
+        <nav class="breadcrumb">
+      <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a> » <span class="breadcrumb-current">Ditching Cloud APIs: Running Local LLMs with Ollama &amp; Quantization</span>
+    </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">Ditching Cloud APIs: Running Local LLMs with Ollama &amp; Quantization</h1>
+                <div class="post-meta">October 10, 2025 • 4 min • Muhammad Taha Nasir</div>
+            </header>
+            <img alt="Ditching Cloud APIs: Running Local LLMs with Ollama &amp; Quantization" class="hero-banner-img" src="/assets/images/posts/local-llms-ollama.png"/>
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#why-local-tradeoffs">Why Local? The 2025 Trade-Off Matrix</a></li>
+                        <li><a href="#understanding-quantization-gguf">Understanding Quantization &amp; The GGUF Format</a></li>
+                        <li><a href="#hardware-constraints-vram-math">Hardware Constraints &amp; VRAM Math</a></li>
+                        <li><a href="#setting-up-ollama">Setting Up Ollama for High-Performance Workloads</a></li>
+                        <li><a href="#integrating-ollama-python">Integrating Local Ollama with Python (Async API)</a></li>
+                        <li><a href="#optimization-checklist">Optimization Checklist for Production Local LLMs</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter" type="button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share article" type="button">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
 
-def generate_local_response(prompt_text, system_prompt="You are a helpful assistant."):
-    url = "http://localhost:11434/api/generate"
-    
-    payload = {
-        "model": "llama3",
-        "prompt": prompt_text,
-        "system": system_prompt,
-        "stream": False,
-        "options": {
-            "temperature": 0.7,
-            "num_ctx": 4096, # Restrict context window to save memory
-            "num_predict": 512 # Cap the output length
-        }
-    }
-    
-    start_time = time.time()
-    
-    try:
-        response = requests.post(url, json=payload)
-        response.raise_for_status()
-        
-        latency = time.time() - start_time
-        data = response.json()
-        
-        print(f"[Inference completed in {latency:.2f} seconds]")
-        return data['response']
-        
-    except requests.exceptions.RequestException as e:
-        return f"Local inference failed: {e}"
+            <div class="cinematic-intro-card">
+                <p>"Why relying entirely on cloud LLM APIs introduces latency spikes and scaling costs, and how to deploy open-weights models locally using Ollama and GGUF quantization."</p>
+            </div>
 
-# Test the local endpoint
-result = generate_local_response("Write a python script to reverse a linked list.")
-print(result)
-                    </code></pre>
+<section id="introduction">
+    <p>For the past few years, the standard playbook for AI-powered applications was simple: drop in an API key from OpenAI, Anthropic, or Google, make an HTTP request, and pay the per-token toll.</p>
+    <p>While API wrappers are great for quick prototypes, relying entirely on cloud LLMs quickly introduces hard walls: unpredictable monthly latency spikes, privacy compliance headaches, and scaling costs that grow linearly with user activity.</p>
+    <p>By late 2025, open-weights models (like Llama 3.1, Mistral, and Qwen 2.5) reached a tipping point where mid-tier consumer hardware can run models that rival last year's top-tier commercial endpoints.</p>
+    <p>This post covers how to break free from cloud dependencies using Ollama and GGUF quantization, optimizing local inference pipelines for speed, memory, and accuracy.</p>
+</section>
+
+<section id="why-local-tradeoffs">
+    <h2>Why Local? The 2025 Trade-Off Matrix</h2>
+    <p>Before diving into hardware constraints, let's look at the operational differences between Cloud APIs and Local Inference:</p>
+
+    <div class="table-responsive">
+<table class="benchmark-table">
+        <thead>
+            <tr>
+                <th>Metric / Dimension</th>
+                <th>Cloud APIs (OpenAI, Anthropic)</th>
+                <th>Local Inference (Ollama + GGUF)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Latency</strong></td>
+                <td>200ms–800ms Network Overhead</td>
+                <td>Sub-50ms TTFT (Time-To-First-Token) on VRAM</td>
+            </tr>
+            <tr>
+                <td><strong>Cost Curve</strong></td>
+                <td>Variable (Per Token billing)</td>
+                <td>Fixed (Hardware CapEx + Electricity)</td>
+            </tr>
+            <tr>
+                <td><strong>Data Privacy</strong></td>
+                <td>Subject to TOS / Vendor Data Retention</td>
+                <td>100% Offline / Air-Gapped Capable</td>
+            </tr>
+            <tr>
+                <td><strong>Availability</strong></td>
+                <td>Dependent on Vendor Rate Limits &amp; Uptime</td>
+                <td>100% Deterministic Local Availability</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 </section>
-<section id="performance">
-<h2>Performance Tuning</h2>
-<p>Running local LLMs taught me that you don't always need massive cloud infrastructure to build powerful AI features. Optimizing for constrained hardware actually makes you a significantly better software engineer. You start caring about memory allocation, context window limits, and inference bottlenecks.</p>
-<p>My laptop sounded like a jet engine during heavy batch processing, but having zero API costs, total privacy, and absolute control over the generation parameters made Ollama an absolute game-changer for my local development workflow.</p>
+
+<section id="understanding-quantization-gguf">
+    <h2>Understanding Quantization &amp; The GGUF Format</h2>
+    <p>Running a raw 16-bit floating-point (FP16) open-weights model requires massive amounts of video memory. A 7-billion parameter model in FP16 consumes roughly 14GB of VRAM just for weight storage, before accounting for context windows or batching.</p>
+    
+    <p>Quantization solves this by converting high-precision weights (FP16 or FP32) down to lower bit-width integers (8-bit, 4-bit, or even 2-bit), drastically reducing VRAM overhead with minimal loss in model quality.</p>
+
+    <div class="svg-diagram-wrapper">
+        <svg class="svg-diagram" viewBox="0 0 880 270" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="860" height="250" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+
+            <!-- Left Column: Precision Bit-Reduction Breakdown -->
+            <rect x="30" y="30" width="380" height="210" rx="8" fill="var(--svg-blue-bg)" stroke="var(--svg-blue-border)" stroke-width="1.5"/>
+            <text x="220" y="55" fill="var(--svg-text-main)" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Weight Precision &amp; VRAM Compression</text>
+
+            <!-- FP16 Bar -->
+            <rect x="50" y="75" width="340" height="35" rx="4" fill="var(--svg-red-bg)" stroke="var(--svg-red-border)" stroke-width="1"/>
+            <text x="65" y="97" fill="var(--svg-red-text)" font-family="monospace" font-size="11" font-weight="bold">FP16 (Unquantized)</text>
+            <text x="250" y="97" fill="var(--svg-text-main)" font-family="monospace" font-size="10">2.0 Bytes/weight</text>
+            <text x="375" y="97" fill="var(--svg-red-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="end">14.0 GB</text>
+
+            <!-- Q8_0 Bar -->
+            <rect x="50" y="120" width="220" height="35" rx="4" fill="#78350f" stroke="var(--svg-orange-border)" stroke-width="1"/>
+            <text x="65" y="142" fill="var(--svg-orange-text)" font-family="monospace" font-size="11" font-weight="bold">Q8_0 (8-bit)</text>
+            <text x="180" y="142" fill="var(--svg-text-main)" font-family="monospace" font-size="10">1.0 Byte/weight</text>
+            <text x="255" y="142" fill="var(--svg-orange-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="end">8.5 GB</text>
+
+            <!-- Q4_K_M Bar -->
+            <rect x="50" y="165" width="130" height="35" rx="4" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="1.5"/>
+            <text x="65" y="187" fill="var(--svg-green-text)" font-family="monospace" font-size="11" font-weight="bold">Q4_K_M (4-bit)</text>
+            <text x="165" y="187" fill="var(--svg-green-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="end">4.7 GB</text>
+
+            <text x="220" y="222" fill="var(--svg-green-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">⚡ Q4_K_M = ~70% VRAM Saved (&gt;98% Accuracy)</text>
+
+            <!-- Right Column: Ollama Dynamic Layer Offloading -->
+            <rect x="440" y="30" width="410" height="210" rx="8" fill="#181825" stroke="var(--svg-purple-border)" stroke-width="1.5"/>
+            <text x="645" y="55" fill="var(--svg-text-main)" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Ollama CPU / GPU Layer Offloading Engine</text>
+
+            <!-- GPU VRAM Box (Fast Path) -->
+            <rect x="460" y="75" width="370" height="70" rx="6" fill="#030712" stroke="var(--svg-green-border)" stroke-width="1.5"/>
+            <text x="475" y="97" fill="var(--svg-text-muted)" font-family="monospace" font-size="11" font-weight="bold">🎮 GPU VRAM (NVIDIA CUDA / Apple Metal)</text>
+            <text x="475" y="117" fill="var(--svg-green-text)" font-family="monospace" font-size="10">Layers 0..28 loaded in VRAM (4.7 GB)</text>
+            <text x="815" y="117" fill="var(--svg-green-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="end">65 tok/s</text>
+
+            <!-- PCIe Transfer arrow -->
+            <path d="M 645 145 L 645 165" stroke="var(--svg-orange-border)" stroke-width="2" stroke-dasharray="3"/>
+
+            <!-- System RAM Box (Fallback Path) -->
+            <rect x="460" y="165" width="370" height="55" rx="6" fill="#1e1e2e" stroke="var(--svg-orange-border)" stroke-width="1"/>
+            <text x="475" y="187" fill="var(--svg-orange-text)" font-family="monospace" font-size="11" font-weight="bold">💻 Host System RAM (DDR4 / DDR5)</text>
+            <text x="475" y="205" fill="var(--svg-orange-text)" font-family="monospace" font-size="10">Layers 29..31 offloaded if VRAM spills over</text>
+            <text x="815" y="205" fill="var(--svg-red-text)" font-family="monospace" font-size="10" text-anchor="end">8 tok/s</text>
+        </svg>
+    </div>
+
+    <h3>The Rise of GGUF</h3>
+    <p>GGUF (GGML Unified Format) is the modern standard format created by the llama.cpp ecosystem. Unlike legacy formats:</p>
+    <ul>
+        <li>It packs model weights and single-file metadata together.</li>
+        <li>It supports CPU/GPU offloading, allowing model layers to be split dynamically across system RAM and VRAM.</li>
+        <li>It supports modern quantization techniques like K-quants and IQ (Importance Matrix) quants.</li>
+    </ul>
+
+    <h3>The Sweet Spot: Q4_K_M vs Q8_0</h3>
+    <p>When pulling or quantizing models, you will encounter names like Q4_K_M, Q5_K_S, and Q8_0:</p>
+    <ul>
+        <li><strong>Q8_0 (8-bit):</strong> Virtually zero quality degradation, but requires double the VRAM of 4-bit models.</li>
+        <li><strong>Q4_K_M (4-bit Medium):</strong> The gold standard sweet spot. Uses 4-bit quantization for most tensors while keeping key attention layers at higher precision. Drops VRAM requirements by ~70% while maintaining &gt;98% of baseline intelligence.</li>
+    </ul>
 </section>
-<div class="tags-container" id="dynamic-tags">
-<!-- Tags will be dynamically generated here -->
+
+<section id="hardware-constraints-vram-math">
+    <h2>Hardware Constraints &amp; VRAM Math</h2>
+    <p>To calculate whether a model will fit in your local setup, use this rule of thumb formula:</p>
+
+    <div class="code-block">
+<pre><code class="language-text">Required VRAM (GB) ≈ ( (Params_Billions / 8) * Bits_per_Weight ) * 1.2 + Context_Buffer</code></pre>
+    </div>
+    <p><em>(The 1.2 factor accounts for runtime CUDA overhead, and the Context Buffer grows with context window length).</em></p>
+
+    <h3>Memory Requirements Quick Reference</h3>
+    <div class="table-responsive">
+<table class="benchmark-table">
+        <thead>
+            <tr>
+                <th>Model Size</th>
+                <th>Quantization</th>
+                <th>Model Size on Disk</th>
+                <th>Minimum Recommended VRAM</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>7B / 8B</td>
+                <td>Q4_K_M</td>
+                <td>~4.7 GB</td>
+                <td>8 GB VRAM</td>
+            </tr>
+            <tr>
+                <td>7B / 8B</td>
+                <td>Q8_0</td>
+                <td>~8.5 GB</td>
+                <td>12 GB VRAM</td>
+            </tr>
+            <tr>
+                <td>14B / 16B</td>
+                <td>Q4_K_M</td>
+                <td>~9.2 GB</td>
+                <td>12–16 GB VRAM</td>
+            </tr>
+            <tr>
+                <td>32B / 34B</td>
+                <td>Q4_K_M</td>
+                <td>~20.0 GB</td>
+                <td>24 GB VRAM (RTX 3090 / 4090)</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
-<hr class="divider"/>
-<section class="related-articles" id="related-series">
-<h2 class="series-title">Article Series</h2>
-<a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
-<div id="related-posts-container"></div>
 </section>
-</main>
-<!-- Newsletter Subscription Section -->
-<div class="newsletter-section">
-<div class="newsletter-content">
-<h3>Subscribe to our newsletter</h3>
-<p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
-<p>Subscribe to the newsletter, and don't miss out.</p>
-<div class="newsletter-form">
-<input class="newsletter-input" placeholder="Enter your email address" type="email"/>
-<button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
-</div>
-</div>
-</div>
-</div>
-<footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
-<div class="social-icons" style="margin-bottom:25px;">
-<a aria-label="GitHub profile" href="https://github.com/MuhammadTahaNasir" style="margin:0 5px; font-size:1.6em;" target="_blank" title="GitHub">
-<i aria-hidden="true" class="fab fa-github"></i>
-</a>
-<a aria-label="LinkedIn profile" href="https://www.linkedin.com/in/muhammadtahanasir/" style="margin:0 5px; font-size:1.6em;" target="_blank" title="LinkedIn">
-<i aria-hidden="true" class="fab fa-linkedin"></i>
-</a>
-<a aria-label="Send email" href="mailto:m.tahanasir.cs@gmail.com" style="margin:0 5px; font-size:1.6em;" title="Email">
-<i aria-hidden="true" class="fas fa-envelope"></i>
-</a>
-</div>
-<p style="font-size:0.9em;">© 2026 – Muhammad Taha Nasir</p>
-</footer>
-<button aria-label="Scroll to top" id="scrollTop">
-<i class="fas fa-chevron-up"></i>
-</button>
-<script src="../../assets/js/each-post.js"></script>
-<script src="../../assets/js/shared-bottom-nav.js"></script>
-<script src="../../assets/js/nav-active.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
-<script>
-        document.querySelectorAll('.copy-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                    button.innerText = "Copied!";
-                    setTimeout(() => button.innerText = "Copy", 1500);
-                });
-            });
-        });
-    </script>
+
+<section id="setting-up-ollama">
+    <h2>Setting Up Ollama for High-Performance Workloads</h2>
+    <p>Ollama acts as a lightweight daemon wrapping llama.cpp, providing a REST API and CLI tool to manage local models.</p>
+
+    <h3>Basic Modelfile Configuration</h3>
+    <p>Create a custom Modelfile to fine-tune your local model's behavior, system prompts, and context parameters:</p>
+
+    <div class="code-block">
+
+<pre><code class="language-dockerfile"># Modelfile
+FROM llama3.1:8b-instruct-q4_K_M
+
+# Set system context window size (Default is 2048, bumped here to 8192)
+PARAMETER num_ctx 8192
+
+# Lower temperature for deterministic, structured output
+PARAMETER temperature 0.2
+
+# System prompt forcing JSON output formatting
+SYSTEM """
+You are a precise local AI assistant. Always structure output as clean, valid JSON without extra commentary unless asked.
+"""
+</code></pre>
+    </div>
+
+    <h3>Building and Running Your Local Model</h3>
+    <p>Build and run your custom local model from the terminal:</p>
+
+    <div class="code-block">
+
+<pre><code class="language-bash">ollama create local-assistant -f ./Modelfile
+ollama run local-assistant --verbose
+</code></pre>
+    </div>
+
+    <!-- Ubuntu Terminal Execution Component -->
+    <div class="ubuntu-terminal-window">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <span class="btn-close"></span>
+                <span class="btn-minimize"></span>
+                <span class="btn-maximize"></span>
+            </div>
+            <div class="terminal-title">terry@ubuntu-gpu-workstation: ~</div>
+        </div>
+        <div class="terminal-body">
+            <div class="terminal-line"><span class="prompt">terry@ubuntu-gpu:~$</span> <span class="cmd">ollama create local-assistant -f ./Modelfile</span></div>
+            <div class="terminal-output">transferring model data 100%</div>
+            <div class="terminal-output">using existing layer sha256:8a92b2d7c189</div>
+            <div class="terminal-output">writing manifest</div>
+            <div class="terminal-output success">success</div>
+            <div class="terminal-line"><span class="prompt">terry@ubuntu-gpu:~$</span> <span class="cmd">ollama run local-assistant --verbose</span></div>
+            <div class="terminal-prompt">&gt;&gt;&gt; Summarize the benefits of GGUF quantization in 3 bullet points.</div>
+            <div class="terminal-response">
+{
+  "benefits": [
+    "Reduces VRAM usage by ~70% while retaining >98% model intelligence.",
+    "Enables CPU and GPU layer offloading when memory is constrained.",
+    "Delivers sub-50ms time-to-first-token latency with zero cloud API costs."
+  ]
+}
+            </div>
+            <div class="terminal-stats">
+                <span>eval rate: 64.8 tokens/s</span> | <span>total duration: 420ms</span> | <span>VRAM: 4.7 GB / 12.0 GB (100% GPU)</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="integrating-ollama-python">
+    <h2>Integrating Local Ollama with Python (Async API)</h2>
+    <p>Using Ollama alongside Python applications is straightforward using standard HTTP clients or the native <code>ollama-python</code> library:</p>
+
+    <div class="code-block">
+
+<pre><code class="language-python">import asyncio
+from ollama import AsyncClient
+
+async def generate_response(prompt: str):
+    client = AsyncClient(host='http://localhost:11434')
+    
+    response = await client.chat(
+        model='local-assistant',
+        messages=[
+            {'role': 'user', 'content': prompt}
+        ],
+        stream=True
+    )
+    
+    async for chunk in response:
+        print(chunk['message']['content'], end='', flush=True)
+
+if __name__ == "__main__":
+    asyncio.run(generate_response("Summarize the benefits of GGUF quantization in 3 bullet points."))
+</code></pre>
+    </div>
+</section>
+
+<section id="optimization-checklist">
+    <h2>Optimization Checklist for Production Local LLMs</h2>
+    <p>Keep these core recommendations in mind when deploying local LLM workloads to production:</p>
+    <ol>
+        <li>
+            <strong>Keep Models Fully in VRAM:</strong> Partial CPU offloading slows generation down drastically (e.g., dropping from 60 tokens/sec to 8 tokens/sec). If a model spills over into system RAM, pick a smaller parameter model or lower quantization level.
+        </li>
+        <li>
+            <strong>Flash Attention:</strong> Enable Flash Attention in your Ollama environment variables (<code>OLLAMA_FLASH_ATTENTION=1</code>) to significantly reduce context window VRAM usage.
+        </li>
+        <li>
+            <strong>Keep-Alive Management:</strong> By default, Ollama unloads models from VRAM after 5 minutes of inactivity. For continuous services, set <code>OLLAMA_KEEP_ALIVE=-1</code> to keep the model permanently warmed up.
+        </li>
+    </ol>
+</section>
+
+<section id="wrap-up">
+    <h2>Wrap Up</h2>
+    <p>Moving away from cloud APIs isn't just about cutting costs, it's about owning your inference stack, guaranteeing sub-second response times, and ensuring user privacy by design.</p>
+</section>
+
+            <div class="tags-container" id="dynamic-tags"></div>
+            <hr class="divider" />
+            <section class="related-articles" id="related-series">
+                <h2 class="series-title">Article Series</h2>
+                <a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+                <div id="related-posts-container"></div>
+            </section>
+        </main>
+        <div class="newsletter-section">
+            <div class="newsletter-content">
+                <h3>Subscribe to our newsletter</h3>
+                <p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+                <p>Subscribe to the newsletter, and don't miss out.</p>
+                <div class="newsletter-form">
+                    <input class="newsletter-input" placeholder="Enter your email address" type="email" />
+                    <button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../../assets/js/each-post.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-docker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="../../assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal()){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/shared-bottom-nav.js"></script>
 </body>
 </html>

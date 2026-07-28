@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+
+<html dir="auto" lang="en">
+<head>
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}        .code-block { position: relative; margin: 25px 0; border-radius: 10px; background: #0d1117 !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; overflow: hidden; }
+        .code-block pre, .code-block pre[class*="language-"] { background: #0d1117 !important; color: #e6edf3 !important; text-shadow: none !important; padding: 20px 22px !important; margin: 0 !important; font-family: "SF Mono", "Fira Code", monospace !important; font-size: 0.94rem !important; line-height: 1.6 !important; border-radius: 10px !important; }
+        .code-block code { opacity: 1 !important; color: #e6edf3 !important; background: transparent !important; text-shadow: none !important; }
+    </style>');
+    })();
+  </script>
+<link href="/assets/images/favicon-96x96.png?v=5" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/assets/images/favicon.ico?v=5" rel="shortcut icon"/>
+<link href="/assets/images/apple-touch-icon.png?v=5" rel="apple-touch-icon" sizes="180x180"/>
+<meta content="Terry" name="apple-mobile-web-app-title"/>
+<link href="/assets/images/site.webmanifest" rel="manifest"/>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<meta content="noindex, nofollow" name="robots"/>
+<meta content="A technical breakdown of how vector databases, high-dimensional embeddings, Cosine Similarity, and HNSW graph indexing provide semantic memory for LLMs." name="description"/>
+<meta content="Muhammad Taha Nasir" name="author"/>
+<meta content="Vector Databases, Vector Search, Embeddings, HNSW" name="tags" />
+<meta name="thumbnail" content="/assets/images/posts/vector-databases-cover.png" />
+<title>Vector Databases &amp; Embeddings: How Machines Understand Semantic Meaning</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/css/stylesheet.css" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet"/>
+<link href="../../assets/css/bottom-nav.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/>
+<style>
+         .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+        
+        /* Theme-Adaptive Styling */
+        .cinematic-intro-card {
+            background: var(--entry);
+            border-left: 4px solid var(--accent);
+            border-top: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            border-radius: 0 12px 12px 0;
+            padding: 24px 28px;
+            margin: 25px 0 35px 0;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .cinematic-intro-card p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            color: var(--primary);
+        }
+        
+        .cinematic-intro-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .svg-diagram-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; background: var(--entry) !important; border: 1px solid var(--border) !important; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-small); transition: background 0.3s ease, border-color 0.3s ease; }
+        
+        .svg-diagram { 
+            max-width: 540px; 
+            width: 100%; 
+            height: auto; 
+            border-radius: 14px; 
+            background: var(--entry); 
+            border: 1px solid var(--border); 
+            padding: 24px; 
+            box-shadow: var(--shadow-medium);
+        }
+
+        .thought-card {
+            background: var(--entry);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 26px;
+            margin: 32px 0;
+            color: var(--primary);
+            box-shadow: var(--shadow-light);
+        }
+
+        .hero-banner-img {
+            max-width: 100%;
+            width: 100%;
+            max-height: 420px;
+            object-fit: cover;
+            object-position: center;
+            margin: 20px 0 30px 0;
+            border-radius: 12px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--border);
+            display: block;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .benchmark-table {
+            width: 100%;
+            min-width: 580px;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .benchmark-table th {
+            background: var(--code-bg);
+            color: var(--primary);
+            padding: 12px 14px;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .benchmark-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+            color: var(--primary);
+        }
+
+        /* Transparent Scrollbars */
+        .table-responsive, .code-block, .code-block pre, pre, pre[class*="language-"] {
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+
+        .table-responsive::-webkit-scrollbar, .code-block::-webkit-scrollbar, .code-block pre::-webkit-scrollbar, pre::-webkit-scrollbar, pre[class*="language-"]::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            background: transparent !important;
+        }
+
+        /* Mobile Media Queries */
+        @media (max-width: 768px) {
+            .hero-banner-img {
+                max-height: 260px;
+                margin: 15px 0 20px 0;
+            }
+
+            .cinematic-intro-card {
+                padding: 18px 20px;
+                margin: 20px 0 25px 0;
+            }
+
+            .cinematic-intro-card p {
+                font-size: 0.98rem;
+                line-height: 1.6;
+                margin-bottom: 10px;
+            }
+
+            .thought-card {
+                padding: 18px 20px;
+                margin: 20px 0;
+            }
+
+            .svg-diagram {
+                padding: 14px 8px;
+                border-radius: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-banner-img {
+                max-height: 200px;
+                border-radius: 8px;
+            }
+
+            .cinematic-intro-card {
+                padding: 14px 16px;
+                border-left-width: 3px;
+            }
+        }
+    </style>
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="../../assets/js/bg-canvas.js"></script>
+</head>
+<body id="top" post-date="2023-08-15T00:00:00Z">
+<div aria-hidden="true" class="loader" id="loader">
+<div class="terry-animation">
+<span class="letter">t</span>
+<span class="letter">e</span>
+<span class="letter">r</span>
+<span class="letter">r</span>
+<span class="letter">y</span>
+</div>
+</div>
+    <!-- Header Navigation -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+<div class="container">
+<nav class="breadcrumb">
+      <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a> » <span class="breadcrumb-current">Vector Databases &amp; Embeddings: How Machines Understand Semantic Meaning</span>
+    </nav>
+<main class="post-content">
+<header class="post-header">
+<h1 class="post-title">Vector Databases &amp; Embeddings: How Machines Understand Semantic Meaning</h1>
+<div class="post-meta">August 15, 2023 • 3 min • Muhammad Taha Nasir</div>
+</header>
+<img alt="Vector Databases Embeddings HNSW Similarity Search" class="hero-banner-img" src="/assets/images/posts/vector-databases-cover.png"/>
+<div class="cinematic-intro-card">
+<p><em>What actually happens when you turn unstructured text into hyper-dimensional vectors to give LLMs long-term memory?</em></p>
+<p>In mid-2023, standard relational databases like PostgreSQL or key-value stores like Redis are no longer sufficient for generative AI workflows. We are past the era where search meant exact string matching or simple keyword lookups.</p>
+<p>Enter specialized vector engines like <strong>Pinecone</strong>, <strong>ChromaDB</strong>, and Meta's open-source <strong>FAISS</strong>. By converting unstructured documents into floating-point embeddings, AI systems gain semantic memory.</p>
+</div>
+<aside class="table-of-contents">
+<details>
+<summary>Table of Contents</summary>
+<ul>
+<li><a href="#paradigm-shift">Moving Past Keyword Search</a></li>
+<li><a href="#hnsw-indexing">How HNSW Graphs Speed Up Vector Search</a></li>
+<li><a href="#vector-benchmark">Pinecone vs ChromaDB vs FAISS</a></li>
+<li><a href="#systems-rant">The Memory Trap: Uncompressed Floats vs Quantization</a></li>
+<li><a href="#hardware-stress">Stress-Testing Vector Search on Local Hardware</a></li>
+<li><a href="#takeaways">Key Takeaways on Vector Memory</a></li>
+</ul>
+</details>
+</aside>
+<div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter" type="button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share article" type="button">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+<section id="paradigm-shift">
+<h2>Moving Past Keyword Search</h2>
+<p>Building Retrieval-Augmented Generation (RAG) pipelines reveals that keyword indexing falls short when users express intent using different vocabulary.</p>
+<div class="thought-card">
+<p><strong>Traditional Keyword Search vs Vector Semantic Search:</strong></p>
+<div class="code-block">
+
+<pre><code>Traditional Search: Query String -&gt; Exact Keyword Match -&gt; Hits or Misses
+Vector Search:      Query String -&gt; High-Dim Embedding -&gt; Nearest Neighbors in Vector Space</code></pre>
+</div>
+</div>
+<p>Unstructured text (documents, code, transcripts) is converted into high-dimensional vectors via embedding models like <code>text-embedding-ada-002</code>. Storing these floating-point arrays in a vector index enables instant semantic retrieval.</p>
+</section>
+<section id="hnsw-indexing">
+<h2>How HNSW Graphs Speed Up Vector Search</h2>
+<p>Generating a 1,536-dimensional embedding array from raw text:</p>
+<div class="code-block">
+
+<pre><code class="language-python"># Step 1: Generate an embedding array from raw text
+import openai
+
+response = openai.Embedding.create(
+    model="text-embedding-ada-002",
+    input="How do vector databases store semantic meaning?"
+)
+embedding = response['data'][0]['embedding']
+# Output: [0.0123, -0.0456, 0.0891, ... 1536 floating-point numbers]</code></pre>
+</div>
+<p>Standard B-Trees only work on 1D ordered scalar data, not 1,536-dimensional vector arrays. Vector databases solve this by replacing full linear scans with <strong>Approximate Nearest Neighbor (ANN)</strong> algorithms like <strong>HNSW (Hierarchical Navigable Small World)</strong> graphs.</p>
+<!-- Theme-Adaptive Vector SVG Diagram for HNSW Hierarchical Graph Traversal -->
+<div class="svg-diagram-wrapper">
+<svg class="svg-diagram" viewbox="0 0 520 230" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arrow" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="5" refy="5" viewbox="0 0 10 10">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="var(--svg-text-muted)"></path>
+</marker>
+</defs>
+<!-- Layer 2 (Sparse Top Layer) -->
+<rect fill="#161b22" height="40" rx="6" stroke="var(--svg-indigo-border)" stroke-width="1.5" width="460" x="30" y="30"></rect>
+<text fill="#6366f1" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" x="45" y="55">Layer 2 (Sparse Graph)</text>
+<circle cx="260" cy="50" fill="#6366f1" r="9"></circle>
+<circle cx="430" cy="50" fill="#6366f1" r="9"></circle>
+<line marker-end="url(#arrow)" stroke="var(--svg-indigo-border)" stroke-width="2" x1="270" x2="420" y1="50" y2="50"></line>
+<!-- Layer 1 (Medium Layer) -->
+<rect fill="#161b22" height="40" rx="6" stroke="#0284c7" stroke-width="1.5" width="460" x="30" y="90"></rect>
+<text fill="#0284c7" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" x="45" y="115">Layer 1 (Medium Graph)</text>
+<circle cx="260" cy="110" fill="#0284c7" r="7"></circle>
+<circle cx="345" cy="110" fill="#0284c7" r="7"></circle>
+<circle cx="430" cy="110" fill="#0284c7" r="7"></circle>
+<line marker-end="url(#arrow)" stroke="#0284c7" stroke-width="2" x1="268" x2="337" y1="110" y2="110"></line>
+<line marker-end="url(#arrow)" stroke="#0284c7" stroke-width="2" x1="353" x2="422" y1="110" y2="110"></line>
+<!-- Layer 0 (Dense Base Layer) -->
+<rect fill="#161b22" height="40" rx="6" stroke="#059669" stroke-width="1.5" width="460" x="30" y="150"></rect>
+<text fill="#059669" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" x="45" y="175">Layer 0 (Dense Base Graph)</text>
+<circle cx="260" cy="170" fill="#059669" r="6"></circle>
+<circle cx="300" cy="170" fill="#059669" r="6"></circle>
+<circle cx="345" cy="170" fill="#059669" r="6"></circle>
+<circle cx="385" cy="170" fill="#059669" r="6"></circle>
+<circle cx="430" cy="170" fill="#059669" r="6"></circle>
+<line stroke="#059669" stroke-width="1.5" x1="266" x2="294" y1="170" y2="170"></line>
+<line stroke="#059669" stroke-width="1.5" x1="306" x2="339" y1="170" y2="170"></line>
+<line stroke="#059669" stroke-width="1.5" x1="351" x2="379" y1="170" y2="170"></line>
+<line stroke="#059669" stroke-width="1.5" x1="391" x2="424" y1="170" y2="170"></line>
+</svg>
+</div>
+<p>HNSW graphs traverse from sparse top layers down to dense base layers, measuring vector proximity using Cosine Similarity:</p>
+<div class="math-equation-wrapper" style="text-align: center; margin: 30px 0; padding: 20px; background: var(--entry); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow-light);">
+<div style="font-size: 1.3rem; font-family: 'Times New Roman', Times, serif; color: var(--primary); display: inline-flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;">
+<span style="font-weight: 700; font-family: -apple-system, sans-serif;">Cosine Similarity</span>(<strong>A</strong>, <strong>B</strong>) = 
+                        <span style="display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 4px;">
+<span style="border-bottom: 2px solid var(--primary); padding-bottom: 3px; padding-left: 8px; padding-right: 8px; font-weight: 600;"><strong>A</strong> · <strong>B</strong></span>
+<span style="padding-top: 3px; padding-left: 8px; padding-right: 8px;">‖<strong>A</strong>‖ ‖<strong>B</strong>‖</span>
+</span>
+                        =
+                        <span style="display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 4px;">
+<span style="border-bottom: 2px solid var(--primary); padding-bottom: 3px; padding-left: 8px; padding-right: 8px;">∑ A<sub>i</sub> B<sub>i</sub></span>
+<span style="padding-top: 3px; padding-left: 8px; padding-right: 8px;">√(∑ A<sub>i</sub><sup>2</sup>) · √(∑ B<sub>i</sub><sup>2</sup>)</span>
+</span>
+</div>
+</div>
+</section>
+<section id="vector-benchmark">
+<h2>Pinecone vs ChromaDB vs FAISS</h2>
+<p>Comparing vector database implementations across indexing speed, query latency, and deployment models:</p>
+<div class="table-responsive">
+<table class="benchmark-table">
+<thead>
+<tr>
+<th>Metric / Feature</th>
+<th>Pinecone (Serverless/Managed)</th>
+<th>ChromaDB (Local / Embedded)</th>
+<th>FAISS (Meta Open-Source)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Setup &amp; Onboarding</strong></td>
+<td><strong>Zero (Cloud-Native API)</strong></td>
+<td>Easy (<code>pip install chromadb</code>)</td>
+<td>Requires C++/Python bindings</td>
+</tr>
+<tr>
+<td><strong>Query Latency (p99)</strong></td>
+<td>~15ms (Managed cloud routing)</td>
+<td>~45ms (Local disk I/O bound)</td>
+<td><strong>&lt; 5ms (Raw RAM/GPU speed)</strong></td>
+</tr>
+<tr>
+<td><strong>Indexing Algorithm</strong></td>
+<td>Proprietary Graph / HNSW</td>
+<td>HNSW (via <code>hnswlib</code>)</td>
+<td><strong>HNSW, IVF, Product Quantization</strong></td>
+</tr>
+<tr>
+<td><strong>Scale Constraint</strong></td>
+<td>Managed (Auto-scales to billions)</td>
+<td>Small to Medium local datasets</td>
+<td>Limited by available RAM/VRAM</td>
+</tr>
+<tr>
+<td><strong>Best Use Case</strong></td>
+<td>Production RAG applications</td>
+<td>Local prototyping &amp; notebooks</td>
+<td>Ultra-low latency GPU indexing</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="systems-rant">
+<h2>The Memory Trap: Uncompressed Floats vs Quantization</h2>
+<p>Storing millions of uncompressed 1,536-dimensional <code>float32</code> vectors in RAM creates massive memory overhead:</p>
+<div class="thought-card">
+<p><strong>Vector Memory Calculations:</strong></p>
+<div class="code-block">
+
+<pre><code class="language-python"># Uncompressed Float32 Vector RAM Calculation:
+# 1 vector = 1536 dimensions * 4 bytes/dim = 6,144 bytes (~6.14 KB)
+# 10,000,000 vectors = ~61.4 GB raw uncompressed RAM!
+
+# Product Quantization (PQ) Compression:
+# Compresses float32 values to 8-bit integers (1 byte/dim)
+# 10,000,000 quantized vectors = ~15.3 GB RAM (75% memory reduction!)</code></pre>
+</div>
+</div>
+<p>Using Scalar Quantization or Product Quantization (PQ) compresses 32-bit floats into 8-bit integers, reducing memory footprint significantly while retaining query recall accuracy.</p>
+</section>
+<section id="hardware-stress">
+<h2>Stress-Testing Vector Search on Local Hardware</h2>
+<p>Building HNSW indexes locally over millions of high-dimensional vectors stresses GPU memory limits. If the index size exceeds available VRAM, CUDA allocations fail, causing system thrashing and disk memory swapping.</p>
+<p>Profiling memory layouts and selecting appropriate quantization ratios ensures high-throughput search performance without resource exhaustion.</p>
+</section>
+<section id="takeaways">
+<h2>Key Takeaways on Vector Memory</h2>
+<p>Vector databases serve as the persistent semantic memory layer for Large Language Models.</p>
+<p>Mastering vector search requires understanding graph index trade-offs, distance metrics, and vector quantization to maintain sub-millisecond query latencies at scale.</p>
+<p class="next-post-link" style="margin-top: 25px; font-size: 1.05rem;">
+          <em>Next: <a href="understanding-rag.html">Understanding RAG: Retrieval-Augmented Generation Explained Simply &rarr;</a></em>
+        </p>
+</section>
+<div class="tags-container" id="dynamic-tags"></div>
+<hr class="divider"/>
+<section class="related-articles" id="related-series">
+<h2 class="series-title">Article Series</h2>
+<a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+<div id="related-posts-container"></div>
+</section>
+</main>
+<div class="newsletter-section">
+<div class="newsletter-content">
+<h3>Subscribe to our newsletter</h3>
+<p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+<p>Subscribe to the newsletter, and don't miss out.</p>
+<div class="newsletter-form">
+<input class="newsletter-input" placeholder="Enter your email address" type="email"/>
+<button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+</div>
+</div>
+</div>
+</div>
+<footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
+<button aria-label="Scroll to top" id="scrollTop">
+<i class="fas fa-chevron-up"></i>
+</button>
+<script src="../../assets/js/each-post.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="../../assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/shared-bottom-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+
+<html dir="auto" lang="en">
+<head>
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}        .code-block { position: relative; margin: 25px 0; border-radius: 10px; background: #0d1117 !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; overflow: hidden; }
+        .code-block pre, .code-block pre[class*="language-"] { background: #0d1117 !important; color: #e6edf3 !important; text-shadow: none !important; padding: 20px 22px !important; margin: 0 !important; font-family: "SF Mono", "Fira Code", monospace !important; font-size: 0.94rem !important; line-height: 1.6 !important; border-radius: 10px !important; }
+        .code-block code { opacity: 1 !important; color: #e6edf3 !important; background: transparent !important; text-shadow: none !important; }
+    </style>');
+    })();
+  </script>
+<link href="/assets/images/favicon-96x96.png?v=5" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/assets/images/favicon.ico?v=5" rel="shortcut icon"/>
+<link href="/assets/images/apple-touch-icon.png?v=5" rel="apple-touch-icon" sizes="180x180"/>
+<meta content="Terry" name="apple-mobile-web-app-title"/>
+<link href="/assets/images/site.webmanifest" rel="manifest"/>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<meta content="noindex, nofollow" name="robots"/>
+<meta content="Why learning Git and version control early in Computer Science saves software engineering projects from chaotic folder duplication and code loss." name="description"/>
+<meta content="Muhammad Taha Nasir" name="author"/>
+<meta content="Git, Version Control, GitHub, Developer Tools" name="tags" />
+<meta name="thumbnail" content="/assets/images/posts/git-cover.png" />
+<title>Why Every CS Student Should Learn Git &amp; Version Control Early</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/css/stylesheet.css" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet"/>
+<link href="../../assets/css/bottom-nav.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/>
+<style>
+         .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+        
+        /* Theme-Adaptive Styling */
+        .cinematic-intro-card {
+            background: var(--entry);
+            border-left: 4px solid var(--accent);
+            border-top: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            border-radius: 0 12px 12px 0;
+            padding: 24px 28px;
+            margin: 25px 0 35px 0;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .cinematic-intro-card p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            color: var(--primary);
+        }
+        
+        .cinematic-intro-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .svg-diagram-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; background: var(--entry) !important; border: 1px solid var(--border) !important; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-small); transition: background 0.3s ease, border-color 0.3s ease; }
+        
+        .svg-diagram { 
+            max-width: 520px; 
+            width: 100%; 
+            height: auto; 
+            background: transparent; 
+            padding: 24px; 
+        }
+
+        .thought-card {
+            background: var(--entry);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 26px;
+            margin: 32px 0;
+            color: var(--primary);
+            box-shadow: var(--shadow-light);
+        }
+
+        .hero-banner-img {
+            max-width: 100%;
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            margin: 20px 0 30px 0;
+            border-radius: 12px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--border);
+            display: block;
+        }
+
+        .handwritten-quote {
+            font-family: 'Caveat', cursive, sans-serif;
+            font-size: 1.9rem;
+            line-height: 1.35;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .handwritten-signature {
+            font-family: 'Caveat', cursive, sans-serif;
+            font-size: 1.6rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .benchmark-table {
+            width: 100%;
+            min-width: 550px;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .benchmark-table th {
+            background: var(--code-bg);
+            color: var(--primary);
+            padding: 12px 14px;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .benchmark-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+            color: var(--primary);
+        }
+
+        /* Transparent Scrollbars */
+        .table-responsive, .code-block, .code-block pre, pre, pre[class*="language-"] {
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+
+        .table-responsive::-webkit-scrollbar, .code-block::-webkit-scrollbar, .code-block pre::-webkit-scrollbar, pre::-webkit-scrollbar, pre[class*="language-"]::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            background: transparent !important;
+        }
+
+        /* Mobile Media Queries */
+        @media (max-width: 768px) {
+            .hero-banner-img {
+                max-height: 260px;
+                margin: 15px 0 20px 0;
+            }
+
+            .cinematic-intro-card {
+                padding: 18px 20px;
+                margin: 20px 0 25px 0;
+            }
+
+            .cinematic-intro-card p {
+                font-size: 0.98rem;
+                line-height: 1.6;
+                margin-bottom: 10px;
+            }
+
+            .handwritten-quote {
+                font-size: 1.5rem;
+                line-height: 1.3;
+            }
+
+            .handwritten-signature {
+                font-size: 1.3rem;
+            }
+
+            .svg-diagram {
+                padding: 14px 8px;
+            }
+
+            .thought-card {
+                padding: 18px 20px;
+                margin: 20px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-banner-img {
+                max-height: 200px;
+                border-radius: 8px;
+            }
+
+            .cinematic-intro-card {
+                padding: 14px 16px;
+                border-left-width: 3px;
+            }
+
+            .handwritten-quote {
+                font-size: 1.35rem;
+            }
+
+            .handwritten-signature {
+                font-size: 1.15rem;
+            }
+        }
+    </style>
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="../../assets/js/bg-canvas.js"></script>
+</head>
+<body id="top" post-date="2022-09-05T00:00:00Z">
+<div aria-hidden="true" class="loader" id="loader">
+<div class="terry-animation">
+<span class="letter">t</span>
+<span class="letter">e</span>
+<span class="letter">r</span>
+<span class="letter">r</span>
+<span class="letter">y</span>
+</div>
+</div>
+    <!-- Header Navigation -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+<div class="container">
+<nav class="breadcrumb">
+      <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a> » <span class="breadcrumb-current">Why Every CS Student Should Learn Git &amp; Version Control Early</span>
+    </nav>
+<main class="post-content">
+<header class="post-header">
+<h1 class="post-title">Why Every CS Student Should Learn Git &amp; Version Control Early</h1>
+<div class="post-meta">September 5, 2022 • 3 min • Muhammad Taha Nasir</div>
+</header>
+<img alt="Why Every CS Student Should Learn Git &amp; Version Control Early" class="hero-banner-img" src="/assets/images/posts/git-cover.png"/>
+<div class="cinematic-intro-card">
+<p><em>You don't realize how valuable version control is... until you lose your code.</em></p>
+<p>It wasn't a catastrophic bug. No blue screen. No corrupted hard drive. No dramatic system failure.</p>
+<p>Just one innocent folder named: <code>Final_Project_v2_REAL_FINAL_LATEST_FIXED</code>.</p>
+<p>A few minutes later, another folder appeared: <code>Final_Project_v2_REAL_FINAL_LATEST_FIXED_NEW</code>.</p>
+<p>Then another: <code>Final_Project_v2_REAL_FINAL_LATEST_FIXED_NEW2</code>.</p>
+<p>At some point, I genuinely stopped knowing which version actually worked. That was the day I realized copying folders wasn't version control. It was panic management.</p>
+</div>
+<aside class="table-of-contents">
+<details>
+<summary>Table of Contents</summary>
+<ul>
+<li><a href="#folder-nightmares">The Folder Name Nightmares</a></li>
+<li><a href="#why-students-delay">Why Students Delay Learning Git</a></li>
+<li><a href="#under-the-hood">Under the Hood: Commits &amp; DAG Trees</a></li>
+<li><a href="#versioning-matrix">The Versioning Matrix</a></li>
+<li><a href="#branching-realities">Branching &amp; Merging Realities</a></li>
+<li><a href="#final-thoughts">Final Thoughts &amp; Verdict</a></li>
+</ul>
+</details>
+</aside>
+<div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter" type="button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share article" type="button">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+<section id="intro">
+<p>When you start writing code in your first semester, projects are simple. A single <code>main.cpp</code> or <code>app.py</code> file fits easily on your desktop. If something breaks, you press Ctrl+Z until it works again.</p>
+<p>But as soon as projects grow to multiple files, external dependencies, and group assignments, Ctrl+Z stops saving you.</p>
+<p>One accidental file deletion or broken refactor can wipe out an entire weekend of work. And if you're collaborating with classmates by sending ZIP files back and forth over WhatsApp or email, merge conflicts become a absolute nightmare.</p>
+</section>
+<section id="folder-nightmares">
+<h2>The Folder Name Nightmares</h2>
+<p>Before adopting Git, my desktop looked like a graveyard of duplicate project directories:</p>
+<div class="code-block">
+
+<pre><code> project_v1/
+ project_v2_working/
+ project_v2_working_do_not_touch/
+ project_final/
+ project_final_submission/
+ project_final_submission_FIXED/</code></pre>
+</div>
+<p>This approach has three massive flaws:</p>
+<ul>
+<li><strong>Zero Context:</strong> You have no idea what changed between <code>v1</code> and <code>v2</code>.</li>
+<li><strong>Wasted Storage:</strong> Duplicating entire project folders duplicates node_modules, build binaries, and assets.</li>
+<li><strong>Impossible Collaboration:</strong> Two people editing different copies of the same folder cannot easily combine their work.</li>
+</ul>
+</section>
+<section id="why-students-delay">
+<h2>Why Students Delay Learning Git</h2>
+<p>Most CS students avoid Git initially because the command line syntax feels cryptic:</p>
+<div class="code-block">
+
+<pre><code class="language-bash"># Cryptic terminal commands that intimidate beginners
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/user/repo.git
+git push -u origin main</code></pre>
+</div>
+<p>Terms like <em>rebase</em>, <em>detached HEAD</em>, and <em>cherry-pick</em> sound intimidating. But under the hood, Git is remarkably simple once you understand its core architecture.</p>
+</section>
+<section id="under-the-hood">
+<h2>Under the Hood: Commits &amp; DAG Trees</h2>
+<p>Git doesn't store file diffs or full folder copies. It stores a Directed Acyclic Graph (DAG) of snapshots.</p>
+<p>Every time you run <code>git commit</code>, Git creates a unique cryptographic SHA-1 hash representing the exact state of your code at that moment in time.</p>
+<!-- Theme-Adaptive Vector SVG Git Commit Graph -->
+<div class="svg-diagram-wrapper">
+<svg class="svg-diagram" viewbox="0 0 460 220" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arrow" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="5" refy="5" viewbox="0 0 10 10">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="var(--svg-text-muted)"></path>
+</marker>
+</defs>
+<!-- Main Branch Line -->
+<line stroke="#0284c7" stroke-width="3" x1="50" x2="390" y1="80" y2="80"></line>
+<!-- Commit Nodes on Main -->
+<circle cx="70" cy="80" fill="#0284c7" r="16"></circle>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="70" y="85">c1</text>
+<circle cx="170" cy="80" fill="#0284c7" r="16"></circle>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="170" y="85">c2</text>
+<circle cx="270" cy="80" fill="#0284c7" r="16"></circle>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="270" y="85">c3</text>
+<circle cx="390" cy="80" fill="#059669" r="16"></circle>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="390" y="85">c5</text>
+<!-- Branch Line -->
+<path d="M 170 80 Q 220 160 270 160 L 330 160 Q 370 160 390 80" fill="none" stroke="var(--svg-indigo-border)" stroke-dasharray="4,4" stroke-width="2.5"></path>
+<!-- Branch Commit Node -->
+<circle cx="300" cy="160" fill="#6366f1" r="16"></circle>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="300" y="165">c4</text>
+<!-- Labels -->
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="70" y="45">Initial</text>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="270" y="45">main</text>
+<text fill="#6366f1" font-family="-apple-system, sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="300" y="195">feature/login</text>
+<text fill="#059669" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle" x="390" y="45">Merge (HEAD)</text>
+</svg>
+</div>
+<p>Because Git stores references to parent commits, you can travel backward in time to any previous state with a single command: <code>git checkout &lt;commit-hash&gt;</code>.</p>
+</section>
+<section id="versioning-matrix">
+<h2>The Versioning Matrix</h2>
+<p>Comparing traditional manual backup strategies against Git version control:</p>
+<div class="table-responsive">
+<table class="benchmark-table">
+<thead>
+<tr>
+<th>Feature / Method</th>
+<th>Manual Folder Copies</th>
+<th>ZIP File Archives</th>
+<th>Git Version Control (DAG)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Time Travel / Rollback</strong></td>
+<td>Hard (Manual Search)</td>
+<td>Hard (Extract Zip)</td>
+<td><strong>Instant (<code>git checkout</code>)</strong></td>
+</tr>
+<tr>
+<td><strong>Change History Context</strong></td>
+<td>None</td>
+<td>None</td>
+<td><strong>Detailed Commit Messages</strong></td>
+</tr>
+<tr>
+<td><strong>Branch Isolation</strong></td>
+<td>Impossible</td>
+<td>Impossible</td>
+<td><strong>Native Parallel Branches</strong></td>
+</tr>
+<tr>
+<td><strong>Team Collaboration</strong></td>
+<td>Chaos &amp; Overwriting</td>
+<td>Manual Conflict Resolution</td>
+<td><strong>Automated Merge Engines</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="branching-realities">
+<h2>Branching &amp; Merging Realities</h2>
+<p>The real superpower of Git is branching. Branching allows you to create an isolated sandbox where you can experiment, break things, and add features without touching your working codebase on <code>main</code>.</p>
+<p>If your experiment succeeds, you run <code>git merge</code> to integrate it back into production. If it fails, you delete the branch and your main codebase remains perfectly untouched.</p>
+<p>Learning Git in your first year transforms how you approach coding. You stop coding out of fear of breaking things, and start experimenting freely knowing you have a bulletproof safety net.</p>
+</section>
+<section id="final-thoughts">
+<h2>Final Thoughts &amp; Verdict</h2>
+<p>Don't wait until your senior capstone project or first engineering internship to learn Git. Master the fundamentals today: <code>status</code>, <code>add</code>, <code>commit</code>, <code>branch</code>, and <code>merge</code>.</p>
+<blockquote class="quote-highlight" style="margin: 35px 0;">
+<p class="handwritten-quote">Git is not just a tool for saving files, it is the flight recorder for your software engineering career.</p>
+<p class="handwritten-signature">– Muhammad Taha Nasir</p>
+</blockquote>
+<p class="next-post-link" style="margin-top: 25px; font-size: 1.05rem;">
+          <em>Next: <a href="learning-dsa-leetcode.html">Breaking into DSA with LeetCode: The Real Struggle Behind the Grind &rarr;</a></em>
+        </p>
+</section>
+<div class="tags-container" id="dynamic-tags"></div>
+<hr class="divider"/>
+<section class="related-articles" id="related-series">
+<h2 class="series-title">Article Series</h2>
+<a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+<div id="related-posts-container"></div>
+</section>
+</main>
+<div class="newsletter-section">
+<div class="newsletter-content">
+<h3>Subscribe to our newsletter</h3>
+<p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+<p>Subscribe to the newsletter, and don't miss out.</p>
+<div class="newsletter-form">
+<input class="newsletter-input" placeholder="Enter your email address" type="email"/>
+<button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+</div>
+</div>
+</div>
+</div>
+<footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
+<button aria-label="Scroll to top" id="scrollTop">
+<i class="fas fa-chevron-up"></i>
+</button>
+<script src="../../assets/js/each-post.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="../../assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/shared-bottom-nav.js"></script>
+</body>
+</html>

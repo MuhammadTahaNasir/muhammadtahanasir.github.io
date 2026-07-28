@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+<html dir="auto" lang="en">
+<head>
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}        .code-block { position: relative; margin: 25px 0; border-radius: 10px; background: #0d1117 !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; overflow: hidden; }
+        .code-block pre, .code-block pre[class*="language-"] { background: #0d1117 !important; color: #e6edf3 !important; text-shadow: none !important; padding: 20px 22px !important; margin: 0 !important; font-family: "SF Mono", "Fira Code", monospace !important; font-size: 0.94rem !important; line-height: 1.6 !important; border-radius: 10px !important; }
+        .code-block code { opacity: 1 !important; color: #e6edf3 !important; background: transparent !important; text-shadow: none !important; }
+    </style>');
+    })();
+  </script>
+<link href="/assets/images/favicon-96x96.png?v=5" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/assets/images/favicon.ico?v=5" rel="shortcut icon"/>
+<link href="/assets/images/apple-touch-icon.png?v=5" rel="apple-touch-icon" sizes="180x180"/>
+<meta content="Terry" name="apple-mobile-web-app-title"/>
+<link href="/assets/images/site.webmanifest" rel="manifest"/>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<meta content="noindex, nofollow" name="robots"/>
+<meta content="Exploring the trade-offs between low-level C++ competitive programming and high-level Python prototyping in execution speed, memory layout, and cache locality." name="description"/>
+<meta content="Muhammad Taha Nasir" name="author"/>
+<meta content="C++, Python, Competitive Programming, Algorithms" name="tags" />
+<meta name="thumbnail" content="/assets/images/posts/cpp-vs-python-cover.png" />
+<title>From C++ Competitive Programming to Python: Trade-offs in Memory &amp; Speed</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/css/stylesheet.css" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet"/>
+<link href="../../assets/css/bottom-nav.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/>
+<style>
+         .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+        
+        /* Theme-Adaptive Styling */
+        .cinematic-intro-card {
+            background: var(--entry);
+            border-left: 4px solid var(--accent);
+            border-top: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            border-radius: 0 12px 12px 0;
+            padding: 24px 28px;
+            margin: 25px 0 35px 0;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .cinematic-intro-card p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            color: var(--primary);
+        }
+        
+        .cinematic-intro-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .svg-diagram-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; background: var(--entry) !important; border: 1px solid var(--border) !important; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-small); transition: background 0.3s ease, border-color 0.3s ease; }
+        
+        .svg-diagram { 
+            max-width: 520px; 
+            width: 100%; 
+            height: auto; 
+            background: transparent; 
+            padding: 24px; 
+        }
+
+        .thought-card {
+            background: var(--entry);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 26px;
+            margin: 32px 0;
+            color: var(--primary);
+            box-shadow: var(--shadow-light);
+        }
+
+        .hero-banner-img {
+            max-width: 100%;
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            margin: 20px 0 30px 0;
+            border-radius: 12px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--border);
+            display: block;
+        }
+
+        .handwritten-quote {
+            font-family: 'Caveat', cursive, sans-serif;
+            font-size: 1.9rem;
+            line-height: 1.35;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .handwritten-signature {
+            font-family: 'Caveat', cursive, sans-serif;
+            font-size: 1.6rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        /* Mobile-Responsive Table Wrapper */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        /* Transparent Scrollbars (Mobile & Desktop) */
+        .table-responsive, .code-block, .code-block pre, pre, pre[class*="language-"] {
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+
+        .table-responsive::-webkit-scrollbar, .code-block::-webkit-scrollbar, .code-block pre::-webkit-scrollbar, pre::-webkit-scrollbar, pre[class*="language-"]::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            background: transparent !important;
+        }
+
+        .benchmark-table {
+            width: 100%;
+            min-width: 550px;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .benchmark-table th {
+            background: var(--code-bg);
+            color: var(--primary);
+            padding: 12px 14px;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .benchmark-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+            color: var(--primary);
+        }
+
+        /* Mobile Media Queries */
+        @media (max-width: 768px) {
+            .hero-banner-img {
+                max-height: 260px;
+                margin: 15px 0 20px 0;
+            }
+
+            .cinematic-intro-card {
+                padding: 18px 20px;
+                margin: 20px 0 25px 0;
+            }
+
+            .cinematic-intro-card p {
+                font-size: 0.98rem;
+                line-height: 1.6;
+                margin-bottom: 10px;
+            }
+
+            .handwritten-quote {
+                font-size: 1.5rem;
+                line-height: 1.3;
+            }
+
+            .handwritten-signature {
+                font-size: 1.3rem;
+            }
+
+            .svg-diagram {
+                padding: 14px 8px;
+            }
+
+            .thought-card {
+                padding: 18px 20px;
+                margin: 20px 0;
+            }
+
+            .benchmark-table th, .benchmark-table td {
+                padding: 10px 12px;
+                font-size: 0.88rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-banner-img {
+                max-height: 200px;
+                border-radius: 8px;
+            }
+
+            .cinematic-intro-card {
+                padding: 14px 16px;
+                border-left-width: 3px;
+            }
+
+            .handwritten-quote {
+                font-size: 1.35rem;
+            }
+
+            .handwritten-signature {
+                font-size: 1.15rem;
+            }
+        }
+    </style>
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="../../assets/js/bg-canvas.js"></script>
+</head>
+<body id="top" post-date="2022-06-15T00:00:00Z">
+<div aria-hidden="true" class="loader" id="loader">
+<div class="terry-animation">
+<span class="letter">t</span>
+<span class="letter">e</span>
+<span class="letter">r</span>
+<span class="letter">r</span>
+<span class="letter">y</span>
+</div>
+</div>
+    <!-- Header Navigation -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+<div class="container">
+<nav class="breadcrumb">
+      <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a> » <span class="breadcrumb-current">From C++ Competitive Programming to Python: Trade-offs in Memory &amp; Speed</span>
+    </nav>
+<main class="post-content">
+<header class="post-header">
+<h1 class="post-title">From C++ Competitive Programming to Python: Trade-offs in Memory &amp; Speed</h1>
+<div class="post-meta">June 15, 2022 • 5 min • Muhammad Taha Nasir</div>
+</header>
+<img alt="From C++ Competitive Programming to Python" class="hero-banner-img" src="/assets/images/posts/cpp-vs-python-cover.png"/>
+<div class="cinematic-intro-card">
+<p><em>What happens when you trade raw pointer arithmetic and template metaprogramming for the comfort of dynamic duck typing?</em></p>
+<p>So, I've been coding in Python for a specific software project over the last few weeks. But if you know my background, I spent years in the strict, unforgiving world of C++ competitive programming.</p>
+<p>And going from C++ to Python feels a lot like switching from a raw, manual transmission track car to a fully autonomous electric vehicle. There is an immediate, undeniable shift in user experience.</p>
+<p>In C++, you are responsible for everything. You want an array? You manage the contiguous memory block. You want to pass an object? You better decide right now if it's a reference, a pointer, or a deep copy. It's stressful, but the execution speed is pristine. The latency is practically non-existent, and the control feels absolute.</p>
+</div>
+<aside class="table-of-contents">
+<details>
+<summary>Table of Contents</summary>
+<ul>
+<li><a href="#shift-in-mindset">The Shift in Mindset</a></li>
+<li><a href="#memory-determinism">Memory &amp; Determinism in 100 Seconds</a></li>
+<li><a href="#performance-gauntlet">The Performance Gauntlet</a></li>
+<li><a href="#cache-locality">Cache Locality &amp; The Overhead Tax</a></li>
+<li><a href="#hardware-limits">Hardware Impact &amp; Real-World Limits</a></li>
+<li><a href="#final-verdict">Final Thoughts &amp; Verdict</a></li>
+</ul>
+</details>
+</aside>
+<div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter" type="button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share article" type="button">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+<section id="shift-in-mindset">
+<h2>The Shift in Mindset</h2>
+<p>Then you open a Python script. You just write <code>x = []</code> and start appending data. No type declarations. No <code>#include &lt;vector&gt;</code>. No boilerplate code filling up your screen. The syntax fluidity is incredible, and you can prototype an algorithm in a quarter of the time.</p>
+<p>But... there is always a "but" when you look past clean design.</p>
+<p>When you run a tight loop in Python across 100,000 data points, you realize you've surrendered your control. You aren't talking directly to the hardware anymore; you're talking to a massive, heavy interpreter. So, is development speed worth the performance tax? Let's find out.</p>
+</section>
+<section id="memory-determinism">
+<h2>Memory &amp; Determinism in 100 Seconds</h2>
+<p>Imagine a world where your algorithm fails a strict time limit test case because your integer variable takes up 28 bytes of memory instead of 4. Welcome to Python.</p>
+<div class="code-block">
+
+<pre><code class="language-cpp">// C++: Deterministic, tight, raw speed
+#include &lt;iostream&gt;
+int main() {
+    int x = 42; // Exactly 4 bytes on stack. Fast.
+    std::cout &lt;&lt; x;
+}</code></pre>
+</div>
+<p>In competitive programming, algorithmic rigor is everything. In C++, memory is explicit and predictable. An integer is 4 bytes. A standard array maps directly onto your CPU's L1 cache lines. The compiler takes your code, strips away human abstraction, and turns it into optimized machine instructions.</p>
+<p>Python completely deletes this deterministic low-level control.</p>
+<div class="code-block">
+
+<pre><code class="language-python"># Python: Beautiful syntax, hidden object bloat
+x = 42 # PyObject_HEAD metadata wrapper. 28 bytes minimum!</code></pre>
+</div>
+<p>When you declare an integer in standard CPython, the interpreter spins up a full <code>PyObject</code> struct on the heap, packing in reference counters, type pointers, and size parameters.</p>
+<p>If you are running a standard Breadth-First Search (BFS) or Dijkstra's algorithm, Python's dynamic lookup chains add significant computational overhead. Unless you run PyPy, which uses a Just-In-Time (JIT) compiler to optimize those hot loops on the fly, your execution times can skyrocket under strict time constraints.</p>
+</section>
+<section id="performance-gauntlet">
+<h2>The Performance Gauntlet</h2>
+<p>I didn't want to just talk about theory. I wanted to see what happens when you throw the exact same complex graph algorithm at a heavy execution gauntlet.</p>
+<p>I set up a classic competitive programming problem: parsing a matrix of 10,000 x 10,000 nodes, tracking shortest paths, and handling memory allocations under strict time constraints.</p>
+<p>Here is how three different execution runtimes compare under test conditions:</p>
+<div class="table-responsive">
+<table class="benchmark-table">
+<thead>
+<tr>
+<th>Metric / Language</th>
+<th>Contender 1: Optimized C++20 (g++ -O3)</th>
+<th>Contender 2: Standard Python 3 (CPython)</th>
+<th>Contender 3: PyPy3 (JIT Compiler)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Execution Time</strong></td>
+<td><strong>0.04s</strong> (Absolute Speed)</td>
+<td>3.82s (Time Limit Exceeded )</td>
+<td>0.31s (Impressive Recovery)</td>
+</tr>
+<tr>
+<td><strong>Memory Footprint</strong></td>
+<td><strong>~32 MB</strong> (Ultra-Efficient)</td>
+<td>~290 MB (Heavy Heap Bloat)</td>
+<td>~140 MB (JIT Memory Tax)</td>
+</tr>
+<tr>
+<td><strong>Lines of Code</strong></td>
+<td>~65 lines (Heavy Boilerplate)</td>
+<td><strong>~18 lines</strong> (Clean &amp; Minimalist)</td>
+<td><strong>~18 lines</strong> (Clean &amp; Minimalist)</td>
+</tr>
+<tr>
+<td><strong>Safety &amp; Control</strong></td>
+<td>Manual Pointers (Risk of Segfaults)</td>
+<td><strong>Safe Automatic GC</strong></td>
+<td><strong>Safe Automatic GC</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The data paints a clear story. Contender 1, the C++ binary compiled with optimization flags, is an absolute speed demon. It flies through constraints, uses minimal memory, and utilizes hardware cache lines efficiently. But writing it required explicit template setups, manual memory discipline, and zero room for typos.</p>
+<p>Standard CPython is elegant to read, but it took nearly 100x longer than C++ on raw matrix traversal loops.</p>
+<p>However, look at Contender 3: By running the exact same minimalist Python code through the PyPy3 JIT engine, execution time dropped down to 0.31 seconds, proving that runtime optimization can dramatically narrow the performance gap.</p>
+</section>
+<section id="cache-locality">
+<h2>Cache Locality &amp; The Overhead Tax</h2>
+<p>Consider what happens under the hood during a standard list transformation:</p>
+<div class="code-block">
+
+<pre><code class="language-python"># List comprehension in standard Python
+def calculate_metrics(data_list):
+    return [x * 2 for x in data_list if x % 2 == 0]</code></pre>
+</div>
+<p>When you run a list comprehension like the one above, Python dynamically resizes an array on the heap, triggering frequent garbage collection checks and jumping across RAM pointers. It prioritizes safety and flexibility over physical cache locality.</p>
+<!-- Fully Theme-Adaptive Vector SVG Diagram comparing Memory Pathways -->
+<div class="svg-diagram-wrapper">
+<svg class="svg-diagram" viewbox="0 0 460 260" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arrow" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="5" refy="5" viewbox="0 0 10 10">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="var(--svg-text-muted)"></path>
+</marker>
+</defs>
+<!-- C++ Direct Track -->
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" x="20" y="35">C++ Direct Memory Path:</text>
+<rect fill="#0284c7" height="38" rx="6" width="120" x="20" y="50"></rect>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="80" y="74">Stack Variable</text>
+<line marker-end="url(#arrow)" stroke="#94a3b8" stroke-width="2" x1="140" x2="175" y1="69" y2="69"></line>
+<rect fill="#0d9488" height="38" rx="6" width="130" x="180" y="50"></rect>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="245" y="74">L1 Cache Line</text>
+<line marker-end="url(#arrow)" stroke="#94a3b8" stroke-width="2" x1="310" x2="345" y1="69" y2="69"></line>
+<rect fill="#059669" height="38" rx="6" width="90" x="350" y="50"></rect>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle" x="395" y="74">CPU Core </text>
+<!-- Python Heap Track -->
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" x="20" y="145">Python Indirect Heap Path:</text>
+<rect fill="#6366f1" height="38" rx="6" width="110" x="20" y="160"></rect>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="75" y="184">PyObject Ref</text>
+<line marker-end="url(#arrow)" stroke="#94a3b8" stroke-width="2" x1="130" x2="165" y1="179" y2="179"></line>
+<rect fill="#7c3aed" height="38" rx="6" width="130" x="170" y="160"></rect>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="235" y="184">Type Pointer &amp; Head</text>
+<line marker-end="url(#arrow)" stroke="#94a3b8" stroke-width="2" x1="300" x2="335" y1="179" y2="179"></line>
+<rect fill="#d97706" height="38" rx="6" width="100" x="340" y="160"></rect>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle" x="390" y="184">Heap Value </text>
+</svg>
+</div>
+<p>In competitive programming, respecting hardware boundaries, using static arrays, bitwise operations, and pre-allocated memory arenas, is what lets you pass tight 1.0s time limits. Python lets you bypass those details during prototyping, but understanding what the computer is actually doing remains essential.</p>
+</section>
+<section id="hardware-limits">
+<h2>Hardware Impact &amp; Real-World Limits</h2>
+<p>On small data inputs, language speed differences are barely noticeable. But when scaling across millions of iterations, memory layout directly dictates hardware workload.</p>
+<p>An unoptimized script with heavy heap allocations can cause frequent CPU cache misses, forcing the OS to manage garbage collection pauses and page swaps. Meanwhile, a compiled C++ binary executes predictable instruction sequences with minimal CPU power draw.</p>
+<p>Execution efficiency isn't just an abstract benchmark metric; it directly affects server cost, memory throughput, and power efficiency.</p>
+</section>
+<section id="final-verdict">
+<h2>Final Thoughts &amp; Verdict</h2>
+<p>When you strip away syntax preferences, the choice between C++ and Python isn't about which language is objectively "better." It's a balance of engineering priorities.</p>
+<p>C++ remains the gold standard for algorithmic rigor and low-level control, forcing you to understand computer architecture to squeeze out maximum speed. Python trades raw performance for developer velocity, offering unparalleled prototyping speed that can be accelerated when necessary.</p>
+<blockquote class="quote-highlight" style="margin: 35px 0;">
+<p class="handwritten-quote">Write your logic fast in Python, but when every byte and microsecond counts, learn to command the metal in C++.</p>
+<p class="handwritten-signature">– Muhammad Taha Nasir</p>
+</blockquote>
+<p class="next-post-link" style="margin-top: 25px; font-size: 1.05rem;">
+          <em>Next: <a href="git-for-cs-students.html">Why Every CS Student Should Learn Git & Version Control Early &rarr;</a></em>
+        </p>
+</section>
+<div class="tags-container" id="dynamic-tags"></div>
+<hr class="divider"/>
+<section class="related-articles" id="related-series">
+<h2 class="series-title">Article Series</h2>
+<a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+<div id="related-posts-container"></div>
+</section>
+</main>
+<div class="newsletter-section">
+<div class="newsletter-content">
+<h3>Subscribe to our newsletter</h3>
+<p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+<p>Subscribe to the newsletter, and don't miss out.</p>
+<div class="newsletter-form">
+<input class="newsletter-input" placeholder="Enter your email address" type="email"/>
+<button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+</div>
+</div>
+</div>
+</div>
+<footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
+<button aria-label="Scroll to top" id="scrollTop">
+<i class="fas fa-chevron-up"></i>
+</button>
+<script src="../../assets/js/each-post.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <script src="../../assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/shared-bottom-nav.js"></script>
+</body>
+</html>

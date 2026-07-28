@@ -1,171 +1,281 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html dir="auto" lang="en">
 <head>
-<link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
-<link href="/assets/images/favicon.ico" rel="shortcut icon"/>
-<link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>');
+    })();
+  </script>
+<link href="/assets/images/favicon-96x96.png?v=5" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/assets/images/favicon.ico?v=5" rel="shortcut icon"/>
+<link href="/assets/images/apple-touch-icon.png?v=5" rel="apple-touch-icon" sizes="180x180"/>
 <meta content="Terry" name="apple-mobile-web-app-title"/>
 <link href="/assets/images/site.webmanifest" rel="manifest"/>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
 <meta content="noindex, nofollow" name="robots"/>
-<meta content="A beginner’s hilarious dive into deploying AI projects with Flask, Streamlit, and Vercel, with tales of bugs, late-night coding, and my Headstarter Fellowship adventures." name="description"/>
+<meta content="Deploying AI Projects: Flask vs Streamlit vs Vercel Architecture. Focus: Web deployment trade-offs and hosting strategies." name="description"/>
 <meta content="Muhammad Taha Nasir" name="author"/>
-<meta content="Web Development, Full-Stack Engineering" name="tags"/>
-<meta content="/assets/images/posts/ai-deployment.png" name="thumbnail"/>
-<title>Deploying AI Projects: Flask vs Streamlit vs Vercel</title>
+<meta content="Deployment, Flask, Streamlit, Vercel, AI Engineering" name="tags" />
+<meta name="thumbnail" content="/assets/images/posts/ai-deployment.png" />
+<title>Deploying AI Projects: Flask vs Streamlit vs Vercel Architecture</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
-<link href="../../assets/css/each-post.css" rel="stylesheet"/>
-<script>
-        // Apply theme immediately on page load
-        (function () {
-            const savedTheme = localStorage.getItem('pref-theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
-        })();
-    </script>
+<link rel="stylesheet" href="/assets/css/stylesheet.css" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet"/>
+<style>
+        .svg-diagram-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; background: var(--entry) !important; border: 1px solid var(--border) !important; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-small); transition: background 0.3s ease, border-color 0.3s ease; }
+        
+        .svg-diagram { 
+            max-width: 800px; 
+            min-width: 600px;
+            width: 100%; 
+            height: auto; 
+            display: block;
+            margin: 0 auto;
+        }
+
+        .cinematic-intro-card {
+            background: linear-gradient(135deg, var(--glass-bg), rgba(0, 122, 255, 0.05));
+            border-left: 4px solid var(--accent);
+            padding: 20px 25px;
+            margin: 30px 0;
+            border-radius: 0 12px 12px 0;
+            box-shadow: var(--shadow-light);
+            font-style: italic;
+            color: var(--secondary);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            margin: 30px 0;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .benchmark-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--glass-bg);
+            font-size: 0.95rem;
+        }
+
+        .benchmark-table th {
+            background: rgba(0, 102, 204, 0.1);
+            color: var(--primary);
+            font-weight: 600;
+            text-align: left;
+            padding: 12px 15px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .benchmark-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border);
+            color: var(--secondary);
+        }
+
+        .benchmark-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .benchmark-table tr:nth-child(even) {
+            background: rgba(0,0,0,0.02);
+        }
+
+        [data-theme="dark"] .benchmark-table tr:nth-child(even) {
+            background: rgba(255,255,255,0.02);
+        }
+    </style>
+  <link rel="stylesheet" href="/assets/css/bottom-nav.css">
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="../../assets/js/bg-canvas.js"></script>
 </head>
-<body class="dark" id="top" post-date="2024-08-12T00:00:00Z">
-<header class="header">
-<nav class="nav">
-<!-- Left: Logo -->
-<div class="nav-left">
-<a class="logo" href="/index.html">&lt;terry/&gt;</a>
-</div>
-<!-- Center: Pills Navigation -->
-<div class="nav-center">
-<div class="pill-nav">
-<a href="/projects.html">Projects</a>
-<a href="/archives.html">Archives</a>
-<a href="/resume.html">Resume</a>
-<a href="/search.html">Search</a>
+<body id="top" post-date="2024-08-12T00:00:00Z">
+<div aria-hidden="true" class="loader" id="loader">
+<div class="terry-animation">
+<span class="letter">t</span>
+<span class="letter">e</span>
+<span class="letter">r</span>
+<span class="letter">r</span>
+<span class="letter">y</span>
 </div>
 </div>
-<!-- Right: Theme toggle -->
-<div class="nav-right">
-<button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
-<svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<circle cx="12" cy="12" r="5"></circle>
-<line x1="12" x2="12" y1="1" y2="3"></line>
-<line x1="12" x2="12" y1="21" y2="23"></line>
-<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
-<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
-<line x1="1" x2="3" y1="12" y2="12"></line>
-<line x1="21" x2="23" y1="12" y2="12"></line>
-<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
-<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
-</svg>
-<svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-</svg>
-</button>
-</div>
-</nav>
-</header>
+    <!-- Header Navigation -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
 <div class="container">
 <nav class="breadcrumb">
-<a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
-</nav>
+      <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a> » <span class="breadcrumb-current">Deploying AI Projects: Flask vs Streamlit vs Vercel Architecture</span>
+    </nav>
 <main class="post-content">
 <header class="post-header">
-<h1 class="post-title">Deploying AI Projects: Flask vs Streamlit vs Vercel</h1>
-<div class="post-meta">August 12, 2024 • 4 min • Muhammad Taha Nasir</div>
+<h1 class="post-title">Deploying AI Projects: Flask vs Streamlit vs Vercel Architecture</h1>
+<div class="post-meta">August 12, 2024 • 6 min • Muhammad Taha Nasir</div>
 </header>
 <img alt="AI Deployment Chaos" src="/assets/images/posts/ai-deployment.png" style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;"/>
-<aside class="table-of-contents">
-<details>
-<summary>Table of Contents</summary>
-<ul>
-<li><a href="#the-deployment-rollercoaster">The Deployment Rollercoaster</a></li>
-<li><a href="#flask-fiasco">Flask: The Overachiever’s Framework</a></li>
-<li><a href="#streamlit-saves">Streamlit: My Python Pal</a></li>
-<li><a href="#vercel-vibes">Vercel: The Cool Kid’s Deployment</a></li>
-<li><a href="#my-verdict">My Verdict: Who Wins?</a></li>
-<li><a href="#where-headed">Where I’m Headed</a></li>
-</ul>
-</details>
-</aside>
-<section id="the-deployment-rollercoaster">
+<p>Building machine learning models? Honestly, that’s the easy part, like acing a predictable math quiz. Getting them out of local Jupyter notebooks and into production on the internet? Bro, that feels like juggling flaming torches while riding a unicycle blindfolded.</p>
+<p>During the Headstarter AI Software Engineering Fellowship back in July 2024, I dove headfirst into the chaotic world of web deployment. Fueled by endless cups of chai and late-night Zoom calls bridging the 9-hour gap between Pakistan and New York, I wrestled with three primary deployment stacks, <strong>Flask</strong>, <strong>Streamlit</strong>, and <strong>Vercel</strong>, to get our fellowship builds (including our AI Roadmap Generator) live to the world.</p>
+<p>Here is my unfiltered architectural breakdown of the deployment game, the trade-offs of each platform, and how to choose the right hosting strategy for your AI apps.</p>
+<section id="deployment-rollercoaster">
 <h2>The Deployment Rollercoaster</h2>
-<p>Building AI models? That’s the easy part, like acing a math quiz. Getting them online? Bro, that’s
-                    like juggling flaming torches while riding a unicycle blindfolded. During the Headstarter AI SWE
-                    Fellowship in July 2024, I dove into the wild world of deployment, fueled by chai and late-night
-                    Zoom calls from Pakistan to New York. I wrestled with Flask, Streamlit, and Vercel to get my AI
-                    projects live, including a pretty dope <a href="https://ai-roadmap-generator.streamlit.app/">AI
-                        Roadmap Generator</a>. Here’s my newbie take on the deployment game, with a few laughs and
-                    plenty of facepalms.</p>
+<div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter" type="button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share article" type="button">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+
+            <div class="cinematic-intro-card">
+<p>So, I’ve spent the last month taking machine learning models off localhost:8000 and deploying them directly to production cloud hosts.</p>
+</div>
+<p>If you’ve been building in the tech space recently, you know that a machine learning model is completely useless to real users until it lives behind a reliable, accessible URL.</p>
+<p>Going through rapid deployment sprints forces you to confront the stark differences between backend framework design and cloud hosting infrastructure. Do you want total control over every raw HTTP endpoint and HTML template? Or do you want to deploy a working Python web dashboard with zero web-dev boilerplate? Or maybe you want the blazing-fast, edge-rendered user experience of Next.js?</p>
+<p>The build quality across these hosting paradigms varies wildly, and picking the wrong architecture will hit you with serverless function timeouts and memory spikes. Let's break down how they compare under the hood.</p>
 </section>
-<section id="flask-fiasco">
-<h2>Flask: The Overachiever’s Framework</h2>
-<p>Flask is like that friend who insists on baking a cake from scratch when you just want cupcakes. It’s
-                    a Python framework that’s super flexible but expects you to be a web dev guru. I used Flask to
-                    deploy a text classifier during the fellowship. Installing it was chill with
-                    <code>pip install flask</code>, but then came the HTML templates and routes, and I was like, “Yo, I
-                    just want my model to say hi on the internet!”
-                </p>
-<p>Here’s a quick Flask app to serve an AI model:</p>
+<section id="under-the-hood">
+<h2>Under the Hood in 100 Seconds</h2>
+<p>Imagine spending three hours writing a model inference script, only to spend three days wrestling with WSGI servers, Docker build files, and CORS headers just to get a single endpoint to respond. Welcome to backend deployment.</p>
+<div class="svg-diagram-wrapper">
+<!-- SVG Diagram 1: Deployment Architectures -->
+<svg class="svg-diagram" viewbox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="flaskGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#3b82f6" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#2563eb" stop-opacity="0.4"></stop>
+</lineargradient>
+<lineargradient id="streamGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#ef4444" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#dc2626" stop-opacity="0.4"></stop>
+</lineargradient>
+<lineargradient id="vercelGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#10b981" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#059669" stop-opacity="0.4"></stop>
+</lineargradient>
+</defs>
+<rect fill="transparent" height="400" width="800" x="0" y="0"></rect>
+<!-- Root Node -->
+<rect fill="var(--code-bg)" height="50" rx="10" stroke="#30363d" stroke-width="2" width="300" x="250" y="30"></rect>
+<text fill="var(--svg-text-main)" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" x="400" y="60">DEPLOYMENT ARCHITECTURES</text>
+<!-- Lines connecting root to branches -->
+<path d="M 400 80 L 400 120" fill="none" stroke="#94a3b8" stroke-width="2"></path>
+<path d="M 150 120 L 650 120" fill="none" stroke="#94a3b8" stroke-width="2"></path>
+<path d="M 150 120 L 150 150" fill="none" stroke="#94a3b8" stroke-width="2"></path>
+<path d="M 400 120 L 400 150" fill="none" stroke="#94a3b8" stroke-width="2"></path>
+<path d="M 650 120 L 650 150" fill="none" stroke="#94a3b8" stroke-width="2"></path>
+<!-- Flask Branch -->
+<rect fill="url(#flaskGrad)" height="70" rx="8" stroke="#3b82f6" stroke-width="2" width="200" x="50" y="150"></rect>
+<text fill="var(--svg-text-main)" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" x="150" y="180">Flask</text>
+<text fill="var(--svg-text-muted)" font-family="sans-serif" font-size="12" text-anchor="middle" x="150" y="200">(WSGI Engine)</text>
+<path d="M 150 220 L 150 260" fill="none" stroke="#3b82f6" stroke-dasharray="4" stroke-width="2"></path>
+<polygon fill="#3b82f6" points="145,255 155,255 150,265"></polygon>
+<rect fill="var(--code-bg)" height="60" rx="6" stroke="#30363d" stroke-width="2" width="200" x="50" y="265"></rect>
+<text fill="var(--svg-text-main)" font-family="sans-serif" font-size="13" text-anchor="middle" x="150" y="290">Heavy Custom API</text>
+<text fill="var(--svg-text-muted)" font-family="sans-serif" font-size="11" text-anchor="middle" x="150" y="310">Heroku / Render / EC2</text>
+<!-- Streamlit Branch -->
+<rect fill="url(#streamGrad)" height="70" rx="8" stroke="var(--svg-red-border)" stroke-width="2" width="200" x="300" y="150"></rect>
+<text fill="var(--svg-text-main)" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" x="400" y="180">Streamlit</text>
+<text fill="var(--svg-text-muted)" font-family="sans-serif" font-size="12" text-anchor="middle" x="400" y="200">(Python UI)</text>
+<path d="M 400 220 L 400 260" fill="none" stroke="var(--svg-red-border)" stroke-dasharray="4" stroke-width="2"></path>
+<polygon fill="var(--svg-red-text)" points="395,255 405,255 400,265"></polygon>
+<rect fill="var(--code-bg)" height="60" rx="6" stroke="#30363d" stroke-width="2" width="200" x="300" y="265"></rect>
+<text fill="var(--svg-text-main)" font-family="sans-serif" font-size="13" text-anchor="middle" x="400" y="290">Rapid Prototype</text>
+<text fill="var(--svg-text-muted)" font-family="sans-serif" font-size="11" text-anchor="middle" x="400" y="310">Streamlit Community Cloud</text>
+<!-- Vercel Branch -->
+<rect fill="url(#vercelGrad)" height="70" rx="8" stroke="var(--svg-green-border)" stroke-width="2" width="200" x="550" y="150"></rect>
+<text fill="var(--svg-text-main)" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle" x="650" y="180">Vercel</text>
+<text fill="var(--svg-text-muted)" font-family="sans-serif" font-size="12" text-anchor="middle" x="650" y="200">(Edge / Next.js)</text>
+<path d="M 650 220 L 650 260" fill="none" stroke="var(--svg-green-border)" stroke-dasharray="4" stroke-width="2"></path>
+<polygon fill="var(--svg-green-text)" points="645,255 655,255 650,265"></polygon>
+<rect fill="var(--code-bg)" height="60" rx="6" stroke="#30363d" stroke-width="2" width="200" x="550" y="265"></rect>
+<text fill="var(--svg-text-main)" font-family="sans-serif" font-size="13" text-anchor="middle" x="650" y="290">Serverless Jamstack</text>
+<text fill="var(--svg-text-muted)" font-family="sans-serif" font-size="11" text-anchor="middle" x="650" y="310">Vercel Edge Network</text>
+</svg>
+</div>
+<h3>1. Flask: The Overachiever's Framework</h3>
+<p>Flask is like that friend who insists on baking a cake from scratch when you just want a quick cupcake. It gives you raw micro-framework control over your Python routes, but expects you to be a web dev ninja handling request parsing and HTML rendering manually.</p>
 <div class="code-block">
-<button class="copy-btn">Copy</button>
-<pre class="language-python" data-lang="Python"><code>
-from flask import Flask, request, render_template
+
+<pre><code class="language-python">from flask import Flask, request, render_template
+
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def predict():
     if request.method == 'POST':
         input_text = request.form['text']
-        # Your AI model would strut its stuff here
+        # Model inference logic runs here
         prediction = "Positive vibe detected!"
         return render_template('index.html', prediction=prediction)
     return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
-                    </code></pre>
+</code></pre>
 </div>
-<p>Deploying on Heroku was like teaching a cat to fetch possible, but painful. The <code>Procfile</code>
-                    was fussier than my auntie at a wedding, and my model’s dependencies made the app slower than a
-                    Karachi traffic jam. After some Stack Overflow marathons, I trimmed the fat, but Flask taught me:
-                    you get control, but you gotta earn it.</p>
-</section>
-<section id="streamlit-saves">
-<h2>Streamlit: My Python Pal</h2>
-<p>Streamlit is the homie who says, “You know Python? You’re basically a web dev!” It’s made for folks
-                    like me who’d rather debug a neural net than a CSS file. I used it for our <a href="https://ai-roadmap-generator.streamlit.app/">AI Roadmap Generator</a>, and bro, it was
-                    like finding biryani after a long day. Install with <code>pip install streamlit</code>, write a few
-                    lines, and bam, you’ve got a web app.</p>
-<p>Here’s a simple Streamlit app for an AI model:</p>
+<p><em>The Catch:</em> Deploying Flask on platforms like Heroku or Render requires managing Gunicorn WSGI workers, <code>Procfile</code> configurations, and heavy Python dependencies that can make cold boot times slower than a Karachi traffic jam.</p>
+<h3>2. Streamlit: My Python Pal</h3>
+<p>Streamlit is the homie that says, <em>"You know basic Python? Great, you're officially a web developer!"</em> It abstracts away HTML, CSS, and JS entirely, letting you render interactive UIs straight out of Python variables.</p>
 <div class="code-block">
-<button class="copy-btn">Copy</button>
-<pre class="language-python" data-lang="Python"><code>
-import streamlit as st
+
+<pre><code class="language-python">import streamlit as st
 
 st.title("AI Magic Box")
 user_input = st.text_input("Drop some text, fam:")
 if st.button("Hit Me With a Prediction"):
-    # Your AI model would flex here
-    st.write("Prediction: You’re gonna love Streamlit!")
-                    </code></pre>
+    # AI model runs inference here
+    st.write("Prediction: You're gonna love Streamlit!")
+</code></pre>
 </div>
-<p>Deploying on Streamlit’s platform was smoother than my best cricket swing, thanks to my teammate
-                    Awwab, the deployment king. We hit a Firebase auth bug sessions vanishing like my Wi-Fi during load
-                    shedding but a quick SDK tweak fixed it. Streamlit’s perfect for quick AI apps, but don’t expect it
-                    to let you redesign the whole UI.</p>
-</section>
-<section id="vercel-vibes">
-<h2>Vercel: The Cool Kid’s Deployment</h2>
-<p>Vercel is the TikTok star of deployment means flashy, user-friendly, and obsessed with Next.js. I
-                    used it
-                    for my fellowship portfolio and an AI Flashcards app. With <code>npm install -g vercel</code> and a
-                    Git push, your app’s live faster than you can say “viral.” It’s a dream for frontend-heavy projects
-                    but gets a bit cranky with beefy Python AI models.</p>
-<p>Here’s a sample <code>vercel.json</code> for a Next.js AI app:</p>
+<p><em>The Catch:</em> Deploying on Streamlit Cloud is smoother than a clean cricket shot, but every user interaction triggers a top-to-bottom script execution. If you don't manage session state or cache heavy models, your UI latency suffers.</p>
+<h3>3. Vercel: The Cool Kid’s Deployment</h3>
+<p>Vercel is the flashiest deployment platform on the block, tailor-made for React, Next.js, and modern Jamstack architectures. Pushing code via Git deploys your frontend globally to edge networks in seconds.</p>
 <div class="code-block">
-<button class="copy-btn">Copy</button>
-<pre class="language-json" data-lang="JSON"><code>
-{
+
+<pre><code class="language-json">{
   "version": 2,
   "builds": [
     {
@@ -180,32 +290,141 @@ if st.button("Hit Me With a Prediction"):
     }
   ]
 }
-                    </code></pre>
+</code></pre>
 </div>
-<p>Vercel’s auto-scaling is slicker than my cousin’s new haircut, but I hit a snag with serverless
-                    function timeouts for my AI backend. Vercel was like, “Bro, I’m for shiny UIs, not your chunky
-                    models.” Still, for non-Python-heavy apps, it’s a total flex.</p>
+<p><em>The Catch:</em> Vercel shines for frontend UIs, but serverless execution limits (like 10-second function timeouts on free tiers) will crash heavy, long-running Python AI inference backends.</p>
 </section>
-<section id="my-verdict">
+<section id="deployment-gauntlet">
+<h2>The Deployment Architecture Gauntlet</h2>
+<p>I put Flask, Streamlit, and Vercel through a direct head-to-head comparison gauntlet across four critical deployment dimensions.</p>
+<div class="table-responsive">
+<table class="benchmark-table">
+<thead>
+<tr>
+<th>Dimension / Metric</th>
+<th>Flask (Python WSGI)</th>
+<th>Streamlit (Python UI)</th>
+<th>Vercel (Next.js / Edge)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Setup Speed</strong></td>
+<td>Moderate (Requires routing &amp; templates)</td>
+<td><strong>Instant (pip install)</strong></td>
+<td>Fast (Git push integration)</td>
+</tr>
+<tr>
+<td><strong>Frontend Customization</strong></td>
+<td>High (Custom HTML/CSS/JS)</td>
+<td>Low (Pre-built components)</td>
+<td><strong>Maximum (React/Tailwind ecosystem)</strong></td>
+</tr>
+<tr>
+<td><strong>Heavy ML Suitability</strong></td>
+<td><strong>High (Dedicated container hosting)</strong></td>
+<td>Moderate (Prototypes)</td>
+<td>Low (Serverless timeouts)</td>
+</tr>
+<tr>
+<td><strong>Hosting Complexity</strong></td>
+<td>High (Procfile, Gunicorn, Docker)</td>
+<td><strong>Ultra-Low (One-click)</strong></td>
+<td><strong>Ultra-Low (CI/CD deployments)</strong></td>
+</tr>
+<tr>
+<td><strong>Best Use Case</strong></td>
+<td>Robust custom REST APIs</td>
+<td>Rapid AI prototypes</td>
+<td>High-performance web apps</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="systems-rant">
+<h2>The Systems Engineer's Rant</h2>
+<p>LOOK AT THIS ARCHITECTURE CHOICE! JUST LOOK AT IT!</p>
+<p>I am watching developers attempt to run heavy, unquantized PyTorch models inside 250MB Vercel Serverless Functions, and I am physically losing my mind!</p>
+<div class="code-block">
+
+<pre><code class="language-python"># What developers write when they don't understand serverless limits:
+# Trying to load a multi-gigabyte PyTorch model inside a stateless serverless handler!
+import torch
+
+def handler(request):
+    model = torch.load("heavy_model.pt") # COLD START DELAY OF 15 SECONDS! TIMEOUT!
+    return model(request.data)
+</code></pre>
+</div>
+<p>You guys are out here deploying architectures without understanding execution boundaries! It is <strong>NOT BLAZINGLY FAST</strong> if your serverless function times out before your model weights finish loading into memory!</p>
+<div class="svg-diagram-wrapper">
+<!-- SVG Diagram 2: Serverless vs Decoupled -->
+<svg class="svg-diagram" viewbox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="errorGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#7f1d1d" stop-opacity="0.6"></stop>
+<stop offset="100%" stop-color="#450a0a" stop-opacity="0.9"></stop>
+</lineargradient>
+<lineargradient id="successGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#064e3b" stop-opacity="0.6"></stop>
+<stop offset="100%" stop-color="#022c22" stop-opacity="0.9"></stop>
+</lineargradient>
+</defs>
+
+<!-- Bad Architecture Row -->
+<text fill="var(--svg-text-main)" font-family="monospace" font-size="14" font-weight="bold" x="30" y="65">Serverless ML Abuse</text>
+<rect fill="var(--code-bg)" height="40" rx="5" stroke="var(--svg-red-border)" stroke-width="2" width="130" x="220" y="40"></rect>
+<text fill="var(--svg-text-muted)" font-family="sans-serif" font-size="12" text-anchor="middle" x="285" y="65">User Request</text>
+<path d="M 350 60 L 400 60" fill="none" stroke="var(--svg-red-border)" stroke-width="2"></path>
+<polygon fill="var(--svg-red-text)" points="395,55 405,60 395,65"></polygon>
+<rect fill="var(--code-bg)" height="40" rx="5" stroke="var(--svg-orange-border)" stroke-width="2" width="150" x="410" y="40"></rect>
+<text fill="var(--svg-text-muted)" font-family="sans-serif" font-size="12" text-anchor="middle" x="485" y="65">Serverless Cold Start</text>
+<path d="M 560 60 L 610 60" fill="none" stroke="var(--svg-orange-border)" stroke-width="2"></path>
+<polygon fill="var(--svg-orange-text)" points="605,55 615,60 605,65"></polygon>
+<rect fill="url(#errorGrad)" height="40" rx="5" stroke="var(--svg-red-border)" stroke-width="2" width="140" x="620" y="40"></rect>
+<text fill="var(--svg-text-main)" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" x="690" y="65">Model Load Fail</text>
+<text fill="var(--svg-red-text)" font-family="sans-serif" font-size="12" text-anchor="middle" x="690" y="105">TIMEOUT</text>
+<!-- Separator -->
+<line stroke="#30363d" stroke-dasharray="5,5" x1="30" x2="770" y1="130" y2="130"></line>
+<!-- Good Architecture Row -->
+<text fill="var(--svg-text-main)" font-family="monospace" font-size="14" font-weight="bold" x="30" y="195">Decoupled Stack</text>
+<rect fill="var(--code-bg)" height="40" rx="5" stroke="var(--svg-green-border)" stroke-width="2" width="130" x="220" y="170"></rect>
+<text fill="var(--svg-text-muted)" font-family="sans-serif" font-size="12" text-anchor="middle" x="285" y="195">Next.js UI</text>
+<path d="M 350 190 L 400 190" fill="none" stroke="var(--svg-green-border)" stroke-width="2"></path>
+<polygon fill="var(--svg-green-text)" points="395,185 405,190 395,195"></polygon>
+<rect fill="var(--code-bg)" height="40" rx="5" stroke="#3b82f6" stroke-width="2" width="150" x="410" y="170"></rect>
+<text fill="var(--svg-text-muted)" font-family="sans-serif" font-size="12" text-anchor="middle" x="485" y="195">FastAPI / Flask API</text>
+<path d="M 560 190 L 610 190" fill="none" stroke="#3b82f6" stroke-width="2"></path>
+<polygon fill="#3b82f6" points="605,185 615,190 605,195"></polygon>
+<rect fill="url(#successGrad)" height="40" rx="5" stroke="var(--svg-green-border)" stroke-width="2" width="140" x="620" y="170"></rect>
+<text fill="var(--svg-text-main)" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" x="690" y="195">Container GPU</text>
+<text fill="var(--svg-green-text)" font-family="sans-serif" font-size="12" text-anchor="middle" x="690" y="235">BLAZINGLY FAST</text>
+</svg>
+</div>
+<p>If you have a heavy Python model, <strong>decouple your architecture!</strong> Host your frontend on Vercel for instant static rendering, and host your Python model on a dedicated container platform (like Railway, Render, or AWS ECS) using FastAPI or Flask!</p>
+<p>Stop overloading stateless serverless functions with heavy neural network weights!</p>
+</section>
+<section id="late-night-stress">
+<h2>Late-Night Deployment Stress Test</h2>
+<p>So, deploying a basic web page is easy. But what happens when you deploy an AI Roadmap Generator powered by external model APIs and Firebase authentication across time zones under deadline pressure?</p>
+<p>Shoutout to my fellowship teammate <strong>Awwab</strong>, the undisputed deployment king, who helped get our Streamlit app live at <code>ai-roadmap-generator.streamlit.app</code> during our late-night crunch sessions!</p>
+<p>When you deploy Streamlit apps to the cloud, missing environment variables (<code>secrets.toml</code>) or misconfigured API keys will instantly crash your live app while local testing works fine.</p>
+<p>We ran directly into a nasty Firebase SDK session bug where user logins would vanish like Wi-Fi during a load-shedding power outage every time the page refreshed. Resolving it required fixing how the client state re-initialized during script reruns.</p>
+<p>Debugging deployment pipelines at 3 AM teaches you that getting code off your local machine is 20% about syntax and 80% about configuring environment secrets, network ports, and state persistence!</p>
+</section>
+<section id="conclusion">
 <h2>My Verdict: Who Wins?</h2>
-<p>Flask is the control freak who demands you code every pixel, it's great if you’re a web dev ninja,
-                    but I’m
-                    still a padawan. Streamlit is my ride-or-die for Python-based AI apps; it’s fast, simple, and got
-                    our AI Roadmap Generator live without me pulling my hair out. Vercel’s the cool kid, perfect for
-                    flashy frontends but not your go-to for Python-heavy AI. As a beginner, I’m vibing with
-                    Streamlit, it’s like coding with training wheels. Flask and Vercel? I’ll hit you up when I level up.
-                </p>
+<ul>
+<li><strong>Flask</strong> is the control freak: Great if you're a web dev ninja who needs full custom API routing, but requires extra effort for basic UIs.</li>
+<li><strong>Streamlit</strong> is my ride-or-die for Python AI apps: It's fast, simple, and gets projects live without pulling your hair out over CSS.</li>
+<li><strong>Vercel</strong> is the cool kid: Unmatched for flashy, production-grade frontends, but needs a decoupled Python backend for heavy ML workloads.</li>
+</ul>
+<p>For rapid prototyping and Python-native AI applications, Streamlit takes the crown. When scaling up to full production, a decoupled <strong>Vercel Frontend + Dedicated Container Backend</strong> is the ultimate architecture.</p>
 </section>
-<section id="where-headed">
-<h2>Where I’m Headed</h2>
-<p>Deployment’s like trying to land a spaceship in a storm seems tricky, but I’m hooked. I’m diving
-                    deeper
-                    into AI and web dev, chasing more projects that make people go, “Yo, that’s dope!”. Stick around for
-                    more coding chaos. Taddaaa!</p>
-</section>
-<div class="tags-container" id="dynamic-tags">
-<!-- Tags will be dynamically generated here -->
-</div>
+<p class="next-post-link" style="margin-top: 25px; font-size: 1.05rem;">
+          <em>Next: <a href="what-are-ai-agents.html">What Are AI Agents, Really? Moving Beyond Simple Prompt Loops &rarr;</a></em>
+        </p><div class="tags-container" id="dynamic-tags"></div>
 <hr class="divider"/>
 <section class="related-articles" id="related-series">
 <h2 class="series-title">Article Series</h2>
@@ -213,29 +432,48 @@ if st.button("Hit Me With a Prediction"):
 <div id="related-posts-container"></div>
 </section>
 </main>
-<footer class="footer">
-<div class="social-icons">
-<a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-<a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-<a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+<div class="newsletter-section">
+<div class="newsletter-content">
+<h3>Subscribe to our newsletter</h3>
+<p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+<p>Subscribe to the newsletter, and don't miss out.</p>
+<div class="newsletter-form">
+<input class="newsletter-input" placeholder="Enter your email address" type="email"/>
+<button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
 </div>
-<p>© 2024 – Muhammad Taha Nasir</p>
-</footer>
 </div>
+</div>
+</div>
+<footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
 <button aria-label="Scroll to top" id="scrollTop">
 <i class="fas fa-chevron-up"></i>
 </button>
 <script src="../../assets/js/each-post.js"></script>
-<script>
-        document.querySelectorAll('.copy-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                    button.innerText = "Copied!";
-                    setTimeout(() => button.innerText = "Copy", 1500);
-                });
-            });
-        });
-    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script src="../../assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/shared-bottom-nav.js"></script>
 </body>
 </html>

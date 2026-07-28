@@ -1,109 +1,199 @@
 [
   {
-    "title": "Four Years Later: What Building AI Products Actually Looks Like",
-    "summary": "Reflecting on the journey from writing simple Python scripts to architecting scalable, production-grade AI systems.",
-    "url": "posts/2026/2026-reflection-ai-engineer.html",
-    "thumbnail": "/assets/images/posts/2026-reflection.png",
+    "title": "What I'd Tell a New CS Grad Entering AI in 2026",
+    "summary": "Reflections and actionable career guidance for Computer Science graduates entering the AI industry in 2026: core CS foundations, system architecture, open-source literacy, and long-term engineering endurance.",
+    "url": "posts/2026/advice-for-cs-grads.html",
+    "thumbnail": "/assets/images/posts/advice-for-cs-grads.png",
     "tags": [
+      "Career Mentorship",
+      "Computer Science",
       "AI Engineering",
-      "Career Reflection"
+      "System Design",
+      "MLOps"
     ],
     "author": "Muhammad Taha Nasir",
-    "time": "4 min",
-    "date": "2026-06-01T00:00:00Z"
+    "time": "5 min",
+    "date": "2026-08-04T00:00:00Z"
   },
   {
-    "title": "Cutting AI Latency in Half with Semantic Caching and Batching",
-    "summary": "Techniques for reducing AI model latency in production, focusing on request batching, semantic caching, and optimized runtimes.",
-    "url": "posts/2026/optimizing-inference-speed.html",
-    "thumbnail": "/assets/images/posts/optimizing-inference-speed.png",
+    "title": "Building Real-Time Voice AI with Twilio Media Streams & Python",
+    "summary": "Architecting enterprise Voice AI with Twilio Media Streams, Python, FastAPI WebSockets, G.711 μ-law transcoding, streaming STT/TTS, full-duplex conversations, and barge-in support.",
+    "url": "posts/2026/twilio-media-streams-voice-ai.html",
+    "thumbnail": "/assets/images/posts/twilio-media-streams-voice-ai.png",
     "tags": [
-      "Performance Optimization",
-      "AI Engineering"
+      "Voice AI",
+      "Twilio Media Streams",
+      "FastAPI",
+      "WebSockets",
+      "Speech-to-Text",
+      "Enterprise Telephony"
     ],
     "author": "Muhammad Taha Nasir",
-    "time": "3 min",
-    "date": "2026-05-19T00:00:00Z"
+    "time": "7 min",
+    "date": "2026-07-18T00:00:00Z"
   },
   {
-    "title": "Catching Silent Failures: Monitoring Data Drift with Grafana",
-    "summary": "Implementing MLOps best practices to monitor deployed AI models, tracking data drift, latency, and predictive performance.",
-    "url": "posts/2026/mlops-model-monitoring.html",
-    "thumbnail": "/assets/images/posts/mlops-model-monitoring.png",
+    "title": "Looking Back Across Four Years: Why Computer Science Fundamentals Matter More Than Ever",
+    "summary": "A 4-year engineering retrospective on going from C++ memory pointers to building production AI platforms, and why fundamental computer science matters more than ever in the age of generative AI.",
+    "url": "posts/2026/four-year-engineering-retrospective.html",
+    "thumbnail": "/assets/images/posts/four-year-engineering-retrospective.png",
+    "tags": [
+      "Software Engineering",
+      "Computer Science",
+      "AI Engineering",
+      "System Design",
+      "Career Growth"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "7 min",
+    "date": "2026-06-12T00:00:00Z"
+  },
+  {
+    "title": "Cutting AI Latency in Half: Semantic Caching, Request Batching, & vLLM",
+    "summary": "Production guide to reducing AI inference latency by 50%+ using semantic caching, vLLM continuous batching, KV cache optimization, and streaming response pipelines.",
+    "url": "posts/2026/cutting-ai-latency-vllm.html",
+    "thumbnail": "/assets/images/posts/cutting-ai-latency-vllm.png",
+    "tags": [
+      "AI Inference Optimization",
+      "vLLM",
+      "Semantic Caching",
+      "Request Batching",
+      "KV Cache",
+      "FastAPI"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "6 min",
+    "date": "2026-04-28T00:00:00Z"
+  },
+  {
+    "title": "Catching Silent Failures: Monitoring Data Drift & MLOps with Grafana",
+    "summary": "Catching silent MLOps failures: How to monitor feature drift, concept drift, and model performance in production using Prometheus, OpenTelemetry, and Grafana.",
+    "url": "posts/2026/mlops-data-drift-grafana.html",
+    "thumbnail": "/assets/images/posts/mlops-data-drift-grafana.png",
     "tags": [
       "MLOps",
-      "Production AI"
+      "Data Drift",
+      "Grafana",
+      "Prometheus",
+      "OpenTelemetry",
+      "AI Observability"
     ],
     "author": "Muhammad Taha Nasir",
-    "time": "3 min",
-    "date": "2026-04-03T00:00:00Z"
+    "time": "7 min",
+    "date": "2026-04-07T00:00:00Z"
+  },
+  {
+    "title": "CI/CD & Security Practices for AI Engineers: Protecting Keys & Data Pipelines",
+    "summary": "Enterprise DevSecOps blueprint for AI engineering: Keyless OIDC authentication, least-privilege IAM policies, pre-commit secret scanning, and automated supply chain security.",
+    "url": "posts/2026/ai-cicd-security.html",
+    "thumbnail": "/assets/images/posts/ai-cicd-security.png",
+    "tags": [
+      "DevSecOps",
+      "CI/CD",
+      "GitHub Actions",
+      "IAM",
+      "Docker",
+      "Secret Management"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "5 min",
+    "date": "2026-02-21T00:00:00Z"
   },
   {
     "title": "Scaling an AI Product: Next.js, FastAPI, and Postgres Architecture",
-    "summary": "A comprehensive guide on building a scalable Full-Stack AI SaaS platform using modern web technologies and robust backend architecture.",
+    "summary": "Designing and building a production-grade full-stack AI SaaS platform using Next.js App Router, FastAPI async backends, Redis queues, and Postgres pgvector.",
     "url": "posts/2026/fullstack-ai-saas.html",
     "thumbnail": "/assets/images/posts/fullstack-ai-saas.png",
     "tags": [
-      "Full-Stack Engineering",
-      "SaaS Architecture"
+      "Full-Stack System Design",
+      "Next.js 16",
+      "FastAPI",
+      "PostgreSQL",
+      "Redis",
+      "AI Infrastructure"
     ],
     "author": "Muhammad Taha Nasir",
-    "time": "3 min",
-    "date": "2026-02-11T00:00:00Z"
+    "time": "6 min",
+    "date": "2026-02-03T00:00:00Z"
   },
   {
-    "title": "Building Multi-Agent Workflows: How I Connected LLM Agents to Solve Complex Tasks",
-    "summary": "Architecting multi-agent systems where specialized LLMs communicate and collaborate to solve complex, multi-step problems.",
+    "title": "Architecting Multi-Agent Workflows: LangGraph vs CrewAI vs AutoGen",
+    "summary": "Architectural comparison of LangGraph, CrewAI, and AutoGen (AG2) for enterprise stateful multi-agent system design.",
     "url": "posts/2026/multi-agent-workflows.html",
-    "thumbnail": "/assets/images/posts/multi-agent-workflows-2026.png",
+    "thumbnail": "/assets/images/posts/multi-agent-workflows.png",
     "tags": [
-      "Agentic AI",
       "Multi-Agent Systems",
-      "LangChain",
-      "AutoGen"
+      "LangGraph",
+      "CrewAI",
+      "AutoGen",
+      "System Architecture"
     ],
     "author": "Muhammad Taha Nasir",
-    "time": "2 min",
-    "date": "2026-01-15T00:00:00Z"
+    "time": "4 min",
+    "date": "2026-01-14T00:00:00Z"
   },
   {
-    "title": "Architecting a Multi-Agent System with AutoGen and LangGraph",
-    "summary": "Building multi-agent systems where specialized LLMs communicate and collaborate to solve complex, multi-step coding problems.",
-    "url": "posts/2025/multi-agent-workflows.html",
-    "thumbnail": "/assets/images/posts/multi-agent-workflows-2025.png",
+    "title": "Training LLMs Without Going Broke: LoRA & PEFT Fine-Tuning on AWS",
+    "summary": "Mastering Parameter-Efficient Fine-Tuning (PEFT) and LoRA/QLoRA on AWS SageMaker without blowing cloud budgets.",
+    "url": "posts/2025/finetuning-lora.html",
+    "thumbnail": "/assets/images/posts/finetuning-lora.png",
     "tags": [
-      "Agentic AI",
+      "LLM Fine-Tuning",
+      "LoRA",
+      "PEFT",
+      "PyTorch",
+      "AWS"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "4 min",
+    "date": "2025-12-01T00:00:00Z"
+  },
+  {
+    "title": "What is Model Context Protocol (MCP)? Connecting LLMs to Enterprise Data",
+    "summary": "Understanding Anthropic's Model Context Protocol standard, building custom MCP servers in Python, and securing enterprise context.",
+    "url": "posts/2025/model-context-protocol-mcp.html",
+    "thumbnail": "/assets/images/posts/model-context-protocol-mcp.png",
+    "tags": [
+      "Model Context Protocol",
+      "MCP",
+      "AI Agents",
       "System Architecture"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "3 min",
-    "date": "2025-12-22T00:00:00Z"
+    "date": "2025-11-05T00:00:00Z"
   },
   {
-    "title": "Training LLMs Without Going Broke: A Deep Dive into LoRA on AWS",
-    "summary": "How to fine-tune Large Language Models using Parameter-Efficient Fine-Tuning (PEFT) and LoRA on AWS instances.",
-    "url": "posts/2025/finetuning-lora.html",
-    "thumbnail": "/assets/images/posts/finetuning-lora.png",
-    "tags": [
-      "Machine Learning",
-      "Cloud Architecture"
-    ],
-    "author": "Muhammad Taha Nasir",
-    "time": "4 min",
-    "date": "2025-12-05T00:00:00Z"
-  },
-  {
-    "title": "Ditching Cloud APIs: Running Llama Locally on Constrained Hardware",
-    "summary": "A technical guide on optimizing local LLM inference using Ollama and quantization on constrained hardware.",
+    "title": "Ditching Cloud APIs: Running Local LLMs with Ollama & Quantization",
+    "summary": "Optimizing local LLM inference using Ollama, GGUF quantization formats, VRAM management, and hardware acceleration.",
     "url": "posts/2025/local-llms-ollama.html",
     "thumbnail": "/assets/images/posts/local-llms-ollama.png",
     "tags": [
-      "LLM Inference",
-      "Hardware Optimization"
+      "Local LLMs",
+      "Ollama",
+      "Quantization",
+      "PyTorch",
+      "GGUF"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "4 min",
-    "date": "2025-10-14T00:00:00Z"
+    "date": "2025-10-10T00:00:00Z"
+  },
+  {
+    "title": "WebRTC & Real-Time Audio Streaming Pipelines in Async Python",
+    "summary": "Building sub-500ms full-duplex voice agent pipelines in Python using WebRTC, aiortc, asyncio, PyAV, and Silero VAD, architected like OpenAI Realtime and LiveKit engines.",
+    "url": "posts/2025/webrtc-audio-streaming.html",
+    "thumbnail": "/assets/images/posts/webrtc-realtime-audio-python.png",
+    "tags": [
+      "Voice AI",
+      "WebRTC",
+      "FastAPI",
+      "Audio Pipelines",
+      "Async Python"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "4 min",
+    "date": "2025-09-15T00:00:00Z"
   },
   {
     "title": "Why Basic RAG Failed My AI Study Assistant and How I Fixed It",
@@ -111,295 +201,416 @@
     "url": "posts/2025/advanced-rag.html",
     "thumbnail": "/assets/images/posts/advanced-rag.png",
     "tags": [
-      "Generative AI",
-      "System Architecture"
-    ],
-    "author": "Muhammad Taha Nasir",
-    "time": "4 min",
-    "date": "2025-08-28T00:00:00Z"
-  },
-  {
-    "title": "The Importance and Relevance of System Design with AI",
-    "summary": "Explore the critical role of system design in the era of AI, understanding its importance, challenges, and the tools that facilitate this intersection.",
-    "url": "posts/2025/system_design.html",
-    "thumbnail": "/assets/images/posts/system-design-ai.png",
-    "tags": [
-      "Machine Learning",
-      "Generative AI"
+      "RAG",
+      "Vector Search",
+      "LangChain",
+      "LlamaIndex",
+      "Vector Databases"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "5 min",
-    "date": "2025-06-09T00:00:00Z"
+    "date": "2025-08-28T00:00:00Z"
   },
   {
-    "title": "The Future of Data: What I Learned from SQL to Vector Databases",
-    "summary": "This semester, I got into databases and learned a ton. I started with MySQL and SQLite, figuring out how to write queries to manage data. Then, I tried Neo4j and saw how it connects things like a web. I also checked out vector databases and how they help apps find stuff fast. Working on projects and seeing real examples made it clear how data is stored and used in apps today.",
-    "url": "posts/2025/sql-db-ai.html",
-    "thumbnail": "/assets/images/posts/sql-db-ai.png",
+    "title": "Building Voice AI: How STT → LLM → TTS Pipelines Work",
+    "summary": "Constructing ultra-low-latency conversational voice bots using Speech-to-Text, streaming LLMs, and Text-to-Speech synthesis.",
+    "url": "posts/2025/building-voice-ai.html",
+    "thumbnail": "/assets/images/posts/webrtc-realtime-audio-python.png",
     "tags": [
-      "System Architecture",
-      "Database Systems"
+      "Voice AI",
+      "Speech Recognition",
+      "Audio Pipelines",
+      "FastAPI"
     ],
     "author": "Muhammad Taha Nasir",
-    "time": "4 min",
-    "date": "2025-04-14T00:00:00Z"
+    "time": "5 min",
+    "date": "2025-07-15T00:00:00Z"
   },
   {
-    "title": "My LinkedIn Was Erased, But My Determination Wasn’t",
-    "summary": "While performing Umrah in Makkah this Ramadan, I found out all my accounts including LinkedIn, GitHub, and Instagram were hacked and wiped clean. Years of effort vanished. But in this sacred place, I found clarity, resilience, and a reminder that Allah’s plans are always greater. This is not the end. It’s the restart of something even better, Inshallah.",
-    "url": "posts/2025/ramzan-2025.html",
-    "thumbnail": "/assets/images/posts/linkedin-lost.png",
-    "tags": [
-      "Machine Learning",
-      "Generative AI"
-    ],
-    "author": "Muhammad Taha Nasir",
-    "time": "3 min",
-    "date": "2025-03-07T00:00:00Z"
-  },
-  {
-    "title": "Generative AI & Prompt Engineering: The New Skillset for the AI Age",
-    "summary": "This post covers Generative AI and learning how Large Language Models (LLMs) like GPT understand and generate text, code, images, and more. From writing smarter prompts to understanding how these models think, this experience opened my eyes to how AI is reshaping creativity, productivity, and problem-solving.",
-    "url": "posts/2025/gen-ai.html",
-    "thumbnail": "/assets/images/posts/gen-ai.JPG",
-    "tags": [
-      "Generative AI"
-    ],
-    "author": "Muhammad Taha Nasir",
-    "time": "4 min",
-    "date": "2025-02-20T00:00:00Z"
-  },
-  {
-    "title": "Docker, AWS & DevOps for AI Engineers: Should You Care?",
-    "summary": "AI ≠ Just Models.\nThis semester, I got a bouncer from Operating Systems and realized: building AI is just 20% of the job. The rest? DevOps, Docker, AWS, MLOps and all the stuff that takes your model from laptop to live app. From running Flask in Docker to deploying models on AWS SageMaker, I’ve been learning how the real-world AI game is played. If you’re into AI, here’s why DevOps isn’t optional.",
-    "url": "posts/2025/devops.html",
-    "thumbnail": "/assets/images/posts/docker.jpg",
-    "tags": [
-      "Docker",
-      "AWS",
-      "DevOps",
-      "MLOps",
-      "AI",
-      "Machine Learning",
-      "Linux",
-      "Deployment"
-    ],
-    "author": "Muhammad Taha Nasir",
-    "time": "4 min",
-    "date": "2025-01-20T00:00:00Z"
-  },
-  {
-    "title": "The Importance of Math in Machine Learning",
+    "title": "Why Experiment Tracking Matters (and How MLflow Helps)",
     "summary": "From dodging math to loving it: How linear algebra, calculus, and stats power ML, explained with simple examples.",
     "url": "posts/2024/maths-for-ml.html",
-    "thumbnail": "",
+    "thumbnail": "/assets/images/posts/ai-system.png",
     "tags": [
-      "Generative AI",
-      "Machine Learning"
+      "Mathematics",
+      "Machine Learning",
+      "Linear Algebra",
+      "Calculus"
     ],
     "author": "Muhammad Taha Nasir",
-    "time": "3 min",
+    "time": "5 min",
     "date": "2024-12-20T00:00:00Z"
   },
   {
-    "title": "DSA Finally Clicked!",
-    "summary": "From C++ classes to LeetCode battles, my DSA journey boosts ML speed. Arrays, stacks, and a not-so-scary grind!",
-    "url": "posts/2024/cracking-dsa.html",
-    "thumbnail": "",
+    "title": "Introducing LangGraph: Building Stateful, Cyclic AI Workflows",
+    "summary": "Deconstructing autonomous AI agents: memory mechanisms, planning loops, tool execution, and self-reflection patterns.",
+    "url": "posts/2024/introducing-langgraph.html",
+    "thumbnail": "/assets/images/posts/langgraph.png",
     "tags": [
-      "Career Reflection",
-      "Machine Learning"
-    ],
-    "author": "Muhammad Taha Nasir",
-    "time": "3 min",
-    "date": "2024-09-21T00:00:00Z"
-  },
-  {
-    "title": "Deploying AI Projects: Flask vs Streamlit vs Vercel",
-    "summary": "A beginner’s hilarious dive into deploying AI projects with Flask, Streamlit, and Vercel, with tales of bugs, late-night coding, and my Headstarter Fellowship adventures.",
-    "url": "posts/2024/deploy-ai-proj.html",
-    "thumbnail": "/assets/images/posts/ai-deployment.png",
-    "tags": [
-      "Web Development",
-      "Full-Stack Engineering"
+      "LangGraph",
+      "Agentic AI",
+      "Stateful Workflows",
+      "Python"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "4 min",
-    "date": "2024-08-12T00:00:00Z"
+    "date": "2024-09-15T00:00:00Z"
   },
   {
-    "title": "How I Built My First Streamlit App in 3 Days: My Headstarter Fellowship Journey",
-    "summary": "A student’s journey building an AI Roadmap Generator with Streamlit during the Headstarter AI SWE Fellowship, plus lessons learned and related fellowship projects.",
-    "url": "posts/2024/streamlit-app.html",
-    "thumbnail": "",
+    "title": "What Are AI Agents, Really? Moving Beyond Simple Prompt Loops",
+    "summary": "Deconstructing autonomous AI agents: memory mechanisms, planning loops, tool execution, and self-reflection patterns.",
+    "url": "posts/2024/what-are-ai-agents.html",
+    "thumbnail": "/assets/images/posts/ai-agents.png",
     "tags": [
-      "Machine Learning",
-      "Web Development"
+      "AI Agents",
+      "Agentic AI",
+      "LLM Architecture",
+      "System Design"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "4 min",
-    "date": "2024-07-27T00:00:00Z"
+    "date": "2024-09-15T00:00:00Z"
   },
   {
-    "title": "TensorFlow vs PyTorch: Building My First Models and Choosing One",
-    "summary": "A beginner’s guide to building a neural network with TensorFlow and a classifier with PyTorch, plus my take on which to choose.",
-    "url": "posts/2024/pytorch-vs-tensorflow.html",
-    "thumbnail": "/assets/images/posts/pytorch-vs-tensorflow.png",
+    "title": "Docker & AWS for AI Engineers: Taking Models from Laptop to Cloud",
+    "summary": "Deconstructing autonomous AI agents: memory mechanisms, planning loops, tool execution, and self-reflection patterns.",
+    "url": "posts/2025/docker-aws-mlops.html",
+    "thumbnail": "/assets/images/posts/docker-aws.png",
     "tags": [
-      "Machine Learning"
-    ],
-    "author": "Muhammad Taha Nasir",
-    "time": "4 min",
-    "date": "2024-06-23T00:00:00Z"
-  },
-  {
-    "title": "April 2024: Code, Clouds, and Crazy Days",
-    "summary": "My April 2024 story: joining the AWS Cloud Club, surviving my first hackathon at GIKI, and tackling competitive programming prep.",
-    "url": "posts/2024/first-hackathon.html",
-    "thumbnail": "",
-    "tags": [
+      "Docker",
+      "AWS",
+      "MLOps",
+      "Containerization",
       "Cloud Architecture"
     ],
     "author": "Muhammad Taha Nasir",
-    "time": "2 min",
+    "time": "5 min",
+    "date": "2024-09-15T00:00:00Z"
+  },
+  {
+    "title": "Generative AI in 2025: From Simple Prompts to Production Workflows",
+    "summary": "Deconstructing autonomous AI agents: memory mechanisms, planning loops, tool execution, and self-reflection patterns.",
+    "url": "posts/2025/genai-production-workflows.html",
+    "thumbnail": "/assets/images/posts/genai-production.png",
+    "tags": [
+      "Generative AI",
+      "Production Workflows",
+      "LangGraph",
+      "Async Python"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "5 min",
+    "date": "2024-09-15T00:00:00Z"
+  },
+  {
+    "title": "From SQL to Vector Databases: How Data Architectures Adapted for AI",
+    "summary": "Deconstructing autonomous AI agents: memory mechanisms, planning loops, tool execution, and self-reflection patterns.",
+    "url": "posts/2025/sql-db-ai.html",
+    "thumbnail": "/assets/images/posts/sql-db-ai.png",
+    "tags": [
+      "Databases",
+      "SQL",
+      "Vector Search",
+      "Database Internals",
+      "Data Engineering"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "5 min",
+    "date": "2024-09-15T00:00:00Z"
+  },
+  {
+    "title": "System Design for AI Systems: Scaling Ingestion, Retrieval, & Inference",
+    "summary": "Deconstructing autonomous AI agents: memory mechanisms, planning loops, tool execution, and self-reflection patterns.",
+    "url": "posts/2025/system_design.html",
+    "thumbnail": "/assets/images/posts/system-design.png",
+    "tags": [
+      "System Design",
+      "Microservices",
+      "Cloud Architecture",
+      "Distributed Systems"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "5 min",
+    "date": "2024-09-15T00:00:00Z"
+  },
+  {
+    "title": "Deploying AI Projects: Flask vs Streamlit vs Vercel Architecture",
+    "summary": "Deploying AI Projects: Flask vs Streamlit vs Vercel Architecture. Focus: Web deployment trade-offs and hosting strategies.",
+    "url": "posts/2024/deploy-ai-proj.html",
+    "thumbnail": "/assets/images/posts/ai-deployment.png",
+    "tags": [
+      "Deployment",
+      "Flask",
+      "Streamlit",
+      "Vercel",
+      "AI Engineering"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "5 min",
+    "date": "2024-08-12T00:00:00Z"
+  },
+  {
+    "title": "Building My First AI App in 3 Days: Headstarter Fellowship Reflection",
+    "summary": "Reflections on the Headstarter Fellowship and building AI apps in 3 days with Streamlit and Gemma 2.",
+    "url": "posts/2024/streamlit-app.html",
+    "thumbnail": "/assets/images/posts/streamlit-app.png",
+    "tags": [
+      "Streamlit",
+      "Python",
+      "Rapid Prototyping",
+      "Machine Learning"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "5 min",
+    "date": "2024-07-27T00:00:00Z"
+  },
+  {
+    "title": "TensorFlow vs PyTorch: Building Neural Nets and Choosing PyTorch",
+    "summary": "A beginner's guide to building a neural network with TensorFlow and a classifier with PyTorch, plus my take on which to choose.",
+    "url": "posts/2024/pytorch-vs-tensorflow.html",
+    "thumbnail": "/assets/images/posts/pytorch-vs-tensorflow.png",
+    "tags": [
+      "PyTorch",
+      "TensorFlow",
+      "Deep Learning",
+      "Machine Learning"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "5 min",
+    "date": "2024-06-23T00:00:00Z"
+  },
+  {
+    "title": "FastAPI Basics: Building High-Performance Async AI Backends",
+    "summary": "Why modern AI engineering demands moving beyond synchronous Flask scripts to high-performance async backends, Pydantic validation, and real-time streaming APIs.",
+    "url": "posts/2024/fastapi-basics.html",
+    "thumbnail": "/assets/images/posts/fastapi-basics.png",
+    "tags": [
+      "FastAPI",
+      "Python",
+      "REST APIs",
+      "Backend Engineering"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "5 min",
+    "date": "2024-05-18T00:00:00Z"
+  },
+  {
+    "title": "2024 AI Engineering Trends: What to Pay Attention To",
+    "summary": "Cloud infrastructures, hackathons, and competitive coding marathons: how the 2024 AI engineering ecosystem demands a blend of serverless architecture and raw algorithmic agility.",
+    "url": "posts/2024/first-hackathon.html",
+    "thumbnail": "/assets/images/posts/cloud-hackathon.png",
+    "tags": [
+      "Hackathons",
+      "Rapid Prototyping",
+      "Software Engineering"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "4 min",
     "date": "2024-04-25T00:00:00Z"
   },
   {
-    "title": "NLP Struggles: My First Chatbot Attempt",
-    "summary": "It's about the challenges of building a chatbot with NLTK during Ramzan, blending coding struggles",
+    "title": "Rule-Based vs ML Chatbots: Lessons Learned from Early NLP Projects",
+    "summary": "From deterministic state machines to generative LLM pipelines: what building early NLP projects reveals about the shift in conversational software.",
     "url": "posts/2024/2024-ramzan.html",
-    "thumbnail": "/assets/images/posts/nlp-hard.png",
+    "thumbnail": "/assets/images/posts/surviving-first-year-cs-cover.png",
     "tags": [
-      "Natural Language Processing"
+      "Personal Reflections",
+      "Productivity",
+      "Computer Science"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "2 min",
-    "date": "2024-03-12T00:00:00Z"
+    "date": "2024-03-15T00:00:00Z"
   },
   {
-    "title": "Discovering Web Development: My Journey Starts with MLSA Session",
-    "summary": "I'd be my start in web development after an MLSA session, exploring beginner courses, technologies, and AI integration.",
+    "title": "Discovering Full-Stack Web Dev: Connecting AI Models to UI",
+    "summary": "The MLSA session that sparked my interest, transitioning into full-stack AI engineering, and connecting machine learning models to real web interfaces.",
     "url": "posts/2024/webdev-intro.html",
     "thumbnail": "/assets/images/posts/webdev-journey.png",
     "tags": [
-      "Web Development"
+      "Web Development",
+      "Full-Stack AI",
+      "JavaScript",
+      "Python"
     ],
     "author": "Muhammad Taha Nasir",
-    "time": "3 min",
+    "time": "2 min",
     "date": "2024-01-14T00:00:00Z"
   },
   {
-    "title": "Wrapping Up 2023: ML Lessons and Exam Chaos",
-    "summary": "A tech blogger wraps up 2023 with ML flops, linear regression wins, and exam madness as Semester 1 ends.",
+    "title": "2023 in Review: Moving Beyond Toy Scripts to Real Code",
+    "summary": "Exam craze, semester farewells, and the raw engineering lessons learned when moving from basic scripts to real machine learning pipelines.",
     "url": "posts/2023/2023-end.html",
     "thumbnail": "/assets/images/posts/ML-2023.png",
     "tags": [
-      "Machine Learning",
-      "Career Reflection"
+      "Personal Reflections",
+      "Career Growth",
+      "Computer Science"
     ],
     "author": "Muhammad Taha Nasir",
-    "time": "3 min",
+    "time": "2 min",
     "date": "2023-12-20T00:00:00Z"
   },
   {
-    "title": "Ethical AI: Why It’s More Than Hype",
-    "summary": "A tech blogger’s reflection on AI ethics after a 1.5-hour session, exploring bias, responsibility, and personal growth with humor and insights.",
+    "title": "Fine-Tuning vs Prompt Engineering: When to Use What in Practice",
+    "summary": "A practical decision-making framework for software engineers evaluating Fine-Tuning (PEFT/LoRA) versus Prompt Engineering and RAG in production.",
+    "url": "posts/2023/finetuning-vs-prompt-eng.html",
+    "thumbnail": "/assets/images/posts/finetuning-lora.png",
+    "tags": [
+      "LLM Fine-Tuning",
+      "Prompt Engineering",
+      "Generative AI"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "2 min",
+    "date": "2023-12-08T00:00:00Z"
+  },
+  {
+    "title": "Ethical AI & Bias in LLMs: Why It Matters to Software Engineers",
+    "summary": "A technical reflection on AI ethics, algorithmic bias, data auditing, and responsible software engineering after moving into hostel life and completing Sessional 2 exams.",
     "url": "posts/2023/ethical-ai.html",
     "thumbnail": "/assets/images/posts/ethical-ai.jpg",
     "tags": [
-      "Machine Learning",
-      "Generative AI"
+      "Ethical AI",
+      "Responsible AI",
+      "Algorithmic Bias"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "3 min",
-    "date": "2023-11-15T00:00:00Z"
+    "date": "2023-11-18T00:00:00Z"
   },
   {
-    "title": "Surviving My First Semester: Coding Challenges in Uni",
-    "summary": "A student’s survival log of the first semester at a reputed Pakistani institution, tackling coding challenges, sessional exams, and a language switch from Python to C while exploring ML and NLP.",
+    "title": "Understanding RAG: Retrieval-Augmented Generation Explained Simply",
+    "summary": "A technical breakdown of Retrieval-Augmented Generation (RAG): connecting vector search to LLMs to solve hallucinations and query private data.",
+    "url": "posts/2023/understanding-rag.html",
+    "thumbnail": "/assets/images/posts/advanced-rag.png",
+    "tags": [
+      "RAG",
+      "Vector Search",
+      "LangChain",
+      "Generative AI"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "2 min",
+    "date": "2023-10-12T00:00:00Z"
+  },
+  {
+    "title": "Vector Databases & Embeddings: How Machines Understand Semantic Meaning",
+    "summary": "A technical breakdown of how vector databases, high-dimensional embeddings, Cosine Similarity, and HNSW graph indexing provide semantic memory for LLMs.",
+    "url": "posts/2023/vector-databases-explained.html",
+    "thumbnail": "/assets/images/posts/vector-databases-cover.png",
+    "tags": [
+      "Vector Databases",
+      "Vector Search",
+      "Embeddings",
+      "HNSW"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "2 min",
+    "date": "2023-08-15T00:00:00Z"
+  },
+  {
+    "title": "Surviving First-Year CS: Balancing Low-Level Systems and High-Level AI",
+    "summary": "A student's survival log of the first semester in a top CS program in Pakistan, tackling C programming, pointer memory management, sessional exams, and balancing personal ML/NLP studies.",
     "url": "posts/2023/surviving-first-semester.html",
-    "thumbnail": "",
+    "thumbnail": "/assets/images/posts/surviving-first-year-cs-cover.png",
     "tags": [
-      "Career Reflection",
-      "Natural Language Processing"
+      "Computer Science",
+      "Academic Advice",
+      "Productivity"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "3 min",
-    "date": "2023-10-22T00:00:00Z"
+    "date": "2023-06-15T00:00:00Z"
   },
   {
-    "title": "The Rise of ChatGPT: A Student’s Take",
-    "summary": "A student’s take on ChatGPT’s rise in 2023, exploring NLP with Python, preparing for university entrance tests, and thinking about AI’s future.",
+    "title": "What is a Large Language Model? A Technical Breakdown for Developers",
+    "summary": "Demystifying tokenization, self-attention mechanisms, and transformer architectures in modern Large Language Models for developers.",
+    "url": "posts/2023/what-is-an-llm.html",
+    "thumbnail": "/assets/images/posts/llm-technical-breakdown-cover.png",
+    "tags": [
+      "LLM",
+      "Transformers",
+      "Generative AI",
+      "Deep Learning"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "4 min",
+    "date": "2023-04-10T00:00:00Z"
+  },
+  {
+    "title": "The ChatGPT Moment: A CS Student's Take on the Generative AI Shift",
+    "summary": "A CS student's perspective on how ChatGPT and Generative AI shifted computer science education, Stack Overflow debugging, and software engineering in early 2023.",
     "url": "posts/2023/rise-of-gpt.html",
-    "thumbnail": "/assets/images/posts/chatgpt.jpeg",
+    "thumbnail": "/assets/images/posts/chatgpt-2023-cinematic-cover.png",
     "tags": [
-      "Software Engineering",
-      "Career Reflection"
+      "Generative AI",
+      "LLMs",
+      "Transformers",
+      "AI Architecture"
     ],
     "author": "Muhammad Taha Nasir",
-    "time": "3 min",
-    "date": "2023-06-20T00:00:00Z"
-  },
-  {
-    "title": "2023 Kickoff: Chasing Uni Dreams, AI Vibes, and Python Magic",
-    "summary": "My first post of 2023 as a tech blogger, navigating university entrance test prep, college studies, and self-learning. Exploring AI’s inspiration from ChatGPT, Python’s role in my journey, and balancing it all.",
-    "url": "posts/2023/kickoff-2023.html",
-    "thumbnail": "",
-    "tags": [
-      "Software Engineering",
-      "Generative AI"
-    ],
-    "author": "Muhammad Taha Nasir",
-    "time": "3 min",
-    "date": "2023-02-18T00:00:00Z"
-  },
-  {
-    "title": "2022 Recap: The Year I Chased Logic and Found Myself",
-    "summary": "My 2022 tech journey as a student and tech blog writer, learning Python, Java, grinding LeetCode, and using ChatGPT to tackle coding and college assignments.",
-    "url": "posts/2022/wrapup-2022.html",
-    "thumbnail": "/assets/images/posts/wrapup-2022.png",
-    "tags": [
-      "Software Engineering",
-      "Generative AI"
-    ],
-    "author": "Muhammad Taha Nasir",
-    "time": "3 min",
-    "date": "2022-12-31T00:00:00Z"
+    "time": "4 min",
+    "date": "2023-02-15T00:00:00Z"
   },
   {
     "title": "Breaking into DSA with LeetCode: The Real Struggle Behind the Grind",
     "summary": "My entry point into real problem-solving: LeetCode, Python, and the unexpected depth of DSA that made me rethink how I code.",
     "url": "posts/2022/learning-dsa-leetcode.html",
-    "thumbnail": "/assets/images/posts/leetcode.jpg",
+    "thumbnail": "/assets/images/posts/leetcode-dsa-cover.png",
     "tags": [
-      "Software Engineering"
+      "DSA",
+      "LeetCode",
+      "Algorithms",
+      "Problem Solving"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "3 min",
     "date": "2022-09-20T00:00:00Z"
   },
   {
-    "title": "Why Python Stole My Heart Over Java",
-    "summary": "Why I switched to Python over Java after taking courses in both, inspired by my teacher Sir Zia, with a focus on ease and libraries like Pandas and NumPy.",
-    "url": "posts/2022/python-over-java.html",
-    "thumbnail": "/assets/images/posts/python-vs-java.jpg",
+    "title": "Why Every CS Student Should Learn Git & Version Control Early",
+    "summary": "Why learning Git and version control early in Computer Science saves software engineering projects from chaotic folder duplication and code loss.",
+    "url": "posts/2022/git-for-cs-students.html",
+    "thumbnail": "/assets/images/posts/git-cover.png",
     "tags": [
-      "Software Engineering"
-    ],
-    "author": "Muhammad Taha Nasir",
-    "time": "4 min",
-    "date": "2022-05-10T00:00:00Z"
-  },
-  {
-    "title": "Why I Chose CS Over AI",
-    "summary": "Why I chose a Computer Science degree over a specialized AI path in 2022 for a strong foundation and more options.",
-    "url": "posts/2022/cs-vs-ai.html",
-    "thumbnail": "",
-    "tags": [
-      "Generative AI"
+      "Git",
+      "Version Control",
+      "GitHub",
+      "Developer Tools"
     ],
     "author": "Muhammad Taha Nasir",
     "time": "3 min",
+    "date": "2022-09-05T00:00:00Z"
+  },
+  {
+    "title": "From C++ Competitive Programming to Python: Trade-offs in Memory & Speed",
+    "summary": "Exploring the trade-offs between low-level C++ competitive programming and high-level Python prototyping in execution speed, memory layout, and cache locality.",
+    "url": "posts/2022/cpp-vs-python-cp.html",
+    "thumbnail": "/assets/images/posts/cpp-vs-python-cover.png",
+    "tags": [
+      "C++",
+      "Python",
+      "Competitive Programming",
+      "Algorithms"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "5 min",
+    "date": "2022-06-15T00:00:00Z"
+  },
+  {
+    "title": "Why I Chose Computer Science Over a Specialized AI Degree",
+    "summary": "Why I chose a Computer Science degree over a specialized AI path in March 2022 for a strong foundation and long-term engineering adaptability.",
+    "url": "posts/2022/cs-vs-ai.html",
+    "thumbnail": "/assets/images/posts/cs-vs-ai-cover.png",
+    "tags": [
+      "Computer Science",
+      "AI",
+      "Software Engineering",
+      "Career Reflection"
+    ],
+    "author": "Muhammad Taha Nasir",
+    "time": "5 min",
     "date": "2022-03-15T00:00:00Z"
   }
 ]

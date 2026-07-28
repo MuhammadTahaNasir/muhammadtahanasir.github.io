@@ -1,0 +1,825 @@
+<!doctype html>
+
+<html dir="auto" lang="en">
+  <head>
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>');
+    })();
+  </script>
+    <link
+      href="/assets/images/favicon-96x96.png?v=5"
+      rel="icon"
+      sizes="96x96"
+      type="image/png"
+    />
+    <link href="/assets/images/favicon.ico?v=5" rel="shortcut icon" />
+    <link
+      href="/assets/images/apple-touch-icon.png?v=5"
+      rel="apple-touch-icon"
+      sizes="180x180"
+    />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      name="viewport"
+    />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta
+      content="Deconstructing autonomous AI agents: memory mechanisms, planning loops, tool execution, and self-reflection patterns."
+      name="description"
+    />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="AI Agents, Agentic AI, LLM Architecture, System Design" name="tags" />
+    <meta name="thumbnail" content="/assets/images/posts/ai-agents.png" />
+    <title>What Are AI Agents, Really? Moving Beyond Simple Prompt Loops</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/stylesheet.css" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        z-index: 9999;
+        opacity: 1;
+        visibility: visible;
+      }
+      .loader.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .code-block { position: relative; margin: 25px 0; border-radius: 10px; background: #0d1117 !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; overflow: hidden; }
+        .code-block pre, .code-block pre[class*="language-"] { background: #0d1117 !important; color: #e6edf3 !important; text-shadow: none !important; padding: 20px 22px !important; margin: 0 !important; font-family: "SF Mono", "Fira Code", monospace !important; font-size: 0.94rem !important; line-height: 1.6 !important; border-radius: 10px !important; }
+        .code-block code { opacity: 1 !important; color: #e6edf3 !important; background: transparent !important; text-shadow: none !important; }
+      
+
+      .svg-diagram-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; background: var(--entry) !important; border: 1px solid var(--border) !important; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-small); transition: background 0.3s ease, border-color 0.3s ease; }
+
+      .svg-diagram {
+        max-width: 800px;
+        min-width: 600px;
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+
+      .cinematic-intro-card {
+        background: linear-gradient(
+          135deg,
+          var(--glass-bg),
+          rgba(0, 122, 255, 0.05)
+        );
+        border-left: 4px solid var(--accent);
+        padding: 20px 25px;
+        margin: 30px 0;
+        border-radius: 0 12px 12px 0;
+        box-shadow: var(--shadow-light);
+        font-style: italic;
+        color: var(--secondary);
+      }
+    </style>
+    <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="../../assets/js/bg-canvas.js"></script>
+</head>
+  <body id="top" post-date="2024-09-15T00:00:00Z">
+    <div aria-hidden="true" class="loader" id="loader">
+      <div class="terry-animation">
+        <span class="letter">t</span>
+        <span class="letter">e</span>
+        <span class="letter">r</span>
+        <span class="letter">r</span>
+        <span class="letter">y</span>
+      </div>
+    </div>
+        <!-- Header Navigation -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+    <div class="container">
+      <nav class="breadcrumb">
+      <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a> » <span class="breadcrumb-current">What Are AI Agents, Really? Moving Beyond Simple Prompt Loops</span>
+    </nav>
+      <main class="post-content">
+        <header class="post-header">
+          <h1 class="post-title">
+            What Are AI Agents, Really? Moving Beyond Simple Prompt Loops
+          </h1>
+          <div class="post-meta">September 15, 2024 • 3 min • Muhammad Taha Nasir</div>
+        </header>
+        <img
+          alt="AI Agents Architecture"
+          src="/assets/images/posts/ai-agents.png"
+          style="
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 8px;
+          "
+        />
+
+        <aside class="table-of-contents">
+          <details>
+            <summary>Table of Contents</summary>
+            <ul>
+              <li><a href="#introduction">Introduction</a></li>
+              <li>
+                <a href="#the-architecture-of-an-ai-agent"
+                  >The Architecture of an AI Agent</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#production-systems-why-most-ai-agents-fail-outside-the-demo"
+                  >Production Systems</a
+                >
+              </li>
+              <li>
+                <a href="#conclusion-the-future-of-autonomous-ai-systems"
+                  >Conclusion</a
+                >
+              </li>
+            </ul>
+          </details>
+        </aside>
+        <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter" type="button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share article" type="button">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+        <section id="introduction">
+<p>You have probably seen the hype. Every tech CEO is talking about "AI Agents", but honestly, what exactly turns a language model from a standard chatbot into an autonomous "Agent"?</p>
+<p>If you ask a typical LLM to build a web app right now, it usually just spits out a giant block of code for you to copy and paste. You are the one doing the hard work: opening the terminal, running the code, debugging the errors, and pasting the stack trace back into the chat. You are essentially the middleman in a very tedious prompt loop.</p>
+<div class="cinematic-intro-card">
+<p>An AI Agent isn't just a smarter language model. It is a language model given hands, eyes, and a whiteboard.</p>
+</div>
+<p>The paradigm shift is moving from <strong>transactional</strong> (prompt in, text out) to <strong>iterative</strong> (goal in, autonomous loop out). Instead of just generating text, the agent plans the steps, writes the code, executes it in a sandbox, reads the terminal error, modifies the code, and tries again until the goal is met. It becomes an autonomous problem solver.</p>
+</section>
+
+<section id="the-architecture-of-an-ai-agent">
+<h2>The Brain, The Hands, and The Memory</h2>
+<p>The core concept powering this autonomy is the <strong>ReAct (Reason + Act)</strong> loop. The LLM isn't doing the actual work; it is just the reasoning engine. We surround this brain with a massive toolkit of specialized APIs, databases, and integrations.</p>
+
+<div class="svg-diagram-wrapper">
+            <svg
+              class="svg-diagram"
+              viewBox="0 0 800 420"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <!-- User Objective -->
+              <rect
+                x="250"
+                y="20"
+                width="300"
+                height="50"
+                rx="10"
+                fill="var(--code-bg)"
+                stroke="#30363d"
+                stroke-width="2"
+              />
+              <text
+                x="400"
+                y="50"
+                fill="var(--svg-text-main)"
+                font-family="monospace"
+                font-size="16"
+                font-weight="bold"
+                text-anchor="middle"
+              >
+                User Objective
+              </text>
+
+              <path
+                d="M 400 70 L 400 120"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+              <polygon
+                points="395,115 405,115 400,125"
+                fill="var(--svg-text-muted)"
+              />
+
+              <!-- Language Model -->
+              <rect
+                x="250"
+                y="125"
+                width="300"
+                height="70"
+                rx="10"
+                fill="rgba(59, 130, 246, 0.2)"
+                stroke="#3b82f6"
+                stroke-width="2"
+              />
+              <text
+                x="400"
+                y="155"
+                fill="var(--svg-text-main)"
+                font-family="monospace"
+                font-size="16"
+                font-weight="bold"
+                text-anchor="middle"
+              >
+                Language Model
+              </text>
+              <text
+                x="400"
+                y="175"
+                fill="var(--svg-text-muted)"
+                font-family="sans-serif"
+                font-size="12"
+                text-anchor="middle"
+              >
+                (Reasoning &amp; Planning)
+              </text>
+
+              <path
+                d="M 400 195 L 400 230"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+              <path
+                d="M 120 230 L 680 230"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+
+              <!-- Tools -->
+              <path
+                d="M 120 230 L 120 260"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+              <polygon
+                points="115,255 125,255 120,265"
+                fill="var(--svg-text-muted)"
+              />
+              <rect
+                x="50"
+                y="265"
+                width="140"
+                height="50"
+                rx="8"
+                fill="var(--code-bg)"
+                stroke="#30363d"
+                stroke-width="2"
+              />
+              <text
+                x="120"
+                y="295"
+                fill="var(--svg-text-main)"
+                font-family="monospace"
+                font-size="14"
+                font-weight="bold"
+                text-anchor="middle"
+              >
+                Database
+              </text>
+
+              <path
+                d="M 300 230 L 300 260"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+              <polygon
+                points="295,255 305,255 300,265"
+                fill="var(--svg-text-muted)"
+              />
+              <rect
+                x="230"
+                y="265"
+                width="140"
+                height="50"
+                rx="8"
+                fill="var(--code-bg)"
+                stroke="#30363d"
+                stroke-width="2"
+              />
+              <text
+                x="300"
+                y="295"
+                fill="var(--svg-text-main)"
+                font-family="monospace"
+                font-size="14"
+                font-weight="bold"
+                text-anchor="middle"
+              >
+                Web Search
+              </text>
+
+              <path
+                d="M 500 230 L 500 260"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+              <polygon
+                points="495,255 505,255 500,265"
+                fill="var(--svg-text-muted)"
+              />
+              <rect
+                x="430"
+                y="265"
+                width="140"
+                height="50"
+                rx="8"
+                fill="var(--code-bg)"
+                stroke="#30363d"
+                stroke-width="2"
+              />
+              <text
+                x="500"
+                y="295"
+                fill="var(--svg-text-main)"
+                font-family="monospace"
+                font-size="14"
+                font-weight="bold"
+                text-anchor="middle"
+              >
+                APIs
+              </text>
+
+              <path
+                d="M 680 230 L 680 260"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+              <polygon
+                points="675,255 685,255 680,265"
+                fill="var(--svg-text-muted)"
+              />
+              <rect
+                x="610"
+                y="265"
+                width="140"
+                height="50"
+                rx="8"
+                fill="var(--code-bg)"
+                stroke="#30363d"
+                stroke-width="2"
+              />
+              <text
+                x="680"
+                y="295"
+                fill="var(--svg-text-main)"
+                font-family="monospace"
+                font-size="14"
+                font-weight="bold"
+                text-anchor="middle"
+              >
+                Code Runner
+              </text>
+
+              <!-- Output to system state -->
+              <path
+                d="M 400 315 L 400 350"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+              <polygon
+                points="395,345 405,345 400,355"
+                fill="var(--svg-text-muted)"
+              />
+              <rect
+                x="250"
+                y="355"
+                width="300"
+                height="40"
+                rx="6"
+                fill="rgba(16, 185, 129, 0.2)"
+                stroke="var(--svg-green-border)"
+                stroke-width="2"
+              />
+              <text
+                x="400"
+                y="380"
+                fill="var(--svg-text-main)"
+                font-family="monospace"
+                font-size="14"
+                font-weight="bold"
+                text-anchor="middle"
+              >
+                Updated System State
+              </text>
+            </svg>
+          </div>
+
+<p>When you give the agent a high-level goal, it doesn't just guess the final answer in one shot. It breaks it down into an execution plan. Need to update a database? It searches the schema, plans the SQL query, executes it, and verifies the rows changed before moving on.</p>
+<p>But here is the kicker: it needs <strong>Memory</strong> to survive. Without it, the agent is basically a goldfish.</p>
+<ul>
+<li><strong>Short-term memory</strong> tracks the current execution loop so it doesn't get stuck doing the exact same failing command twice.</li>
+<li><strong>Long-term memory</strong> pulls in context from past sessions (like reading your old Git commits) so it knows your coding style and preferences.</li>
+</ul>
+</section>
+
+<section id="production-systems-why-most-ai-agents-fail-outside-the-demo">
+<h2>Production Systems: Escaping Infinite Loops</h2>
+<p>Building an agent that works in a shiny Twitter demo is easy. Building one that doesn't nuke your production database at 3 AM is the real challenge, bro.</p>
+
+<div class="svg-diagram-wrapper">
+            <svg
+              class="svg-diagram"
+              viewBox="0 0 600 480"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <!-- Planner -->
+              <rect
+                x="200"
+                y="20"
+                width="200"
+                height="50"
+                rx="10"
+                fill="rgba(59, 130, 246, 0.2)"
+                stroke="#3b82f6"
+                stroke-width="2"
+              />
+              <text
+                x="300"
+                y="50"
+                fill="var(--svg-text-main)"
+                font-family="monospace"
+                font-size="16"
+                font-weight="bold"
+                text-anchor="middle"
+              >
+                Planner
+              </text>
+
+              <path
+                d="M 300 70 L 300 110"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+              <path
+                d="M 150 110 L 450 110"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+
+              <path
+                d="M 150 110 L 150 140"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+              <polygon
+                points="145,135 155,135 150,145"
+                fill="var(--svg-text-muted)"
+              />
+              <rect
+                x="50"
+                y="145"
+                width="200"
+                height="50"
+                rx="8"
+                fill="var(--code-bg)"
+                stroke="#30363d"
+                stroke-width="2"
+              />
+              <text
+                x="150"
+                y="175"
+                fill="var(--svg-text-main)"
+                font-family="monospace"
+                font-size="14"
+                font-weight="bold"
+                text-anchor="middle"
+              >
+                Tool Execution
+              </text>
+
+              <path
+                d="M 450 110 L 450 140"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+              <polygon
+                points="445,135 455,135 450,145"
+                fill="var(--svg-text-muted)"
+              />
+              <rect
+                x="350"
+                y="145"
+                width="200"
+                height="50"
+                rx="8"
+                fill="var(--code-bg)"
+                stroke="#30363d"
+                stroke-width="2"
+              />
+              <text
+                x="450"
+                y="175"
+                fill="var(--svg-text-main)"
+                font-family="monospace"
+                font-size="14"
+                font-weight="bold"
+                text-anchor="middle"
+              >
+                Information Search
+              </text>
+
+              <path
+                d="M 150 195 L 150 220"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+              <path
+                d="M 450 195 L 450 220"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+              <path
+                d="M 150 220 L 450 220"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+              <path
+                d="M 300 220 L 300 250"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+              <polygon
+                points="295,245 305,245 300,255"
+                fill="var(--svg-text-muted)"
+              />
+
+              <!-- Evaluate -->
+              <rect
+                x="200"
+                y="255"
+                width="200"
+                height="50"
+                rx="8"
+                fill="rgba(239, 68, 68, 0.2)"
+                stroke="var(--svg-red-border)"
+                stroke-width="2"
+              />
+              <text
+                x="300"
+                y="285"
+                fill="var(--svg-text-main)"
+                font-family="monospace"
+                font-size="14"
+                font-weight="bold"
+                text-anchor="middle"
+              >
+                Evaluate Result
+              </text>
+
+              <path
+                d="M 300 305 L 300 330"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+              <path
+                d="M 200 330 L 400 330"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+
+              <path
+                d="M 200 330 L 200 360"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+              <polygon
+                points="195,355 205,355 200,365"
+                fill="var(--svg-text-muted)"
+              />
+              <text
+                x="200"
+                y="380"
+                fill="var(--svg-green-text)"
+                font-family="monospace"
+                font-size="14"
+                font-weight="bold"
+                text-anchor="middle"
+              >
+                Success
+              </text>
+
+              <path
+                d="M 400 330 L 400 360"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+              <polygon
+                points="395,355 405,355 400,365"
+                fill="var(--svg-text-muted)"
+              />
+              <text
+                x="400"
+                y="380"
+                fill="var(--svg-orange-text)"
+                font-family="monospace"
+                font-size="14"
+                font-weight="bold"
+                text-anchor="middle"
+              >
+                Retry
+              </text>
+
+              <path
+                d="M 200 390 L 200 420"
+                stroke="#94a3b8"
+                stroke-width="2"
+                fill="none"
+              />
+              <polygon
+                points="195,415 205,415 200,425"
+                fill="var(--svg-text-muted)"
+              />
+              <rect
+                x="100"
+                y="425"
+                width="200"
+                height="40"
+                rx="6"
+                fill="rgba(16, 185, 129, 0.2)"
+                stroke="var(--svg-green-border)"
+                stroke-width="2"
+              />
+              <text
+                x="200"
+                y="450"
+                fill="var(--svg-text-main)"
+                font-family="monospace"
+                font-size="14"
+                font-weight="bold"
+                text-anchor="middle"
+              >
+                Finish
+              </text>
+
+              <!-- Retry loop to top -->
+              <path
+                d="M 400 390 L 400 445 L 580 445 L 580 45 L 400 45"
+                stroke="#94a3b8"
+                stroke-width="2"
+                stroke-dasharray="4"
+                fill="none"
+              />
+              <polygon points="405,40 395,45 405,50" fill="var(--svg-text-muted)" />
+            </svg>
+          </div>
+
+<p>If you just give an LLM unrestricted access to a bash terminal, it <em>will</em> eventually get stuck in an infinite loop of running a failing test, hallucinating a fix, failing again, and burning through thousands of API tokens.</p>
+<p>This is why frameworks like <strong>LangGraph</strong> are taking over. Instead of a linear script where Step A blindly passes data to Step B, you build a state machine (a directed graph). You explicitly define the boundaries: maximum retry limits, human-in-the-loop approvals before executing sensitive commands (like <code>DROP TABLE</code>), and deterministic guardrails.</p>
+<p>Also, shoutout to standards like the Model Context Protocol (MCP) which are finally giving us a consistent way to plug these agents into local file systems and enterprise databases without writing custom wrapper scripts every single time.</p>
+<p>You let the LLM do the probabilistic thinking, but you wrap it in hard-coded engineering safety. Because at the end of the day, an agent with no boundaries is just an expensive random number generator.</p>
+</section>
+
+<section id="conclusion-the-future-of-autonomous-ai-systems">
+<h2>The Verdict</h2>
+<p>AI Agents aren't magic, and they definitely aren't replacing software engineering anytime soon. If anything, they make hardcore software engineering <em>more</em> important. You can't just throw an LLM at a problem anymore; you have to architect reliable systems, orchestrate tool APIs, and manage complex state loops.</p>
+<p>The era of simple prompt wrappers is dead. Welcome to the era of Agentic Systems!</p>
+</section>
+        <p class="next-post-link" style="margin-top: 25px; font-size: 1.05rem;">
+          <em>Next: <a href="introducing-langgraph.html">Introducing LangGraph: Building Stateful, Cyclic AI Workflows &rarr;</a></em>
+        </p>
+        <div class="tags-container" id="dynamic-tags"></div>
+        <hr class="divider" />
+        <section class="related-articles" id="related-series">
+          <h2 class="series-title">Article Series</h2>
+          <a class="series-link" href="../../posts.html"
+            >Zero to One: Dev Diaries</a
+          >
+          <div id="related-posts-container"></div>
+        </section>
+      </main>
+      <div class="newsletter-section">
+        <div class="newsletter-content">
+          <h3>Subscribe to our newsletter</h3>
+          <p>
+            Read articles from <strong>&lt;terry/&gt;</strong> directly inside
+            your inbox.
+          </p>
+          <p>Subscribe to the newsletter, and don't miss out.</p>
+          <div class="newsletter-form">
+            <input
+              class="newsletter-input"
+              placeholder="Enter your email address"
+              type="email"
+            />
+            <button
+              class="newsletter-btn"
+              onclick="handleNewsletterSubmit(event)"
+            >
+              SUBSCRIBE
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../../assets/js/each-post.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+      <script src="../../assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/shared-bottom-nav.js"></script>
+</body>
+</html>

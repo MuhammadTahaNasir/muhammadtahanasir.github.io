@@ -1,145 +1,798 @@
-﻿<!DOCTYPE html>
+<!doctype html>
 
 <html dir="auto" lang="en">
-<head>
-<link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
-<link href="/assets/images/favicon.ico" rel="shortcut icon"/>
-<link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
-<meta content="Terry" name="apple-mobile-web-app-title"/>
-<link href="/assets/images/site.webmanifest" rel="manifest"/>
-<meta charset="utf-8"/>
-<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
-<meta content="noindex, nofollow" name="robots"/>
-<meta content="It's about the challenges of building a chatbot with NLTK during Ramzan, blending coding struggles" name="description"/>
-<meta content="Muhammad Taha Nasir" name="author"/>
-<meta content="Natural Language Processing" name="tags"/>
-<meta content="/assets/images/posts/nlp-hard.png" name="thumbnail"/>
-<title>NLP Struggles: My First Chatbot Attempt</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
-<link href="../../assets/css/each-post.css" rel="stylesheet"/>
-<script>
-        // Apply theme immediately on page load
-        (function () {
-            const savedTheme = localStorage.getItem('pref-theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
-        })();
-    </script>
+  <head>
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}        .code-block { position: relative; margin: 25px 0; border-radius: 10px; background: #0d1117 !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; overflow: hidden; }
+        .code-block pre, .code-block pre[class*="language-"] { background: #0d1117 !important; color: #e6edf3 !important; text-shadow: none !important; padding: 20px 22px !important; margin: 0 !important; font-family: "SF Mono", "Fira Code", monospace !important; font-size: 0.94rem !important; line-height: 1.6 !important; border-radius: 10px !important; }
+        .code-block code { opacity: 1 !important; color: #e6edf3 !important; background: transparent !important; text-shadow: none !important; }
+    </style>');
+    })();
+  </script>
+    <link
+      href="/assets/images/favicon-96x96.png?v=5"
+      rel="icon"
+      sizes="96x96"
+      type="image/png"
+    />
+    <link href="/assets/images/favicon.ico?v=5" rel="shortcut icon" />
+    <link
+      href="/assets/images/apple-touch-icon.png?v=5"
+      rel="apple-touch-icon"
+      sizes="180x180"
+    />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      name="viewport"
+    />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta
+      content="From deterministic state machines to generative LLM pipelines: what building early NLP projects reveals about the shift in conversational software."
+      name="description"
+    />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="Personal Reflections, Productivity, Computer Science" name="tags" />
+    <title>Rule-Based vs ML Chatbots: Lessons Learned from Early NLP Projects</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/stylesheet.css" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        z-index: 9999;
+        opacity: 1;
+        visibility: visible;
+      }
+      .loader.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      /* Theme-Adaptive Styling */
+      .cinematic-intro-card {
+        background: var(--entry);
+        border-left: 4px solid var(--accent);
+        border-top: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        border-radius: 0 12px 12px 0;
+        padding: 24px 28px;
+        margin: 25px 0 35px 0;
+      }
+
+      .cinematic-intro-card p {
+        font-size: 1.05rem;
+        line-height: 1.7;
+        margin-bottom: 14px;
+        color: var(--primary);
+      }
+
+      .cinematic-intro-card p:last-child {
+        margin-bottom: 0;
+      }
+
+      .svg-diagram-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; background: var(--entry) !important; border: 1px solid var(--border) !important; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-small); transition: background 0.3s ease, border-color 0.3s ease; }
+
+      .svg-diagram {
+        max-width: 700px;
+        width: 100%;
+        height: auto;
+        background: transparent;
+        padding: 24px;
+      }
+
+      .thought-card {
+        background: var(--entry);
+
+        border-radius: 12px;
+        padding: 26px;
+        margin: 32px 0;
+        color: var(--primary);
+        box-shadow: var(--shadow-light);
+      }
+
+      .hero-banner-img {
+        max-width: 100%;
+        width: 100%;
+        max-height: 420px;
+        object-fit: cover;
+        object-position: center;
+        margin: 20px 0 30px 0;
+        border-radius: 12px;
+
+        display: block;
+      }
+
+      .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 25px 0;
+        border-radius: 8px;
+      }
+
+      .benchmark-table {
+        width: 100%;
+        min-width: 580px;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+      }
+
+      .benchmark-table th {
+        background: var(--code-bg);
+        color: var(--primary);
+        padding: 12px 14px;
+        text-align: left;
+        border-bottom: 2px solid var(--border);
+      }
+
+      .benchmark-table td {
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--border);
+        color: var(--primary);
+      }
+
+      /* Transparent Scrollbars */
+      .table-responsive,
+      .code-block,
+      .code-block pre,
+      pre,
+      pre[class*="language-"] {
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+      }
+
+      .table-responsive::-webkit-scrollbar,
+      .code-block::-webkit-scrollbar,
+      .code-block pre::-webkit-scrollbar,
+      pre::-webkit-scrollbar,
+      pre[class*="language-"]::-webkit-scrollbar {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        background: transparent !important;
+      }
+
+      /* Mobile Media Queries */
+      @media (max-width: 768px) {
+        .hero-banner-img {
+          max-height: 260px;
+          margin: 15px 0 20px 0;
+        }
+
+        .cinematic-intro-card {
+          padding: 18px 20px;
+          margin: 20px 0 25px 0;
+        }
+
+        .cinematic-intro-card p {
+          font-size: 0.98rem;
+          line-height: 1.6;
+          margin-bottom: 10px;
+        }
+
+        .thought-card {
+          padding: 18px 20px;
+          margin: 20px 0;
+        }
+
+        .svg-diagram {
+          padding: 14px 8px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero-banner-img {
+          max-height: 200px;
+          border-radius: 8px;
+        }
+
+        .cinematic-intro-card {
+          padding: 14px 16px;
+          border-left-width: 3px;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="../../assets/js/bg-canvas.js"></script>
+    <meta name="thumbnail" content="/assets/images/posts/surviving-first-year-cs-cover.png" />
 </head>
-<body class="dark" id="top" post-date="2024-03-12T00:00:00Z">
-<header class="header">
-<nav class="nav">
-<!-- Left: Logo -->
-<div class="nav-left">
-<a class="logo" href="/index.html">&lt;terry/&gt;</a>
-</div>
-<!-- Center: Pills Navigation -->
-<div class="nav-center">
-<div class="pill-nav">
-<a href="/projects.html">Projects</a>
-<a href="/archives.html">Archives</a>
-<a href="/resume.html">Resume</a>
-<a href="/search.html">Search</a>
-</div>
-</div>
-<!-- Right: Theme toggle -->
-<div class="nav-right">
-<button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
-<svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<circle cx="12" cy="12" r="5"></circle>
-<line x1="12" x2="12" y1="1" y2="3"></line>
-<line x1="12" x2="12" y1="21" y2="23"></line>
-<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
-<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
-<line x1="1" x2="3" y1="12" y2="12"></line>
-<line x1="21" x2="23" y1="12" y2="12"></line>
-<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
-<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
-</svg>
-<svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-</svg>
-</button>
-</div>
-</nav>
-</header>
-<div class="container">
-<nav class="breadcrumb">
-<a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
-</nav>
-<main class="post-content">
-<header class="post-header">
-<h1 class="post-title">NLP Struggles: My First Chatbot Attempt</h1>
-<div class="post-meta">12 Mar 2024 • 2 min • Muhammad Taha Nasir</div>
-</header>
-<img alt="Code on Screen with Confusion" src="/assets/images/posts/nlp-hard.png" style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;"/>
-<aside class="table-of-contents">
-<details>
-<summary>Table of Contents</summary>
-<ul>
-<li><a href="#ramzan-start">Ramzan Reflections and Coding Kickoff</a></li>
-<li><a href="#nlp-challenge">Why NLP Is Tougher Than I Thought</a></li>
-<li><a href="#chatbot-mess">My Baby Chatbot Disaster</a></li>
-<li><a href="#moving-forward">Lessons and Next Steps</a></li>
-</ul>
-</details>
-</aside>
-<section id="ramzan-start">
-<h2>Ramzan Reflections and Coding Kickoff</h2>
-<p>Asssal o Alaikum, fam! Ramzan is here, bringing a wave of peace and reflection as I fast and connect
-                    with faith. Amid the early mornings and prayers, I decided to tackle a new challenge building a
-                    chatbot with NLP. It felt like a perfect blend of tech and spiritual growth, testing my patience and
-                    skills. With the holy month inspiring me, I jumped into this project, but oh boy, it wasn’t smooth
-                    sailing!
-                </p>
-</section>
-<section id="nlp-challenge">
-<h2>Why NLP Is Tougher Than I Thought</h2>
-<p>NLP, or Natural Language Processing, sounded cool teaching a machine to understand human chat. But
-                    it’s a beast! The session I attended hinted at its complexity, and I soon found out why. Processing
-                    text means handling slang, grammar quirks, and context stuff humans get intuitively but computers
-                    struggle with. I used NLTK (Natural Language Toolkit) thinking it’d be a shortcut, but the learning
-                    curve hit hard. It’s less about quick wins and more about grinding through the details.</p>
-</section>
-<section id="chatbot-mess">
-<h2>My Baby Chatbot Disaster</h2>
-<p>So, I set out to create a basic chatbot, a “baby bot” to answer simple questions. I coded with NLTK,
-                    feeding it some text data, and… chaos! The responses were gibberish, mixing up words and missing the
-                    point entirely. I spent hours tweaking it, but the text processing was a mess and tokenization
-                    failed,and sentiment analysis was all over the place. It felt like a test of endurance, much like
-                    fasting through the day. I’ll share more about this struggle in future posts, but for now, it’s a
-                    humbling lesson!</p>
-</section>
-<section id="moving-forward">
-<h2>Lessons and Next Steps</h2>
-<p>This flop taught me patience, both in coding and in Ramzan’s spirit of perseverance. I’m digging into
-                    better data prep and exploring libraries like SpaCy to improve my chatbot. With the month’s
-                    blessings, I’m motivated to keep going. Exams are behind me, and this is my new focus. Stay tuned
-                    for my next update!</p>
-</section>
-<div class="tags-container" id="dynamic-tags">
-<!-- Tags will be dynamically generated here -->
-</div>
-<hr class="divider"/>
-<section class="related-articles" id="related-series">
-<h2 class="series-title">Article Series</h2>
-<a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
-<div id="related-posts-container"></div>
-</section>
-</main>
-<footer class="footer">
-<div class="social-icons">
-<a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-<a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-<a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-</div>
-<p>© 2024 – <span class="small-author">Muhammad Taha Nasir</span></p>
-</footer>
-</div>
-<button aria-label="Scroll to top" id="scrollTop">
-<i class="fas fa-chevron-up"></i>
-</button>
-<script src="../../assets/js/each-post.js"></script>
+  <body id="top" post-date="2024-03-15T00:00:00Z">
+    <div aria-hidden="true" class="loader" id="loader">
+      <div class="terry-animation">
+        <span class="letter">t</span>
+        <span class="letter">e</span>
+        <span class="letter">r</span>
+        <span class="letter">r</span>
+        <span class="letter">y</span>
+      </div>
+    </div>
+        <!-- Header Navigation -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+    <div class="container">
+      <nav class="breadcrumb">
+      <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a> » <span class="breadcrumb-current">Rule-Based vs ML Chatbots: Lessons Learned from Early NLP Projects</span>
+    </nav>
+      <main class="post-content">
+        <header class="post-header">
+          <h1 class="post-title">
+            Rule-Based vs ML Chatbots: Lessons Learned from Early NLP Projects
+          </h1>
+          <div class="post-meta">
+            March 15, 2024 • 2 min • Muhammad Taha Nasir
+          </div>
+        </header>
+        <div class="cinematic-intro-card">
+          <p>
+            <em
+              >From deterministic state machines to generative LLM pipelines:
+              what building early NLP projects reveals about the shift in
+              conversational software.</em
+            >
+          </p>
+          <p>
+            Building conversational systems across three distinct paradigms in
+            early 2024 highlights how software handles human input variations.
+          </p>
+          <p>
+            Rule-based regular expression trees provide strict deterministic
+            responses but break under syntactic changes, while intent-based ML
+            classifiers and generative LLM pipelines introduce adaptability.
+          </p>
+        </div>
+        <aside class="table-of-contents">
+          <details>
+            <summary>Table of Contents</summary>
+            <ul>
+              <li>
+                <a href="#conversational-shift"
+                  >The Shift in Conversational Software</a
+                >
+              </li>
+              <li>
+                <a href="#three-generations"
+                  >Under the Hood: Three NLP Generations</a
+                >
+              </li>
+              <li>
+                <a href="#architecture-gauntlet"
+                  >The Chatbot Architecture Gauntlet</a
+                >
+              </li>
+              <li>
+                <a href="#systems-reality"
+                  >The Systems Engineer Reality Check</a
+                >
+              </li>
+              <li>
+                <a href="#hardware-stress"
+                  >Local Inference &amp; Hardware Stress Test</a
+                >
+              </li>
+              <li>
+                <a href="#takeaways"
+                  >Architectural Takeaways &amp; Hybrid Pipelines</a
+                >
+              </li>
+            </ul>
+          </details>
+        </aside>
+        <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter" type="button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share article" type="button">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+        <section id="conversational-shift">
+          <h2>The Shift in Conversational Software</h2>
+          <p>
+            Comparing deterministic rule-based engines against statistical
+            intent classifiers and generative language model pipelines:
+          </p>
+          <div class="thought-card">
+            <p><strong>Chatbot Architectural Paradigms:</strong></p>
+            <div style="margin-top: 16px;">
+              <img src="/assets/images/posts/chatbot-architecture.png" alt="Chatbot Architectural Paradigms" style="width: 100%; height: auto; border-radius: 8px;">
+            </div>
+          </div>
+          <p>
+            Rule-based logic delivers fast execution and exact response
+            guarantees, but fails when user syntax deviates from expected
+            patterns.
+          </p>
+        </section>
+        <section id="three-generations">
+          <h2>Under the Hood: Three NLP Generations</h2>
+          <p>
+            Implementing rule-based pattern matching alongside transformer token
+            generation:
+          </p>
+          <div class="code-block">
+
+<button
+              class="copy-code-btn"
+              title="Copy code"
+              onclick="
+                navigator.clipboard.writeText(this.nextElementSibling.innerText)
+              "
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path
+                  d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                ></path>
+              </svg>
+            </button>
+            <pre><code class="language-python"># Generation 1: Rule-Based Fragility with Regular Expressions
+import re
+
+def rule_based_bot(user_input):
+    if re.search(r"\b(hello|hi|hey)\b", user_input, re.I):
+        return "Hello! How can I assist you today?"
+    elif re.search(r"\b(hours|open|schedule)\b", user_input, re.I):
+        return "Our hours are 9 AM to 5 PM."
+    return "Fallback: Unrecognized input pattern."
+
+# Generation 3: Generative Pipeline Response
+# Transforms input text through multi-layer attention matrices for dynamic answers</code></pre>
+          </div>
+          <!-- 2024 Modern NLP Transformer Topology Vector SVG Diagram -->
+          <div class="svg-diagram-wrapper">
+            <svg
+              class="svg-diagram"
+              viewbox="0 0 600 240"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <lineargradient
+                  id="nlpGrad1"
+                  x1="0%"
+                  x2="100%"
+                  y1="0%"
+                  y2="100%"
+                >
+                  <stop offset="0%" stop-color="#0284c7"></stop>
+                  <stop offset="100%" stop-color="#0369a1"></stop>
+                </lineargradient>
+                <lineargradient
+                  id="nlpGrad2"
+                  x1="0%"
+                  x2="100%"
+                  y1="0%"
+                  y2="100%"
+                >
+                  <stop offset="0%" stop-color="#6366f1"></stop>
+                  <stop offset="100%" stop-color="#4338ca"></stop>
+                </lineargradient>
+                <lineargradient
+                  id="nlpGrad3"
+                  x1="0%"
+                  x2="100%"
+                  y1="0%"
+                  y2="100%"
+                >
+                  <stop offset="0%" stop-color="#7c3aed"></stop>
+                  <stop offset="100%" stop-color="#5b21b6"></stop>
+                </lineargradient>
+                <lineargradient
+                  id="nlpGrad4"
+                  x1="0%"
+                  x2="100%"
+                  y1="0%"
+                  y2="100%"
+                >
+                  <stop offset="0%" stop-color="#10b981"></stop>
+                  <stop offset="100%" stop-color="#047857"></stop>
+                </lineargradient>
+              </defs>
+              <!-- Nodes -->
+              <rect
+                fill="url(#nlpGrad1)"
+                height="55"
+                rx="10"
+                stroke="var(--svg-blue-border)"
+                stroke-width="1.5"
+                width="150"
+                x="20"
+                y="35"
+              ></rect>
+              <text
+                fill="var(--svg-text-main)"
+                font-family="-apple-system, sans-serif"
+                font-size="12"
+                font-weight="700"
+                text-anchor="middle"
+                x="95"
+                y="60"
+              >
+                Input Text Tokens
+              </text>
+              <text
+                fill="#e0f2fe"
+                font-family="-apple-system, sans-serif"
+                font-size="9"
+                text-anchor="middle"
+                x="95"
+                y="76"
+              >
+                BPE Subword Encoding
+              </text>
+              <path
+                d="M 170 62 L 215 62"
+                stroke="var(--svg-blue-border)"
+                stroke-dasharray="4"
+                stroke-width="2.5"
+              ></path>
+              <polygon fill="var(--svg-blue-text)" points="215,62 207,57 207,67"></polygon>
+              <rect
+                fill="url(#nlpGrad2)"
+                height="55"
+                rx="10"
+                stroke="#818cf8"
+                stroke-width="1.5"
+                width="160"
+                x="220"
+                y="35"
+              ></rect>
+              <text
+                fill="var(--svg-text-main)"
+                font-family="-apple-system, sans-serif"
+                font-size="12"
+                font-weight="700"
+                text-anchor="middle"
+                x="300"
+                y="60"
+              >
+                Multi-Head Attention
+              </text>
+              <text
+                fill="var(--svg-text-muted)"
+                font-family="-apple-system, sans-serif"
+                font-size="9"
+                text-anchor="middle"
+                x="300"
+                y="76"
+              >
+                Self-Attention Matrix Q,K,V
+              </text>
+              <path
+                d="M 380 62 L 425 62"
+                stroke="#818cf8"
+                stroke-dasharray="4"
+                stroke-width="2.5"
+              ></path>
+              <polygon fill="#818cf8" points="425,62 417,57 417,67"></polygon>
+              <rect
+                fill="url(#nlpGrad3)"
+                height="55"
+                rx="10"
+                stroke="#a78bfa"
+                stroke-width="1.5"
+                width="150"
+                x="430"
+                y="35"
+              ></rect>
+              <text
+                fill="var(--svg-text-main)"
+                font-family="-apple-system, sans-serif"
+                font-size="12"
+                font-weight="700"
+                text-anchor="middle"
+                x="505"
+                y="60"
+              >
+                Softmax Logits
+              </text>
+              <text
+                fill="#f3e8ff"
+                font-family="-apple-system, sans-serif"
+                font-size="9"
+                text-anchor="middle"
+                x="505"
+                y="76"
+              >
+                Probability Distributions
+              </text>
+              <path
+                d="M 505 90 L 505 145 L 380 145"
+                fill="none"
+                stroke="#a78bfa"
+                stroke-width="2.5"
+              ></path>
+              <polygon
+                fill="#a78bfa"
+                points="380,145 388,140 388,150"
+              ></polygon>
+              <rect
+                fill="url(#nlpGrad4)"
+                height="55"
+                rx="10"
+                stroke="#34d399"
+                stroke-width="1.5"
+                width="195"
+                x="180"
+                y="120"
+              ></rect>
+              <text
+                fill="var(--svg-text-main)"
+                font-family="-apple-system, sans-serif"
+                font-size="12"
+                font-weight="700"
+                text-anchor="middle"
+                x="277"
+                y="145"
+              >
+                Dynamic Text Output
+              </text>
+              <text
+                fill="#d1fae5"
+                font-family="-apple-system, sans-serif"
+                font-size="9"
+                text-anchor="middle"
+                x="277"
+                y="161"
+              >
+                Autoregressive Decoding
+              </text>
+              <path
+                d="M 180 147 L 95 147 L 95 125"
+                fill="none"
+                stroke="#34d399"
+                stroke-width="2.5"
+              ></path>
+              <polygon fill="#34d399" points="95,125 90,133 100,133"></polygon>
+            </svg>
+          </div>
+        </section>
+        <section id="architecture-gauntlet">
+          <h2>The Chatbot Architecture Gauntlet</h2>
+          <p>
+            Evaluating technical performance metrics across rule-based engines,
+            intent-classification classifiers, and generative language models:
+          </p>
+          <div class="table-responsive">
+            <table class="benchmark-table">
+              <thead>
+                <tr>
+                  <th>Metric / Feature</th>
+                  <th>Rule-Based Chatbots</th>
+                  <th>Intent-Based ML (Classic NLU)</th>
+                  <th>Generative LLM Pipelines</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Typo &amp; Variation Handling</strong></td>
+                  <td>Poor (Fails on unmapped syntax)</td>
+                  <td>Moderate (Vector distance matching)</td>
+                  <td><strong>Exceptional (Handles variations)</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Response Determinism</strong></td>
+                  <td><strong>100% Guaranteed</strong></td>
+                  <td><strong>100% Guaranteed (Fixed templates)</strong></td>
+                  <td>Probabilistic (Requires guardrails)</td>
+                </tr>
+                <tr>
+                  <td><strong>Setup &amp; Maintenance Effort</strong></td>
+                  <td>Low initially, complex at scale</td>
+                  <td>High (Intent &amp; entity labeling)</td>
+                  <td><strong>Low to Moderate (Prompting + RAG)</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Execution Latency</strong></td>
+                  <td><strong>&lt; 1ms (Instant)</strong></td>
+                  <td>Fast (~10-20ms)</td>
+                  <td>Moderate (~100ms - 1s)</td>
+                </tr>
+                <tr>
+                  <td><strong>Compute Overhead</strong></td>
+                  <td>Negligible (CPU bound)</td>
+                  <td>Low (Lightweight ML models)</td>
+                  <td>High (Requires GPU / API tokens)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <section id="systems-reality">
+          <h2>The Systems Engineer Reality Check</h2>
+          <p>
+            Nesting dozens of conditional regular expression rules leads to
+            complex codebases that are difficult to update or extend.
+          </p>
+          <div class="thought-card">
+            <p>
+              <strong>Nested Regex Monolith vs Generative Context Mesh:</strong>
+            </p>
+            <div style="margin-top: 16px;">
+              <img src="/assets/images/posts/nested-regex.png" alt="Nested Regex Monolith vs Generative Context Mesh" style="width: 100%; height: auto; border-radius: 8px;">
+            </div>
+          </div>
+          <p>
+            Generative models parse fluid human language into structured data,
+            allowing underlying business logic to execute reliably.
+          </p>
+        </section>
+        <section id="hardware-stress">
+          <h2>Local Inference &amp; Hardware Stress Test</h2>
+          <p>
+            Running local intent classifiers (such as SpaCy or Scikit-learn
+            models) uses minimal CPU resources, while running local quantized 7B
+            LLM models increases VRAM allocation and memory bandwidth
+            requirements.
+          </p>
+          <p>
+            Selecting appropriate model sizes balances system performance with
+            response accuracy.
+          </p>
+        </section>
+        <section id="takeaways">
+          <h2>Architectural Takeaways &amp; Hybrid Pipelines</h2>
+          <p>
+            Modern conversational software uses hybrid architectures: generative
+            models extract intent from user inputs, while deterministic state
+            engines handle critical transactions.
+          </p>
+          <p>
+            Understanding these trade-offs ensures conversational applications
+            stay reliable and maintainable.
+          </p>
+          <p
+            class="next-post-link"
+            style="margin-top: 25px; font-size: 1.05rem"
+          >
+            <em
+              >Next:
+              <a href="first-hackathon.html"
+                >2024 AI Engineering Trends: What to Pay Attention To &rarr;</a
+              ></em
+            >
+          </p>
+        </section>
+        <div class="tags-container" id="dynamic-tags"></div>
+        <hr class="divider" />
+        <section class="related-articles" id="related-series">
+          <h2 class="series-title">Article Series</h2>
+          <a class="series-link" href="../../posts.html"
+            >Zero to One: Dev Diaries</a
+          >
+          <div id="related-posts-container"></div>
+        </section>
+      </main>
+      <div class="newsletter-section">
+        <div class="newsletter-content">
+          <h3>Subscribe to our newsletter</h3>
+          <p>
+            Read articles from <strong>&lt;terry/&gt;</strong> directly inside
+            your inbox.
+          </p>
+          <p>Subscribe to the newsletter, and don't miss out.</p>
+          <div class="newsletter-form">
+            <input
+              class="newsletter-input"
+              placeholder="Enter your email address"
+              type="email"
+            />
+            <button
+              class="newsletter-btn"
+              onclick="handleNewsletterSubmit(event)"
+            >
+              SUBSCRIBE
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../../assets/js/each-post.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+      <script src="../../assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/shared-bottom-nav.js"></script>
 </body>
 </html>

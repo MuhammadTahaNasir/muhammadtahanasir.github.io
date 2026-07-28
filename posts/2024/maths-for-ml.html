@@ -2,9 +2,21 @@
 
 <html dir="auto" lang="en">
 <head>
-<link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
-<link href="/assets/images/favicon.ico" rel="shortcut icon"/>
-<link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>');
+    })();
+  </script>
+<link href="/assets/images/favicon-96x96.png?v=5" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/assets/images/favicon.ico?v=5" rel="shortcut icon"/>
+<link href="/assets/images/apple-touch-icon.png?v=5" rel="apple-touch-icon" sizes="180x180"/>
 <meta content="Terry" name="apple-mobile-web-app-title"/>
 <link href="/assets/images/site.webmanifest" rel="manifest"/>
 <meta charset="utf-8"/>
@@ -13,10 +25,11 @@
 <meta content="noindex, nofollow" name="robots"/>
 <meta content="From dodging math to loving it: How linear algebra, calculus, and stats power ML, explained with simple examples." name="description"/>
 <meta content="Muhammad Taha Nasir" name="author"/>
-<meta content="Generative AI, Machine Learning" name="tags"/>
-<title>The Importance of Math in Machine Learning</title>
+<meta content="Mathematics, Machine Learning, Linear Algebra, Calculus" name="tags" />
+<title>Why Experiment Tracking Matters (and How MLflow Helps)</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
-<link href="../../assets/css/each-post.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/css/stylesheet.css" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet"/>
 <script>
         // Apply theme immediately on page load
         (function () {
@@ -25,167 +38,569 @@
             document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
         })();
     </script>
+<style>
+      .loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        z-index: 9999;
+        opacity: 1;
+        visibility: visible;
+      }
+      .loader.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .code-block { position: relative; margin: 25px 0; border-radius: 10px; background: #0d1117 !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; overflow: hidden; }
+        .code-block pre, .code-block pre[class*="language-"] { background: #0d1117 !important; color: #e6edf3 !important; text-shadow: none !important; padding: 20px 22px !important; margin: 0 !important; font-family: "SF Mono", "Fira Code", monospace !important; font-size: 0.94rem !important; line-height: 1.6 !important; border-radius: 10px !important; }
+        .code-block code { opacity: 1 !important; color: #e6edf3 !important; background: transparent !important; text-shadow: none !important; }
+      
+
+      .svg-diagram-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; background: var(--entry) !important; border: 1px solid var(--border) !important; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-small); transition: background 0.3s ease, border-color 0.3s ease; }
+
+      .svg-diagram {
+        max-width: 800px;
+        min-width: 600px;
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+
+      .cinematic-intro-card {
+        background: linear-gradient(
+          135deg,
+          var(--glass-bg),
+          rgba(0, 122, 255, 0.05)
+        );
+        border-left: 4px solid var(--accent);
+        padding: 20px 25px;
+        margin: 30px 0;
+        border-radius: 0 12px 12px 0;
+        box-shadow: var(--shadow-light);
+        font-style: italic;
+        color: var(--secondary);
+      }
+    </style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/bottom-nav.css">
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="../../assets/js/bg-canvas.js"></script>
+    <meta name="thumbnail" content="/assets/images/posts/ai-system.png" />
 </head>
-<body class="dark" id="top" post-date="2024-12-20T00:00:00Z">
-<header class="header">
-<nav class="nav">
-<!-- Left: Logo -->
-<div class="nav-left">
-<a class="logo" href="/index.html">&lt;terry/&gt;</a>
-</div>
-<!-- Center: Pills Navigation -->
-<div class="nav-center">
-<div class="pill-nav">
-<a href="/projects.html">Projects</a>
-<a href="/archives.html">Archives</a>
-<a href="/resume.html">Resume</a>
-<a href="/search.html">Search</a>
-</div>
-</div>
-<!-- Right: Theme toggle -->
-<div class="nav-right">
-<button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
-<svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<circle cx="12" cy="12" r="5"></circle>
-<line x1="12" x2="12" y1="1" y2="3"></line>
-<line x1="12" x2="12" y1="21" y2="23"></line>
-<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
-<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
-<line x1="1" x2="3" y1="12" y2="12"></line>
-<line x1="21" x2="23" y1="12" y2="12"></line>
-<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
-<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
-</svg>
-<svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-</svg>
-</button>
-</div>
-</nav>
-</header>
+<body id="top" post-date="2024-12-20T00:00:00Z">
+    <!-- Header Navigation -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
 <div class="container">
 <nav class="breadcrumb">
-<a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
-</nav>
+      <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a> » <span class="breadcrumb-current">Why Experiment Tracking Matters (and How MLflow Helps)</span>
+    </nav>
 <main class="post-content">
-<header class="post-header">
-<h1 class="post-title">The Importance of Math in Machine Learning</h1>
-<div class="post-meta">December 20, 2024 • 3 min • Muhammad Taha Nasir</div>
-</header>
+        <header class="post-header">
+          <h1 class="post-title">
+            Why Experiment Tracking Matters (and How MLflow Helps)
+          </h1>
+          <div class="post-meta">
+            December 20, 2024 • 5 min • Muhammad Taha Nasir
+          </div>
+        </header>
+        
+        <div class="cinematic-intro-card">
+<p>Yo, I used to sprint from math like it was a horror movie. Equations? Matrices? Partial derivatives? Nope, definitely not my vibe. But as my computer science degree at FAST NUCES progressed, courses in Linear Algebra (shoutout to Sir Hafeez) and Multivariable Calculus showed me that math isn’t just abstract theory on a whiteboard - it’s the fundamental engine driving every machine learning model.</p>
+<p>Yet, as you transition from understanding the mathematical foundations of gradient descent and matrix transformations to running real-world ML projects, you hit a whole new wall: <strong>experiment chaos</strong>. When you're tweaking learning rates, testing different weight initializations, and logging metrics across dozens of training runs, how do you track what actually worked?</p>
+<p>Here is why combining mathematical rigor with systematic experiment tracking (using <strong>MLflow</strong>) is what turns amateur scripts into reproducible machine learning engineering.</p>
+</div>
+
 <aside class="table-of-contents">
-<details>
-<summary>Table of Contents</summary>
-<ul>
-<li><a href="#math-avoidance">From Running Away from Math</a></li>
-<li><a href="#linear-algebra">Linear Algebra: The ML Backbone</a></li>
-<li><a href="#calculus">Multivariable Calculus: Gradients and Optimization</a></li>
-<li><a href="#stats-prep">Prepping for Stats and Probability</a></li>
-<li><a href="#resources">Resources That Made It Click</a></li>
-<li><a href="#why-it-matters">Why Math Matters for ML</a></li>
-</ul>
-</details>
+    <details>
+      <summary>Table of Contents</summary>
+      <ul>
+        <li><a href="#math-to-mlops">From Mathematical Foundations to MLOps Chaos</a></li>
+        <li><a href="#under-the-hood">Under the Hood</a></li>
+        <li><a href="#the-mlops-gauntlet">The MLOps Tracking Gauntlet</a></li>
+        <li><a href="#why-good-tracking-matters">Why Good Tracking Matters</a></li>
+        <li><a href="#math-prep">Math Prep &amp; Resources</a></li>
+      </ul>
+    </details>
 </aside>
-<section id="math-avoidance">
-<h2>From Running Away from Math</h2>
-<p>Yo, I used to sprint from math like it was a horror movie. Equations? Matrices? Nope, not my vibe.
-                    This year, my uni courses in linear algebra and multivariable calculus showed me math isn’t just
-                    numbers, it’s the secret sauce behind ML models. Here’s how I went from math hater to math
-                    appreciator, with simple examples that made it click.</p>
-</section>
-<section id="linear-algebra">
-<h2>Linear Algebra: The ML Backbone</h2>
-<p>This semester, linear algebra taught by Sir Hafeez (worth mentioning) at uni was like unlocking a
-                    cheat code for ML. Matrices and vectors? They’re everywhere think neural network weights or image
-                    data in CNNs. Imagine a matrix as a spreadsheet organizing your data, like test scores for 100
-                    students. I coded a simple matrix operation in Python to get it:</p>
-<div class="code-block">
-<button class="copy-btn">Copy</button>
-<pre class="language-python" data-lang="Python"><code>
-import numpy as np
-# Matrix multiplication for a neural network layer
-weights = np.array([[0.5, 0.2], [0.1, 0.8]])
-inputs = np.array([[1], [2]])
-output = np.dot(weights, inputs)
-print(output)  # [[0.9], [1.7]]
-                    </code></pre>
+
+<div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter" type="button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share article" type="button">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+
+<h2 id="math-to-mlops">From Mathematical Foundations to MLOps Chaos</h2>
+<p>So, I’ve been living inside mathematical foundations and MLOps tooling over the past month.</p>
+<p>If you’ve been building machine learning models recently, you know that training a model is an iterative, highly empirical process. You don't just write code once, compile it, and ship it. You change a hyperparameter, re-run your training loop, compare validation curves, and adjust again.</p>
+<div class="svg-diagram-wrapper">
+  <svg class="svg-diagram" viewBox="0 0 800 150" xmlns="http://www.w3.org/2000/svg">
+    <!-- Unmonitored Chaos -->
+    <text x="20" y="40" fill="var(--svg-red-text)" font-family="monospace" font-size="14" font-weight="bold">Unmonitored Chaos:</text>
+    <rect x="180" y="20" width="100" height="30" rx="4" fill="rgba(239, 68, 68, 0.1)" stroke="var(--svg-red-border)" stroke-width="2"/>
+    <text x="230" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">Tweak Code</text>
+    <path d="M 280 35 L 320 35" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="315,30 325,35 315,40" fill="var(--svg-text-muted)"/>
+    
+    <rect x="330" y="20" width="100" height="30" rx="4" fill="rgba(245, 158, 11, 0.1)" stroke="var(--svg-orange-border)" stroke-width="2"/>
+    <text x="380" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">Run Model</text>
+    <path d="M 430 35 L 470 35" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="465,30 475,35 465,40" fill="var(--svg-text-muted)"/>
+    
+    <rect x="480" y="20" width="140" height="30" rx="4" fill="rgba(239, 68, 68, 0.2)" stroke="var(--svg-red-border)" stroke-width="2"/>
+    <text x="550" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">Lose Parameters</text>
+    <path d="M 620 35 L 660 35" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="655,30 665,35 655,40" fill="var(--svg-text-muted)"/>
+    
+    <text x="730" y="40" fill="var(--svg-red-text)" font-family="monospace" font-size="12" font-style="italic" text-anchor="middle">"Which run got 92%?" ❌</text>
+
+    <!-- MLflow Tracked -->
+    <text x="20" y="100" fill="var(--svg-green-text)" font-family="monospace" font-size="14" font-weight="bold">MLflow Tracked:</text>
+    <rect x="180" y="80" width="100" height="30" rx="4" fill="rgba(59, 130, 246, 0.1)" stroke="#3b82f6" stroke-width="2"/>
+    <text x="230" y="100" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">Tweak Code</text>
+    <path d="M 280 95 L 320 95" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="315,90 325,95 315,100" fill="var(--svg-text-muted)"/>
+    
+    <rect x="330" y="80" width="100" height="30" rx="4" fill="rgba(16, 185, 129, 0.1)" stroke="var(--svg-green-border)" stroke-width="2"/>
+    <text x="380" y="100" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">Log Run</text>
+    <path d="M 430 95 L 470 95" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="465,90 475,95 465,100" fill="var(--svg-text-muted)"/>
+    
+    <rect x="480" y="80" width="180" height="30" rx="4" fill="rgba(139, 92, 246, 0.1)" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="570" y="100" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">MLflow Registry &amp; Curves</text>
+    <path d="M 660 95 L 690 95" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="685,90 695,95 685,100" fill="var(--svg-text-muted)"/>
+    
+    <text x="740" y="100" fill="var(--svg-green-text)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">Reproducible ⚡</text>
+  </svg>
 </div>
-<p>This snippet mimics how weights transform inputs in Machine Learning linear algebra in action!
-                    Learning this in C++ at uni (pointers, ugh) made me see how matrices power models.</p>
-</section>
-<section id="calculus">
-<h2>Multivariable Calculus: Gradients and Optimization</h2>
-<p>Last semester’s multivariable calculus course was a wake-up call. Gradients and loss functions are
-                    the heart of training ML models. Picture a hill: the gradient tells you the steepest path down to
-                    minimize error (the loss). I visualized it like adjusting my study time to ace a test small tweaks
-                    lead to better scores. Here’s a basic gradient descent in Python:</p>
+
+<p>Early on, it’s easy to fall into bad habits - naming saved model files <code>model_v2_final_final2.pt</code> or scribbling loss metrics on scrap paper during late-night debugging sessions.</p>
+<p>When you understand the underlying linear algebra and multivariable calculus, you realize that every hyperparameter shift modifies an explicit mathematical optimization landscape. Leaving those parameters untracked is like conducting a chemistry experiment without writing down your measurements.</p>
+<p>MLflow bridges that gap by providing a central, automated dashboard to track parameters, metrics, code versions, and model artifacts. Let me break down how the math and the tracking infrastructure work hand-in-hand under the hood.</p>
+<h2 id="under-the-hood">Under the Hood</h2>
+<p>Imagine running 50 hyperparameter tuning jobs overnight, only to realize the next morning that your best-performing run crashed before saving its weight matrix, and you didn't log its learning rate. Welcome to unmonitored machine learning.</p>
+<div class="svg-diagram-wrapper">
+  <svg class="svg-diagram" viewBox="0 0 800 250" xmlns="http://www.w3.org/2000/svg">
+    <!-- Top Central Engine -->
+    <rect x="250" y="20" width="300" height="50" rx="8" fill="rgba(139, 92, 246, 0.1)" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="400" y="50" fill="var(--svg-text-main)" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle">MATH ENGINE &amp; MLFLOW TRACKING</text>
+    
+    <!-- Arrows Down -->
+    <path d="M 400 70 L 400 110" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 200 110 L 600 110" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    
+    <path d="M 200 110 L 200 130" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="195,125 205,125 200,130" fill="var(--svg-text-muted)"/>
+    
+    <path d="M 400 110 L 400 130" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="395,125 405,125 400,130" fill="var(--svg-text-muted)"/>
+    
+    <path d="M 600 110 L 600 130" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="595,125 605,125 600,130" fill="var(--svg-text-muted)"/>
+    
+    <!-- Three Pillars -->
+    <!-- Linear Algebra -->
+    <rect x="130" y="130" width="140" height="50" rx="4" fill="rgba(59, 130, 246, 0.1)" stroke="#3b82f6" stroke-width="2"/>
+    <text x="200" y="150" fill="var(--svg-text-main)" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">Linear Algebra</text>
+    <text x="200" y="170" fill="var(--svg-text-muted)" font-family="monospace" font-size="12" text-anchor="middle">(Matrix Ops)</text>
+    <path d="M 200 180 L 200 210" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="195,205 205,205 200,210" fill="var(--svg-text-muted)"/>
+    <text x="200" y="230" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Vector Transform]</text>
+
+    <!-- Multivariable Calculus -->
+    <rect x="330" y="130" width="140" height="50" rx="4" fill="rgba(245, 158, 11, 0.1)" stroke="var(--svg-orange-border)" stroke-width="2"/>
+    <text x="400" y="150" fill="var(--svg-text-main)" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">Multivariable</text>
+    <text x="400" y="170" fill="var(--svg-text-muted)" font-family="monospace" font-size="12" text-anchor="middle">(Gradients)</text>
+    <path d="M 400 180 L 400 210" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="395,205 405,205 400,210" fill="var(--svg-text-muted)"/>
+    <text x="400" y="230" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Gradient Descent]</text>
+
+    <!-- MLflow Engine -->
+    <rect x="530" y="130" width="140" height="50" rx="4" fill="rgba(16, 185, 129, 0.1)" stroke="var(--svg-green-border)" stroke-width="2"/>
+    <text x="600" y="150" fill="var(--svg-text-main)" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">MLflow Engine</text>
+    <text x="600" y="170" fill="var(--svg-text-muted)" font-family="monospace" font-size="12" text-anchor="middle">(Tracking)</text>
+    <path d="M 600 180 L 600 210" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="595,205 605,205 600,210" fill="var(--svg-text-muted)"/>
+    <text x="600" y="230" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Logged Runs &amp; Artifacts]</text>
+  </svg>
+</div>
+
+<h3>1. Linear Algebra: The ML Backbone</h3>
+<p>Matrices and vectors structure everything in machine learning - from raw input features to neural network weight matrices:</p>
 <div class="code-block">
-<button class="copy-btn">Copy</button>
-<pre class="language-python" data-lang="Python"><code>
-import numpy as np
-x = 10  # Starting point
+
+<pre><code class="language-python">import numpy as np
+
+# Matrix multiplication representing a dense neural network layer transform
+weights = np.array([[0.5, 0.2], [0.1, 0.8]]) # Linear transformation matrix
+inputs = np.array([[1], [2]])                # Feature vector
+output = np.dot(weights, inputs)             # Forward pass step
+print(output) # [[0.9], [1.7]]</code></pre>
+</div>
+
+<h3>2. Calculus: Gradient Descent Optimization</h3>
+<p>Multivariable calculus provides the optimization mechanism. The gradient $\nabla L$ points in the direction of steepest increase of the loss function. To minimize error, we step in the opposite direction:</p>
+<p><code>W_new = W_old - learning_rate * gradient</code></p>
+
+<div class="code-block">
+
+<pre><code class="language-python"># Minimal Gradient Descent Toy Loop
+x = 10.0  # Starting parameter weight
 learning_rate = 0.1
-for _ in range(10):
-    gradient = 2 * x  # Derivative of x^2
-    x = x - learning_rate * gradient
-print(x)  # Converges near 0, minimizing x^2
-                    </code></pre>
+
+for epoch in range(10):
+    gradient = 2 * x  # Derivative of loss function L(x) = x^2
+    x = x - learning_rate * gradient # Parameter update step
+
+print(f"Optimized parameter: {x}") # Converges toward 0 (minimum loss)</code></pre>
 </div>
-<p>This code shows how calculus optimizes models by nudging weights to reduce errors, like fine-tuning
-                    my ML projects.</p>
-</section>
-<section id="stats-prep">
-<h2>Prepping for Stats and Probability</h2>
-<p>Next semester, I’m diving into statistics and probability at uni, and I’ve already started self-prep
-                    because AI lives on stats. Mean, median, mode? Easy. But probability like flipping a coin to predict
-                    heads is key for models like Naive Bayes. Imagine guessing if it’ll rain based on past days: that’s
-                    probability in AI. I’m brushing up with basics, like calculating the odds of acing a test (50-50,
-                    let’s be real), to get ready for Bayesian networks and more.</p>
-</section>
-<section id="resources">
-<h2>Resources That Made It Click</h2>
-<p>Math for ML can feel like climbing K2, but these resources are my sherpas. They break down complex
-                    concepts into bite sized chunks, perfect for beginners like me:</p>
+
+<h3>3. MLflow: Tracking the Mathematical Landscape</h3>
+<p>Instead of letting those learning rates, gradient steps, and loss curves disappear into console logs, <strong>MLflow</strong> records every mathematical run to a local or cloud backend:</p>
+<div class="code-block">
+
+<pre><code class="language-python">import mlflow
+
+# Start an isolated, trackable experiment run
+mlflow.set_experiment("Neural_Network_Optimization")
+
+with mlflow.start_run():
+    # 1. Log Hyperparameters
+    mlflow.log_param("learning_rate", 0.1)
+    mlflow.log_param("optimizer", "SGD")
+
+    # 2. Log Mathematical Metrics across Epochs
+    for epoch in range(10):
+        gradient = 2 * x
+        x = x - learning_rate * gradient
+        loss = x**2
+        mlflow.log_metric("loss", loss, step=epoch)
+
+    # 3. Log Output Models & Artifacts
+    mlflow.log_artifact("weights.npy")</code></pre>
+</div>
+
+<p>If you train models without tracking parameter state and metric history, your ML workflow lacks scientific reproducibility. Take the absolute L.</p>
+<h2 id="the-mlops-gauntlet">The MLOps Tracking Gauntlet</h2>
+<p>I put Manual Console Logging, Custom CSV Tracking, and MLflow Experiment Tracking through an engineering comparison gauntlet:</p>
+<div class="svg-diagram-wrapper">
+  <svg class="svg-diagram" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+    <!-- Headers -->
+    <text x="130" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">Reproducibility</text>
+    <text x="390" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">Metric Visualization</text>
+    <text x="650" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">Artifact Management</text>
+    
+    <!-- Lines Down -->
+    <path d="M 130 50 L 130 80" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 65 80 L 195 80" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 65 80 L 65 100" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="60,95 70,95 65,100" fill="var(--svg-text-muted)"/>
+    <path d="M 195 80 L 195 100" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="190,95 200,95 195,100" fill="var(--svg-text-muted)"/>
+
+    <path d="M 390 50 L 390 80" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 325 80 L 455 80" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 325 80 L 325 100" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="320,95 330,95 325,100" fill="var(--svg-text-muted)"/>
+    <path d="M 455 80 L 455 100" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="450,95 460,95 455,100" fill="var(--svg-text-muted)"/>
+
+    <path d="M 650 50 L 650 80" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 585 80 L 715 80" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 585 80 L 585 100" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="580,95 590,95 585,100" fill="var(--svg-text-muted)"/>
+    <path d="M 715 80 L 715 100" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="710,95 720,95 715,100" fill="var(--svg-text-muted)"/>
+
+    <!-- Boxes -->
+    <rect x="10" y="100" width="110" height="50" rx="4" fill="rgba(239, 68, 68, 0.1)" stroke="var(--svg-red-border)" stroke-width="2"/>
+    <text x="65" y="120" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">Console Print</text>
+    <text x="65" y="140" fill="var(--svg-text-muted)" font-family="monospace" font-size="10" text-anchor="middle">Lost Output ❌</text>
+
+    <rect x="140" y="100" width="110" height="50" rx="4" fill="rgba(16, 185, 129, 0.1)" stroke="var(--svg-green-border)" stroke-width="2"/>
+    <text x="195" y="120" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">MLflow</text>
+    <text x="195" y="140" fill="var(--svg-text-muted)" font-family="monospace" font-size="10" text-anchor="middle">Interactive ✅</text>
+
+    <rect x="270" y="100" width="110" height="50" rx="4" fill="rgba(245, 158, 11, 0.1)" stroke="var(--svg-orange-border)" stroke-width="2"/>
+    <text x="325" y="120" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">Custom CSV</text>
+    <text x="325" y="140" fill="var(--svg-text-muted)" font-family="monospace" font-size="10" text-anchor="middle">No Plots ⚠️</text>
+
+    <rect x="400" y="100" width="110" height="50" rx="4" fill="rgba(16, 185, 129, 0.1)" stroke="var(--svg-green-border)" stroke-width="2"/>
+    <text x="455" y="120" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">MLflow</text>
+    <text x="455" y="140" fill="var(--svg-text-muted)" font-family="monospace" font-size="10" text-anchor="middle">Live UI ✅</text>
+
+    <rect x="530" y="100" width="110" height="50" rx="4" fill="rgba(239, 68, 68, 0.1)" stroke="var(--svg-red-border)" stroke-width="2"/>
+    <text x="585" y="120" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">Manual Files</text>
+    <text x="585" y="140" fill="var(--svg-text-muted)" font-family="monospace" font-size="10" text-anchor="middle">Folder Mess ❌</text>
+
+    <rect x="660" y="100" width="110" height="50" rx="4" fill="rgba(16, 185, 129, 0.1)" stroke="var(--svg-green-border)" stroke-width="2"/>
+    <text x="715" y="120" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">MLflow</text>
+    <text x="715" y="140" fill="var(--svg-text-muted)" font-family="monospace" font-size="10" text-anchor="middle">Model Registry ✅</text>
+  </svg>
+</div>
+
+<p>Here is how the experiment management strategies break down:</p>
+<div class="table-responsive">
+<table class="benchmark-table">
+  <thead>
+    <tr>
+      <th>Feature / Metric</th>
+      <th>Manual Console Logging</th>
+      <th>Custom CSV Scripting</th>
+      <th>MLflow Experiment Tracking</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Setup Overhead</strong></td>
+      <td>Zero (Basic <code>print()</code> calls)</td>
+      <td>Low (Write rows to <code>.csv</code>)</td>
+      <td><strong>Low (<code>pip install mlflow</code> + 3 API lines)</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Metric Visualization</strong></td>
+      <td>None (Raw terminal text)</td>
+      <td>Requires manual Matplotlib plots</td>
+      <td><strong>Built-in Interactive UI (<code>mlflow ui</code>)</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Hyperparameter History</strong></td>
+      <td>Easily overwritten or lost</td>
+      <td>Cluttered columns</td>
+      <td><strong>Structured parameter & run comparison</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Model Versioning</strong></td>
+      <td>Ad-hoc file naming (<code>model_v2.pt</code>)</td>
+      <td>Manual path recording</td>
+      <td><strong>Automated Model Artifact Registry</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Team Collaboration</strong></td>
+      <td>Impossible</td>
+      <td>Hard to share</td>
+      <td><strong>Centralized server endpoint support</strong></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="why-good-tracking-matters">Why Good Tracking Matters</h2>
+<p>LOOK AT THIS METRIC LOGGING! JUST LOOK AT IT!</p>
+<p>I am watching developers execute 100 training epochs, printing loss values directly to <code>stdout</code> without capturing a single structured metric, scalar curve, or model checkpoint, and I am physically losing my mind!</p>
+<div class="code-block">
+
+<pre><code class="language-python"># What developers write when they ignore experiment tracking:
+for epoch in range(100):
+    loss = train_one_epoch()
+    print(f"Epoch {epoch}: Loss = {loss}") # PRINTED TO TERMINAL AND LOST FOREVER! 💥</code></pre>
+</div>
+
+<p>You guys are out here tweaking hyperparameter values, learning rates, and batch sizes in raw Python scripts without a single tracking backend recording your runs!</p>
+<p>It is <strong>NOT GOOD ENGINEERING</strong>!</p>
+<div class="svg-diagram-wrapper">
+  <svg class="svg-diagram" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg">
+    <!-- Terminal Printing -->
+    <text x="20" y="30" fill="var(--svg-red-text)" font-family="monospace" font-size="12" font-weight="bold">Terminal Print:</text>
+    <rect x="160" y="15" width="100" height="30" rx="4" fill="rgba(239, 68, 68, 0.1)" stroke="var(--svg-red-border)" stroke-width="2"/>
+    <text x="210" y="35" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">Epoch Loop</text>
+    <path d="M 260 30 L 300 30" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="295,25 305,30 295,35" fill="var(--svg-text-muted)"/>
+    
+    <rect x="310" y="15" width="180" height="30" rx="4" fill="rgba(245, 158, 11, 0.1)" stroke="var(--svg-orange-border)" stroke-width="2"/>
+    <text x="400" y="35" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">Terminal Print Output</text>
+    <path d="M 490 30 L 530 30" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="525,25 535,30 525,35" fill="var(--svg-text-muted)"/>
+    
+    <rect x="540" y="15" width="180" height="30" rx="4" fill="rgba(239, 68, 68, 0.2)" stroke="var(--svg-red-border)" stroke-width="2"/>
+    <text x="630" y="35" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">History Lost on Close</text>
+    <text x="750" y="35" fill="var(--svg-red-text)" font-family="monospace" font-size="14" text-anchor="middle">🛑</text>
+
+    <!-- MLflow Tracking -->
+    <text x="20" y="80" fill="var(--svg-green-text)" font-family="monospace" font-size="12" font-weight="bold">MLflow Tracking:</text>
+    <rect x="160" y="65" width="100" height="30" rx="4" fill="rgba(59, 130, 246, 0.1)" stroke="#3b82f6" stroke-width="2"/>
+    <text x="210" y="85" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">Epoch Loop</text>
+    <path d="M 260 80 L 300 80" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="295,75 305,80 295,85" fill="var(--svg-text-muted)"/>
+    
+    <rect x="310" y="65" width="180" height="30" rx="4" fill="rgba(16, 185, 129, 0.1)" stroke="var(--svg-green-border)" stroke-width="2"/>
+    <text x="400" y="85" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">mlflow.log_metric()</text>
+    <path d="M 490 80 L 530 80" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="525,75 535,80 525,85" fill="var(--svg-text-muted)"/>
+    
+    <rect x="540" y="65" width="180" height="30" rx="4" fill="rgba(139, 92, 246, 0.1)" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="630" y="85" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">Persisted UI Dashboard</text>
+    <text x="750" y="85" fill="var(--svg-green-text)" font-family="monospace" font-size="14" text-anchor="middle">⚡</text>
+  </svg>
+</div>
+
+<p>If you don't track your hyperparameter states, model weight artifacts, and validation curves using an experiment tracking tool like MLflow, you aren't doing machine learning engineering - you're just gambling with random seed values!</p>
+<p>Stop printing loss values to raw terminals and start logging your experiments!</p>
+<h2 id="math-prep">Math Prep &amp; Resources</h2>
+<p>So, learning the math and setting up MLflow locally on an Ubuntu laptop workstation sounds simple. But when you start visualizing vector space transformations and running parameter sweeps simultaneously, having the right learning resources makes all the difference.</p>
+<div class="svg-diagram-wrapper">
+  <svg class="svg-diagram" viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg">
+    <rect x="50" y="40" width="280" height="40" rx="6" fill="rgba(59, 130, 246, 0.1)" stroke="#3b82f6" stroke-width="2"/>
+    <text x="190" y="65" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">Late-Night Math &amp; ML Session</text>
+    
+    <path d="M 330 60 L 450 60" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="445,55 455,60 445,65" fill="var(--svg-text-muted)"/>
+    
+    <rect x="460" y="20" width="300" height="80" rx="6" fill="rgba(139, 92, 246, 0.1)" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="610" y="45" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">Running MLflow UI</text>
+    <text x="610" y="65" fill="var(--svg-text-muted)" font-family="monospace" font-size="12" text-anchor="middle">+</text>
+    <text x="610" y="85" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">3Blue1Brown Animations</text>
+    
+    <!-- Right arrow and Clicks -->
+    <path d="M 610 100 L 610 120" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="605,115 615,115 610,120" fill="var(--svg-text-muted)"/>
+    <rect x="500" y="125" width="220" height="40" rx="6" fill="rgba(16, 185, 129, 0.1)" stroke="var(--svg-green-border)" stroke-width="2"/>
+    <text x="610" y="150" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">Concept Clicks Instantly 💡</text>
+  </svg>
+</div>
+
+<p>When you're studying vector spaces, partial derivatives, and statistics while managing model experiments, these resources are absolute lifesavers:</p>
 <ul style="list-style: none; padding: 0;">
 <li style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
 <strong>3Blue1Brown’s Linear Algebra Series</strong><br/>
-                        Visuals that make matrices and vectors feel like a Pixar movie. Watch here: <a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">youtube.com</a>
+Visuals that make matrices and vector transformations feel like a Pixar movie. Watch here: <a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">youtube.com</a>
 </li>
 <li style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
 <strong>StatQuest by Josh Starmer</strong><br/>
-                        Fun, clear stats and ML videos for beginners. Start here: <a href="https://www.youtube.com/@statquest">youtube.com</a>
+Clear, fun breakdowns of statistical concepts, probability distributions, and machine learning models. Start here: <a href="https://www.youtube.com/@statquest">youtube.com</a>
 </li>
 <li style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
-<strong>Khan Academy’s Calculus Course</strong><br/>
-                        Free lessons on gradients and multivariable calculus. Check it out: <a href="https://www.khanacademy.org/math/multivariable-calculus">khanacademy.org</a>
+<strong>Khan Academy Multivariable Calculus</strong><br/>
+Intuitive lessons on gradients, partial derivatives, and optimization. Check it out: <a href="https://www.khanacademy.org/math/multivariable-calculus">khanacademy.org</a>
+</li>
+<li style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
+<strong>MLflow Documentation</strong><br/>
+Clear, actionable guides for logging parameters, metrics, and models. Read the docs: <a href="https://mlflow.org/docs/latest/index.html">mlflow.org</a>
 </li>
 </ul>
-</section>
-<section id="why-it-matters">
-<h2>Why Math Matters for ML</h2>
-<p>Math isn’t just a uni hurdle, it’s the engine of ML. Linear algebra organizes data, calculus
-                    optimizes
-                    models, and stats handle uncertainty. In my prev projects, matrices processed inputs, and gradients
-                    tweaked predictions. I used to dodge math, but now I see it’s like the rules of cricket you gotta
-                    know ‘em to play. As I prep for stats next semester, I’m hyped to keep leveling up my ML game.</p>
-</section>
-<div class="tags-container" id="dynamic-tags">
-<!-- Tags will be dynamically generated here -->
+<h2>Why Experiment Tracking &amp; Math Matter</h2>
+<p>Math provides the engine that powers machine learning algorithms, while MLOps tools like MLflow provide the control room that keeps your engineering structured and reproducible.</p>
+<div class="svg-diagram-wrapper">
+  <svg class="svg-diagram" viewBox="0 0 800 250" xmlns="http://www.w3.org/2000/svg">
+    <!-- Top Central Engine -->
+    <rect x="250" y="20" width="300" height="50" rx="8" fill="rgba(139, 92, 246, 0.1)" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="400" y="50" fill="var(--svg-text-main)" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle">MATH ENGINE &amp; MLFLOW TRACKING</text>
+    
+    <!-- Arrows Down -->
+    <path d="M 400 70 L 400 110" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 200 110 L 600 110" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    
+    <path d="M 200 110 L 200 130" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="195,125 205,125 200,130" fill="var(--svg-text-muted)"/>
+    
+    <path d="M 400 110 L 400 130" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="395,125 405,125 400,130" fill="var(--svg-text-muted)"/>
+    
+    <path d="M 600 110 L 600 130" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="595,125 605,125 600,130" fill="var(--svg-text-muted)"/>
+    
+    <!-- Three Pillars -->
+    <!-- Linear Algebra -->
+    <rect x="130" y="130" width="140" height="50" rx="4" fill="rgba(59, 130, 246, 0.1)" stroke="#3b82f6" stroke-width="2"/>
+    <text x="200" y="150" fill="var(--svg-text-main)" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">Linear Algebra</text>
+    <text x="200" y="170" fill="var(--svg-text-muted)" font-family="monospace" font-size="12" text-anchor="middle">(Matrix Ops)</text>
+    <path d="M 200 180 L 200 210" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="195,205 205,205 200,210" fill="var(--svg-text-muted)"/>
+    <text x="200" y="230" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Vector Transform]</text>
+
+    <!-- Multivariable Calculus -->
+    <rect x="330" y="130" width="140" height="50" rx="4" fill="rgba(245, 158, 11, 0.1)" stroke="var(--svg-orange-border)" stroke-width="2"/>
+    <text x="400" y="150" fill="var(--svg-text-main)" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">Multivariable</text>
+    <text x="400" y="170" fill="var(--svg-text-muted)" font-family="monospace" font-size="12" text-anchor="middle">(Gradients)</text>
+    <path d="M 400 180 L 400 210" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="395,205 405,205 400,210" fill="var(--svg-text-muted)"/>
+    <text x="400" y="230" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Gradient Descent]</text>
+
+    <!-- MLflow Engine -->
+    <rect x="530" y="130" width="140" height="50" rx="4" fill="rgba(16, 185, 129, 0.1)" stroke="var(--svg-green-border)" stroke-width="2"/>
+    <text x="600" y="150" fill="var(--svg-text-main)" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">MLflow Engine</text>
+    <text x="600" y="170" fill="var(--svg-text-muted)" font-family="monospace" font-size="12" text-anchor="middle">(Tracking)</text>
+    <path d="M 600 180 L 600 210" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="595,205 605,205 600,210" fill="var(--svg-text-muted)"/>
+    <text x="600" y="230" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Logged Runs &amp; Artifacts]</text>
+  </svg>
 </div>
-<hr class="divider"/>
-<section class="related-articles" id="related-series">
-<h2 class="series-title">Article Series</h2>
-<a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
-<div id="related-posts-container"></div>
-</section>
+
+<p>Linear algebra structures your data, calculus optimizes model weights, and MLflow tracks your parameter landscapes to ensure every win is reproducible.</p>
+<p>As I prep for upcoming courses in probability and statistics, combining deep mathematical understanding with proper experiment tracking is what turns raw code into real-world AI software.</p>
+<p>Grab some chai, launch <code>mlflow ui</code>, and start tracking your experiments! Stay tuned for more updates!</p>
+        <p class="next-post-link" style="margin-top: 25px; font-size: 1.05rem;">
+          <em>Next: <a href="../2025/docker-aws-mlops.html">Docker & AWS for AI Engineers: Taking Models from Laptop to Cloud &rarr;</a></em>
+        </p>
+        <div class="tags-container" id="dynamic-tags"></div>
+        <hr class="divider" />
+        <section class="related-articles" id="related-series">
+          <h2 class="series-title">Article Series</h2>
+          <a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+          <div id="related-posts-container"></div>
+        </section>
+
 </main>
-<footer class="footer">
-<div class="social-icons">
-<a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-<a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-<a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-</div>
-<p>© 2024 – Muhammad Taha Nasir</p>
-</footer>
+<footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
 </div>
 <button aria-label="Scroll to top" id="scrollTop">
 <i class="fas fa-chevron-up"></i>
@@ -202,5 +617,17 @@ print(x)  # Converges near 0, minimizing x^2
             });
         });
     </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="../../assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/shared-bottom-nav.js"></script>
 </body>
 </html>

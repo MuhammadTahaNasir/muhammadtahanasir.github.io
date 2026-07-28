@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html dir="auto" lang="en">
+<head>
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;} .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>');
+    })();
+  </script>
+    <link href="/assets/images/favicon-96x96.png?v=5" rel="icon" sizes="96x96" type="image/png" />
+    <link href="/assets/images/favicon.ico?v=5" rel="shortcut icon" />
+    <link href="/assets/images/apple-touch-icon.png?v=5" rel="apple-touch-icon" sizes="180x180" />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta content="A 4-year engineering retrospective on going from C++ memory pointers to building production AI platforms, and why fundamental computer science matters more than ever in the age of generative AI." name="description" />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="Software Engineering, Computer Science, AI Engineering, System Design, Career Growth" name="tags" />
+    <meta name="thumbnail" content="/assets/images/posts/four-year-engineering-retrospective.png" />
+    <title>Looking Back Across Four Years: Why Computer Science Fundamentals Matter More Than Ever</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/stylesheet.css" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden;pointer-events:none !important;display:none !important;}
+
+        .cinematic-intro-card {
+            background: var(--entry);
+            border-left: 4px solid var(--accent);
+            border-top: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            border-radius: 0 12px 12px 0;
+            padding: 24px 28px;
+            margin: 25px 0 35px 0;
+            box-shadow: var(--shadow-medium);
+        }
+        .cinematic-intro-card p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            color: var(--primary);
+        }
+        .cinematic-intro-card p:last-child {
+            margin-bottom: 0;
+        }
+        .hero-banner-img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            margin: 20px 0 30px 0;
+            border-radius: 12px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--border);
+            display: block;
+        }
+        .svg-diagram-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; background: var(--entry) !important; border: 1px solid var(--border) !important; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-small); transition: background 0.3s ease, border-color 0.3s ease; }
+        .svg-diagram {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* SVG Keyframe Animations */
+        @keyframes pulseFlow {
+            0% { stroke-dashoffset: 24; }
+            100% { stroke-dashoffset: 0; }
+        }
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+        .animated-flow-line {
+            stroke-dasharray: 6 6;
+            animation: pulseFlow 1.2s linear infinite;
+        }
+        .glowing-node {
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .hero-banner-img { margin: 15px 0 20px 0; }
+            .cinematic-intro-card { padding: 18px 20px; margin: 20px 0 25px 0; }
+            .cinematic-intro-card p { font-size: 0.98rem; line-height: 1.6; margin-bottom: 10px; }
+        }
+        @media (max-width: 480px) {
+            .hero-banner-img { border-radius: 8px; }
+            .cinematic-intro-card { padding: 14px 16px; border-left-width: 3px; }
+        }
+    </style>
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="../../assets/js/bg-canvas.js"></script>
+</head>
+<body id="top" post-date="2026-06-12T00:00:00Z">
+    <div aria-hidden="true" class="loader" id="loader">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+        <!-- ---------- Header Navigation ---------- -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+    <div class="container">
+        <nav class="breadcrumb">
+      <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a> » <span class="breadcrumb-current">Looking Back Across Four Years: Why Computer Science Fundamentals Matter More Than Ever</span>
+    </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">Looking Back Across Four Years: Why Computer Science Fundamentals Matter More Than Ever</h1>
+                <div class="post-meta">June 12, 2026 • 6 min • Muhammad Taha Nasir</div>
+            </header>
+            <img alt="Looking Back Across Four Years: Why Computer Science Fundamentals Matter More Than Ever" class="hero-banner-img" src="/assets/images/posts/four-year-engineering-retrospective.png"/>
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#introduction">Four Years Ago, I Was Debugging Segmentation Faults</a></li>
+                        <li><a href="#the-journey">The Journey: From C++ Pointers to Autonomous Agents</a></li>
+                        <li><a href="#hype-vs-reality">Hype vs. Reality in AI Product Development</a></li>
+                        <li><a href="#why-cs-wins">Why Computer Science Still Wins</a></li>
+                        <li><a href="#engineering-for-uncertainty">Engineering for Uncertainty</a></li>
+                        <li><a href="#skills-that-never-expire">The Skills That Never Expire</a></li>
+                        <li><a href="#what-ai-is-changing">What AI Is Really Changing</a></li>
+                        <li><a href="#looking-ahead">Looking Ahead</a></li>
+                        <li><a href="#final-thoughts">Final Thoughts</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter" type="button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share article" type="button">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+
+            <div class="cinematic-intro-card">
+                <p>"Four years ago, my biggest programming victory was getting a linked list in C++ to work without crashing. Today, I build distributed AI platforms serving thousands of users. Technology changed rapidly, but the underlying computer science fundamentals didn't change at all."</p>
+            </div>
+
+<!-- SVG 1: The 4-Year Engineering Journey Timeline -->
+<div class="svg-diagram-wrapper">
+    <svg class="svg-diagram" viewBox="0 0 880 200" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="10" width="860" height="180" rx="10" fill="var(--svg-canvas-bg)" stroke="var(--svg-card-border)" stroke-width="1.5"/>
+
+        <text x="440" y="35" fill="var(--svg-blue-text)" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Four-Year Engineering Evolution (2022 – 2026)</text>
+
+        <rect x="30" y="60" width="180" height="90" rx="6" fill="var(--svg-blue-bg)" stroke="var(--svg-blue-border)" stroke-width="1"/>
+        <text x="120" y="85" fill="var(--svg-blue-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">2022: C++ Pointers</text>
+        <text x="120" y="105" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Memory &amp; Segfaults</text>
+        <text x="120" y="125" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Data Structures</text>
+
+        <path d="M 210 105 L 250 105" stroke="var(--svg-blue-border)" stroke-width="2" class="animated-flow-line"/>
+
+        <rect x="250" y="60" width="180" height="90" rx="6" fill="var(--svg-purple-bg)" stroke="var(--svg-purple-border)" stroke-width="1"/>
+        <text x="340" y="85" fill="var(--svg-purple-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">2023: Web &amp; APIs</text>
+        <text x="340" y="105" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">FastAPI &amp; Postgres</text>
+        <text x="340" y="125" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">System Design</text>
+
+        <path d="M 430 105 L 470 105" stroke="var(--svg-purple-border)" stroke-width="2" class="animated-flow-line"/>
+
+        <rect x="470" y="60" width="180" height="90" rx="6" fill="var(--svg-orange-bg)" stroke="var(--svg-orange-border)" stroke-width="1"/>
+        <text x="560" y="85" fill="var(--svg-orange-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">2024–2025: Cloud AI</text>
+        <text x="560" y="105" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Docker &amp; Vector DBs</text>
+        <text x="560" y="125" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">LLM Integration</text>
+
+        <path d="M 650 105 L 690 105" stroke="var(--svg-green-border)" stroke-width="2" class="animated-flow-line"/>
+
+        <rect x="690" y="60" width="160" height="90" rx="6" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="1"/>
+        <text x="770" y="85" fill="var(--svg-green-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">2026: AI Systems</text>
+        <text x="770" y="105" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">vLLM &amp; DevSecOps</text>
+        <text x="770" y="125" fill="var(--svg-green-text)" font-family="monospace" font-size="9" text-anchor="middle">Distributed Observability</text>
+    </svg>
+</div>
+
+<section id="introduction">
+    <h2>Four Years Ago, I Was Debugging Segmentation Faults</h2>
+    <p>Four years ago, my biggest programming victory was getting a linked list to work without crashing. Every misplaced pointer felt like a mystery. Every segmentation fault required hours of debugging: memory leaks, recursive algorithms, binary trees, hash tables. Those were the problems that consumed my attention.</p>
+    <p>At the time, none of it felt particularly glamorous.</p>
+    <p>Meanwhile, today's engineering landscape looks completely different. Large Language Models generate code in seconds. AI agents automate entire workflows. Frameworks appear faster than most developers can learn them. New model releases dominate social media every week.</p>
+    <p>Looking back, it's easy to assume everything has changed. But after spending four years moving from C++ fundamentals to building production AI systems, I've reached the opposite conclusion.</p>
+    <p>The technology changed. The engineering principles didn't.</p>
+</section>
+
+<section id="the-journey">
+    <h2>The Journey: From C++ Pointers to Autonomous Agents</h2>
+    <p>My first serious exposure to programming wasn't through AI, it was through C++. Understanding pointers meant understanding how memory actually worked. Building stacks and queues meant understanding how data moved through a program. Writing sorting algorithms wasn't about memorizing interview questions: it was about learning how computers solve problems.</p>
+    <p>Eventually those concepts expanded into operating systems, networking, databases, and distributed systems.</p>
+    <p>Then came the AI revolution. ChatGPT changed how developers worked. Retrieval-Augmented Generation became mainstream. Multi-agent frameworks appeared almost overnight. Suddenly everyone was building AI applications.</p>
+    <p>The stack evolved dramatically. My day-to-day work shifted from implementing data structures to designing scalable AI architectures capable of serving thousands of users. FastAPI replaced console applications, vector databases replaced traditional search, Redis queues replaced synchronous request processing, and Docker containers replaced manual deployments.</p>
+    <p>Large Language Models became another component inside distributed systems. The problems became larger. The foundations remained the same.</p>
+</section>
+
+<section id="hype-vs-reality">
+    <h2>Hype vs. Reality in AI Product Development</h2>
+    <p>Social media often makes AI engineering look deceptively simple. A polished demo appears. Someone claims they built an AI startup over the weekend. An autonomous agent writes code, books meetings, and answers emails.</p>
+    <p>The reality is much less exciting, and much more interesting.</p>
+
+
+
+    <p>Most prototype applications work because they operate under ideal conditions: one user, perfect prompts, small datasets, unlimited API budgets, and no network failures.</p>
+    <p>Production systems don't enjoy those luxuries. Real users upload corrupted files, external APIs become unavailable, LLMs exceed context windows, rate limits appear unexpectedly, models hallucinate, and background jobs fail halfway through execution.</p>
+    <p>Building production AI is rarely about clever prompts. It's about writing the "boring" software that survives when everything else goes wrong: retry logic, monitoring, caching, circuit breakers, fallback models, structured logging, and graceful degradation.</p>
+    <p>Those systems don't generate flashy screenshots, but they're the reason successful AI products remain reliable.</p>
+</section>
+
+<section id="why-cs-wins">
+    <h2>Why Computer Science Still Wins</h2>
+    <p>One of the biggest surprises over the last four years has been how often classic computer science concepts reappear in modern AI infrastructure. The terminology changes, the principles don't.</p>
+
+    <!-- SVG 3: CS Fundamentals Reappearing in AI Infrastructure -->
+    <div class="svg-diagram-wrapper">
+        <svg class="svg-diagram" viewBox="0 0 880 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="860" height="180" rx="10" fill="var(--svg-canvas-bg)" stroke="var(--svg-card-border)" stroke-width="1.5"/>
+
+            <text x="440" y="35" fill="var(--svg-orange-text)" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Classic CS Foundations Reappearing in Modern AI Architecture</text>
+
+            <rect x="30" y="60" width="190" height="100" rx="6" fill="var(--svg-blue-bg)" stroke="var(--svg-blue-border)" stroke-width="1"/>
+            <text x="125" y="85" fill="var(--svg-blue-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">Operating Systems</text>
+            <text x="125" y="108" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Virtual Memory Paging</text>
+            <text x="125" y="130" fill="var(--svg-blue-text)" font-family="monospace" font-size="9" text-anchor="middle">→ vLLM PagedAttention</text>
+
+            <rect x="240" y="60" width="190" height="100" rx="6" fill="var(--svg-purple-bg)" stroke="var(--svg-purple-border)" stroke-width="1"/>
+            <text x="335" y="85" fill="var(--svg-purple-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">Networking</text>
+            <text x="335" y="108" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">TCP &amp; Stream Sockets</text>
+            <text x="335" y="130" fill="var(--svg-purple-text)" font-family="monospace" font-size="9" text-anchor="middle">→ SSE &amp; TTFT Tokens</text>
+
+            <rect x="450" y="60" width="190" height="100" rx="6" fill="var(--svg-orange-bg)" stroke="var(--svg-orange-border)" stroke-width="1"/>
+            <text x="545" y="85" fill="var(--svg-orange-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">Database Theory</text>
+            <text x="545" y="108" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">B-Trees &amp; Index Layouts</text>
+            <text x="545" y="130" fill="var(--svg-orange-text)" font-family="monospace" font-size="9" text-anchor="middle">→ HNSW Vector Indexes</text>
+
+            <rect x="660" y="60" width="190" height="100" rx="6" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="1"/>
+            <text x="755" y="85" fill="var(--svg-green-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">Distributed Systems</text>
+            <text x="755" y="108" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Consensus &amp; Queues</text>
+            <text x="755" y="130" fill="var(--svg-green-text)" font-family="monospace" font-size="9" text-anchor="middle">→ Multi-Agent Orchestration</text>
+        </svg>
+    </div>
+
+    <h3>Operating Systems</h3>
+    <p>Understanding virtual memory once felt like an academic exercise. Then vLLM introduced <strong>PagedAttention</strong>, a memory management strategy inspired by operating system paging. Concepts I first encountered while studying memory allocation suddenly became directly relevant to serving large language models efficiently.</p>
+
+    <h3>Networking</h3>
+    <p>Streaming AI responses isn't magic, it's networking. Whether you're building voice assistants, collaborative AI editors, or real-time chat systems, understanding HTTP streaming, TCP connections, WebSockets, and latency becomes essential. The smoother the experience feels, the more important these fundamentals become.</p>
+
+    <h3>Database Theory</h3>
+    <p>Vector databases may seem like an entirely new category of technology. Underneath the marketing, many familiar principles remain: indexes still matter, query optimization still matters, and storage layouts still matter. Whether the index is a B-Tree or an HNSW graph, the goal is still the same: find information quickly while using resources efficiently.</p>
+
+    <h3>Distributed Systems</h3>
+    <p>Modern AI applications rarely consist of a single server. Instead they coordinate multiple services: authentication, background workers, message queues, object storage, embedding services, vector search, language models, and monitoring. Building reliable AI systems increasingly resembles building distributed systems rather than simply training machine learning models.</p>
+</section>
+
+<section id="engineering-for-uncertainty">
+    <h2>Engineering for Uncertainty</h2>
+    <p>One of the biggest mindset shifts came from moving between traditional software engineering and AI systems. Traditional software is largely deterministic: given the same inputs, well-written code produces the same outputs.</p>
+    <p>AI doesn't work that way. Large Language Models produce probabilities. Different prompts can generate different responses. Identical prompts can sometimes produce different outputs.</p>
+    <p>The challenge shifts from controlling behavior to managing uncertainty. Instead of assuming success, production AI systems assume failure. Outputs require validation, schemas enforce structure, guardrails detect unsafe responses, fallback models recover when primary systems fail, and human review remains available for critical workflows.</p>
+    <p>Resilience becomes more valuable than perfection.</p>
+</section>
+
+<section id="skills-that-never-expire">
+    <h2>The Skills That Never Expire</h2>
+    <p>Looking back, very few individual tools from four years ago remain central to my daily workflow. Frameworks changed, libraries changed, deployment platforms changed, and programming languages evolved. Even AI models improved dramatically within months.</p>
+    <p>Yet the skills that mattered most stayed remarkably stable:</p>
+    <ul>
+        <li>Clear communication &amp; breaking large problems into smaller ones</li>
+        <li>Writing readable, maintainable code</li>
+        <li>Understanding engineering trade-offs between speed, cost, and reliability</li>
+        <li>Testing assumptions and reviewing architecture carefully</li>
+        <li>Designing systems that other engineers can understand</li>
+    </ul>
+    <p>Technology rewards people who can learn new tools. Engineering rewards people who understand enduring principles.</p>
+</section>
+
+<section id="what-ai-is-changing">
+    <h2>What AI Is Really Changing</h2>
+    <p>There's a common fear that AI will replace software engineers. After working with these systems every day, I see something different.</p>
+    <p>AI is changing <em>how</em> software gets built, not <em>why</em> it gets built.</p>
+    <p>Routine implementation becomes faster, boilerplate disappears, documentation becomes easier to generate, and simple bugs become quicker to fix. But as coding becomes easier, higher-level engineering becomes more valuable.</p>
+    <p>Understanding business requirements, designing scalable architectures, protecting user data, managing distributed infrastructure, and making trade-offs between latency, cost, reliability, and security become even more important as AI handles more implementation details.</p>
+    <p>The role of the software engineer isn't disappearing, it's moving up the abstraction stack.</p>
+</section>
+
+<section id="looking-ahead">
+    <h2>Looking Ahead</h2>
+    <p>If the last four years taught me anything, it's that chasing every new framework is less valuable than mastering timeless fundamentals.</p>
+    <p>Today's popular libraries will eventually be replaced. Tomorrow's AI models will outperform today's. New programming paradigms will emerge. But computers will still manage memory, networks will still move packets, databases will still organize information, distributed systems will still coordinate work across machines, and engineers will still solve problems by understanding those foundations.</p>
+    <p>The tools evolve. The principles endure.</p>
+</section>
+
+<section id="final-thoughts">
+    <h2>Final Thoughts</h2>
+    <p>Four years ago, I thought learning C++ pointers was simply another university assignment. Today, I see it differently. Those early lessons weren't preparing me for one language, they were preparing me to understand how computers work beneath every framework, every AI model, and every new technology that followed.</p>
+
+
+
+    <p>Looking back, the biggest lesson wasn't about C++, Python, FastAPI, or Large Language Models: it was that technologies rise and fall remarkably quickly. Fundamental computer science rarely does.</p>
+    <p>That's why, in an era dominated by generative AI and rapidly changing frameworks, I believe strong engineering fundamentals matter more than ever.</p>
+</section>
+
+            <div class="tags-container" id="dynamic-tags"></div>
+            <hr class="divider" />
+            <section class="related-articles" id="related-series">
+                <h2 class="series-title">Article Series</h2>
+                <a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+                <div id="related-posts-container"></div>
+            </section>
+        </main>
+        <div class="newsletter-section">
+            <div class="newsletter-content">
+                <h3>Subscribe to our newsletter</h3>
+                <p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+                <p>Subscribe to the newsletter, and don't miss out.</p>
+                <div class="newsletter-form">
+                    <input class="newsletter-input" placeholder="Enter your email address" type="email" />
+                    <button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../../assets/js/each-post.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="../../assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/shared-bottom-nav.js"></script>
+</body>
+</html>

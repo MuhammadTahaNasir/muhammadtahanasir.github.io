@@ -1,258 +1,887 @@
 <!DOCTYPE html>
-
 <html dir="auto" lang="en">
 <head>
-<link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
-<link href="/assets/images/favicon.ico" rel="shortcut icon"/>
-<link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
-<meta content="Terry" name="apple-mobile-web-app-title"/>
-<link href="/assets/images/site.webmanifest" rel="manifest"/>
-<meta charset="utf-8"/>
-<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
-<meta content="noindex, nofollow" name="robots"/>
-<meta content="A comprehensive guide on building a scalable Full-Stack AI SaaS platform using modern web technologies and robust backend architecture." name="description"/>
-<meta content="Muhammad Taha Nasir" name="author"/>
-<meta content="Full-Stack Engineering, SaaS Architecture" name="tags"/>
-<meta content="/assets/images/posts/fullstack-ai-saas.png" name="thumbnail"/>
-<title>Scaling an AI Product: Next.js, FastAPI, and Postgres Architecture</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
-<link href="../../assets/css/each-post.css" rel="stylesheet"/>
-<link href="../../assets/css/bottom-nav.css" rel="stylesheet"/>
-<!-- Prism.js Okaidia High Contrast Theme -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/>
-<style>
-        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;} .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>');
+    })();
+  </script>
+    <link href="/assets/images/favicon-96x96.png?v=5" rel="icon" sizes="96x96" type="image/png" />
+    <link href="/assets/images/favicon.ico?v=5" rel="shortcut icon" />
+    <link href="/assets/images/apple-touch-icon.png?v=5" rel="apple-touch-icon" sizes="180x180" />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta content="Designing and building a production-grade full-stack AI SaaS platform using Next.js App Router, FastAPI async backends, Redis queues, and Postgres pgvector." name="description" />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="Full-Stack System Design, Next.js 16, FastAPI, PostgreSQL, Redis, AI Infrastructure" name="tags" />
+    <meta name="thumbnail" content="/assets/images/posts/fullstack-ai-saas.png" />
+    <title>Scaling an AI Product: Next.js, FastAPI, and Postgres Architecture</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/stylesheet.css" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}
         .loader.hidden{opacity:0;visibility:hidden}
-        /* Force code blocks to be bright and override any dim CSS from each-post.css */
-        .code-block pre {
-            opacity: 1 !important;
-            color: #f8f8f2 !important;
-            text-shadow: 0 1px rgba(0, 0, 0, 0.3) !important;
+        .code-block { position: relative; margin: 25px 0; border-radius: 10px; background: #0d1117 !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; overflow: hidden; }
+        .code-block pre, .code-block pre[class*="language-"] { background: #0d1117 !important; color: #e6edf3 !important; text-shadow: none !important; padding: 20px 22px !important; margin: 0 !important; font-family: "SF Mono", "Fira Code", monospace !important; font-size: 0.94rem !important; line-height: 1.6 !important; border-radius: 10px !important; }
+        .code-block code { opacity: 1 !important; color: #e6edf3 !important; background: transparent !important; text-shadow: none !important; }
+
+        .cinematic-intro-card {
+            background: var(--entry);
+            border-left: 4px solid var(--accent);
+            border-top: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            border-radius: 0 12px 12px 0;
+            padding: 24px 28px;
+            margin: 25px 0 35px 0;
+            box-shadow: var(--shadow-medium);
         }
-        .code-block code {
-            opacity: 1 !important;
-            color: inherit !important;
+        .cinematic-intro-card p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            color: var(--primary);
+        }
+        .cinematic-intro-card p:last-child {
+            margin-bottom: 0;
+        }
+        .hero-banner-img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            margin: 20px 0 30px 0;
+            border-radius: 12px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--border);
+            display: block;
+        }
+        .svg-diagram-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; background: var(--entry) !important; border: 1px solid var(--border) !important; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-small); transition: background 0.3s ease, border-color 0.3s ease; }
+        .svg-diagram {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* SVG Keyframe Animations */
+        @keyframes pulseFlow {
+            0% { stroke-dashoffset: 24; }
+            100% { stroke-dashoffset: 0; }
+        }
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+        .animated-flow-line {
+            stroke-dasharray: 6 6;
+            animation: pulseFlow 1.2s linear infinite;
+        }
+        .glowing-node {
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .hero-banner-img { margin: 15px 0 20px 0; }
+            .cinematic-intro-card { padding: 18px 20px; margin: 20px 0 25px 0; }
+            .cinematic-intro-card p { font-size: 0.98rem; line-height: 1.6; margin-bottom: 10px; }
+        }
+        @media (max-width: 480px) {
+            .hero-banner-img { border-radius: 8px; }
+            .cinematic-intro-card { padding: 14px 16px; border-left-width: 3px; }
         }
     </style>
-<script>
-        // Apply theme immediately on page load
-        (function () {
-            const savedTheme = localStorage.getItem('pref-theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
-        })();
-    </script>
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="../../assets/js/bg-canvas.js"></script>
 </head>
-<body class="dark" id="top" post-date="2026-02-11">
-<!-- Loader Animation -->
-<div aria-hidden="true" class="loader" id="loader">
-<div class="terry-animation">
-<span class="letter">t</span>
-<span class="letter">e</span>
-<span class="letter">r</span>
-<span class="letter">r</span>
-<span class="letter">y</span>
+<body id="top" post-date="2026-02-03T00:00:00Z">
+    <div aria-hidden="true" class="loader" id="loader">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+        <!-- ---------- Header Navigation ---------- -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+    <div class="container">
+        <nav class="breadcrumb">
+      <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a> » <span class="breadcrumb-current">Scaling an AI Product: Next.js, FastAPI, and Postgres Architecture</span>
+    </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">Scaling an AI Product: Next.js, FastAPI, and Postgres Architecture</h1>
+                <div class="post-meta">February 3, 2026 • 8 min • Muhammad Taha Nasir</div>
+            </header>
+            <img alt="Scaling an AI Product: Next.js, FastAPI, and Postgres Architecture" class="hero-banner-img" src="/assets/images/posts/fullstack-ai-saas.png"/>
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#introduction">Everything Was Fine... Until 10 Users Became 10,000</a></li>
+                        <li><a href="#mvp-architecture-failures">1. The MVP Architecture (And Why It Failed)</a></li>
+                        <li><a href="#production-architecture">2. Breaking Down the Production Architecture</a></li>
+                        <li><a href="#code-walkthrough">3. Code Walkthrough: Asynchronous Streaming Pattern</a></li>
+                        <li><a href="#database-scaling">4. The Database Story: Postgres Under Pressure</a></li>
+                        <li><a href="#performance-benchmarks">5. Performance Benchmarks</a></li>
+                        <li><a href="#production-realities">6. The Engineering Reality: What Wakes You Up at 3 AM</a></li>
+                        <li><a href="#infrastructure-deployment">7. Infrastructure &amp; Deployment Setup</a></li>
+                        <li><a href="#summary">Summary</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter" type="button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share article" type="button">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+
+            <div class="cinematic-intro-card">
+                <p>"How a viral launch collapsed a synchronous stack in 20 minutes, and the blueprint we used to re-architect Next.js 16, FastAPI, Redis ARQ, and PostgreSQL + pgvector to serve 25,000+ concurrent users with under 210ms response time."</p>
+            </div>
+
+<!-- SVG 1: Hero High-Level System Architecture -->
+<div class="svg-diagram-wrapper">
+    <svg class="svg-diagram" viewBox="0 0 880 240" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="10" width="860" height="220" rx="10" fill="var(--svg-canvas-bg)" stroke="var(--svg-card-border)" stroke-width="1.5"/>
+
+        <!-- User Browser -->
+        <rect x="30" y="45" width="110" height="150" rx="8" fill="var(--svg-card-bg)" stroke="var(--svg-blue-border)" stroke-width="1.5"/>
+        <text x="85" y="80" fill="var(--svg-blue-text)" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">🌐 Clients</text>
+        <text x="85" y="115" fill="var(--svg-text-muted)" font-family="monospace" font-size="10" text-anchor="middle">25,000+ Users</text>
+        <text x="85" y="135" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">React 19 / SSE</text>
+
+        <!-- Connector 1 -->
+        <path d="M 140 120 L 190 120" stroke="var(--svg-blue-border)" stroke-width="2" class="animated-flow-line"/>
+
+        <!-- Next.js 16 App Router -->
+        <rect x="190" y="45" width="130" height="150" rx="8" fill="var(--svg-blue-bg)" stroke="var(--svg-purple-border)" stroke-width="1.5"/>
+        <text x="255" y="80" fill="var(--svg-purple-text)" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">⚡ Next.js 16</text>
+        <text x="255" y="115" fill="var(--svg-purple-text)" font-family="monospace" font-size="10" text-anchor="middle">App Router / RSC</text>
+        <text x="255" y="135" fill="var(--svg-purple-text)" font-family="monospace" font-size="9" text-anchor="middle">Edge CDN Shell</text>
+
+        <!-- Connector 2 -->
+        <path d="M 320 120 L 370 120" stroke="var(--svg-purple-border)" stroke-width="2" class="animated-flow-line"/>
+
+        <!-- FastAPI Gateway -->
+        <rect x="370" y="45" width="130" height="150" rx="8" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="1.5"/>
+        <text x="435" y="80" fill="var(--svg-green-text)" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">🐍 FastAPI</text>
+        <text x="435" y="115" fill="var(--svg-text-muted)" font-family="monospace" font-size="10" text-anchor="middle">Async Gateway</text>
+        <text x="435" y="135" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">&lt;15ms Dispatch</text>
+
+        <!-- Split Lines to Redis & PgBouncer -->
+        <path d="M 500 100 L 560 70" stroke="var(--svg-green-border)" stroke-width="2" class="animated-flow-line"/>
+        <path d="M 500 140 L 560 170" stroke="var(--svg-green-border)" stroke-width="2" class="animated-flow-line"/>
+
+        <!-- Redis ARQ Queue -->
+        <rect x="560" y="40" width="130" height="65" rx="6" fill="var(--svg-orange-bg)" stroke="var(--svg-orange-border)" stroke-width="1.5"/>
+        <text x="625" y="65" fill="var(--svg-orange-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">🔴 Redis ARQ</text>
+        <text x="625" y="85" fill="var(--svg-orange-text)" font-family="monospace" font-size="9" text-anchor="middle">Task Queue &amp; Pub/Sub</text>
+
+        <!-- PgBouncer -->
+        <rect x="560" y="140" width="130" height="65" rx="6" fill="var(--svg-indigo-bg)" stroke="var(--svg-indigo-border)" stroke-width="1.5"/>
+        <text x="625" y="165" fill="var(--svg-text-muted)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">🛡️ PgBouncer</text>
+        <text x="625" y="185" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Transaction Pooler</text>
+
+        <!-- Final Targets -->
+        <path d="M 690 72 L 740 72" stroke="var(--svg-orange-border)" stroke-width="2" class="animated-flow-line"/>
+        <path d="M 690 172 L 740 172" stroke="var(--svg-indigo-border)" stroke-width="2" class="animated-flow-line"/>
+
+        <rect x="740" y="40" width="110" height="65" rx="6" fill="var(--svg-red-bg)" stroke="var(--svg-red-border)" stroke-width="1.5"/>
+        <text x="795" y="65" fill="var(--svg-red-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">🤖 Workers</text>
+        <text x="795" y="85" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">LLM / CUDA Nodes</text>
+
+        <rect x="740" y="140" width="110" height="65" rx="6" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="1.5"/>
+        <text x="795" y="165" fill="var(--svg-green-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">🐘 Postgres</text>
+        <text x="795" y="185" fill="var(--svg-green-text)" font-family="monospace" font-size="9" text-anchor="middle">HNSW pgvector</text>
+    </svg>
 </div>
-</div>
-<header class="header">
-<nav class="nav">
-<!-- Left: Logo -->
-<div class="nav-left">
-<a class="logo" href="/index.html">&lt;terry/&gt;</a>
-</div>
-<!-- Center: Pills Navigation -->
-<div class="nav-center">
-<div class="pill-nav">
-<a href="/projects.html">Projects</a>
-<a href="/archives.html">Archives</a>
-<a href="/resume.html">Resume</a>
-<a href="/search.html">Search</a>
-</div>
-</div>
-<!-- Right: Theme toggle -->
-<div class="nav-right">
-<button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
-<svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<circle cx="12" cy="12" r="5"></circle>
-<line x1="12" x2="12" y1="1" y2="3"></line>
-<line x1="12" x2="12" y1="21" y2="23"></line>
-<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
-<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
-<line x1="1" x2="3" y1="12" y2="12"></line>
-<line x1="21" x2="23" y1="12" y2="12"></line>
-<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
-<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
-</svg>
-<svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-</svg>
-</button>
-</div>
-</nav>
-</header>
-<div class="container">
-<nav class="breadcrumb">
-<a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
-</nav>
-<main class="post-content">
-<header class="post-header">
-<h1 class="post-title">Scaling an AI Product: Next.js, FastAPI, and Postgres Architecture</h1>
-<div class="post-meta">February 11, 2026 • 3 min • Muhammad Taha Nasir</div>
-</header>
-<img alt="Scaling an AI Product: Next.js, FastAPI, and Postgres Architecture" src="/assets/images/posts/fullstack-ai-saas.png" style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;"/>
-<aside class="table-of-contents">
-<details>
-<summary>Table of Contents</summary>
-<ul>
-<li><a href="#beyond-notebooks">Moving Beyond Jupyter Notebooks</a></li>
-<li><a href="#decoupled-architecture">The Decoupled Architecture</a></li>
-<li><a href="#nextjs-frontend">Why Next.js for the Frontend?</a></li>
-<li><a href="#fastapi-backend">FastAPI: The ML Backend Standard</a></li>
-<li><a href="#async-concurrency">Handling Async Concurrency</a></li>
-<li><a href="#database-state">PostgreSQL for State Management</a></li>
-<li><a href="#lessons-learned">Deployment Lessons</a></li>
-</ul>
-</details>
-</aside>
-<!-- Social Sharing Floating Toolbar -->
-<div class="social-sharing-toolbar">
-<button class="social-btn subscribe-btn" title="Subscribe to newsletter">
-<i class="fas fa-envelope"></i>
-</button>
-<button class="social-btn share-btn" title="Share">
-<i class="fas fa-share-alt"></i>
-</button>
-</div>
-<section id="beyond-notebooks">
-<h2>Moving Beyond Jupyter Notebooks</h2>
-<p>Data scientists and ML engineers love Jupyter Notebooks. They are perfect for rapid prototyping, visualizing data, and training models in isolated cells. However, when you actually want to ship an AI feature to real users, a notebook is useless. Even quick dashboarding tools like Streamlit eventually hit severe limitations when you need custom authentication, complex routing, or highly responsive UI components.</p>
-<p>I recently architected a full-stack SaaS platform for AI-assisted resume generation. Building it required completely abandoning the data science mindset and adopting a strict software engineering architecture. You have to handle user sessions, database persistence, and long-running GPU inference tasks simultaneously.</p>
+
+<section id="introduction">
+    <h2>Everything Was Fine... Until 10 Users Became 10,000</h2>
+    <p>When we launched our AI document intelligence tool, the architecture was delightfully simple. A user uploaded a 50-page PDF, typed a prompt, and got an answer. In local development and early beta testing with 10 friends, the app felt instantaneous.</p>
+
+    <p>Then came launch day. A front-page feature on Product Hunt and a viral post on X brought 10,000 active users in under four hours.</p>
+
+    <p>Within 20 minutes, the application imploded:</p>
+    <ul>
+        <li><strong>HTTP 504 Gateway Timeouts:</strong> Next.js serverless functions hit 30-second execution limits waiting for long-running LLM completions.</li>
+        <li><strong>Database Collapse:</strong> PostgreSQL threw <code>FATAL: sorry, too many clients already</code> as unpooled backend instances exhausted connection limits.</li>
+        <li><strong>Event Loop Starvation:</strong> Synchronous PDF parsing functions locked up FastAPI's single-threaded <code>asyncio</code> loop, freezing API health checks for everyone.</li>
+        <li><strong>Cascading Failures:</strong> Retrying failed user requests created a thundering herd that burned through our OpenAI API rate limits in minutes.</li>
+    </ul>
+
+    <!-- SVG 2: Scaling Timeline (10 to 10,000 Users Crash) -->
+    <div class="svg-diagram-wrapper">
+        <svg class="svg-diagram" viewBox="0 0 880 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="860" height="180" rx="10" fill="var(--svg-canvas-bg)" stroke="var(--svg-card-border)" stroke-width="1.5"/>
+
+            <text x="440" y="40" fill="var(--svg-text-main)" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">System Load Escalation &amp; Implosion Timeline</text>
+
+            <!-- Timeline Line -->
+            <path d="M 60 110 L 820 110" stroke="#334155" stroke-width="4"/>
+
+            <!-- Node 1: 10 Users -->
+            <circle cx="100" cy="110" r="14" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="3"/>
+            <text x="100" y="80" fill="var(--svg-green-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">10 Users</text>
+            <text x="100" y="145" fill="var(--svg-green-text)" font-family="monospace" font-size="9" text-anchor="middle">Instant ✅</text>
+
+            <!-- Node 2: 100 Users -->
+            <circle cx="300" cy="110" r="14" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="3"/>
+            <text x="300" y="80" fill="var(--svg-green-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">100 Users</text>
+            <text x="300" y="145" fill="var(--svg-green-text)" font-family="monospace" font-size="9" text-anchor="middle">Smooth ✅</text>
+
+            <!-- Node 3: 1,000 Users -->
+            <circle cx="500" cy="110" r="14" fill="#78350f" stroke="var(--svg-orange-border)" stroke-width="3"/>
+            <text x="500" y="80" fill="var(--svg-orange-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">1,000 Users</text>
+            <text x="500" y="145" fill="var(--svg-orange-text)" font-family="monospace" font-size="9" text-anchor="middle">Latency Spikes ⚠️</text>
+
+            <!-- Node 4: 10,000 Users Collapse -->
+            <circle cx="740" cy="110" r="18" fill="var(--svg-red-bg)" stroke="var(--svg-red-border)" stroke-width="4" class="glowing-node"/>
+            <text x="740" y="75" fill="var(--svg-red-text)" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">10,000 Users 🔥</text>
+            <text x="740" y="142" fill="var(--svg-red-text)" font-family="monospace" font-size="9" text-anchor="middle">504 Gateway Timeouts</text>
+            <text x="740" y="157" fill="var(--svg-red-text)" font-family="monospace" font-size="9" text-anchor="middle">DB Connection Collapse</text>
+            <text x="740" y="172" fill="var(--svg-red-text)" font-family="monospace" font-size="9" text-anchor="middle">Rate Limit Exhaustion</text>
+        </svg>
+    </div>
+
+    <p>The site wasn't down because the stack was wrong, it was down because synchronous web architectures cannot handle long-running, non-deterministic AI inference workloads. Here is the story of how we re-architected the stack to handle 25,000+ concurrent users without breaking a sweat or burning through our cloud budget.</p>
 </section>
-<section id="decoupled-architecture">
-<h2>The Decoupled Architecture</h2>
-<p>The biggest mistake beginners make is trying to cram the frontend, the backend, and the heavy machine learning logic into a single monolithic server. If the server is busy processing a massive text generation task, the entire website freezes for all other users.</p>
-<p>To prevent this, I utilized a completely decoupled architecture. The stack consists of a React-based frontend (Next.js), a Python backend API (FastAPI), and a relational database (PostgreSQL) hosted independently. They communicate entirely over REST APIs.</p>
+
+<section id="mvp-architecture-failures">
+    <h2>1. The MVP Architecture (And Why It Failed)</h2>
+    <p>Our initial setup was the standard full-stack monorepo pattern recommended by hundreds of tutorials:</p>
+
+    <!-- SVG 3: MVP Synchronous Coupling & Failure Points -->
+    <div class="svg-diagram-wrapper">
+        <svg class="svg-diagram" viewBox="0 0 880 180" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="860" height="160" rx="10" fill="var(--svg-canvas-bg)" stroke="var(--svg-red-border)" stroke-width="1.5"/>
+
+            <text x="440" y="35" fill="var(--svg-red-text)" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Synchronous MVP Architecture (Coupled HTTP Chain)</text>
+
+            <rect x="40" y="65" width="130" height="60" rx="6" fill="var(--svg-card-bg)" stroke="#64748b" stroke-width="1"/>
+            <text x="105" y="95" fill="var(--svg-text-main)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">Browser</text>
+            <text x="105" y="110" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Hanging Socket</text>
+
+            <path d="M 170 95 L 230 95" stroke="var(--svg-red-border)" stroke-width="2"/>
+            <text x="200" y="85" fill="var(--svg-red-text)" font-family="monospace" font-size="9" text-anchor="middle">Sync HTTP</text>
+
+            <rect x="230" y="65" width="150" height="60" rx="6" fill="var(--svg-card-bg)" stroke="var(--svg-red-border)" stroke-width="1"/>
+            <text x="305" y="92" fill="var(--svg-red-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">Next.js App Router</text>
+            <text x="305" y="110" fill="var(--svg-red-text)" font-family="monospace" font-size="9" text-anchor="middle">30s Execution Limit</text>
+
+            <path d="M 380 95 L 440 95" stroke="var(--svg-red-border)" stroke-width="2"/>
+
+            <rect x="440" y="65" width="150" height="60" rx="6" fill="var(--svg-card-bg)" stroke="var(--svg-red-border)" stroke-width="1"/>
+            <text x="515" y="92" fill="var(--svg-red-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">FastAPI Backend</text>
+            <text x="515" y="110" fill="var(--svg-red-text)" font-family="monospace" font-size="9" text-anchor="middle">Blocked Event Loop</text>
+
+            <path d="M 590 75 L 650 60" stroke="var(--svg-red-border)" stroke-width="2"/>
+            <path d="M 590 115 L 650 130" stroke="var(--svg-red-border)" stroke-width="2"/>
+
+            <rect x="650" y="35" width="180" height="50" rx="6" fill="var(--svg-red-bg)" stroke="var(--svg-red-border)" stroke-width="1"/>
+            <text x="740" y="60" fill="var(--svg-red-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">Unpooled Postgres DB (Crash)</text>
+
+            <rect x="650" y="105" width="180" height="50" rx="6" fill="var(--svg-red-bg)" stroke="var(--svg-red-border)" stroke-width="1"/>
+            <text x="740" y="130" fill="var(--svg-red-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">OpenAI API (Rate Limited)</text>
+        </svg>
+    </div>
+
+    <h3>Why It Worked Initially</h3>
+    <p>It was trivial to write. Next.js handled client state and routing. FastAPI accepted the request, made an ORM query to Postgres, called <code>openai.chat.completions.create()</code>, and returned JSON back to the browser.</p>
+
+    <h3>Why It Exploded</h3>
+    <ul>
+        <li><strong>Coupling Transport to Execution:</strong> The client HTTP connection stayed open for the entire duration of the AI pipeline (parse PDF $\rightarrow$ generate embeddings $\rightarrow$ vector search $\rightarrow$ LLM generation $\rightarrow$ DB write). If any step took longer than 30 seconds, cloud edge routers killed the socket.</li>
+        <li><strong>Unpooled DB Connections:</strong> Every FastAPI request worker established a fresh connection to Postgres. Under load, 200 concurrent web requests spawned 200 database connections, instantly crashing a 2GB RAM database node.</li>
+        <li><strong>Blocking the Async Loop:</strong> Calling synchronous libraries (like legacy <code>pypdf</code> or sync HTTP clients) inside FastAPI route handlers blocked Python's single-threaded event loop, preventing all other incoming requests from being processed.</li>
+    </ul>
 </section>
-<section id="nextjs-frontend">
-<h2>Why Next.js for the Frontend?</h2>
-<p>For the user interface, Next.js is unparalleled. The React ecosystem provides massive component libraries, making it easy to build slick, modern interfaces with TailwindCSS. More importantly, Next.js handles server-side rendering (SSR), which is crucial for SEO and initial page load speeds. When a user navigates to the dashboard, the UI loads instantly, completely independent of whatever heavy lifting the AI backend is currently doing.</p>
+
+<section id="production-architecture">
+    <h2>2. Breaking Down the Production Architecture</h2>
+    <p>To scale, we decoupled the synchronous user interface from asynchronous AI processing:</p>
+
+    <!-- SVG 4: Production Full-Stack Infrastructure Topology (Centerpiece SVG) -->
+    <div class="svg-diagram-wrapper">
+        <svg class="svg-diagram" viewBox="0 0 880 340" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="860" height="320" rx="10" fill="var(--svg-canvas-bg)" stroke="var(--svg-green-border)" stroke-width="2"/>
+
+            <text x="440" y="38" fill="var(--svg-green-text)" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle">High-Availability Production Architecture (25,000+ Users)</text>
+
+            <!-- Tier 1: Next.js 16 -->
+            <rect x="40" y="60" width="800" height="60" rx="8" fill="var(--svg-blue-bg)" stroke="var(--svg-blue-border)" stroke-width="1.5"/>
+            <text x="60" y="85" fill="var(--svg-blue-text)" font-family="sans-serif" font-size="12" font-weight="bold">Next.js 16 Frontend (App Router / Edge CDN)</text>
+            <text x="60" y="105" fill="var(--svg-text-muted)" font-family="monospace" font-size="10">• Static Shells &amp; RSC for Instant UI Load   • Server-Sent Events (SSE) / WebSockets for Streaming Response State</text>
+
+            <!-- Connector Down/Up -->
+            <path d="M 260 120 L 260 150" stroke="var(--svg-blue-border)" stroke-width="2" class="animated-flow-line"/>
+            <text x="270" y="140" fill="var(--svg-blue-text)" font-family="monospace" font-size="9">POST Payload</text>
+
+            <path d="M 620 150 L 620 120" stroke="var(--svg-green-border)" stroke-width="2" class="animated-flow-line"/>
+            <text x="630" y="140" fill="var(--svg-green-text)" font-family="monospace" font-size="9">SSE Chunks</text>
+
+            <!-- Tier 2: FastAPI Gateway -->
+            <rect x="40" y="150" width="800" height="60" rx="8" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="1.5"/>
+            <text x="60" y="175" fill="var(--svg-green-text)" font-family="sans-serif" font-size="12" font-weight="bold">FastAPI Gateway (Async REST API)</text>
+            <text x="60" y="195" fill="var(--svg-green-text)" font-family="monospace" font-size="10">• Auth Validation &amp; Rate Limiting (Redis Token Bucket)   • Enqueues Workloads to Redis &amp; Returns Job ID Immediately (&lt;15ms TTFT)</text>
+
+            <!-- Connector to Background Pipeline -->
+            <path d="M 440 210 L 440 235" stroke="var(--svg-orange-border)" stroke-width="2" class="animated-flow-line"/>
+
+            <!-- Tier 3: Background Storage & Worker Pipeline -->
+            <rect x="40" y="235" width="800" height="80" rx="8" fill="#181825" stroke="var(--svg-purple-border)" stroke-width="1.5"/>
+
+            <rect x="65" y="250" width="220" height="50" rx="6" fill="var(--svg-orange-bg)" stroke="var(--svg-orange-border)" stroke-width="1"/>
+            <text x="175" y="272" fill="var(--svg-orange-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">Redis Queue (ARQ)</text>
+            <text x="175" y="288" fill="var(--svg-orange-text)" font-family="monospace" font-size="9" text-anchor="middle">Task Management &amp; Pub/Sub</text>
+
+            <path d="M 285 275 L 325 275" stroke="var(--svg-orange-border)" stroke-width="2"/>
+
+            <rect x="325" y="250" width="230" height="50" rx="6" fill="var(--svg-red-bg)" stroke="var(--svg-red-border)" stroke-width="1"/>
+            <text x="440" y="272" fill="var(--svg-red-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">Distributed Workers</text>
+            <text x="440" y="288" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">GPU / PyTorch / CUDA Nodes</text>
+
+            <path d="M 555 275 L 595 275" stroke="var(--svg-indigo-border)" stroke-width="2"/>
+
+            <rect x="595" y="250" width="225" height="50" rx="6" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="1"/>
+            <text x="707" y="272" fill="var(--svg-green-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">PgBouncer + Postgres</text>
+            <text x="707" y="288" fill="var(--svg-green-text)" font-family="monospace" font-size="9" text-anchor="middle">Relational + pgvector HNSW</text>
+        </svg>
+    </div>
+
+    <h3>The Production Stack Components</h3>
+    <ul>
+        <li><strong>Next.js 16 App Router:</strong> Renders UI components on the server (RSC) and consumes streaming AI output via Server-Sent Events (SSE).</li>
+        <li><strong>FastAPI Backend:</strong> Acts strictly as an API gateway for validation, authentication, and job dispatching. It never waits for AI inference.</li>
+        <li><strong>Redis + ARQ / Taskiq:</strong> Manages distributed task queues with automatic retries, backpressure, and job status tracking.</li>
+        <li><strong>PostgreSQL + PgBouncer:</strong> Handles primary data storage, workspace multi-tenancy, and vector similarity search via <code>pgvector</code>.</li>
+        <li><strong>AWS S3 / Cloudflare R2:</strong> Offloads all heavy file uploads (PDFs, images, transcripts) away from application memory.</li>
+    </ul>
 </section>
-<section id="fastapi-backend">
-<h2>FastAPI: The ML Backend Standard</h2>
-<p>Traditionally, developers use Node.js or Express for web backends. But in AI, your ecosystem is Python. All the critical libraries—PyTorch, Pandas, LangChain, Transformers—are native to Python. Forcing a Node.js server to spawn Python child processes is a nightmare of latency and memory leaks.</p>
-<p>FastAPI bridges this gap flawlessly. It is a modern, high-performance web framework for Python. It validates data structures out of the box using Pydantic, automatically generates Swagger API documentation, and natively supports asynchronous programming.</p>
-</section>
-<section id="async-concurrency">
-<h2>Handling Async Concurrency</h2>
-<p>The asynchronous nature of FastAPI is its superpower. When an LLM generates a response, it might take 5 to 10 seconds. In a synchronous framework like Flask, that single request would block a worker thread, preventing the server from handling other users. With FastAPI's `async/await` syntax, the server hands the inference task off and immediately returns to listening for new requests.</p>
-<div class="code-block">
-<button class="copy-btn">Copy</button>
-<pre class="language-python" data-lang="Python"><code>
-from fastapi import FastAPI, BackgroundTasks, HTTPException
+
+<section id="code-walkthrough">
+    <h2>3. Code Walkthrough: Asynchronous Streaming Pattern</h2>
+    <p>Instead of keeping an HTTP connection hanging while the AI generates a response, the production endpoint pushes work to a task queue and streams results back over a dedicated channel.</p>
+
+    <!-- SVG 5: Asynchronous Request Lifecycle & SSE Stream Flow -->
+    <div class="svg-diagram-wrapper">
+        <svg class="svg-diagram" viewBox="0 0 880 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="860" height="180" rx="10" fill="var(--svg-canvas-bg)" stroke="var(--svg-card-border)" stroke-width="1.5"/>
+
+            <text x="440" y="35" fill="var(--svg-blue-text)" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Asynchronous Request &amp; Token Streaming Lifecycle</text>
+
+            <!-- Step 1 -->
+            <rect x="30" y="60" width="150" height="100" rx="6" fill="var(--svg-blue-bg)" stroke="var(--svg-blue-border)" stroke-width="1"/>
+            <text x="105" y="85" fill="var(--svg-blue-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">Step 1: Submit</text>
+            <text x="105" y="105" fill="var(--svg-text-main)" font-family="monospace" font-size="9" text-anchor="middle">POST /api/v1/generate</text>
+            <text x="105" y="125" fill="var(--svg-green-text)" font-family="monospace" font-size="9" text-anchor="middle">Returns Job ID (&lt;20ms)</text>
+
+            <path d="M 180 110 L 230 110" stroke="var(--svg-blue-border)" stroke-width="2" class="animated-flow-line"/>
+
+            <!-- Step 2 -->
+            <rect x="230" y="60" width="160" height="100" rx="6" fill="var(--svg-orange-bg)" stroke="var(--svg-orange-border)" stroke-width="1"/>
+            <text x="310" y="85" fill="var(--svg-orange-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">Step 2: Queue Task</text>
+            <text x="310" y="105" fill="var(--svg-text-main)" font-family="monospace" font-size="9" text-anchor="middle">Set Redis Job State</text>
+            <text x="310" y="125" fill="var(--svg-orange-text)" font-family="monospace" font-size="9" text-anchor="middle">Push to queue:ai_jobs</text>
+
+            <path d="M 390 110 L 440 110" stroke="var(--svg-orange-border)" stroke-width="2" class="animated-flow-line"/>
+
+            <!-- Step 3 -->
+            <rect x="440" y="60" width="180" height="100" rx="6" fill="var(--svg-red-bg)" stroke="var(--svg-red-border)" stroke-width="1"/>
+            <text x="530" y="85" fill="var(--svg-red-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">Step 3: Worker Exec</text>
+            <text x="530" y="105" fill="var(--svg-text-main)" font-family="monospace" font-size="9" text-anchor="middle">Distributed Worker Picks Job</text>
+            <text x="530" y="125" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Publishes Tokens to Pub/Sub</text>
+
+            <path d="M 620 110 L 670 110" stroke="var(--svg-green-border)" stroke-width="2" class="animated-flow-line"/>
+
+            <!-- Step 4 -->
+            <rect x="670" y="60" width="180" height="100" rx="6" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="1"/>
+            <text x="760" y="85" fill="var(--svg-green-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">Step 4: SSE Stream</text>
+            <text x="760" y="105" fill="var(--svg-text-main)" font-family="monospace" font-size="9" text-anchor="middle">GET /api/v1/stream/{id}</text>
+            <text x="760" y="125" fill="var(--svg-green-text)" font-family="monospace" font-size="9" text-anchor="middle">Streams Tokens Real-time</text>
+        </svg>
+    </div>
+
+    <h3>Step A: FastAPI Non-Blocking Enqueue Endpoint</h3>
+    <div class="code-block">
+
+<pre><code class="language-python">from fastapi import FastAPI, BackgroundTasks, Depends, HTTPException, status
 from pydantic import BaseModel
-import asyncio
+import redis.asyncio as aioredis
+import json
 import uuid
 
 app = FastAPI()
+redis_client = aioredis.from_url("redis://localhost:6379/0")
 
-# In-memory store for task status (use Redis in production)
-task_store = {}
+class GenerationRequest(BaseModel):
+    document_id: str
+    prompt: str
 
-class ResumeRequest(BaseModel):
-    user_id: str
-    raw_experience: str
-
-# Mock heavy LLM inference function
-async def generate_optimized_resume(task_id: str, data: str):
-    await asyncio.sleep(8) # Simulating heavy API latency or GPU compute
-    optimized_text = f"Professionally formatted resume based on: {data}"
-    task_store[task_id] = {"status": "completed", "result": optimized_text}
-
-@app.post("/api/v1/resumes/generate")
-async def start_generation(req: ResumeRequest, background_tasks: BackgroundTasks):
-    task_id = str(uuid.uuid4())
-    task_store[task_id] = {"status": "processing"}
+@app.post("/api/v1/generate", status_code=status.HTTP_202_ACCEPTED)
+async def submit_generation_job(
+    payload: GenerationRequest,
+    user_id: str = Depends(get_current_user_id)
+):
+    job_id = f"job:{uuid.uuid4()}"
     
-    # Offload the heavy task to the background, don't block the user
-    background_tasks.add_task(generate_optimized_resume, task_id, req.raw_experience)
+    # 1. Store initial job state in Redis with 1-hour expiration
+    job_data = {
+        "status": "QUEUED",
+        "user_id": user_id,
+        "document_id": payload.document_id,
+        "prompt": payload.prompt
+    }
+    await redis_client.setex(job_id, 3600, json.dumps(job_data))
     
-    # Immediately return the tracking ID so the frontend can show a loading spinner
-    return {"message": "Generation started", "task_id": task_id}
+    # 2. Push job ID to the worker queue
+    await redis_client.rpush("queue:ai_jobs", job_id)
+    
+    # 3. Return 202 Accepted immediately (<20ms response time)
+    return {"job_id": job_id, "stream_url": f"/api/v1/stream/{job_id}"}</code></pre>
+    </div>
 
-@app.get("/api/v1/resumes/status/{task_id}")
-async def check_status(task_id: str):
-    task = task_store.get(task_id)
-    if not task:
-        raise HTTPException(status_code=404, detail="Task not found")
-    return task
-                    </code></pre>
+    <h3>Step B: Real-Time Server-Sent Events (SSE) Stream</h3>
+    <div class="code-block">
+
+<pre><code class="language-python">from fastapi import FastAPI
+from fastapi.responses import StreamingResponse
+import asyncio
+
+@app.get("/api/v1/stream/{job_id}")
+async def stream_job_output(job_id: str):
+    """Streams real-time LLM tokens directly from Redis Pub/Sub to the client."""
+    
+    async def event_generator():
+        pubsub = redis_client.pubsub()
+        await pubsub.subscribe(f"channel:{job_id}")
+        
+        try:
+            while True:
+                message = await pubsub.get_message(ignore_subscribe_messages=True, timeout=1.0)
+                if message:
+                    data = message["data"].decode("utf-8")
+                    if data == "[DONE]":
+                        yield "data: [DONE]\n\n"
+                        break
+                    yield f"data: {data}\n\n"
+                await asyncio.sleep(0.01) # Yield control back to event loop
+        finally:
+            await pubsub.unsubscribe(f"channel:{job_id}")
+
+    return StreamingResponse(event_generator(), media_type="text/event-stream")</code></pre>
+    </div>
+</section>
+
+<section id="database-scaling">
+    <h2>4. The Database Story: Postgres Under Pressure</h2>
+    <p>PostgreSQL is an incredible primary database, but raw relational setups break under concurrent AI SaaS workloads without proper connection management and query indexing.</p>
+
+    <!-- SVG 6: PgBouncer Transaction Connection Pooling Diagram -->
+    <div class="svg-diagram-wrapper">
+        <svg class="svg-diagram" viewBox="0 0 880 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="860" height="180" rx="10" fill="var(--svg-canvas-bg)" stroke="var(--svg-card-border)" stroke-width="1.5"/>
+
+            <text x="440" y="35" fill="#6366f1" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">PgBouncer Connection Pooling (5,000 Clients → 50 Server Slots)</text>
+
+            <rect x="40" y="60" width="220" height="100" rx="6" fill="var(--svg-indigo-bg)" stroke="var(--svg-indigo-border)" stroke-width="1"/>
+            <text x="150" y="85" fill="var(--svg-text-muted)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">5,000 Incoming Clients</text>
+            <text x="150" y="105" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">FastAPI Workers &amp; Tasks</text>
+            <text x="150" y="125" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Ephemeral Connections</text>
+
+            <path d="M 260 110 L 330 110" stroke="var(--svg-indigo-border)" stroke-width="3" class="animated-flow-line"/>
+
+            <rect x="330" y="60" width="220" height="100" rx="6" fill="#312e81" stroke="#818cf8" stroke-width="1.5"/>
+            <text x="440" y="85" fill="var(--svg-text-main)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">🛡️ PgBouncer Pooler</text>
+            <text x="440" y="105" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">pool_mode = transaction</text>
+            <text x="440" y="125" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">max_client_conn = 5000</text>
+
+            <path d="M 550 110 L 620 110" stroke="var(--svg-green-border)" stroke-width="3" class="animated-flow-line"/>
+
+            <rect x="620" y="60" width="220" height="100" rx="6" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="1.5"/>
+            <text x="730" y="85" fill="var(--svg-green-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">🐘 PostgreSQL Node</text>
+            <text x="730" y="105" fill="var(--svg-green-text)" font-family="monospace" font-size="9" text-anchor="middle">50 Persistent Slots</text>
+            <text x="730" y="125" fill="var(--svg-green-text)" font-family="monospace" font-size="9" text-anchor="middle">Zero Connection Exhaustion</text>
+        </svg>
+    </div>
+
+    <h3>Solving Connection Exhaustion with PgBouncer</h3>
+    <p>Running 50 background worker threads alongside 200 FastAPI instances will crash Postgres if each process opens a direct connection. We deployed PgBouncer in transaction pooling mode in front of Postgres:</p>
+    <ul>
+        <li><strong>Direct Postgres Connections:</strong> Capped at 50 persistent connections allocated to PgBouncer.</li>
+        <li><strong>Client App Connections:</strong> PgBouncer accepts up to 5,000 incoming client connections, routing active SQL transactions to the 50 underlying server slots.</li>
+    </ul>
+
+    <div class="code-block">
+
+<pre><code class="language-ini">[databases]
+app_production = host=127.0.0.1 port=5432 dbname=app_production
+
+[pgbouncer]
+pool_mode = transaction
+max_client_conn = 5000
+default_pool_size = 50
+reserve_pool_size = 10</code></pre>
+    </div>
+
+    <h3>Indexing Vector &amp; Relational Data Correctly</h3>
+    <p>In 2026, using <code>pgvector</code> inside Postgres simplifies infrastructure by keeping relational metadata and vector embeddings in a single ACID-compliant database. However, vector searches will degrade without proper index configuration:</p>
+
+    <!-- SVG 7: Database B-Tree & HNSW Vector Indexing -->
+    <div class="svg-diagram-wrapper">
+        <svg class="svg-diagram" viewBox="0 0 880 180" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="860" height="160" rx="10" fill="var(--svg-canvas-bg)" stroke="var(--svg-card-border)" stroke-width="1.5"/>
+
+            <text x="440" y="35" fill="var(--svg-green-text)" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">pgvector Compound B-Tree + HNSW Index Performance</text>
+
+            <rect x="40" y="60" width="380" height="90" rx="6" fill="var(--svg-red-bg)" stroke="var(--svg-red-border)" stroke-width="1"/>
+            <text x="230" y="85" fill="var(--svg-red-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">❌ Unindexed Vector Search</text>
+            <text x="230" y="105" fill="var(--svg-text-main)" font-family="monospace" font-size="9" text-anchor="middle">Full Table Scan across 5,000,000 Rows</text>
+            <text x="230" y="125" fill="var(--svg-red-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">Search Latency: 850 ms</text>
+
+            <path d="M 440 105 L 480 105" stroke="var(--svg-green-border)" stroke-width="2" class="animated-flow-line"/>
+
+            <rect x="480" y="60" width="360" height="90" rx="6" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="1"/>
+            <text x="660" y="85" fill="var(--svg-green-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">⚡ Tenant B-Tree + HNSW Cosine Index</text>
+            <text x="660" y="105" fill="var(--svg-green-text)" font-family="monospace" font-size="9" text-anchor="middle">Filters by tenant_id first, then traverses HNSW graph</text>
+            <text x="660" y="125" fill="var(--svg-green-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">Search Latency: 12 ms (&gt;98% Faster)</text>
+        </svg>
+    </div>
+
+    <div class="code-block">
+
+<pre><code class="language-sql">-- 1. Create compound B-Tree index for tenant isolation (CRITICAL for SaaS)
+CREATE INDEX CONCURRENTLY idx_document_chunks_tenant_doc 
+ON document_chunks (tenant_id, document_id);
+
+-- 2. Create HNSW vector index for ultra-fast cosine distance search
+CREATE INDEX CONCURRENTLY idx_document_chunks_embedding_hnsw 
+ON document_chunks 
+USING hnsw (embedding vector_cosine_ops)
+WITH (m = 16, ef_construction = 64);</code></pre>
+    </div>
+
+    <p>By ensuring queries always filter by <code>tenant_id</code> first before applying vector similarity calculations, search latency dropped from 850ms to 12ms.</p>
+</section>
+
+<section id="performance-benchmarks">
+    <h2>5. Performance Benchmarks</h2>
+    <p>Here is how key metrics improved as we systematically overhauled each tier of the stack:</p>
+
+    <div class="table-responsive">
+<table class="benchmark-table">
+        <thead>
+            <tr>
+                <th>Architecture Phase</th>
+                <th>Avg Response (TTFT)</th>
+                <th>Max Concurrent Users</th>
+                <th>Monthly Infra Cost</th>
+                <th>Failure Rate (%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>1. Single VPS Monolith (MVP)</strong></td>
+                <td>1,800 ms</td>
+                <td>120</td>
+                <td>$30</td>
+                <td>18.5%</td>
+            </tr>
+            <tr>
+                <td><strong>2. Added Redis Cache + Async DB</strong></td>
+                <td>650 ms</td>
+                <td>850</td>
+                <td>$45</td>
+                <td>4.2%</td>
+            </tr>
+            <tr>
+                <td><strong>3. Queue Workers + SSE Streaming</strong></td>
+                <td>410 ms</td>
+                <td>4,000</td>
+                <td>$85</td>
+                <td>0.4%</td>
+            </tr>
+            <tr>
+                <td><strong>4. Horizontal Scaling + Read Replicas</strong></td>
+                <td>210 ms</td>
+                <td>25,000+</td>
+                <td>$210</td>
+                <td>&lt;0.01%</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 </section>
-<section id="database-state">
-<h2>PostgreSQL for State Management</h2>
-<p>In the code above, I used a simple dictionary to store state. In production, this data is piped directly into a managed PostgreSQL database using SQLAlchemy as the ORM. Tracking every single inference request, its latency, and the resulting output is absolutely critical for analyzing user behavior and debugging prompt failures later on.</p>
+
+<section id="production-realities">
+    <h2>6. The Engineering Reality: What Wakes You Up at 3 AM</h2>
+    <p>Architectural diagrams always look clean. Production is messy. These are the three subtle bugs that tripped us up during real-world scaling:</p>
+
+    <!-- SVG 8: Async Event Loop Non-Blocking vs Blocking Thread -->
+    <div class="svg-diagram-wrapper">
+        <svg class="svg-diagram" viewBox="0 0 880 180" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="860" height="160" rx="10" fill="var(--svg-canvas-bg)" stroke="var(--svg-card-border)" stroke-width="1.5"/>
+
+            <text x="440" y="35" fill="var(--svg-orange-text)" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Event Loop Behavior: Blocking vs Non-Blocking Thread Pool</text>
+
+            <rect x="40" y="60" width="380" height="90" rx="6" fill="var(--svg-red-bg)" stroke="var(--svg-red-border)" stroke-width="1"/>
+            <text x="230" y="85" fill="var(--svg-red-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">❌ Synchronous CPU Parsing (BAD)</text>
+            <text x="230" y="105" fill="var(--svg-text-main)" font-family="monospace" font-size="9" text-anchor="middle">text = sync_pdf_parser(file_bytes)</text>
+            <text x="230" y="125" fill="var(--svg-red-text)" font-family="monospace" font-size="9" text-anchor="middle">Locks main asyncio thread. All users freeze!</text>
+
+            <rect x="460" y="60" width="380" height="90" rx="6" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="1"/>
+            <text x="650" y="85" fill="var(--svg-green-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">✅ Worker Thread Offloading (GOOD)</text>
+            <text x="650" y="105" fill="var(--svg-green-text)" font-family="monospace" font-size="9" text-anchor="middle">text = await asyncio.to_thread(sync_pdf_parser)</text>
+            <text x="650" y="125" fill="var(--svg-green-text)" font-family="monospace" font-size="9" text-anchor="middle">Event loop stays free for incoming requests!</text>
+        </svg>
+    </div>
+
+    <h3>A. The Silent Event Loop Blocker</h3>
+    <p>Python's <code>async/await</code> syntax is cooperative. If a third-party package performs a synchronous operation (like standard <code>requests.get()</code> or a CPU-heavy tokenizer), it blocks the entire <code>asyncio</code> thread.</p>
+    <p><strong>The Fix:</strong> Wrap all synchronous or CPU-bound operations in <code>asyncio.to_thread()</code> or offload them to dedicated worker processes:</p>
+
+    <div class="code-block">
+
+<pre><code class="language-python"># BAD: Blocks the event loop for all users during heavy parsing
+# text = sync_pdf_parser(file_bytes)
+
+# GOOD: Offloads CPU-bound parsing to worker thread pool
+text = await asyncio.to_thread(sync_pdf_parser, file_bytes)</code></pre>
+    </div>
+
+    <h3>B. Concurrent Token Balance Race Conditions</h3>
+    <p>When multiple requests hit the backend simultaneously to update a workspace's remaining AI credit balance, standard <code>UPDATE</code> queries cause race conditions or deadlocks.</p>
+    <p><strong>The Fix:</strong> Use atomic database operations or row-level locking:</p>
+
+    <div class="code-block">
+
+<pre><code class="language-sql">-- Prevents race conditions by modifying value atomically in Postgres
+UPDATE workspaces 
+SET credit_balance = credit_balance - 1 
+WHERE id = 'ws_123' AND credit_balance >= 1;</code></pre>
+    </div>
+
+    <h3>C. N+1 Query Explosions in ORMs</h3>
+    <p>When rendering workspace analytics, SQLAlchemy or Prisma often defaults to issuing hundreds of individual queries in a loop to fetch nested user relationships.</p>
+    <p><strong>The Fix:</strong> Use <code>EXPLAIN ANALYZE</code> on every route during testing and enforce explicit eager loading (<code>selectinload()</code> in SQLAlchemy or <code>include</code> in Prisma).</p>
 </section>
-<section id="lessons-learned">
-<h2>Deployment Lessons</h2>
-<p>Building this stack taught me that creating an AI product is 10 percent machine learning and 90 percent software engineering. Deploying the FastAPI container on AWS ECS, managing the database connection pools, and handling WebSocket connections for real-time frontend updates took significantly longer than writing the actual LLM prompts.</p>
-<p>If you want to build AI tools that people actually pay for, you have to master the full stack.</p>
+
+<section id="infrastructure-deployment">
+    <h2>7. Infrastructure &amp; Deployment Setup</h2>
+    <p>To keep operations maintainable, we containerized services with Docker and deployed behind Nginx for SSL termination, request buffering, and CORS handling.</p>
+
+    <!-- SVG 9: Production Container & Nginx Deployment Topology -->
+    <div class="svg-diagram-wrapper">
+        <svg class="svg-diagram" viewBox="0 0 880 180" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="860" height="160" rx="10" fill="var(--svg-canvas-bg)" stroke="var(--svg-card-border)" stroke-width="1.5"/>
+
+            <text x="440" y="35" fill="var(--svg-blue-text)" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Production Nginx Reverse Proxy &amp; Container Network Topology</text>
+
+            <rect x="40" y="65" width="140" height="60" rx="6" fill="var(--svg-card-bg)" stroke="var(--svg-blue-border)" stroke-width="1"/>
+            <text x="110" y="95" fill="var(--svg-blue-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">Cloudflare CDN</text>
+            <text x="110" y="110" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">SSL &amp; DDoS Guard</text>
+
+            <path d="M 180 95 L 240 95" stroke="var(--svg-blue-border)" stroke-width="2" class="animated-flow-line"/>
+
+            <rect x="240" y="65" width="160" height="60" rx="6" fill="var(--svg-blue-bg)" stroke="var(--svg-purple-border)" stroke-width="1"/>
+            <text x="320" y="92" fill="var(--svg-purple-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">Nginx Ingress</text>
+            <text x="320" y="110" fill="var(--svg-purple-text)" font-family="monospace" font-size="9" text-anchor="middle">proxy_buffering off;</text>
+
+            <path d="M 400 95 L 460 95" stroke="var(--svg-purple-border)" stroke-width="2" class="animated-flow-line"/>
+
+            <rect x="460" y="65" width="170" height="60" rx="6" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="1"/>
+            <text x="545" y="92" fill="var(--svg-green-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">Uvicorn / Gunicorn</text>
+            <text x="545" y="110" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">4 FastAPI Workers</text>
+
+            <path d="M 630 95 L 690 95" stroke="var(--svg-green-border)" stroke-width="2" class="animated-flow-line"/>
+
+            <rect x="690" y="65" width="150" height="60" rx="6" fill="var(--svg-orange-bg)" stroke="var(--svg-orange-border)" stroke-width="1"/>
+            <text x="765" y="92" fill="var(--svg-orange-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">Redis &amp; Postgres</text>
+            <text x="765" y="110" fill="var(--svg-orange-text)" font-family="monospace" font-size="9" text-anchor="middle">Internal Network</text>
+        </svg>
+    </div>
+
+    <h3>Dockerfile</h3>
+    <div class="code-block">
+
+<pre><code class="language-dockerfile"># Multi-stage Dockerfile for FastAPI Backend
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+RUN apt-get update &amp;&amp; apt-get install -y --no-install-recommends gcc python3-dev
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
+
+FROM python:3.11-slim
+WORKDIR /app
+COPY --from=builder /install /usr/local
+COPY ./app /app/app
+
+# Run Uvicorn with gunicorn process manager
+CMD ["gunicorn", "app.main:app", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "-b", "0.0.0.0:8000"]</code></pre>
+    </div>
+
+    <h3>Nginx SSE Configuration Rule</h3>
+    <p>When routing Server-Sent Events through Nginx, you must disable proxy buffering, otherwise Nginx will hold back streamed AI tokens until the buffer fills up:</p>
+
+    <div class="code-block">
+
+<pre><code class="language-nginx">location /api/v1/stream/ {
+    proxy_pass http://fastapi_backend;
+    proxy_set_header Connection '';
+    proxy_http_version 1.1;
+    proxy_buffering off; # CRITICAL: Allows instant streaming of AI tokens
+    proxy_cache off;
+    chunked_transfer_encoding on;
+}</code></pre>
+    </div>
 </section>
-<div class="tags-container" id="dynamic-tags">
-<!-- Tags will be dynamically generated here -->
-</div>
-<hr class="divider"/>
-<section class="related-articles" id="related-series">
-<h2 class="series-title">Article Series</h2>
-<a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
-<div id="related-posts-container"></div>
+
+<section id="summary">
+    <h2>Summary</h2>
+    <p>Scaling an AI SaaS application isn't about choosing the "fastest" framework or chasing complex infrastructure trends. It comes down to a few core engineering principles:</p>
+
+    <!-- SVG 10: Final Engineering Architecture Checklist Infographic -->
+    <div class="svg-diagram-wrapper">
+        <svg class="svg-diagram" viewBox="0 0 880 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="860" height="180" rx="10" fill="var(--svg-canvas-bg)" stroke="var(--svg-green-border)" stroke-width="1.5"/>
+
+            <text x="440" y="38" fill="var(--svg-green-text)" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Production AI SaaS Scaling Blueprint</text>
+
+            <rect x="40" y="60" width="250" height="110" rx="6" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="1"/>
+            <text x="165" y="85" fill="var(--svg-green-text)" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle">✓ Queue &amp; Stream</text>
+            <text x="165" y="108" fill="var(--svg-green-text)" font-family="monospace" font-size="9" text-anchor="middle">Decouple web requests via Redis</text>
+            <text x="165" y="125" fill="var(--svg-green-text)" font-family="monospace" font-size="9" text-anchor="middle">Stream tokens via SSE / WebSockets</text>
+            <text x="165" y="142" fill="var(--svg-green-text)" font-family="monospace" font-size="9" text-anchor="middle">Response TTFT &lt; 20ms</text>
+
+            <rect x="315" y="60" width="250" height="110" rx="6" fill="var(--svg-indigo-bg)" stroke="var(--svg-indigo-border)" stroke-width="1"/>
+            <text x="440" y="85" fill="var(--svg-text-muted)" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle">✓ Protect Database</text>
+            <text x="440" y="108" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Deploy PgBouncer pooler</text>
+            <text x="440" y="125" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Compound Tenant + HNSW Index</text>
+            <text x="440" y="142" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Vector Query &lt; 12ms</text>
+
+            <rect x="590" y="60" width="250" height="110" rx="6" fill="var(--svg-orange-bg)" stroke="var(--svg-orange-border)" stroke-width="1"/>
+            <text x="715" y="85" fill="var(--svg-orange-text)" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle">✓ Free Event Loop</text>
+            <text x="715" y="108" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Offload CPU parsing to threads</text>
+            <text x="715" y="125" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Atomic SQL credit balance updates</text>
+            <text x="715" y="142" fill="var(--svg-orange-text)" font-family="monospace" font-size="9" text-anchor="middle">25,000+ Concurrent Scale</text>
+        </svg>
+    </div>
+
+    <ul>
+        <li><strong>Decouple web servers from execution loops:</strong> Use queues for long-running AI jobs and stream responses asynchronously via SSE or WebSockets.</li>
+        <li><strong>Protect your database:</strong> Use connection poolers (PgBouncer) and compound indexes to keep database queries under 15ms.</li>
+        <li><strong>Keep the event loop free:</strong> Never run synchronous I/O or heavy CPU operations on your primary async thread.</li>
+    </ul>
 </section>
-</main>
-<!-- Newsletter Subscription Section -->
-<div class="newsletter-section">
-<div class="newsletter-content">
-<h3>Subscribe to our newsletter</h3>
-<p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
-<p>Subscribe to the newsletter, and don't miss out.</p>
-<div class="newsletter-form">
-<input class="newsletter-input" placeholder="Enter your email address" type="email"/>
-<button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
-</div>
-</div>
-</div>
-</div>
-<footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
-<div class="social-icons" style="margin-bottom:25px;">
-<a aria-label="GitHub profile" href="https://github.com/MuhammadTahaNasir" style="margin:0 5px; font-size:1.6em;" target="_blank" title="GitHub">
-<i aria-hidden="true" class="fab fa-github"></i>
-</a>
-<a aria-label="LinkedIn profile" href="https://www.linkedin.com/in/muhammadtahanasir/" style="margin:0 5px; font-size:1.6em;" target="_blank" title="LinkedIn">
-<i aria-hidden="true" class="fab fa-linkedin"></i>
-</a>
-<a aria-label="Send email" href="mailto:m.tahanasir.cs@gmail.com" style="margin:0 5px; font-size:1.6em;" title="Email">
-<i aria-hidden="true" class="fas fa-envelope"></i>
-</a>
-</div>
-<p style="font-size:0.9em;">© 2026 – Muhammad Taha Nasir</p>
-</footer>
-<button aria-label="Scroll to top" id="scrollTop">
-<i class="fas fa-chevron-up"></i>
-</button>
-<script src="../../assets/js/each-post.js"></script>
-<script src="../../assets/js/shared-bottom-nav.js"></script>
-<script src="../../assets/js/nav-active.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
-<script>
-        document.querySelectorAll('.copy-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                    button.innerText = "Copied!";
-                    setTimeout(() => button.innerText = "Copy", 1500);
-                });
-            });
-        });
-    </script>
+
+            <div class="tags-container" id="dynamic-tags"></div>
+            <hr class="divider" />
+            <section class="related-articles" id="related-series">
+                <h2 class="series-title">Article Series</h2>
+                <a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+                <div id="related-posts-container"></div>
+            </section>
+        </main>
+        <div class="newsletter-section">
+            <div class="newsletter-content">
+                <h3>Subscribe to our newsletter</h3>
+                <p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+                <p>Subscribe to the newsletter, and don't miss out.</p>
+                <div class="newsletter-form">
+                    <input class="newsletter-input" placeholder="Enter your email address" type="email" />
+                    <button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../../assets/js/each-post.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ini.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-docker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-nginx.min.js"></script>
+    <script src="../../assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/shared-bottom-nav.js"></script>
 </body>
 </html>

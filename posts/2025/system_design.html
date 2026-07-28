@@ -1,354 +1,616 @@
-﻿<!DOCTYPE html>
+<!doctype html>
 
 <html dir="auto" lang="en">
-<head>
-<link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
-<link href="/assets/images/favicon.ico" rel="shortcut icon"/>
-<link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
-<meta content="Terry" name="apple-mobile-web-app-title"/>
-<link href="/assets/images/site.webmanifest" rel="manifest"/>
-<meta charset="utf-8"/>
-<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
-<meta content="noindex, nofollow" name="robots"/>
-<meta content="Explore the critical role of system design in the era of AI, understanding its importance, challenges, and the tools that facilitate this intersection." name="description"/>
-<meta content="Muhammad Taha Nasir" name="author"/>
-<meta content="Machine Learning, Generative AI" name="tags"/>
-<meta content="/assets/images/posts/system-design-ai.png" name="thumbnail"/>
-<title>The Importance and Relevance of System Design with AI</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
-<link href="../../assets/css/each-post.css" rel="stylesheet"/>
-<link href="../../assets/css/bottom-nav.css" rel="stylesheet"/>
-<style>
-        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
-        .loader.hidden{opacity:0;visibility:hidden}
+  <head>
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>');
+    })();
+  </script>
+    <link
+      href="/assets/images/favicon-96x96.png?v=5"
+      rel="icon"
+      sizes="96x96"
+      type="image/png"
+    />
+    <link href="/assets/images/favicon.ico?v=5" rel="shortcut icon" />
+    <link
+      href="/assets/images/apple-touch-icon.png?v=5"
+      rel="apple-touch-icon"
+      sizes="180x180"
+    />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      name="viewport"
+    />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta
+      content="Deconstructing autonomous AI agents: memory mechanisms, planning loops, tool execution, and self-reflection patterns."
+      name="description"
+    />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="System Design, Microservices, Cloud Architecture, Distributed Systems" name="tags" />
+    <meta name="thumbnail" content="/assets/images/posts/system-design.png" />
+    <title>System Design for AI Systems: Scaling Ingestion, Retrieval, & Inference</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/stylesheet.css" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        z-index: 9999;
+        opacity: 1;
+        visibility: visible;
+      }
+      .loader.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .code-block { position: relative; margin: 25px 0; border-radius: 10px; background: #0d1117 !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; overflow: hidden; }
+        .code-block pre, .code-block pre[class*="language-"] { background: #0d1117 !important; color: #e6edf3 !important; text-shadow: none !important; padding: 20px 22px !important; margin: 0 !important; font-family: "SF Mono", "Fira Code", monospace !important; font-size: 0.94rem !important; line-height: 1.6 !important; border-radius: 10px !important; }
+        .code-block code { opacity: 1 !important; color: #e6edf3 !important; background: transparent !important; text-shadow: none !important; }
+      
+
+      .svg-diagram-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; background: var(--entry) !important; border: 1px solid var(--border) !important; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-small); transition: background 0.3s ease, border-color 0.3s ease; }
+
+      .svg-diagram {
+        max-width: 800px;
+        min-width: 600px;
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+
+      .cinematic-intro-card {
+        background: linear-gradient(
+          135deg,
+          var(--glass-bg),
+          rgba(0, 122, 255, 0.05)
+        );
+        border-left: 4px solid var(--accent);
+        padding: 20px 25px;
+        margin: 30px 0;
+        border-radius: 0 12px 12px 0;
+        box-shadow: var(--shadow-light);
+        font-style: italic;
+        color: var(--secondary);
+      }
     </style>
-<script>
-        // Apply theme immediately on page load
-        (function () {
-            const savedTheme = localStorage.getItem('pref-theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
-        })();
-    </script>
+    <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="../../assets/js/bg-canvas.js"></script>
 </head>
-<body class="dark" id="top" post-date="2025-06-09">
-<!-- Loader Animation -->
-<div aria-hidden="true" class="loader" id="loader">
-<div class="terry-animation">
-<span class="letter">t</span>
-<span class="letter">e</span>
-<span class="letter">r</span>
-<span class="letter">r</span>
-<span class="letter">y</span>
+  <body id="top" post-date="2024-09-15T00:00:00Z">
+    <div aria-hidden="true" class="loader" id="loader">
+      <div class="terry-animation">
+        <span class="letter">t</span>
+        <span class="letter">e</span>
+        <span class="letter">r</span>
+        <span class="letter">r</span>
+        <span class="letter">y</span>
+      </div>
+    </div>
+        <!-- Header Navigation -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+    <div class="container">
+      <nav class="breadcrumb">
+      <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a> » <span class="breadcrumb-current">System Design for AI Systems: Scaling Ingestion, Retrieval, &amp; Inference</span>
+    </nav>
+      <main class="post-content">
+
+  <header class="post-header">
+    <h1 class="post-title">System Design for AI Systems: Scaling Ingestion, Retrieval, &amp; Inference</h1>
+    <div class="post-meta">June 9, 2025 • 5 min • Muhammad Taha Nasir</div>
+  </header>
+  
+  <img alt="System Design for AI Systems" src="/assets/images/posts/system-design.png" style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;"/>
+  
+  <aside class="table-of-contents">
+    <details>
+      <summary>Table of Contents</summary>
+      <ul>
+        <li><a href="#the-ai-architecture-shift">The AI Architecture Shift</a></li>
+        <li><a href="#under-the-hood">Under the Hood</a></li>
+        <li><a href="#the-system-design-tier-gauntlet">The System Design Tier Gauntlet</a></li>
+        <li><a href="#the-systems-engineers-rant">Why Inference Decoupling Matters</a></li>
+        <li><a href="#case-studies-and-infrastructure-test">Case Studies &amp; Infrastructure Test</a></li>
+        <li><a href="#my-journey-with-system-design">My Journey with System Design</a></li>
+      </ul>
+    </details>
+  </aside>
+
+  <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter" type="button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share article" type="button">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+
+<p>System design has always been the backbone of building resilient, production-ready software - but when you introduce Artificial Intelligence (AI), it's like adding rocket fuel to the mix.</p>
+<p>AI applications powering real-time chatbots, semantic search engines, and enterprise recommendation pipelines can't just be wrapped in a basic web server. They have to ingest terabytes of streaming data, process high-dimensional vector lookups in milliseconds, and manage GPU inference loads under unpredictable traffic spikes.</p>
+<p>After exploring relational, graph, and vector databases in my last post, I've spent the past few weeks tackling how <strong>System Design and AI Engineering</strong> converge. Here is my technical breakdown of how to architect scalable ingestion pipelines, low-latency vector retrieval engines, and high-throughput model serving layers.</p>
+
+<section id="the-ai-architecture-shift">
+<h2>The AI Architecture Shift</h2>
+<p>I've been living inside distributed system design patterns and AI serving architectures over the past month. If you've been building in the tech space recently, you know we have completely moved past treating AI as an isolated machine learning model running inside a local script. In production, a trained model weights file is useless without a rock-solid infrastructure wrapped around it.</p>
+
+<div class="svg-diagram-wrapper">
+  <svg class="svg-diagram" viewBox="0 0 800 150" xmlns="http://www.w3.org/2000/svg">
+    <!-- Traditional HLD -->
+    <text x="20" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="14" font-weight="bold">Traditional HLD:</text>
+    <rect x="200" y="20" width="100" height="30" rx="4" fill="rgba(59, 130, 246, 0.1)" stroke="#3b82f6" stroke-width="2"/>
+    <text x="250" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Client]</text>
+    <path d="M 300 35 L 340 35" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="335,30 345,35 335,40" fill="var(--svg-text-muted)"/>
+    
+    <rect x="350" y="20" width="120" height="30" rx="4" fill="rgba(16, 185, 129, 0.1)" stroke="var(--svg-green-border)" stroke-width="2"/>
+    <text x="410" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Load Balancer]</text>
+    <path d="M 470 35 L 510 35" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="505,30 515,35 505,40" fill="var(--svg-text-muted)"/>
+    
+    <rect x="520" y="20" width="140" height="30" rx="4" fill="rgba(245, 158, 11, 0.1)" stroke="var(--svg-orange-border)" stroke-width="2"/>
+    <text x="590" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Stateless Web]</text>
+    <path d="M 660 35 L 690 35" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="685,30 695,35 685,40" fill="var(--svg-text-muted)"/>
+    
+    <rect x="700" y="20" width="90" height="30" rx="4" fill="rgba(139, 92, 246, 0.1)" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="745" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[SQL DB]</text>
+
+    <!-- AI System Design -->
+    <text x="20" y="100" fill="var(--svg-text-main)" font-family="monospace" font-size="14" font-weight="bold">AI System Design:</text>
+    <rect x="200" y="80" width="100" height="30" rx="4" fill="rgba(59, 130, 246, 0.1)" stroke="#3b82f6" stroke-width="2"/>
+    <text x="250" y="100" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Client]</text>
+    <path d="M 300 95 L 340 95" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="335,90 345,95 335,100" fill="var(--svg-text-muted)"/>
+    
+    <rect x="350" y="80" width="120" height="30" rx="4" fill="rgba(236, 72, 153, 0.1)" stroke="#ec4899" stroke-width="2"/>
+    <text x="410" y="100" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[API Gateway]</text>
+    <path d="M 470 95 L 510 95" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="505,90 515,95 505,100" fill="var(--svg-text-muted)"/>
+    
+    <rect x="520" y="80" width="140" height="30" rx="4" fill="rgba(239, 68, 68, 0.1)" stroke="var(--svg-red-border)" stroke-width="2"/>
+    <text x="590" y="100" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Async Queue]</text>
+    <path d="M 660 95 L 690 95" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="685,90 695,95 685,100" fill="var(--svg-text-muted)"/>
+    
+    <rect x="700" y="70" width="90" height="50" rx="4" fill="rgba(16, 185, 129, 0.2)" stroke="var(--svg-green-border)" stroke-width="2"/>
+    <text x="745" y="90" fill="var(--svg-text-main)" font-family="monospace" font-size="10" text-anchor="middle">[Vector]</text>
+    <text x="745" y="105" fill="var(--svg-text-main)" font-family="monospace" font-size="10" text-anchor="middle">[GPU Pool] ⚡</text>
+  </svg>
 </div>
-</div>
-<header class="header">
-<nav class="nav">
-<!-- Left: Logo -->
-<div class="nav-left">
-<a class="logo" href="/index.html">&lt;terry/&gt;</a>
-</div>
-<!-- Center: Pills Navigation -->
-<div class="nav-center">
-<div class="pill-nav">
-<a href="/projects.html">Projects</a>
-<a href="/archives.html">Archives</a>
-<a href="/resume.html">Resume</a>
-<a href="/search.html">Search</a>
-</div>
-</div>
-<!-- Right: Theme toggle -->
-<div class="nav-right">
-<button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
-<svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<circle cx="12" cy="12" r="5"></circle>
-<line x1="12" x2="12" y1="1" y2="3"></line>
-<line x1="12" x2="12" y1="21" y2="23"></line>
-<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
-<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
-<line x1="1" x2="3" y1="12" y2="12"></line>
-<line x1="21" x2="23" y1="12" y2="12"></line>
-<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
-<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
-</svg>
-<svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-</svg>
-</button>
-</div>
-</nav>
-</header>
-<div class="container">
-<nav class="breadcrumb">
-<a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
-</nav>
-<main class="post-content">
-<header class="post-header">
-<h1 class="post-title">The Importance and Relevance of System Design with AI</h1>
-<div class="post-meta">June 9, 2025 • 5 min • Muhammad Taha Nasir</div>
-</header>
-<aside class="table-of-contents">
-<details>
-<summary>Table of Contents</summary>
-<ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#what-is-system-design">What is System Design?</a></li>
-<li><a href="#why-is-system-design-important">Why is System Design Important?</a></li>
-<li><a href="#how-does-ai-relate-to-system-design">How Does AI Relate to System Design?</a></li>
-<li><a href="#challenges-in-designing-ai-systems">Challenges in Designing AI Systems</a></li>
-<li><a href="#tools-and-technologies-for-ai-system-design">Tools and Technologies for AI System
-                                Design</a></li>
-<li><a href="#case-studies-or-examples">Case Studies or Examples</a></li>
-<li><a href="#future-of-ai-in-system-design">Future of AI in System Design</a></li>
-<li><a href="#my-journey">My Journey with System Design</a></li>
-<li><a href="#resources">Resources That Helped Me</a></li>
-</ul>
-</details>
-</aside>
-<!-- Social Sharing Floating Toolbar -->
-<div class="social-sharing-toolbar">
-<button class="social-btn subscribe-btn" title="Subscribe to newsletter">
-<i class="fas fa-envelope"></i>
-</button>
-<button class="social-btn share-btn" title="Share">
-<i class="fas fa-share-alt"></i>
-</button>
-</div>
-<section id="introduction">
-<h2>Introduction</h2>
-<p>Hey, tech fam! System design has always been the backbone of building solid software, but with
-                    Artificial Intelligence (AI) taking over, it’s like adding rocket fuel to the mix. AI systems, like
-                    the ones powering chatbots or Netflix recommendations, need to handle massive data, respond
-                    instantly, and stay reliable under pressure. I’ve been diving into system design myself, and after
-                    exploring databases in my <a href="sql-db-ai.html">last post</a>, I’m now tackling how
-                    system design and AI work together. This article breaks down why system design is crucial for AI,
-                    the challenges involved, and the tools that make it happen. Let’s dive in!</p>
-</section>
-<img alt="System Design and AI Integration" src="/assets/images/posts/system-design-ai.png" style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;"/>
-<section id="what-is-system-design">
-<h2>What is System Design?</h2>
-<p>System design is like planning a city for your software means laying out the roads (data flow),
-                    buildings
-                    (components), and rules (interfaces) to make everything work smoothly. It’s about defining the
-                    architecture, components, modules, and data to meet specific needs. It splits into two levels:</p>
-<ul>
-<li><strong>High-Level Design (HLD)</strong>: The big picture like how components talk to each
-                        other,
-                        ensuring scalability and performance.</li>
-<li><strong>Low-Level Design (LLD)</strong>: The nitty-gritty means choosing algorithms, data
-                        structures,
-                        and coding details for each component.</li>
-</ul>
-<p>Think of it like designing a cricket stadium: HLD plans the stands and field layout, while LLD
-                    figures out the exact materials for the seats.</p>
-</section>
-<section id="why-is-system-design-important">
-<h2>Why is System Design Important?</h2>
-<p>System design is the glue that holds software together, especially for AI. Here’s why it matters:</p>
+
+<p>Designing an AI-first system requires balancing three distinct engineering sub-systems:</p>
 <ol>
-<li><strong>Scalability</strong>: AI systems like ChatGPT handle millions of users. Good design lets
-                        them scale up without crashing.</li>
-<li><strong>Reliability</strong>: Nobody wants a system that fails mid-query. Design ensures it
-                        keeps running smoothly.</li>
-<li><strong>Efficiency</strong>: Smart design saves resources, like using less server power for the
-                        same results.</li>
-<li><strong>Maintainability</strong>: A clear design makes it easier to fix bugs or add features
-                        later.</li>
+<li><strong>The Ingestion Pipeline</strong>: Ingesting, chunking, and embedding massive unstructured datasets asynchronously.</li>
+<li><strong>The Retrieval Layer</strong>: Executing sub-50ms Approximate Nearest Neighbor (ANN) searches over high-dimensional vector spaces.</li>
+<li><strong>The Inference Engine</strong>: Routing tasks, batching GPU requests, and streaming tokens back to the user without blocking worker threads.</li>
 </ol>
-<p>For AI, where data and computation are massive, these factors are non-negotiable.</p>
+<p>The operational quality of these sub-systems determines whether your AI app feels like a responsive digital partner or a lagging prototype. Let's look at how these three layers interact under the hood.</p>
 </section>
-<section id="how-does-ai-relate-to-system-design">
-<h2>How Does AI Relate to System Design?</h2>
-<p>AI systems, like machine learning models or natural language processors, need a rock-solid design to
-                    shine. Here’s how they connect:</p>
-<ol>
-<li><strong>Data Pipelines</strong>: AI needs tons of data you can think terabytes for training
-                        models.
-                        Pipelines collect, clean, and store it efficiently.</li>
-<li><strong>Model Serving</strong>: Trained models must make predictions fast, like answering a
-                        chatbot query in seconds.</li>
-<li><strong>User Interfaces</strong>: AI outputs, like movie suggestions, need user-friendly
-                        displays.</li>
-<li><strong>Scalability</strong>: Systems must handle spikes in users, from a few in testing to
-                        millions in production.</li>
-<li><strong>Security and Privacy</strong>: AI often deals with sensitive data, so designs must
-                        protect it.</li>
-</ol>
-<p>It’s like cooking biryani for a crowd, you need the right ingredients (data), tools (models), and
-                    presentation (interface) to make it a hit.</p>
-</section>
-<section id="challenges-in-designing-ai-systems">
-<h2>Challenges in Designing AI Systems</h2>
-<p>Building AI systems is no walk in the park. Here are the big hurdles:</p>
-<ol>
-<li><strong>Big Data Handling</strong>: AI systems process massive datasets, requiring efficient
-                        storage like vector databases.</li>
-<li><strong>Real-Time Processing</strong>: Apps like autonomous cars need instant decisions,
-                        demanding low-latency designs.</li>
-<li><strong>Model Complexity</strong>: Deep learning models need heavy computation, often requiring
-                        GPUs or TPUs.</li>
-<li><strong>Adaptability</strong>: Systems must evolve with new data or user needs, like updating a
-                        recommendation algorithm.</li>
-<li><strong>Ethical Considerations</strong>: AI can amplify biases or raise privacy concerns, so
-                        designs must ensure fairness and transparency.</li>
-</ol>
-</section>
-<section id="tools-and-technologies-for-ai-system-design">
-<h2>Tools and Technologies for AI System Design</h2>
-<p>Here’s the toolkit for building AI systems:</p>
-<ol>
-<li><strong>Machine Learning Frameworks</strong>: TensorFlow, PyTorch, and scikit-learn are go-to’s
-                        for building models.</li>
-<li><strong>Vector Databases</strong>: Pinecone and Weaviate store high-dimensional data for fast AI
-                        queries, like semantic search.</li>
-<li><strong>Model Serving Platforms</strong>: TensorFlow Serving, TorchServe, and BentoML deploy
-                        models at scale.</li>
-<li><strong>Cloud Services</strong>: AWS, Google Cloud, and Azure handle data storage, processing,
-                        and deployment.</li>
-<li><strong>Monitoring Tools</strong>: Prometheus and Grafana track system health, ensuring AI runs
-                        smoothly.</li>
-</ol>
-<p>Here’s a sample FastAPI code snippet for serving an AI model:</p>
+
+<section id="under-the-hood">
+<h2>Under the Hood</h2>
+<p>Imagine routing thousands of concurrent user requests directly to a single synchronous GPU endpoint without an asynchronous queue or load balancer. Your memory spikes, GPU compute stalls, and your API throws 504 Gateway Timeouts across the board. Welcome to unoptimized AI system design.</p>
+
+<div class="svg-diagram-wrapper">
+  <svg class="svg-diagram" viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg">
+    <rect x="200" y="20" width="400" height="40" rx="4" fill="var(--code-bg)" stroke="#30363d" stroke-width="2"/>
+    <text x="400" y="45" fill="var(--svg-text-main)" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">HIGH-LEVEL AI SYSTEM DESIGN</text>
+    
+    <path d="M 400 60 L 400 90" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 200 90 L 600 90" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    
+    <!-- Paths Down -->
+    <path d="M 200 90 L 200 120" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="195,115 205,115 200,120" fill="var(--svg-text-muted)"/>
+
+    <path d="M 400 90 L 400 120" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="395,115 405,115 400,120" fill="var(--svg-text-muted)"/>
+
+    <path d="M 600 90 L 600 120" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="595,115 605,115 600,120" fill="var(--svg-text-muted)"/>
+
+    <!-- Database Nodes -->
+    <rect x="120" y="120" width="160" height="50" rx="8" fill="rgba(59, 130, 246, 0.1)" stroke="#3b82f6" stroke-width="2"/>
+    <text x="200" y="140" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">INGESTION</text>
+    <text x="200" y="160" fill="var(--svg-text-muted)" font-family="monospace" font-size="11" text-anchor="middle">(Kafka/Spark)</text>
+
+    <rect x="320" y="120" width="160" height="50" rx="8" fill="rgba(139, 92, 246, 0.1)" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="400" y="140" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">RETRIEVAL</text>
+    <text x="400" y="160" fill="var(--svg-text-muted)" font-family="monospace" font-size="11" text-anchor="middle">(Vector DB)</text>
+
+    <rect x="520" y="120" width="160" height="50" rx="8" fill="rgba(236, 72, 153, 0.1)" stroke="#ec4899" stroke-width="2"/>
+    <text x="600" y="140" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">INFERENCE</text>
+    <text x="600" y="160" fill="var(--svg-text-muted)" font-family="monospace" font-size="11" text-anchor="middle">(vLLM/Serving)</text>
+
+    <!-- Path to Features -->
+    <path d="M 200 170 L 200 190" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="195,185 205,185 200,190" fill="var(--svg-text-muted)"/>
+    <text x="200" y="210" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">[Async Data Ingestion]</text>
+
+    <path d="M 400 170 L 400 190" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="395,185 405,185 400,190" fill="var(--svg-text-muted)"/>
+    <text x="400" y="210" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">[Sub-50ms Vector Search]</text>
+
+    <path d="M 600 170 L 600 190" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="595,185 605,185 600,190" fill="var(--svg-text-muted)"/>
+    <text x="600" y="210" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">[Dynamic Batching GPU]</text>
+  </svg>
+</div>
+
+<h3>1. Ingestion: Scaling Data Pipelines</h3>
+<p>Before an AI model can generate or retrieve knowledge, raw documents must be processed asynchronously. Message brokers like <strong>Apache Kafka</strong> or <strong>RabbitMQ</strong> buffer incoming data streams, passing payloads to worker nodes (using Celery or PySpark) to handle text chunking, embedding generation, and database writes.</p>
+
+<h3>2. Retrieval: Vector &amp; Hybrid Search</h3>
+<p>Retrieving context requires more than scalar lookups. Systems pair high-dimensional vector databases (<strong>Pinecone</strong>, <strong>Weaviate</strong>, or <strong>Milvus</strong>) using <strong>HNSW graphs</strong> with sparse keyword search (<strong>Elasticsearch</strong> / <strong>BM25</strong>) to create <strong>Hybrid Retrieval</strong> pipelines:</p>
+
+<p>$$\text{Hybrid Score} = \alpha \cdot \text{Dense Similarity} + (1 - \alpha) \cdot \text{Sparse BM25 Score}$$</p>
+
+<h3>3. Inference: Model Serving &amp; Dynamic Batching</h3>
+<p>Instead of loading model weights inside a standard web server, production setups deploy dedicated serving engines like <strong>vLLM</strong>, <strong>TGI (Text Generation Inference)</strong>, or <strong>Triton Server</strong>.</p>
+<p>These engines use <strong>PagedAttention</strong> and <strong>Dynamic Batching</strong> to group incoming requests together on GPU memory:</p>
+
 <div class="code-block">
-<button class="copy-btn">Copy</button>
-<pre class="language-python" data-lang="Python"><code>
+
+<pre><code class="language-python"># Async FastAPI Endpoint Serving Real-Time Predictions
 from fastapi import FastAPI
-import numpy as np
-from sklearn.linear_model import LogisticRegression
+from pydantic import BaseModel
+import asyncio
 
 app = FastAPI()
-model = LogisticRegression().fit([[0, 0], [1, 1]], [0, 1])
 
-@app.post("/predict")
-async def predict(data: list):
-    prediction = model.predict([data])
-    return {"prediction": int(prediction[0])}
-                    </code></pre>
+class InferenceRequest(BaseModel):
+    prompt: str
+    temperature: float = 0.7
+
+@app.post("/v1/predict")
+async def predict_endpoint(payload: InferenceRequest):
+    # Offload heavy model inference to an async task / worker queue
+    prediction = await asyncio.to_thread(serve_model_inference, payload.prompt)
+    return {"status": "success", "prediction": prediction}</code></pre>
 </div>
-<p>This sets up a simple API to predict using a trained model—perfect for real-time AI apps.</p>
+
+<p>If your architecture lacks async task offloading or queue buffering during heavy traffic spikes, your inference layer collapses.</p>
 </section>
-<section id="case-studies-or-examples">
-<h2>Case Studies or Examples</h2>
-<p>Let’s look at two real-world examples:</p>
-<p><strong>ChatGPT (OpenAI)</strong>: This language model needs a beast of a system to handle millions
-                    of queries. Its design includes:</p>
-<ul>
-<li>Distributed servers for high traffic.</li>
-<li>Data pipelines for massive text datasets.</li>
-<li>Real-time inference for instant replies.</li>
-<li>Scalability to support global users.</li>
-</ul>
-<p><strong>Netflix’s Recommendation System</strong>: Netflix uses AI to suggest shows, with a design
-                    that:</p>
-<ul>
-<li>Collects user behavior data (what you watch, rate, or skip).</li>
-<li>Trains models to predict preferences.</li>
-<li>Serves recommendations in real-time as you browse.</li>
-</ul>
+
+<section id="the-system-design-tier-gauntlet">
+<h2>The System Design Tier Gauntlet</h2>
+<p>I put three levels of software design through a technical capabilities gauntlet across system throughput, reliability, and compute efficiency:</p>
+
+<div class="svg-diagram-wrapper">
+  <svg class="svg-diagram" viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg">
+    <!-- Top Row -->
+    <text x="180" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">[Low-Level Design (LLD)]</text>
+    <text x="400" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">[High-Level Design (HLD)]</text>
+    <text x="620" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">[AI-First System Design]</text>
+    
+    <!-- Connectors -->
+    <path d="M 180 50 L 180 80" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 120 80 L 240 80" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 120 80 L 120 100" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="115,95 125,95 120,100" fill="var(--svg-text-muted)"/>
+    <path d="M 240 80 L 240 100" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="235,95 245,95 240,100" fill="var(--svg-text-muted)"/>
+
+    <path d="M 400 50 L 400 80" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 340 80 L 460 80" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 340 80 L 340 100" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="335,95 345,95 340,100" fill="var(--svg-text-muted)"/>
+    <path d="M 460 80 L 460 100" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="455,95 465,95 460,100" fill="var(--svg-text-muted)"/>
+
+    <path d="M 620 50 L 620 80" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 560 80 L 680 80" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <path d="M 560 80 L 560 100" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="555,95 565,95 560,100" fill="var(--svg-text-muted)"/>
+    <path d="M 680 80 L 680 100" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="675,95 685,95 680,100" fill="var(--svg-text-muted)"/>
+
+    <!-- Bottom Nodes -->
+    <text x="120" y="130" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Algorithms]</text>
+    <text x="120" y="150" fill="var(--svg-text-muted)" font-family="monospace" font-size="11" text-anchor="middle">(Code Level)</text>
+
+    <text x="240" y="130" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Data Structures]</text>
+    <text x="240" y="150" fill="var(--svg-text-muted)" font-family="monospace" font-size="11" text-anchor="middle">(Memory Layout)</text>
+
+    <text x="340" y="130" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Load Balancers]</text>
+    <text x="340" y="150" fill="var(--svg-text-muted)" font-family="monospace" font-size="11" text-anchor="middle">(Routing)</text>
+
+    <text x="460" y="130" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[SQL/NoSQL]</text>
+    <text x="460" y="150" fill="var(--svg-text-muted)" font-family="monospace" font-size="11" text-anchor="middle">(Caching)</text>
+
+    <text x="560" y="130" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Vector Index]</text>
+    <text x="560" y="150" fill="var(--svg-text-muted)" font-family="monospace" font-size="11" text-anchor="middle">(ANN Graph)</text>
+
+    <text x="680" y="130" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[GPU Batching]</text>
+    <text x="680" y="150" fill="var(--svg-text-muted)" font-family="monospace" font-size="11" text-anchor="middle">(PagedAttention)</text>
+  </svg>
+</div>
+
+<p>Here is how the system design tiers break down for engineering teams:</p>
+
+<div class="table-responsive">
+<table class="benchmark-table">
+  <thead>
+    <tr>
+      <th>Dimension / Metric</th>
+      <th>Low-Level Design (LLD)</th>
+      <th>High-Level Design (HLD)</th>
+      <th>AI-First System Design</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Primary Focus</strong></td>
+      <td>Class structures, design patterns, functions</td>
+      <td>Component topology, load balancers, APIs</td>
+      <td><strong>Ingestion queues, vector index, GPU cluster</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Primary Bottleneck</strong></td>
+      <td>CPU cycle efficiency &amp; memory leaks</td>
+      <td>Network I/O, database reads/writes</td>
+      <td><strong>GPU VRAM bandwidth &amp; Vector HNSW RAM</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Scaling Strategy</strong></td>
+      <td>Algorithmic optimization ($O(N)$ to $O(\log N)$)</td>
+      <td>Horizontal server scaling &amp; caching</td>
+      <td><strong>Async queue workers &amp; dynamic GPU batching</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Data Handling</strong></td>
+      <td>In-memory variables &amp; arrays</td>
+      <td>Relational &amp; Key-Value DBs</td>
+      <td><strong>Hybrid Vector DBs + Distributed S3 Data Lakes</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Failure Recovery</strong></td>
+      <td>Exception handling &amp; try-catch blocks</td>
+      <td>Circuit breakers &amp; failover nodes</td>
+      <td><strong>Model fallbacks &amp; queue retry policies</strong></td>
+    </tr>
+  </tbody>
+</table>
+</div>
 </section>
-<section id="future-of-ai-in-system-design">
-<h2>Future of AI in System Design</h2>
-<p>The future is wild! Here’s what’s coming:</p>
-<ol>
-<li><strong>Autonomous Systems</strong>: Systems that run with minimal human input, like
-                        self-managing servers.</li>
-<li><strong>Increased Automation</strong>: AI could generate code or optimize designs, speeding up
-                        development.</li>
-<li><strong>Edge AI</strong>: Processing data on devices like phones, reducing latency.</li>
-<li><strong>Explainable AI</strong>: Designs will focus on making AI decisions clear to users.</li>
-<li asc="https://www.geeksforgeeks.org/system-design/what-is-scalability-and-how-to-achieve-it-learn-system-design">
-                        GeeksforGeeks: Scalability in System Design
-                    </li>
-<li><a href="https://medium.com/fullstackai/building-ml-driven-applications-4e83cb95c0c">Medium:
-                            Designing AI Systems</a></li>
-<li><a href="https://microsoft.design/articles/design-systems-for-the-ai-era">Microsoft Design:
-                            AI-First Design Systems</a></li>
-</ol>
+
+<section id="the-systems-engineers-rant">
+<h2>Why Inference Decoupling Matters</h2>
+<p>It is painful to watch developers attempt to serve a 70-billion-parameter model directly inside a synchronous WSGI web route without an asynchronous worker queue, PagedAttention, or dynamic batching.</p>
+
+<div class="code-block">
+
+<pre><code class="language-python"># What developers write when they ignore system design:
+@app.route("/generate", methods=["POST"])
+def generate():
+    # SYNCHRONOUS INFERENCE ON MAIN THREAD! GPU BLOCKED FOR 10 SECONDS PER USER!
+    output = heavy_model.generate(request.json["prompt"]) 
+    return jsonify(output) # PURE SERVING CHAOS! 💥</code></pre>
+</div>
+
+<p>Building "AI apps" by wrapping heavy GPU operations inside synchronous HTTP handlers without checking thread pools or memory allocations is a recipe for system exhaustion.</p>
+
+<div class="svg-diagram-wrapper">
+  <svg class="svg-diagram" viewBox="0 0 800 150" xmlns="http://www.w3.org/2000/svg">
+    <!-- Synchronous Blocking -->
+    <text x="20" y="40" fill="var(--svg-red-text)" font-family="monospace" font-size="12" font-weight="bold">Synchronous Blocking:</text>
+    <rect x="180" y="20" width="120" height="30" rx="4" fill="var(--code-bg)" stroke="#30363d" stroke-width="2"/>
+    <text x="240" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[User Request]</text>
+    <path d="M 300 35 L 340 35" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="335,30 345,35 335,40" fill="var(--svg-text-muted)"/>
+    
+    <rect x="350" y="20" width="180" height="30" rx="4" fill="rgba(245, 158, 11, 0.2)" stroke="var(--svg-orange-border)" stroke-width="2"/>
+    <text x="440" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[GPU Thread Locked 10s]</text>
+    <path d="M 530 35 L 570 35" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="565,30 575,35 565,40" fill="var(--svg-text-muted)"/>
+    
+    <rect x="580" y="20" width="200" height="30" rx="4" fill="rgba(239, 68, 68, 0.4)" stroke="var(--svg-red-border)" stroke-width="2"/>
+    <text x="680" y="40" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Server Timeouts] 🛑</text>
+
+    <!-- Async Pipeline -->
+    <text x="20" y="100" fill="var(--svg-green-text)" font-family="monospace" font-size="12" font-weight="bold">Async Pipeline:</text>
+    <rect x="180" y="80" width="120" height="30" rx="4" fill="var(--code-bg)" stroke="#30363d" stroke-width="2"/>
+    <text x="240" y="100" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[User Request]</text>
+    <path d="M 300 95 L 340 95" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="335,90 345,95 335,100" fill="var(--svg-text-muted)"/>
+    
+    <rect x="350" y="80" width="180" height="30" rx="4" fill="rgba(59, 130, 246, 0.2)" stroke="#3b82f6" stroke-width="2"/>
+    <text x="440" y="100" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[Kafka Queue Worker]</text>
+    <path d="M 530 95 L 570 95" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="565,90 575,95 565,100" fill="var(--svg-text-muted)"/>
+    
+    <rect x="580" y="80" width="200" height="30" rx="4" fill="rgba(16, 185, 129, 0.2)" stroke="var(--svg-green-border)" stroke-width="2"/>
+    <text x="680" y="100" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[vLLM GPU Stream] ⚡</text>
+  </svg>
+</div>
+
+<p>If you don't decouple your client-facing API gateway from your heavy model inference servers using <strong>asynchronous message queues (Kafka/RabbitMQ)</strong> and <strong>dedicated model runners (vLLM/Triton)</strong>, you aren't building production systems - you're just hosting a fragile demo.</p>
+<p>Stop blocking your server threads and decouple your inference layers!</p>
 </section>
-<section id="my-journey">
+
+<section id="case-studies-and-infrastructure-test">
+<h2>Case Studies &amp; Infrastructure Test</h2>
+<p>Understanding high-level design principles on paper is one thing. But seeing how world-class AI platforms handle these trade-offs in production is where system design really clicks:</p>
+
+<div class="code-block">
+
+<pre><code class="language-plaintext">Case Study 1: OpenAI's ChatGPT
+  ├── Distributed load balancing across global GPU clusters.
+  ├── Streamed responses via Server-Sent Events (SSE) to mask generation latency.
+  └── Asynchronous data logging for post-training and safety filtering pipelines.
+
+Case Study 2: Netflix Recommendation Engine
+  ├── Real-time behavioral event streaming via Kafka.
+  ├── Offline batch model training paired with online low-latency vector retrieval.
+  └── Distributed Caching (Redis/Memcached) for instant UI updates.</code></pre>
+</div>
+
+<div class="svg-diagram-wrapper">
+  <svg class="svg-diagram" viewBox="0 0 800 160" xmlns="http://www.w3.org/2000/svg">
+    <rect x="30" y="40" width="210" height="40" rx="8" fill="var(--code-bg)" stroke="#30363d" stroke-width="2"/>
+    <text x="135" y="65" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">[System Design Load Test]</text>
+    
+    <path d="M 240 60 L 310 60" stroke="#94a3b8" stroke-width="2" fill="none"/>
+    <polygon points="305,55 315,60 305,65" fill="var(--svg-text-muted)"/>
+    
+    <rect x="320" y="40" width="450" height="40" rx="8" fill="rgba(139, 92, 246, 0.1)" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="545" y="65" fill="var(--svg-text-main)" font-family="monospace" font-size="12" text-anchor="middle">(Running Async Ingestion Workers + Vector Search)</text>
+
+    <path d="M 545 80 L 545 110" stroke="var(--svg-red-border)" stroke-width="2" fill="none"/>
+    <polygon points="540,105 550,105 545,110" fill="var(--svg-red-text)"/>
+
+    <rect x="410" y="110" width="270" height="40" rx="8" fill="rgba(239, 68, 68, 0.2)" stroke="var(--svg-red-border)" stroke-width="2"/>
+    <text x="545" y="135" fill="var(--svg-text-main)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">[Network Connection Pool Maxed] 💥</text>
+  </svg>
+</div>
+
+<p>When you simulate real-world traffic against your AI system - ingesting thousands of text files, generating vector embeddings asynchronously, and serving parallel model endpoints - your network connection pools, open file limits (<code>ulimit</code>), and VRAM allocations get pushed to the max.</p>
+<p>System design isn't just theoretical architecture - it's what keeps your application online when traffic spikes from 10 users to 1,000,000 users overnight!</p>
+</section>
+
+<section id="my-journey-with-system-design">
 <h2>My Journey with System Design</h2>
-<p>After diving into databases last semester, I’ve been grinding through system design,
-                    and it’s a game-changer. I’ve been working on projects, like building a scalable API for an AI
-                    model, and it’s tough but rewarding. My <a href="https://github.com/MuhammadTahaNasir/Systems_Design-Codes-Notes" target="_blank">GitHub
-                        repo</a> will be having all my notes and code snippets, so you can check it out for a deep dive
-                    into my learning
-                    process!</p>
+<p>After diving deep into database internals last semester at FAST NUCES, grinding through system design fundamentals has been a complete game-changer for my perspective on software development.</p>
+
+<div class="svg-diagram-wrapper">
+<img src="/assets/images/posts/ai-system.png" alt="The Modern AI System" style="width: 100%; height: auto; border-radius: 8px;">
+</div>
+
+<p>I've been building scalable API wrappers and modular data pipelines for my own AI projects, testing how async queues prevent server crashes during heavy inference runs. All my system design notes, architectural diagrams, and code snippets are being logged directly in my GitHub repositories - feel free to dive into the codebase and trace the learning process!</p>
 </section>
-<section id="resources">
-<h2>Resources That Helped Me</h2>
-<p>System design can feel like facing a googly, but these resources kept me on track:</p>
-<ul style="list-style: none; padding: 0;">
-<li style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
-<strong>GeeksforGeeks</strong>: Awesome guide on system design basics.<br/>
-<a href="https://www.geeksforgeeks.org/system-design/what-is-system-design-learn-system-design">System
-                            Design Basics</a>
-</li>
-<li style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
-<strong>Medium</strong>: Deep dive into building AI systems.<br/>
-<a href="https://medium.com/fullstackai/building-ml-driven-applications-4e83cb95c0c">Building AI
-                            Systems</a>
-</li>
-<li style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
-<strong>Microsoft Design</strong>: Insights on AI-first design systems.<br/>
-<a href="https://microsoft.design/articles/design-systems-for-the-ai-era">AI-First Design
-                            Systems</a>
-</li>
-</ul>
-</section>
-<div class="tags-container" id="dynamic-tags">
-<!-- Tags will be dynamically generated here -->
-</div>
-<hr class="divider"/>
-<section class="related-articles" id="related-series">
-<h2 class="series-title">Article Series</h2>
-<a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
-<div id="related-posts-container"></div>
-</section>
-</main>
-<!-- Newsletter Subscription Section -->
-<div class="newsletter-section">
-<div class="newsletter-content">
-<h3>Subscribe to our newsletter</h3>
-<p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
-<p>Subscribe to the newsletter, and don't miss out.</p>
-<div class="newsletter-form">
-<input class="newsletter-input" placeholder="Enter your email address" type="email"/>
-<button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
-</div>
-</div>
-</div>
-</div>
-<footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
-<div class="social-icons" style="margin-bottom:25px;">
-<a aria-label="GitHub profile" href="https://github.com/MuhammadTahaNasir" style="margin:0 5px; font-size:1.6em;" target="_blank" title="GitHub">
-<i aria-hidden="true" class="fab fa-github"></i>
-</a>
-<a aria-label="LinkedIn profile" href="https://www.linkedin.com/in/muhammadtahanasir/" style="margin:0 5px; font-size:1.6em;" target="_blank" title="LinkedIn">
-<i aria-hidden="true" class="fab fa-linkedin"></i>
-</a>
-<a aria-label="Send email" href="mailto:m.tahanasir.cs@gmail.com" style="margin:0 5px; font-size:1.6em;" title="Email">
-<i aria-hidden="true" class="fas fa-envelope"></i>
-</a>
-</div>
-<p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
-</footer>
-<button aria-label="Scroll to top" id="scrollTop">
-<i class="fas fa-chevron-up"></i>
-</button>
-<script src="../../assets/js/each-post.js"></script>
-<script src="../../assets/js/shared-bottom-nav.js"></script>
-<script src="../../assets/js/nav-active.js"></script>
-<script>
-        document.querySelectorAll('.copy-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                    button.innerText = "Copied!";
-                    setTimeout(() => button.innerText = "Copy", 1500);
-                });
-            });
-        });
-    </script>
+
+<p class="next-post-link" style="margin-top: 25px; font-size: 1.05rem;">
+          <em>Next: <a href="building-voice-ai.html">Building Voice AI: How STT → LLM → TTS Pipelines Work &rarr;</a></em>
+        </p>
+        <div class="tags-container" id="dynamic-tags"></div>
+        <hr class="divider" />
+        <section class="related-articles" id="related-series">
+          <h2 class="series-title">Article Series</h2>
+          <a class="series-link" href="../../posts.html"
+            >Zero to One: Dev Diaries</a
+          >
+          <div id="related-posts-container"></div>
+        </section>
+      </main>
+      <div class="newsletter-section">
+        <div class="newsletter-content">
+          <h3>Subscribe to our newsletter</h3>
+          <p>
+            Read articles from <strong>&lt;terry/&gt;</strong> directly inside
+            your inbox.
+          </p>
+          <p>Subscribe to the newsletter, and don't miss out.</p>
+          <div class="newsletter-form">
+            <input
+              class="newsletter-input"
+              placeholder="Enter your email address"
+              type="email"
+            />
+            <button
+              class="newsletter-btn"
+              onclick="handleNewsletterSubmit(event)"
+            >
+              SUBSCRIBE
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../../assets/js/each-post.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+      <script src="../../assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/shared-bottom-nav.js"></script>
 </body>
 </html>

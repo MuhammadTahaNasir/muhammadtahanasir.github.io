@@ -1,173 +1,421 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html dir="auto" lang="en">
 <head>
-<link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
-<link href="/assets/images/favicon.ico" rel="shortcut icon"/>
-<link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}        .code-block { position: relative; margin: 25px 0; border-radius: 10px; background: #0d1117 !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; overflow: hidden; }
+        .code-block pre, .code-block pre[class*="language-"] { background: #0d1117 !important; color: #e6edf3 !important; text-shadow: none !important; padding: 20px 22px !important; margin: 0 !important; font-family: "SF Mono", "Fira Code", monospace !important; font-size: 0.94rem !important; line-height: 1.6 !important; border-radius: 10px !important; }
+        .code-block code { opacity: 1 !important; color: #e6edf3 !important; background: transparent !important; text-shadow: none !important; }
+    </style>');
+    })();
+  </script>
+<link href="/assets/images/favicon-96x96.png?v=5" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/assets/images/favicon.ico?v=5" rel="shortcut icon"/>
+<link href="/assets/images/apple-touch-icon.png?v=5" rel="apple-touch-icon" sizes="180x180"/>
 <meta content="Terry" name="apple-mobile-web-app-title"/>
 <link href="/assets/images/site.webmanifest" rel="manifest"/>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
 <meta content="noindex, nofollow" name="robots"/>
-<meta content="A student’s journey building an AI Roadmap Generator with Streamlit during the Headstarter AI SWE Fellowship, plus lessons learned and related fellowship projects." name="description"/>
+<meta content="Reflections on the Headstarter Fellowship and building AI apps in 3 days with Streamlit and Gemma 2." name="description"/>
 <meta content="Muhammad Taha Nasir" name="author"/>
-<meta content="Machine Learning, Web Development" name="tags"/>
-<title>How I Built My First Streamlit App in 3 Days: My Headstarter Fellowship Journey</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
-<link href="../../assets/css/each-post.css" rel="stylesheet"/>
-<script>
-        // Apply theme immediately on page load
-        (function () {
-            const savedTheme = localStorage.getItem('pref-theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
-        })();
-    </script>
+<meta content="Streamlit, Python, Rapid Prototyping, Machine Learning" name="tags" />
+<meta name="thumbnail" content="/assets/images/posts/streamlit-app.png" />
+<title>Building My First AI App in 3 Days: Headstarter Fellowship Reflection</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/css/stylesheet.css" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet"/>
+<link href="../../assets/css/bottom-nav.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/>
+<style>
+         .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+        
+        /* Theme-Adaptive Styling */
+        .cinematic-intro-card {
+            background: var(--entry);
+            border-left: 4px solid var(--accent);
+            border-top: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            border-radius: 0 12px 12px 0;
+            padding: 24px 28px;
+            margin: 25px 0 35px 0;
+            
+        }
+
+        .cinematic-intro-card p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            color: var(--primary);
+        }
+        
+        .cinematic-intro-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .thought-card {
+            background: var(--entry);
+            
+            border-radius: 12px;
+            padding: 26px;
+            margin: 32px 0;
+            color: var(--primary);
+            box-shadow: var(--shadow-light);
+        }
+
+        .hero-banner-img {
+            max-width: 100%;
+            width: 100%;
+            max-height: 420px;
+            object-fit: cover;
+            object-position: center;
+            margin: 20px 0 30px 0;
+            border-radius: 12px;
+            
+            
+            display: block;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .benchmark-table {
+            width: 100%;
+            min-width: 580px;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .benchmark-table th {
+            background: var(--code-bg);
+            color: var(--primary);
+            padding: 12px 14px;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .benchmark-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+            color: var(--primary);
+        }
+
+        .svg-diagram-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; background: var(--entry) !important; border: 1px solid var(--border) !important; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-small); transition: background 0.3s ease, border-color 0.3s ease; }
+        
+        .svg-diagram-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .svg-diagram { 
+            min-width: 600px;
+            max-width: 640px; 
+            width: 100%; 
+            height: auto; 
+             
+            background: var(--entry); 
+             
+            padding: 20px; 
+            
+            margin: 0 auto;
+        }
+
+        /* Transparent Scrollbars */
+        .table-responsive, .code-block, .code-block pre, pre, pre[class*="language-"] {
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+
+        .table-responsive::-webkit-scrollbar, .code-block::-webkit-scrollbar, .code-block pre::-webkit-scrollbar, pre::-webkit-scrollbar, pre[class*="language-"]::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            background: transparent !important;
+        }
+
+        /* Mobile Media Queries */
+        @media (max-width: 768px) {
+            .hero-banner-img {
+                max-height: 260px;
+                margin: 15px 0 20px 0;
+            }
+
+            .cinematic-intro-card {
+                padding: 18px 20px;
+                margin: 20px 0 25px 0;
+            }
+
+            .cinematic-intro-card p {
+                font-size: 0.98rem;
+                line-height: 1.6;
+                margin-bottom: 10px;
+            }
+
+            .thought-card {
+                padding: 18px 20px;
+                margin: 20px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-banner-img {
+                max-height: 200px;
+                border-radius: 8px;
+            }
+
+            .cinematic-intro-card {
+                padding: 14px 16px;
+                border-left-width: 3px;
+            }
+        }
+    </style>
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="../../assets/js/bg-canvas.js"></script>
 </head>
-<body class="dark" id="top" post-date="2024-07-27T00:00:00Z">
-<header class="header">
-<nav class="nav">
-<!-- Left: Logo -->
-<div class="nav-left">
-<a class="logo" href="/index.html">&lt;terry/&gt;</a>
-</div>
-<!-- Center: Pills Navigation -->
-<div class="nav-center">
-<div class="pill-nav">
-<a href="/projects.html">Projects</a>
-<a href="/archives.html">Archives</a>
-<a href="/resume.html">Resume</a>
-<a href="/search.html">Search</a>
+<body id="top" post-date="2024-07-27T00:00:00Z">
+<div aria-hidden="true" class="loader" id="loader">
+<div class="terry-animation">
+<span class="letter">t</span>
+<span class="letter">e</span>
+<span class="letter">r</span>
+<span class="letter">r</span>
+<span class="letter">y</span>
 </div>
 </div>
-<!-- Right: Theme toggle -->
-<div class="nav-right">
-<button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
-<svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<circle cx="12" cy="12" r="5"></circle>
-<line x1="12" x2="12" y1="1" y2="3"></line>
-<line x1="12" x2="12" y1="21" y2="23"></line>
-<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
-<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
-<line x1="1" x2="3" y1="12" y2="12"></line>
-<line x1="21" x2="23" y1="12" y2="12"></line>
-<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
-<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
-</svg>
-<svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-</svg>
-</button>
-</div>
-</nav>
-</header>
+    <!-- Header Navigation -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
 <div class="container">
 <nav class="breadcrumb">
-<a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
-</nav>
+      <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a> » <span class="breadcrumb-current">Building My First AI App in 3 Days: Headstarter Fellowship Reflection</span>
+    </nav>
 <main class="post-content">
 <header class="post-header">
-<h1 class="post-title">How I Built My First Streamlit App in 3 Days: My Headstarter Fellowship
-                    Journey</h1>
-<div class="post-meta">July 27, 2024 • 4 min • Muhammad Taha Nasir</div>
+<h1 class="post-title">Building My First AI App in 3 Days: Headstarter Fellowship Reflection</h1>
+<div class="post-meta">July 27, 2024 • 5 min • Muhammad Taha Nasir</div>
 </header>
+<img alt="Building My First AI App in 3 Days" class="hero-banner-img" src="/assets/images/posts/streamlit-app.png"/>
+<div class="cinematic-intro-card">
+<p>This summer, I took a massive leap and joined the New York-based <strong>Headstarter AI Software Engineering Fellowship</strong>. Navigating the 9-hour time difference from Pakistan meant powering through late-night standups and midnight hackathons, but the experience was unbelievable.</p>
+<p>Working alongside talented teammates across global universities, I learned how to move at breakneck execution speeds shipping weekly full-stack AI products. One of my favorite builds from the fellowship was the <strong>AI Roadmap Generator</strong>, a Streamlit app we designed and shipped in just 72 hours.</p>
+</div>
 <aside class="table-of-contents">
 <details>
 <summary>Table of Contents</summary>
 <ul>
-<li><a href="#fellowship-start">Joining the Headstarter Fellowship</a></li>
-<li><a href="#streamlit-app">Building the AI Roadmap Generator</a></li>
-<li><a href="#challenges">Last-Minute Bugs and Fixes</a></li>
-<li><a href="#teamwork">Teamwork and Deployment</a></li>
-<li><a href="#other-projects">Other Fellowship Projects</a></li>
-<li><a href="#whats-next">What’s Next</a></li>
+<li><a href="#first-impression">Rapid Prototyping &amp; The First Impression</a></li>
+<li><a href="#under-the-hood">Under the Hood in 100 Seconds</a></li>
+<li><a href="#framework-gauntlet">The Headstarter Weekly Sprint Gauntlet</a></li>
+<li><a href="#systems-rant">The Systems Engineer's Rant</a></li>
+<li><a href="#hardware-stress">Late-Night Deployment &amp; Teamwork Stress Test</a></li>
+<li><a href="#conclusion">What's Next?</a></li>
 </ul>
 </details>
 </aside>
-<section id="fellowship-start">
-<h2>Joining the Headstarter Fellowship</h2>
-<p>This summer, I got accepted into the Headstarter AI SWE Fellowship, a New York-based program that was
-                    a game-changer for me, even though I’m based in Pakistan. The time difference meant late-night
-                    meetings and conferences, but it was worth it. I connected with amazing teammates from other
-                    universities, learned a ton about AI and web development, and built some cool projects. One of my
-                    favorites was the AI Roadmap Generator, a Streamlit app we created as a team.</p>
+<div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter" type="button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share article" type="button">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+<section id="first-impression">
+<h2>Rapid Prototyping &amp; The First Impression</h2>
+<p>So, I've spent the last month building and shipping a new AI product every single week. And if you're tracking software engineering right now, you know the game has completely changed. We are no longer in an era where spending six months building a basic web wrapper or custom backend before testing a product with users makes sense.</p>
+
+<p>This is where <strong>Streamlit</strong> completely blew my mind. Coming from a Python-heavy background in Machine Learning, Streamlit allowed us to take a raw open-weights reasoning model Google's newly released <strong>Gemma 2 9B</strong> and wrap it inside an interactive, functional web application without getting bogged down in complex frontend setup.</p>
+<p>The responsiveness of rapid prototyping frameworks is incredible. You focus on the core value proposition, wire up your model APIs and database authentication, and deploy directly to the cloud. But shipping fast means hitting unexpected bugs at 3 AM. How did we take this from idea to live deployment? Let's find out.</p>
 </section>
-<section id="streamlit-app">
-<h2>Building the AI Roadmap Generator</h2>
-<p>The AI Roadmap Generator (<a href="https://ai-roadmap-generator.streamlit.app/">try it here</a>) is a
-                    web app that uses Google’s Gemma2-9b open-source model to generate personalized AI learning
-                    roadmaps. We integrated Firebase for user authentication and data storage, all built with Streamlit
-                    for a quick and clean frontend. Streamlit made it so easy to turn my Python skills into a functional
-                    web app without diving too deep into complex web dev.</p>
-<p>Here’s a snippet of how we set up the basic Streamlit interface:</p>
+<section id="under-the-hood">
+<h2>Under the Hood in 100 Seconds</h2>
+<p>Imagine spending two days building a web application, only for user sessions to completely drop on every single page refresh because your authentication SDK call wasn't persisting state properly. Welcome to rapid prototyping.</p>
 <div class="code-block">
-<button class="copy-btn">Copy</button>
-<pre class="language-python" data-lang="Python"><code>
+
+<pre><code class="language-python"># Streamlit Interface &amp; State Management Snippet
+import streamlit as st
+import firebase_admin
+from firebase_admin import credentials, auth
+
+st.set_page_config(page_title="AI Roadmap Generator", layout="wide")
+
+st.title("AI Roadmap Generator ")
+st.write("Generate a personalized learning path powered by Gemma 2 9B!")
+
+# User Input Entry
+user_goal = st.text_input("Enter your target career or learning goal:", placeholder="e.g., Full-Stack AI Engineer in 2024")
+
+if st.button("Generate Roadmap"):
+    if user_goal:
+        with st.spinner("Analyzing skill dependencies and prompting Gemma 2 9B..."):
+            # Model inference call &amp; Firebase session storage
+            st.success("Roadmap Generated!")
+            st.markdown(f"### Custom Learning Path for: **{user_goal}**")
+    else:
+        st.warning("Please enter a learning goal first!")</code></pre>
+</div>
+<p>Historically, building an app with user authentication and dynamic AI generation required a full stack: React on the client, Node/Express on the API layer, and a dedicated database server.</p>
+<p>The <strong>Headstarter Rapid Stack</strong> compresses that architecture into three core components:</p>
+<div class="svg-diagram-wrapper">
+<img src="/assets/images/posts/architecture.png" alt="Architecture Stack" style="width: 100%; height: auto; border-radius: 8px;">
+</div>
+<ol>
+<li><strong>Frontend (Streamlit)</strong>: Turns simple Python variables into interactive web components, handling state reloading on user inputs.</li>
+<li><strong>Backend Storage (Firebase)</strong>: Manages secure user authentication, persistent user profiles, and session storage.</li>
+<li><strong>Inference (Gemma 2 9B)</strong>: Google's open-weights model generates structured, step-by-step learning roadmaps tailored to the user's specific skill level.</li>
+</ol>
+<p>When we first deployed, Gemma 2 9B had sluggish cold-start response times. We optimized the pipeline by implementing <strong>caching mechanisms</strong> for common query structures, speeding up roadmap generation significantly. Take the absolute L on slow initial API calls.</p>
+</section>
+<section id="framework-gauntlet">
+<h2>The Headstarter Weekly Sprint Gauntlet</h2>
+<p>I put my entire 7-week Headstarter Fellowship project trajectory through a weekly execution gauntlet:</p>
+<!-- SVG Diagram 3: Weekly Sprint Gauntlet Node Tree -->
+<p>Here is how the fellowship project breakdown stacked up across tech stacks and deliverables:</p>
+<div class="table-responsive">
+<table class="benchmark-table">
+<thead>
+<tr>
+<th>Week / Sprint</th>
+<th>Project Name</th>
+<th>Tech Stack Used</th>
+<th>Core Engineering Highlight</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Week 1</strong></td>
+<td><strong>Personal Portfolio</strong></td>
+<td>SvelteKit, HTML/CSS, Firebase</td>
+<td>Modern reactive layout &amp; project showcases</td>
+</tr>
+<tr>
+<td><strong>Week 2</strong></td>
+<td><strong>PantryTracker.ai</strong></td>
+<td>Next.js, React, TypeScript, Supabase</td>
+<td>Smart inventory tracking &amp; recipe generation</td>
+</tr>
+<tr>
+<td><strong>Week 3</strong></td>
+<td><strong>AI Customer Support Bot</strong></td>
+<td>OpenAI API, Next.js, AWS EC2, Firebase</td>
+<td>Automated Facebook support integration</td>
+</tr>
+<tr>
+<td><strong>Week 4</strong></td>
+<td><strong>AI Flashcards + Stripe</strong></td>
+<td>React, Node.js, OpenAI, Stripe</td>
+<td>SaaS payment integration &amp; card generation</td>
+</tr>
+<tr>
+<td><strong>Week 5</strong></td>
+<td><strong>AI "Rate My Professor"</strong></td>
+<td>Next.js, OpenAI, Vector DB (RAG)</td>
+<td>Semantic vector search over professor reviews</td>
+</tr>
+<tr>
+<td><strong>Weeks 6-7</strong></td>
+<td><strong>Capstone AI Health App</strong></td>
+<td>Full-Stack Team Build + AI APIs</td>
+<td>Growth hacking, user acquisition, and scaling</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Cramming this volume of shipping into seven weeks pushed my development limits, showing me how quickly modern frameworks like Next.js, Streamlit, and cloud serverless tools let you go from concept to a live product URL.</p>
+</section>
+<section id="systems-rant">
+<h2>The Systems Engineer's Rant</h2>
+<p>LOOK AT THIS STATE RERENDER! JUST LOOK AT IT!</p>
+<p>I am watching developers build Streamlit applications without understanding how Streamlit's execution model works under the hood, and I am physically losing my mind!</p>
+<div class="code-block">
+
+<pre><code class="language-python"># What beginners do in Streamlit that causes infinite execution loops:
 import streamlit as st
 
-st.title("AI Roadmap Generator")
-st.write("Generate a personalized AI learning roadmap with Gemma2-9b!")
-user_input = st.text_input("Enter your AI learning goals:")
-if st.button("Generate Roadmap"):
-    # Placeholder for Gemma2-9b model integration
-    st.write("Your roadmap is being generated...")
-                    </code></pre>
+# EVERY TIME A BUTTON IS CLICKED, THE ENTIRE PYTHON SCRIPT RERUNS FROM TOP TO BOTTOM!
+data = heavy_model_load() # RE-LOADING A 9B PARAMETER MODEL ON EVERY SINGLE BUTTON CLICK!!</code></pre>
 </div>
-<p>This code sets up a simple interface where users input their goals, and the app (with backend logic)
-                    generates a roadmap. The real magic happens with the Gemma2-9b model and Firebase, but Streamlit’s
-                    simplicity let us focus on functionality over frontend fuss.</p>
-</section>
-<section id="challenges">
-<h2>Last-Minute Bugs and Fixes</h2>
-<p>Building the app wasn’t all smooth sailing. We hit a nasty bug with Firebase authentication where
-                    sessions weren’t persisting across page refreshes. After hours of debugging, we found a
-                    misconfigured Firebase SDK call. Another headache was the Gemma2-9b model’s response time, it was
-                    sluggish on initial loads. We optimized the backend to cache common queries, which sped things up.
-                    These late-night fixes taught me how critical testing and iteration are in real-world projects.</p>
-</section>
-<section id="teamwork">
-<h2>Teamwork and Deployment</h2>
-<p>I worked with an awesome team, and I have to shout out Awwab, who handled the deployment like a pro.
-                    We met through the fellowship and collaborated. Awwab set up the Streamlit app on
-                    their hosting platform, ensuring it was live at <a href="https://ai-roadmap-generator.streamlit.app/">ai-roadmap-generator.streamlit.app</a>. The
-                    teamwork aspect of the fellowship pairing with folks from different unis—was a highlight and showed
-                    me how diverse skill sets come together in software engineering.</p>
-</section>
-<section id="other-projects">
-<h2>Other Fellowship Projects</h2>
-<p>The Headstarter Fellowship had us cranking out projects weekly. Here’s a rundown of what I worked on:
-                </p>
-<ul>
-<li><strong>Week 1: Personal Portfolio Website</strong> – Built with HTML, CSS, JavaScript, and
-                        SvelteKit, hosted on Firebase. Included sections for About, Skills, Projects, and a Contact
-                        panel. (I alraedy had this one. Lol! That's why you are reading this post)</li>
-<li><strong>Week 2: PantryTracker.ai</strong> – A smart pantry tool using Next.js, React,
-                        TypeScript, and Supabase. It tracks inventory, suggests recipes, and manages shopping lists. (<a href="https://ai-pantry-management.vercel.app/">Try here</a>)</li>
-<li><strong>Week 3: AI Customer Support Chatbot</strong> – Powered by OpenAI and Next.js, hosted on
-                        AWS EC2 with Firebase Authentication. (<a href="https://github.com/MuhammadTahaNasir/facebook-support-chatbot"> Facebook Support
-                            Ai-Chatbot</a>)
-                    </li>
-<li><strong>Week 4: AI Flashcards with Stripe</strong> – A flashcard app with OpenAI-generated cards
-                        and Stripe payments, built with React and Node.js.</li>
-<li><strong>Week 5: AI “Rate My Professor” App</strong> – Used RAG and vector search with OpenAI for
-                        course feedback.</li>
-<li><strong>Weeks 6–7: AI Health App</strong> – Our team’s final project, a capstone AI health app
-                        focused on growth and user acquisition. Details coming soon!</li>
-</ul>
-<p>These projects pushed my coding and collaboration skills to the next level. Check out my portfolio
-                    for more details!</p>
-</section>
-<section id="whats-next">
-<h2>What’s Next</h2>
-<p>The fellowship was intense but rewarding. I’m hooked on Streamlit for quick prototyping and plan to
-                    explore more AI-driven web apps. The AI Health App from our final project is something I’m excited
-                    to polish and share soon. I’ll keep posting about my progress, so stay tuned for more!</p>
-</section>
-<div class="tags-container" id="dynamic-tags">
-<!-- Tags will be dynamically generated here -->
+<p>You guys are out here building Streamlit apps without using <code>@st.cache_resource</code> or <code>@st.cache_data</code>, forcing your server to re-execute expensive computations on every single interaction!</p>
+<p>It is <strong>NOT BLAZINGLY FAST</strong>!</p>
+<!-- SVG Diagram 4: Cache vs No Cache Pipeline -->
+<p>In Streamlit, <strong>script reruns happen top-to-bottom on every user interaction</strong>. If you don't wrap your model initializations and database connections in caching decorators, you crush your server performance!</p>
+<div class="code-block">
+
+<pre><code class="language-python"># THIS IS HOW YOU WRITE FAST STREAMLIT CODE:
+@st.cache_resource
+def load_gemma_model():
+    return initialize_model_connection() # Loaded ONCE in memory!</code></pre>
 </div>
+<p>Stop reloading your models on every button click and learn how state caching works!</p>
+</section>
+<section id="hardware-stress">
+<h2>Late-Night Deployment &amp; Teamwork Stress Test</h2>
+<p>So, writing Streamlit code locally is straightforward. But what happens when you collaborate across time zones with a team member in a high-stakes sprint right before a deadline?</p>
+<p>A huge shoutout to my teammate <strong>Awwab</strong>, who handled our production deployment like an absolute pro, hosting the live app on Streamlit's platform (<code>ai-roadmap-generator.streamlit.app</code>).</p>
+<p><em>(Linus walks past the desk, trips over an ethernet cable, and drops an external battery pack onto the floor)</em></p>
+<!-- SVG Diagram 5: 3AM Deployment Crunch Spike -->
+<p>...Okay, that power bank has an aluminum casing. The LED status light is still green!</p>
+<p>When you deploy Streamlit apps to the cloud, missing environment variables (<code>secrets.toml</code>) or misconfigured API keys will instantly crash your live app while local testing works fine.</p>
+<p>Debugging Firebase authentication SDK state mismatches across late-night calls taught us that real-world software engineering is 20% writing code and 80% communication, debugging, and environment configuration!</p>
+</section>
+<section id="conclusion">
+<h2>What's Next?</h2>
+<p>The Headstarter AI SWE Fellowship was an intense, rewarding experience that completely transformed how I build software. I am officially hooked on Streamlit for rapid prototyping and plan to build even more AI-driven web applications moving forward.</p>
+<p>Up next: polishing and launching our final Capstone AI Health App! Stay tuned for the next update!</p>
+<p class="next-post-link" style="margin-top: 25px; font-size: 1.05rem;">
+          <em>Next: <a href="deploy-ai-proj.html">Deploying AI Projects: Flask vs Streamlit vs Vercel Architecture &rarr;</a></em>
+        </p>
+</section>
+<div class="tags-container" id="dynamic-tags"></div>
 <hr class="divider"/>
 <section class="related-articles" id="related-series">
 <h2 class="series-title">Article Series</h2>
@@ -175,29 +423,47 @@ if st.button("Generate Roadmap"):
 <div id="related-posts-container"></div>
 </section>
 </main>
-<footer class="footer">
-<div class="social-icons">
-<a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-<a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-<a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+<div class="newsletter-section">
+<div class="newsletter-content">
+<h3>Subscribe to our newsletter</h3>
+<p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+<p>Subscribe to the newsletter, and don't miss out.</p>
+<div class="newsletter-form">
+<input class="newsletter-input" placeholder="Enter your email address" type="email"/>
+<button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
 </div>
-<p>© 2024 – Muhammad Taha Nasir</p>
-</footer>
 </div>
+</div>
+</div>
+<footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
 <button aria-label="Scroll to top" id="scrollTop">
 <i class="fas fa-chevron-up"></i>
 </button>
 <script src="../../assets/js/each-post.js"></script>
-<script>
-        document.querySelectorAll('.copy-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                    button.innerText = "Copied!";
-                    setTimeout(() => button.innerText = "Copy", 1500);
-                });
-            });
-        });
-    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="../../assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/shared-bottom-nav.js"></script>
 </body>
 </html>

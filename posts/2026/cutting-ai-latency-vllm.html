@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html dir="auto" lang="en">
+<head>
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;} .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>');
+    })();
+  </script>
+    <link href="/assets/images/favicon-96x96.png?v=5" rel="icon" sizes="96x96" type="image/png" />
+    <link href="/assets/images/favicon.ico?v=5" rel="shortcut icon" />
+    <link href="/assets/images/apple-touch-icon.png?v=5" rel="apple-touch-icon" sizes="180x180" />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta content="Production guide to reducing AI inference latency by 50%+ using semantic caching, vLLM continuous batching, KV cache optimization, and streaming response pipelines." name="description" />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="AI Inference Optimization, vLLM, Semantic Caching, Request Batching, KV Cache, FastAPI" name="tags" />
+    <meta name="thumbnail" content="/assets/images/posts/cutting-ai-latency-vllm.png" />
+    <title>Cutting AI Latency in Half: Semantic Caching, Request Batching, &amp; vLLM</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/stylesheet.css" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden;pointer-events:none !important;display:none !important;}
+        .code-block { position: relative; margin: 25px 0; border-radius: 10px; background: #0d1117 !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; overflow: hidden; }
+        .code-block pre, .code-block pre[class*="language-"] { background: #0d1117 !important; color: #e6edf3 !important; text-shadow: none !important; padding: 20px 22px !important; margin: 0 !important; font-family: "SF Mono", "Fira Code", monospace !important; font-size: 0.94rem !important; line-height: 1.6 !important; border-radius: 10px !important; }
+        .code-block code { opacity: 1 !important; color: #e6edf3 !important; background: transparent !important; text-shadow: none !important; }
+
+        .cinematic-intro-card {
+            background: var(--entry);
+            border-left: 4px solid var(--accent);
+            border-top: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            border-radius: 0 12px 12px 0;
+            padding: 24px 28px;
+            margin: 25px 0 35px 0;
+            box-shadow: var(--shadow-medium);
+        }
+        .cinematic-intro-card p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            color: var(--primary);
+        }
+        .cinematic-intro-card p:last-child {
+            margin-bottom: 0;
+        }
+        .hero-banner-img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            margin: 20px 0 30px 0;
+            border-radius: 12px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--border);
+            display: block;
+        }
+        .svg-diagram-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; background: var(--entry) !important; border: 1px solid var(--border) !important; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-small); transition: background 0.3s ease, border-color 0.3s ease; }
+        .svg-diagram {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* SVG Keyframe Animations */
+        @keyframes pulseFlow {
+            0% { stroke-dashoffset: 24; }
+            100% { stroke-dashoffset: 0; }
+        }
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+        .animated-flow-line {
+            stroke-dasharray: 6 6;
+            animation: pulseFlow 1.2s linear infinite;
+        }
+        .glowing-node {
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .hero-banner-img { margin: 15px 0 20px 0; }
+            .cinematic-intro-card { padding: 18px 20px; margin: 20px 0 25px 0; }
+            .cinematic-intro-card p { font-size: 0.98rem; line-height: 1.6; margin-bottom: 10px; }
+        }
+        @media (max-width: 480px) {
+            .hero-banner-img { border-radius: 8px; }
+            .cinematic-intro-card { padding: 14px 16px; border-left-width: 3px; }
+        }
+    </style>
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="../../assets/js/bg-canvas.js"></script>
+</head>
+<body id="top" post-date="2026-04-28T00:00:00Z">
+    <div aria-hidden="true" class="loader" id="loader">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+        <!-- ---------- Header Navigation ---------- -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+    <div class="container">
+        <nav class="breadcrumb">
+      <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a> » <span class="breadcrumb-current">Cutting AI Latency in Half: Semantic Caching, Request Batching, &amp; vLLM</span>
+    </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">Cutting AI Latency in Half: Semantic Caching, Request Batching, &amp; vLLM</h1>
+                <div class="post-meta">April 28, 2026 • 6 min • Muhammad Taha Nasir</div>
+            </header>
+            <img alt="Cutting AI Latency in Half: Semantic Caching, Request Batching, &amp; vLLM" class="hero-banner-img" src="/assets/images/posts/cutting-ai-latency-vllm.png"/>
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#introduction">Fast AI Isn't About Faster Models. It's About Smarter Systems.</a></li>
+                        <li><a href="#why-ai-feels-slow">1. Why AI Feels Slow</a></li>
+                        <li><a href="#cost-of-repeated-questions">2. The Cost of Repeated Questions</a></li>
+                        <li><a href="#semantic-caching">3. Semantic Caching Instead of Exact Matching</a></li>
+                        <li><a href="#smarter-request-batching">4. Smarter Request Batching</a></li>
+                        <li><a href="#switch-to-vllm">5. Why We Switched to vLLM</a></li>
+                        <li><a href="#optimizing-kv-cache">6. Optimizing the KV Cache</a></li>
+                        <li><a href="#streaming-responses">7. Streaming Responses Earlier</a></li>
+                        <li><a href="#eliminating-bottlenecks">8. Eliminating Bottlenecks Outside the Model</a></li>
+                        <li><a href="#measuring-what-matters">9. Measuring What Actually Matters</a></li>
+                        <li><a href="#lessons-learned">10. Lessons from Production</a></li>
+                        <li><a href="#performance-improvements">Performance Improvements</a></li>
+                        <li><a href="#summary">Summary</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter" type="button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share article" type="button">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+
+            <div class="cinematic-intro-card">
+                <p>"When people think about reducing AI latency, the first instinct is usually to buy bigger GPUs. But upgrading hardware rarely solves the biggest bottlenecks. Discover how rebuilding our serving architecture with semantic vector caching, dynamic continuous batching, and vLLM cut latency by 50%+ and reduced GPU costs by 40%."</p>
+            </div>
+
+<!-- SVG 1: Hero Inference Latency Breakdown -->
+<div class="svg-diagram-wrapper">
+    <svg class="svg-diagram" viewBox="0 0 880 200" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="10" width="860" height="180" rx="10" fill="var(--svg-canvas-bg)" stroke="var(--svg-card-border)" stroke-width="1.5"/>
+
+        <text x="440" y="35" fill="var(--svg-blue-text)" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">End-to-End AI Inference Pipeline Latency Breakdown</text>
+
+        <rect x="30" y="60" width="110" height="90" rx="6" fill="var(--svg-blue-bg)" stroke="var(--svg-blue-border)" stroke-width="1"/>
+        <text x="85" y="85" fill="var(--svg-blue-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">1. Request</text>
+        <text x="85" y="105" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Auth &amp; Validation</text>
+        <text x="85" y="125" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">~15ms</text>
+
+        <path d="M 140 105 L 175 105" stroke="var(--svg-blue-border)" stroke-width="2" class="animated-flow-line"/>
+
+        <rect x="175" y="60" width="130" height="90" rx="6" fill="var(--svg-purple-bg)" stroke="var(--svg-purple-border)" stroke-width="1"/>
+        <text x="240" y="85" fill="var(--svg-purple-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">2. Preprocessing</text>
+        <text x="240" y="105" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Embed &amp; Vector Search</text>
+        <text x="240" y="125" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">~65ms</text>
+
+        <path d="M 305 105 L 340 105" stroke="var(--svg-purple-border)" stroke-width="2" class="animated-flow-line"/>
+
+        <rect x="340" y="60" width="140" height="90" rx="6" fill="var(--svg-orange-bg)" stroke="var(--svg-orange-border)" stroke-width="1"/>
+        <text x="410" y="85" fill="var(--svg-orange-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">3. Semantic Cache</text>
+        <text x="410" y="105" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Similarity Lookup</text>
+        <text x="410" y="125" fill="var(--svg-orange-text)" font-family="monospace" font-size="9" text-anchor="middle">Hit: 12ms / Miss: Continue</text>
+
+        <path d="M 480 105 L 515 105" stroke="var(--svg-orange-border)" stroke-width="2" class="animated-flow-line"/>
+
+        <rect x="515" y="60" width="160" height="90" rx="6" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="1"/>
+        <text x="595" y="85" fill="var(--svg-green-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">4. vLLM Engine</text>
+        <text x="595" y="105" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Paged KV Cache Batch</text>
+        <text x="595" y="125" fill="var(--svg-green-text)" font-family="monospace" font-size="9" text-anchor="middle">TTFT: 780ms</text>
+
+        <path d="M 675 105 L 710 105" stroke="var(--svg-green-border)" stroke-width="2" class="animated-flow-line"/>
+
+        <rect x="710" y="60" width="140" height="90" rx="6" fill="var(--svg-red-bg)" stroke="var(--svg-red-border)" stroke-width="1"/>
+        <text x="780" y="85" fill="var(--svg-red-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">5. SSE Streaming</text>
+        <text x="780" y="105" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Token Generator</text>
+        <text x="780" y="125" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Instant UX</text>
+    </svg>
+</div>
+
+<section id="introduction">
+    <h2>Fast AI Isn't About Faster Models. It's About Smarter Systems.</h2>
+    <p>When people think about reducing AI latency, the first instinct is usually to buy bigger GPUs. Upgrade from an L4 to an A100. Add another inference server. Switch to a newer language model.</p>
+    <p>Those upgrades certainly help, but they rarely solve the biggest bottlenecks.</p>
+    <p>When we launched our AI-powered knowledge assistant, we assumed inference speed would be limited by the model itself. We were wrong.</p>
+    <p>Even though our GPUs were barely reaching 45% utilization, users were waiting nearly two seconds before seeing the first generated token. Requests piled up. Costs increased. Throughput remained disappointing.</p>
+    <p>After profiling the entire inference pipeline, we realized the model wasn't the problem: the surrounding infrastructure was.</p>
+    <p>Duplicate prompts were being recomputed thousands of times every day. GPU kernels were processing tiny batches instead of full workloads. Prompt preprocessing consumed more time than inference itself. Every request was treated as completely unique, even when users were asking nearly identical questions.</p>
+    <p>Instead of replacing the model, we rebuilt the serving architecture. The result was dramatic: average latency dropped by more than 50%, throughput nearly tripled, and infrastructure costs fell despite handling significantly more traffic.</p>
+    <p>This is how we optimized production AI inference using semantic caching, intelligent request batching, and vLLM.</p>
+</section>
+
+<section id="why-ai-feels-slow">
+    <h2>1. Why AI Feels Slow</h2>
+    <p>Most production inference pipelines spend surprisingly little time actually generating text. Instead, latency accumulates across multiple stages:</p>
+    <ul>
+        <li>Authentication &amp; Request validation</li>
+        <li>Prompt construction &amp; Embedding generation</li>
+        <li>Vector search &amp; Tokenization</li>
+        <li>GPU scheduling &amp; Model inference</li>
+        <li>Response formatting &amp; Network transmission</li>
+    </ul>
+    <p>Each stage adds milliseconds. Individually they seem insignificant. Together they determine how responsive the application feels. Reducing latency isn't about optimizing a single component: it's about removing unnecessary work throughout the entire pipeline.</p>
+</section>
+
+<section id="cost-of-repeated-questions">
+    <h2>2. The Cost of Repeated Questions</h2>
+    <p>One of the first patterns we noticed was surprisingly simple: users asked the same questions repeatedly.</p>
+    <p>Examples included: <em>"Summarize this contract."</em>, <em>"What are the payment terms?"</em>, <em>"List key risks."</em>, <em>"Explain this invoice."</em></p>
+    <p>Although the wording differed slightly, the intent was nearly identical. Our infrastructure treated every request as completely new. The same documents were embedded again, the same context was retrieved, the same prompts were sent to the language model, and the GPU generated nearly identical responses over and over again. We were wasting expensive compute on work we had already completed.</p>
+</section>
+
+<section id="semantic-caching">
+    <h2>3. Semantic Caching Instead of Exact Matching</h2>
+    <p>Traditional caches only work when requests are identical. AI applications rarely receive identical prompts. Instead, they receive semantically similar ones.</p>
+
+    <!-- SVG 2: Semantic Cache Architecture -->
+    <div class="svg-diagram-wrapper">
+        <svg class="svg-diagram" viewBox="0 0 880 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="860" height="180" rx="10" fill="var(--svg-canvas-bg)" stroke="var(--svg-card-border)" stroke-width="1.5"/>
+
+            <text x="440" y="35" fill="var(--svg-purple-text)" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Semantic Vector Caching vs. GPU Compute Flow</text>
+
+            <rect x="40" y="60" width="180" height="90" rx="6" fill="var(--svg-blue-bg)" stroke="var(--svg-blue-border)" stroke-width="1"/>
+            <text x="130" y="85" fill="var(--svg-blue-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">Incoming Prompt</text>
+            <text x="130" y="105" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Text Embedding</text>
+
+            <path d="M 220 105 L 280 105" stroke="var(--svg-blue-border)" stroke-width="2" class="animated-flow-line"/>
+
+            <rect x="280" y="60" width="220" height="90" rx="6" fill="var(--svg-purple-bg)" stroke="var(--svg-purple-border)" stroke-width="1.5"/>
+            <text x="390" y="85" fill="var(--svg-purple-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">🔍 Qdrant / Redis Vector Index</text>
+            <text x="390" y="105" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Cosine Similarity &gt; 0.92?</text>
+
+            <path d="M 500 80 L 580 60" stroke="var(--svg-green-border)" stroke-width="2" class="animated-flow-line"/>
+            <path d="M 500 130 L 580 150" stroke="var(--svg-red-border)" stroke-width="2" class="animated-flow-line"/>
+
+            <rect x="580" y="40" width="260" height="50" rx="6" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="1.5"/>
+            <text x="710" y="62" fill="var(--svg-green-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">⚡ CACHE HIT (12ms)</text>
+            <text x="710" y="78" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Instant Cached Response (Zero GPU)</text>
+
+            <rect x="580" y="130" width="260" height="50" rx="6" fill="var(--svg-red-bg)" stroke="var(--svg-red-border)" stroke-width="1.5"/>
+            <text x="710" y="152" fill="var(--svg-red-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">🐢 CACHE MISS</text>
+            <text x="710" y="168" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Pass to vLLM Continuous Batcher</text>
+        </svg>
+    </div>
+
+    <h3>Python Semantic Cache Blueprint</h3>
+    <div class="code-block">
+<pre><code class="language-python">import numpy as np
+from qdrant_client import QdrantClient
+from sentence_transformers import SentenceTransformer
+
+class SemanticCache:
+    def __init__(self, threshold: float = 0.92):
+        self.encoder = SentenceTransformer("all-MiniLM-L6-v2")
+        self.client = QdrantClient("http://localhost:6333")
+        self.threshold = threshold
+
+    async def get_response(self, prompt: str) -> str | None:
+        vector = self.encoder.encode(prompt).tolist()
+        results = self.client.search(
+            collection_name="semantic_cache",
+            query_vector=vector,
+            limit=1,
+            score_threshold=self.threshold
+        )
+        if results:
+            return results[0].payload["response"]
+        return None</code></pre>
+    </div>
+</section>
+
+<section id="smarter-request-batching">
+    <h2>4. Smarter Request Batching</h2>
+    <p>GPUs perform best when processing many requests simultaneously. Unfortunately, most inference servers execute requests one at a time as they arrive. Small batches waste GPU resources, while large batches increase waiting time. Finding the right balance is critical.</p>
+    <p>Instead of immediately executing every incoming request, we introduced dynamic batching. Requests arriving within a very small scheduling window were grouped together before inference. Rather than serving one request at a time, the GPU processed dozens simultaneously.</p>
+    <p>The improvement wasn't linear: GPU utilization increased significantly while average latency actually decreased because hardware resources were finally being used efficiently.</p>
+</section>
+
+<section id="switch-to-vllm">
+    <h2>5. Why We Switched to vLLM</h2>
+    <p>Initially we served models using standard Hugging Face inference pipelines. They worked well for development but became increasingly inefficient under production traffic: memory fragmentation increased over time, prompt processing duplicated work, and GPU utilization remained inconsistent.</p>
+
+
+
+    <h3>Async vLLM Integration Blueprint</h3>
+    <div class="code-block">
+<pre><code class="language-python">from vllm import AsyncLLMEngine, AsyncEngineArgs, SamplingParams
+
+engine_args = AsyncEngineArgs(
+    model="meta-llama/Meta-Llama-3-70B-Instruct",
+    tensor_parallel_size=2,
+    gpu_memory_utilization=0.90,
+    max_num_seqs=256,
+    enable_prefix_caching=True  # Automatic KV cache reuse
+)
+engine = AsyncLLMEngine.from_engine_args(engine_args)
+
+async def generate_stream(prompt: str, request_id: str):
+    sampling_params = SamplingParams(temperature=0.7, max_tokens=512)
+    results_generator = engine.generate(prompt, sampling_params, request_id)
+    async for request_output in results_generator:
+        yield request_output.outputs[0].text</code></pre>
+    </div>
+</section>
+
+<section id="optimizing-kv-cache">
+    <h2>6. Optimizing the KV Cache</h2>
+    <p>One overlooked source of latency is repeatedly recomputing attention states for long prompts. Every generated token depends on previously processed tokens. Without an efficient KV cache, the model performs unnecessary calculations repeatedly.</p>
+    <p>Modern inference engines store these intermediate attention values in GPU memory. When prompts share common prefixes or conversations continue across multiple turns, previously computed states can be reused instead of recalculated.</p>
+    <p>Reducing redundant computation became especially valuable for document chat applications where users often asked multiple follow-up questions about the same context.</p>
+</section>
+
+<section id="streaming-responses">
+    <h2>7. Streaming Responses Earlier</h2>
+    <p>Users care less about total completion time than they do about how quickly something appears on the screen. Waiting two seconds before the first generated token feels slow. Waiting 200 milliseconds before streaming begins feels almost instant, even if the final response still takes several seconds.</p>
+    <p>Instead of waiting for complete generations, we streamed tokens as soon as they became available. Time-to-first-token became one of our primary optimization metrics. Perceived performance improved dramatically even though total inference time changed only slightly.</p>
+</section>
+
+<section id="eliminating-bottlenecks">
+    <h2>8. Eliminating Bottlenecks Outside the Model</h2>
+    <p>Profiling revealed that many slow requests had nothing to do with inference. Some common bottlenecks included:</p>
+    <ul>
+        <li>Slow database queries</li>
+        <li>Excessive prompt formatting</li>
+        <li>Repeated embedding generation</li>
+        <li>Large document serialization</li>
+        <li>Inefficient network calls &amp; Blocking API endpoints</li>
+    </ul>
+    <p>Improving these components often produced larger latency reductions than optimizing the language model itself. One optimized SQL query sometimes saved more time than upgrading GPU hardware.</p>
+</section>
+
+<section id="measuring-what-matters">
+    <h2>9. Measuring What Actually Matters</h2>
+    <p>Average latency alone doesn't tell the whole story. We focused on several key production metrics: Time to First Token (TTFT), Tokens Generated per Second, GPU Utilization, Queue Wait Time, Batch Size, Cache Hit Rate, Memory Utilization, and Concurrent Requests.</p>
+    <p>Tracking these metrics revealed optimization opportunities that would have remained invisible if we only monitored average response times.</p>
+</section>
+
+<section id="lessons-learned">
+    <h2>10. Lessons from Production</h2>
+    <p>The biggest surprise wasn't that GPUs were expensive: it was how much performance we were leaving unused. The language model wasn't inherently slow, our serving architecture was inefficient.</p>
+    <p>Semantic caching eliminated redundant inference, dynamic batching maximized GPU throughput, vLLM reduced memory overhead, and streaming improved perceived responsiveness. Together, these changes transformed the user experience without requiring larger models or dramatically increasing infrastructure costs.</p>
+</section>
+
+<section id="performance-improvements">
+    <h2>Performance Improvements</h2>
+    <p>After rebuilding the inference pipeline, production metrics improved significantly:</p>
+
+    <div class="table-responsive">
+        <table class="benchmark-table">
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Before Optimization</th>
+                    <th>After Optimization</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Time to First Token (TTFT)</strong></td>
+                    <td>1.9 s</td>
+                    <td>780 ms (&gt;58% Faster)</td>
+                </tr>
+                <tr>
+                    <td><strong>Average Response Latency</strong></td>
+                    <td>3.6 s</td>
+                    <td>1.7 s (&gt;52% Reduction)</td>
+                </tr>
+                <tr>
+                    <td><strong>GPU Utilization</strong></td>
+                    <td>46%</td>
+                    <td>89% (Optimal Scaling)</td>
+                </tr>
+                <tr>
+                    <td><strong>Requests per Second (RPS)</strong></td>
+                    <td>34</td>
+                    <td>97 (&gt;2.8x Throughput)</td>
+                </tr>
+                <tr>
+                    <td><strong>Cache Hit Rate</strong></td>
+                    <td>0%</td>
+                    <td>43% (Semantic Match)</td>
+                </tr>
+                <tr>
+                    <td><strong>Monthly GPU Cost per 1M Requests</strong></td>
+                    <td>$1,120</td>
+                    <td>$670 (40% Cost Savings)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section id="summary">
+    <h2>Summary</h2>
+    <p>Fast AI systems aren't built by deploying larger models. They're built by eliminating unnecessary computation. The biggest lessons we learned were straightforward:</p>
+
+
+
+    <ul>
+        <li><strong>Measure the entire inference pipeline:</strong> Optimize prompt preprocessing and database calls alongside model execution.</li>
+        <li><strong>Use semantic caching:</strong> Eliminate redundant inference by matching prompt vectors against previous cached queries.</li>
+        <li><strong>Batch requests intelligently:</strong> Maximize GPU utilization using dynamic continuous batching without increasing latency.</li>
+        <li><strong>Adopt optimized engines like vLLM:</strong> Utilize PagedAttention to eliminate memory fragmentation and unlock 3x higher concurrency.</li>
+    </ul>
+</section>
+
+            <div class="tags-container" id="dynamic-tags"></div>
+            <hr class="divider" />
+            <section class="related-articles" id="related-series">
+                <h2 class="series-title">Article Series</h2>
+                <a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+                <div id="related-posts-container"></div>
+            </section>
+        </main>
+        <div class="newsletter-section">
+            <div class="newsletter-content">
+                <h3>Subscribe to our newsletter</h3>
+                <p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+                <p>Subscribe to the newsletter, and don't miss out.</p>
+                <div class="newsletter-form">
+                    <input class="newsletter-input" placeholder="Enter your email address" type="email" />
+                    <button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../../assets/js/each-post.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="../../assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/shared-bottom-nav.js"></script>
+</body>
+</html>

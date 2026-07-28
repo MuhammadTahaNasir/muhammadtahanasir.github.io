@@ -1,286 +1,526 @@
 <!DOCTYPE html>
-
 <html dir="auto" lang="en">
 <head>
-<link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
-<link href="/assets/images/favicon.ico" rel="shortcut icon"/>
-<link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
-<meta content="Terry" name="apple-mobile-web-app-title"/>
-<link href="/assets/images/site.webmanifest" rel="manifest"/>
-<meta charset="utf-8"/>
-<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
-<meta content="noindex, nofollow" name="robots"/>
-<meta content="How to fine-tune Large Language Models using Parameter-Efficient Fine-Tuning (PEFT) and LoRA on AWS instances." name="description"/>
-<meta content="Muhammad Taha Nasir" name="author"/>
-<meta content="Machine Learning, Cloud Architecture" name="tags"/>
-<meta content="/assets/images/posts/finetuning-lora.png" name="thumbnail"/>
-<title>Training LLMs Without Going Broke: A Deep Dive into LoRA on AWS</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
-<link href="../../assets/css/each-post.css" rel="stylesheet"/>
-<link href="../../assets/css/bottom-nav.css" rel="stylesheet"/>
-<!-- Prism.js Okaidia High Contrast Theme -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/>
-<style>
-        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>');
+    })();
+  </script>
+    <link href="/assets/images/favicon-96x96.png?v=5" rel="icon" sizes="96x96" type="image/png" />
+    <link href="/assets/images/favicon.ico?v=5" rel="shortcut icon" />
+    <link href="/assets/images/apple-touch-icon.png?v=5" rel="apple-touch-icon" sizes="180x180" />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta content="Mastering Parameter-Efficient Fine-Tuning (PEFT) and LoRA/QLoRA on AWS SageMaker without blowing cloud budgets." name="description" />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="LLM Fine-Tuning, LoRA, PEFT, PyTorch, AWS" name="tags" />
+    <meta name="thumbnail" content="/assets/images/posts/finetuning-lora.png" />
+    <title>Training LLMs Without Going Broke: LoRA &amp; PEFT Fine-Tuning on AWS</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/stylesheet.css" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}
         .loader.hidden{opacity:0;visibility:hidden}
-        /* Force code blocks to be bright and override any dim CSS from each-post.css */
-        .code-block pre {
-            opacity: 1 !important;
-            color: #f8f8f2 !important;
-            text-shadow: 0 1px rgba(0, 0, 0, 0.3) !important;
+        .code-block { position: relative; margin: 25px 0; border-radius: 10px; background: #0d1117 !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; overflow: hidden; }
+        .code-block pre, .code-block pre[class*="language-"] { background: #0d1117 !important; color: #e6edf3 !important; text-shadow: none !important; padding: 20px 22px !important; margin: 0 !important; font-family: "SF Mono", "Fira Code", monospace !important; font-size: 0.94rem !important; line-height: 1.6 !important; border-radius: 10px !important; }
+        .code-block code { opacity: 1 !important; color: #e6edf3 !important; background: transparent !important; text-shadow: none !important; }
+        
+
+        .cinematic-intro-card {
+            background: var(--entry);
+            border-left: 4px solid var(--accent);
+            border-top: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            border-radius: 0 12px 12px 0;
+            padding: 24px 28px;
+            margin: 25px 0 35px 0;
+            box-shadow: var(--shadow-medium);
         }
-        .code-block code {
-            opacity: 1 !important;
-            color: inherit !important;
+        .cinematic-intro-card p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            color: var(--primary);
+        }
+        .cinematic-intro-card p:last-child {
+            margin-bottom: 0;
+        }
+        .hero-banner-img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            margin: 20px 0 30px 0;
+            border-radius: 12px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--border);
+            display: block;
+        }
+        .svg-diagram-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; background: var(--entry) !important; border: 1px solid var(--border) !important; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-small); transition: background 0.3s ease, border-color 0.3s ease; }
+        .svg-diagram {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .hero-banner-img { margin: 15px 0 20px 0; }
+            .cinematic-intro-card { padding: 18px 20px; margin: 20px 0 25px 0; }
+            .cinematic-intro-card p { font-size: 0.98rem; line-height: 1.6; margin-bottom: 10px; }
+        }
+        @media (max-width: 480px) {
+            .hero-banner-img { border-radius: 8px; }
+            .cinematic-intro-card { padding: 14px 16px; border-left-width: 3px; }
         }
     </style>
-<script>
-        // Apply theme immediately on page load
-        (function () {
-            const savedTheme = localStorage.getItem('pref-theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
-        })();
-    </script>
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="../../assets/js/bg-canvas.js"></script>
 </head>
-<body class="dark" id="top" post-date="2025-12-05">
-<!-- Loader Animation -->
-<div aria-hidden="true" class="loader" id="loader">
-<div class="terry-animation">
-<span class="letter">t</span>
-<span class="letter">e</span>
-<span class="letter">r</span>
-<span class="letter">r</span>
-<span class="letter">y</span>
-</div>
-</div>
-<header class="header">
-<nav class="nav">
-<!-- Left: Logo -->
-<div class="nav-left">
-<a class="logo" href="/index.html">&lt;terry/&gt;</a>
-</div>
-<!-- Center: Pills Navigation -->
-<div class="nav-center">
-<div class="pill-nav">
-<a href="/projects.html">Projects</a>
-<a href="/archives.html">Archives</a>
-<a href="/resume.html">Resume</a>
-<a href="/search.html">Search</a>
-</div>
-</div>
-<!-- Right: Theme toggle -->
-<div class="nav-right">
-<button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
-<svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<circle cx="12" cy="12" r="5"></circle>
-<line x1="12" x2="12" y1="1" y2="3"></line>
-<line x1="12" x2="12" y1="21" y2="23"></line>
-<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
-<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
-<line x1="1" x2="3" y1="12" y2="12"></line>
-<line x1="21" x2="23" y1="12" y2="12"></line>
-<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
-<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
-</svg>
-<svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-</svg>
-</button>
-</div>
-</nav>
-</header>
-<div class="container">
-<nav class="breadcrumb">
-<a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
-</nav>
-<main class="post-content">
-<header class="post-header">
-<h1 class="post-title">Training LLMs Without Going Broke: A Deep Dive into LoRA on AWS</h1>
-<div class="post-meta">December 5, 2025 • 4 min • Muhammad Taha Nasir</div>
-</header>
-<img alt="Training LLMs Without Going Broke: A Deep Dive into LoRA on AWS" src="/assets/images/posts/finetuning-lora.png" style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;"/>
-<aside class="table-of-contents">
-<details>
-<summary>Table of Contents</summary>
-<ul>
-<li><a href="#prompting-wall">Hitting the Prompting Wall</a></li>
-<li><a href="#full-finetuning">The Cost of Full Fine-Tuning</a></li>
-<li><a href="#lora-math">The Math Behind LoRA</a></li>
-<li><a href="#aws-environment">Provisioning the AWS Environment</a></li>
-<li><a href="#data-prep">Data Preparation and JSONL</a></li>
-<li><a href="#training-script">The Training Script</a></li>
-<li><a href="#merging-weights">Merging and Deployment</a></li>
-</ul>
-</details>
-</aside>
-<!-- Social Sharing Floating Toolbar -->
-<div class="social-sharing-toolbar">
-<button class="social-btn subscribe-btn" title="Subscribe to newsletter">
-<i class="fas fa-envelope"></i>
-</button>
-<button class="social-btn share-btn" title="Share">
-<i class="fas fa-share-alt"></i>
-</button>
-</div>
-<section id="prompting-wall">
-<h2>Hitting the Prompting Wall</h2>
-<p>Everyone starts with prompt engineering. It is fast, easy, and requires zero infrastructure. But eventually, you hit a wall. I was trying to make an open-source 7B model generate specific SQL queries based on a massive, highly convoluted legacy database schema for a client project.</p>
-<p>I wrote massive system prompts detailing all the table relationships, foreign keys, and edge cases. I filled the context window to the brim. The result? The model kept forgetting the rules midway through the generation. It would hallucinate table names or invent columns that didn't exist. Prompt engineering was fundamentally the wrong tool for the job. I needed to actually bake the knowledge directly into the neural network's weights.</p>
+<body id="top" post-date="2025-12-01T00:00:00Z">
+    <div aria-hidden="true" class="loader" id="loader">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+        <!-- ---------- Header Navigation ---------- -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+    <div class="container">
+        <nav class="breadcrumb">
+      <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a> » <span class="breadcrumb-current">Training LLMs Without Going Broke: LoRA &amp; PEFT Fine-Tuning on AWS</span>
+    </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">Training LLMs Without Going Broke: LoRA &amp; PEFT Fine-Tuning on AWS</h1>
+                <div class="post-meta">December 1, 2025 • 5 min • Muhammad Taha Nasir</div>
+            </header>
+            <img alt="Training LLMs Without Going Broke: LoRA &amp; PEFT Fine-Tuning on AWS" class="hero-banner-img" src="/assets/images/posts/finetuning-lora.png"/>
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#introduction">Introduction &amp; The Full Fine-Tuning Budget Trap</a></li>
+                        <li><a href="#vram-math-lora-qlora">The VRAM Math: Why Full Fine-Tuning Kills Budgets</a></li>
+                        <li><a href="#aws-cost-optimization-blueprint">AWS Cost Optimization Blueprint</a></li>
+                        <li><a href="#implementation-code">Implementation Code: QLoRA Fine-Tuning Job Script</a></li>
+                        <li><a href="#cost-performance-benchmark">Cost &amp; Performance Benchmark Matrix</a></li>
+                        <li><a href="#summary-checklist">Summary Checklist for AWS Fine-Tuning</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter" type="button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share article" type="button">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+
+            <div class="cinematic-intro-card">
+                <p>"How parameter-efficient fine-tuning (LoRA/QLoRA) on AWS SageMaker Managed Spot Instances reduces model training costs by over 95% while keeping model intelligence intact."</p>
+            </div>
+
+<section id="introduction">
+    <h2>Introduction &amp; The Full Fine-Tuning Budget Trap</h2>
+    <p>In the early days of LLM adaptation, fine-tuning an 8B or 70B parameter model meant updating every single weight in the network. For enterprise engineering teams, full fine-tuning (FFT) on AWS quickly became a black hole for cloud budgets: provision a multi-node cluster of p4d.24xlarge or p5.48xlarge instances, run them for days, and watch your AWS invoice cross five figures per run.</p>
+    
+    <p>By late 2025, Parameter-Efficient Fine-Tuning (PEFT) techniques, specifically LoRA (Low-Rank Adaptation) and QLoRA (Quantized LoRA), have completely inverted the cost curve. By freezing 99%+ of the base model weights and training low-rank adapter matrices, you can fine-tune frontier open-weight models (such as Llama 3.1 8B, Qwen 2.5, or Mistral) on a single AWS GPU instance for under $20.</p>
+
+    <p>This post provides a technical deep-dive into the math behind LoRA/QLoRA, an AWS cost-optimization architecture, and a production SageMaker script to adapt models without draining your team's budget.</p>
 </section>
-<section id="full-finetuning">
-<h2>The Cost of Full Fine-Tuning</h2>
-<p>The traditional way to teach a model new tricks is full fine-tuning. You take the pre-trained model, feed it your dataset, and update every single parameter in the network through backpropagation. For a 7-billion parameter model, updating all 7 billion weights requires astronomical amounts of VRAM.</p>
-<p>You would need a cluster of high-end NVIDIA A100 or H100 GPUs. Renting those costs hundreds of dollars a day. I am an independent developer on a strict budget. Full fine-tuning was entirely out of the question.</p>
+
+<section id="vram-math-lora-qlora">
+    <h2>The VRAM Math: Why Full Fine-Tuning Kills Budgets</h2>
+    <p>To understand why full fine-tuning is so expensive on AWS, look at the memory state required during backpropagation.</p>
+
+    <p>For a model with N parameters in 16-bit precision (FP16/BF16):</p>
+
+    <div class="code-block">
+<pre><code class="language-text">Memory_FFT ≈ Weights (2N) + Gradients (2N) + AdamW Optimizer (12N) + Activation Memory</code></pre>
+    </div>
+
+    <p>For an 8 Billion parameter model (N = 8 × 10<sup>9</sup>):</p>
+    <ul>
+        <li><strong>Model Weights:</strong> ~16 GB</li>
+        <li><strong>Gradients:</strong> ~16 GB</li>
+        <li><strong>Optimizer States (AdamW):</strong> ~96 GB</li>
+        <li><strong>Total Baseline Memory:</strong> ~128 GB VRAM (excluding activation memory and KV cache)</li>
+    </ul>
+
+    <p>An 8B model cannot even fit on a single NVIDIA A100 (80GB) or H100 (80GB) for full fine-tuning without model parallelism across multiple GPUs.</p>
+
+    <h3>The LoRA &amp; QLoRA Memory Advantage</h3>
+    <p>LoRA freezes the original model weights (W<sub>0</sub>) and injects trainable rank decomposition matrices:</p>
+
+    <div class="code-block">
+<pre><code class="language-text">W = W0 + ΔW = W0 + (α / r) * (B · A)</code></pre>
+    </div>
+
+    <p>Where A ∈ R<sup>r×k</sup> and B ∈ R<sup>d×r</sup>, with rank r ≪ min(d, k).</p>
+
+    <p>When target linear layers (e.g., q, k, v, o projection matrices) are adapted with rank r=16, trainable parameters drop from 8 Billion down to ~10–30 Million (&lt;0.2% of total weights).</p>
+
+    <div class="svg-diagram-wrapper">
+        <svg class="svg-diagram" viewBox="0 0 880 260" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="860" height="240" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+
+            <!-- Input Vector x -->
+            <rect x="30" y="80" width="50" height="100" rx="6" fill="var(--svg-card-bg)" stroke="var(--svg-blue-border)" stroke-width="1.5"/>
+            <text x="55" y="135" fill="var(--svg-blue-text)" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">x</text>
+            <text x="55" y="155" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">d × 1</text>
+
+            <path d="M 90 130 L 120 130" stroke="#f8fafc" stroke-width="2"/>
+
+            <!-- Frozen Base Weight Matrix W0 -->
+            <rect x="130" y="45" width="170" height="170" rx="8" fill="var(--svg-blue-bg)" stroke="#64748b" stroke-width="2" stroke-dasharray="4"/>
+            <text x="215" y="115" fill="var(--svg-text-main)" font-family="monospace" font-size="18" font-weight="bold" text-anchor="middle">W₀</text>
+            <text x="215" y="140" fill="var(--svg-text-muted)" font-family="monospace" font-size="11" text-anchor="middle">d × k (4096 × 4096)</text>
+            <rect x="175" y="160" width="80" height="22" rx="4" fill="#334155"/>
+            <text x="215" y="175" fill="var(--svg-text-muted)" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">🔒 Frozen Base</text>
+
+            <!-- Plus Sign -->
+            <text x="325" y="138" fill="var(--svg-text-main)" font-family="sans-serif" font-size="28" font-weight="bold" text-anchor="middle">+</text>
+
+            <!-- Matrix A (r x k) -->
+            <rect x="355" y="115" width="130" height="30" rx="4" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="1.5"/>
+            <text x="420" y="135" fill="var(--svg-green-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">Matrix A (r × k)</text>
+
+            <!-- Multiply Sign -->
+            <text x="500" y="138" fill="var(--svg-text-main)" font-family="sans-serif" font-size="20" font-weight="bold" text-anchor="middle">×</text>
+
+            <!-- Matrix B (d x r) -->
+            <rect x="520" y="55" width="40" height="150" rx="4" fill="var(--svg-red-bg)" stroke="var(--svg-red-border)" stroke-width="1.5"/>
+            <text x="540" y="125" fill="var(--svg-text-muted)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle" transform="rotate(-90 540 125)">Matrix B (d × r)</text>
+
+            <!-- Scaling Factor alpha / r -->
+            <rect x="580" y="115" width="65" height="30" rx="4" fill="#4c1d95" stroke="var(--svg-purple-border)" stroke-width="1.5"/>
+            <text x="612" y="135" fill="var(--svg-purple-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">α / r</text>
+
+            <!-- Equals Sign -->
+            <text x="665" y="138" fill="var(--svg-text-main)" font-family="sans-serif" font-size="28" font-weight="bold" text-anchor="middle">=</text>
+
+            <!-- Output h = W0 x + (alpha/r) B A x -->
+            <rect x="690" y="70" width="160" height="120" rx="8" fill="var(--svg-green-text)" fill-opacity="0.1" stroke="var(--svg-green-border)" stroke-width="2"/>
+            <text x="770" y="110" fill="var(--svg-text-main)" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">h = W₀x + ΔWx</text>
+            <text x="770" y="135" fill="var(--svg-green-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">Trainable: &lt; 0.2%</text>
+            <text x="770" y="155" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">99.8% VRAM Saved!</text>
+        </svg>
+    </div>
 </section>
-<section id="lora-math">
-<h2>The Math Behind LoRA</h2>
-<p>This is where Parameter-Efficient Fine-Tuning (PEFT) comes in, specifically a technique called LoRA (Low-Rank Adaptation). LoRA relies on a brilliant mathematical insight regarding matrix operations.</p>
-<p>Instead of updating all the billions of original weights, LoRA freezes the entire base model. It then injects tiny, trainable "adapter" matrices into the model's attention layers. Because these new matrices are low-rank, they contain a drastically smaller number of parameters—often less than 1 percent of the total model size.</p>
-<p>When you combine LoRA with 4-bit weight quantization (creating QLoRA), you can suddenly fine-tune a massive 7B model on a single, affordable GPU with just 24GB of VRAM.</p>
+
+<section id="aws-cost-optimization-blueprint">
+    <h2>AWS Cost Optimization Blueprint</h2>
+    <p>Fine-tuning on AWS requires pairing the right hardware instance with native AWS cost control features:</p>
+
+    <div class="svg-diagram-wrapper">
+        <svg class="svg-diagram" viewBox="0 0 850 240" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="20" width="810" height="200" rx="10" fill="#161b22" stroke="#3b82f6" stroke-width="2"/>
+            <text x="425" y="48" fill="var(--svg-text-main)" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">AWS SageMaker Managed Training Job</text>
+
+            <rect x="50" y="70" width="220" height="60" rx="6" fill="var(--svg-card-bg)" stroke="var(--svg-blue-border)" stroke-width="1.5"/>
+            <text x="160" y="95" fill="var(--svg-blue-text)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">Amazon S3 Dataset</text>
+            <text x="160" y="115" fill="var(--svg-text-muted)" font-family="monospace" font-size="10" text-anchor="middle">JSONL / ChatML Format</text>
+
+            <path d="M 270 100 L 330 100" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
+
+            <rect x="340" y="70" width="230" height="120" rx="6" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="1.5"/>
+            <text x="455" y="95" fill="var(--svg-green-text)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">SageMaker Spot Instance</text>
+            <text x="455" y="115" fill="var(--svg-green-text)" font-family="monospace" font-size="11" text-anchor="middle">g5.2xlarge (1x A10G 24GB)</text>
+            <text x="455" y="140" fill="var(--svg-green-text)" font-family="monospace" font-size="10" text-anchor="middle">4-bit NF4 Base + LoRA</text>
+            <text x="455" y="160" fill="var(--svg-orange-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">60–90% Cost Discount</text>
+
+            <path d="M 570 130 L 630 130" stroke="var(--svg-green-border)" stroke-width="2" marker-end="url(#arrow)"/>
+
+            <rect x="640" y="70" width="160" height="120" rx="6" fill="var(--svg-red-bg)" stroke="var(--svg-red-border)" stroke-width="1.5"/>
+            <text x="720" y="95" fill="var(--svg-red-text)" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">S3 Checkpoints</text>
+            <text x="720" y="120" fill="var(--svg-text-muted)" font-family="monospace" font-size="10" text-anchor="middle">Save Adapters</text>
+            <text x="720" y="140" fill="var(--svg-text-muted)" font-family="monospace" font-size="10" text-anchor="middle">Every 100 Steps</text>
+            <text x="720" y="165" fill="var(--svg-red-text)" font-family="monospace" font-size="9" text-anchor="middle">Auto-Resume Ready</text>
+        </svg>
+    </div>
+
+    <h3>Key AWS Cost Levers</h3>
+    <ul>
+        <li>
+            <strong>SageMaker Managed Spot Training:</strong> AWS SageMaker allows you to leverage spare EC2 capacity for up to 60–90% cost savings compared to On-Demand rates. Because LoRA jobs write small adapter checkpoints every few hundred steps, Spot interruptions incur negligible lost work.
+        </li>
+        <li>
+            <strong>Right-Sizing Instance Families:</strong>
+            <ul>
+                <li><code>g5.2xlarge</code> (1x NVIDIA A10G 24GB): Perfect for QLoRA fine-tuning 8B models.</li>
+                <li><code>g5.12xlarge</code> (4x NVIDIA A10G 96GB VRAM total): Great for multi-GPU QLoRA on 32B/70B models using FSDP + PEFT.</li>
+                <li><code>trn1.2xlarge</code> (AWS Trainium): Up to 50% lower training cost for supported PyTorch Hugging Face workloads.</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Fast File Mode Staging:</strong> Streaming datasets directly from S3 using Fast File Mode eliminates long container initialization times and disk pre-allocation costs.
+        </li>
+    </ul>
 </section>
-<section id="aws-environment">
-<h2>Provisioning the AWS Environment</h2>
-<p>I spun up a `g5.2xlarge` instance on AWS EC2. This instance provides a single NVIDIA A10G GPU with 24GB of VRAM, which is the perfect sweet spot for QLoRA. It costs slightly over a dollar an hour.</p>
-<p>Setting up the CUDA drivers and the PyTorch environment from scratch is usually a nightmare of version conflicts. I bypassed this by using a Deep Learning AMI (Amazon Machine Image) which came pre-installed with the correct NVIDIA drivers and PyTorch bindings.</p>
-</section>
-<section id="data-prep">
-<h2>Data Preparation and JSONL</h2>
-<p>Data quality dictates everything in fine-tuning. I spent hours manually formatting a dataset of 500 perfect text-to-SQL examples. I structured them into a JSONL (JSON Lines) file, where each line contained an instruction, the input schema context, and the ideal SQL output.</p>
-<p>If your dataset contains lazy answers or formatting errors, the model will aggressively learn to replicate those errors. Garbage in, absolute garbage out.</p>
-</section>
-<section id="training-script">
-<h2>The Training Script</h2>
-<p>Using the Hugging Face `transformers` and `peft` libraries, the actual training code is surprisingly compact. Here is the core logic I used to configure the LoRA adapters and launch the trainer.</p>
-<div class="code-block">
-<button class="copy-btn">Copy</button>
-<pre class="language-python" data-lang="Python"><code>
+
+<section id="implementation-code">
+    <h2>Implementation Code: QLoRA Fine-Tuning Job Script</h2>
+    <p>Below is a production-ready PyTorch / Hugging Face script (<code>train.py</code>) designed to run inside an AWS SageMaker Hugging Face Estimator container:</p>
+
+    <div class="code-block">
+
+<pre><code class="language-python">import os
 import torch
-from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
-from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments
-from trl import SFTTrainer
 from datasets import load_dataset
-
-# 1. Load the base model in 4-bit precision to fit in 24GB VRAM
-model_id = "mistralai/Mistral-7B-v0.1"
-model = AutoModelForCausalLM.from_pretrained(
-    model_id, 
-    load_in_4bit=True, 
-    device_map="auto",
-    torch_dtype=torch.float16
+from transformers import (
+    AutoModelForCausalLM,
+    AutoTokenizer,
+    BitsAndBytesConfig,
+    TrainingArguments,
 )
-tokenizer = AutoTokenizer.from_pretrained(model_id)
-tokenizer.pad_token = tokenizer.eos_token
+from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
+from trl import SFTTrainer
 
-# 2. Prepare for QLoRA
-model = prepare_model_for_kbit_training(model)
+def train():
+    model_id = os.environ.get("MODEL_ID", "meta-llama/Meta-Llama-3.1-8B-Instruct")
+    dataset_path = os.environ.get("SM_CHANNEL_TRAIN", "/opt/ml/input/data/train")
+    output_dir = os.environ.get("SM_MODEL_DIR", "/opt/ml/model")
 
-# 3. Define the LoRA Configuration
-lora_config = LoraConfig(
-    r=16,               # Rank of the adapter matrices (higher = more capacity)
-    lora_alpha=32,      # Scaling factor
-    target_modules=["q_proj", "v_proj", "k_proj", "o_proj"], # Inject into attention layers
-    lora_dropout=0.05,
-    bias="none",
-    task_type="CAUSAL_LM"
-)
+    # 1. Configure 4-bit Quantization (QLoRA)
+    bnb_config = BitsAndBytesConfig(
+        load_in_4bit=True,
+        bnb_4bit_quant_type="nf4",
+        bnb_4bit_compute_dtype=torch.bfloat16,
+        bnb_4bit_use_double_quant=True,
+    )
 
-# 4. Wrap the model with the adapters
-peft_model = get_peft_model(model, lora_config)
-peft_model.print_trainable_parameters()
-# Output: trainable params: 13,631,488 || all params: 7,255,363,584 || trainable%: 0.18%
+    # 2. Load Base Model
+    tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
+    tokenizer.pad_token = tokenizer.eos_token
 
-# 5. Define Training Arguments
-training_args = TrainingArguments(
-    output_dir="./lora-sql-results",
-    per_device_train_batch_size=4,
-    gradient_accumulation_steps=4,
-    optim="paged_adamw_32bit",
-    learning_rate=2e-4,
-    num_train_epochs=3,
-    logging_steps=10,
-    fp16=True
-)
+    model = AutoModelForCausalLM.from_pretrained(
+        model_id,
+        quantization_config=bnb_config,
+        device_map="auto",
+        torch_dtype=torch.bfloat16,
+    )
+    model = prepare_model_for_kbit_training(model)
 
-# 6. Initialize and run the trainer
-dataset = load_dataset("json", data_files="sql_training_data.jsonl", split="train")
+    # 3. Configure LoRA Adapter Target Modules
+    peft_config = LoraConfig(
+        r=16,
+        lora_alpha=32,
+        lora_dropout=0.05,
+        bias="none",
+        task_type="CAUSAL_LM",
+        target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+    )
 
-trainer = SFTTrainer(
-    model=peft_model,
-    train_dataset=dataset,
-    peft_config=lora_config,
-    dataset_text_field="text",
-    max_seq_length=512,
-    args=training_args
-)
+    # 4. Define Training Arguments for SageMaker Spot
+    training_args = TrainingArguments(
+        output_dir="/opt/ml/checkpoints",
+        per_device_train_batch_size=2,
+        gradient_accumulation_steps=4,
+        learning_rate=2e-4,
+        logging_steps=10,
+        num_train_epochs=1,
+        fp16=False,
+        bf16=True,
+        max_grad_norm=0.3,
+        warmup_ratio=0.03,
+        lr_scheduler_type="cosine",
+        save_strategy="steps",
+        save_steps=100,
+        save_total_limit=2,
+    )
 
-print("Starting training...")
-trainer.train()
-                    </code></pre>
-</div>
+    # 5. Load Dataset and Launch SFTTrainer
+    dataset = load_dataset("json", data_files=f"{dataset_path}/train.jsonl", split="train")
+
+    trainer = SFTTrainer(
+        model=model,
+        train_dataset=dataset,
+        peft_config=peft_config,
+        dataset_text_field="text",
+        max_seq_length=2048,
+        tokenizer=tokenizer,
+        args=training_args,
+    )
+
+    # 6. Run Training & Save ONLY Adapters to SageMaker Output
+    trainer.train()
+    trainer.model.save_pretrained(output_dir)
+    tokenizer.save_pretrained(output_dir)
+
+if __name__ == "__main__":
+    train()
+</code></pre>
+    </div>
 </section>
-<section id="merging-weights">
-<h2>Merging and Deployment</h2>
-<p>Notice that print statement output in the code: I was only training 0.18 percent of the total model parameters. Because of this, the entire training process took just 3 hours on the EC2 instance, costing me roughly 4 dollars total.</p>
-<p>Once the training finished, the output wasn't a full model, but rather a tiny adapter folder containing the updated weights. To deploy it, I wrote a script to merge these LoRA weights back into the original 7B base model, exporting a final, unified model.</p>
-<p>The resulting model understood my client's chaotic database schema flawlessly. Fine-tuning used to be reserved for massive tech companies. QLoRA completely democratized it. If you haven't trained a custom adapter yet, you are missing out on the most powerful tool in modern AI engineering.</p>
+
+<section id="cost-performance-benchmark">
+    <h2>Cost &amp; Performance Benchmark Matrix</h2>
+    <p>The table below summarizes estimated AWS training costs for fine-tuning an 8B model across 2,000 instruction-following samples (1 Epoch, context length 2048):</p>
+
+    <div class="table-responsive">
+<table class="benchmark-table">
+        <thead>
+            <tr>
+                <th>Training Strategy</th>
+                <th>AWS Instance Type</th>
+                <th>VRAM Needed</th>
+                <th>Training Time</th>
+                <th>Estimated Cost (On-Demand)</th>
+                <th>Estimated Cost (Managed Spot)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Full Fine-Tuning (FFT)</td>
+                <td>p4d.24xlarge (8x A100 40GB)</td>
+                <td>~320 GB</td>
+                <td>18 mins</td>
+                <td>~$10.00</td>
+                <td>N/A (High Preemption Risk)</td>
+            </tr>
+            <tr>
+                <td>Standard LoRA (16-bit)</td>
+                <td>g5.2xlarge (1x A10G 24GB)</td>
+                <td>~20 GB</td>
+                <td>45 mins</td>
+                <td>~$0.91</td>
+                <td>~$0.32</td>
+            </tr>
+            <tr>
+                <td>QLoRA (4-bit NF4)</td>
+                <td>g5.2xlarge (1x A10G 24GB)</td>
+                <td>~9 GB</td>
+                <td>55 mins</td>
+                <td>~$1.11</td>
+                <td>~$0.39</td>
+            </tr>
+            <tr>
+                <td><strong>QLoRA + Unsloth Optimization</strong></td>
+                <td><strong>g5.2xlarge (1x A10G 24GB)</strong></td>
+                <td><strong>~6 GB</strong></td>
+                <td><strong>20 mins</strong></td>
+                <td><strong>~$0.40</strong></td>
+                <td><strong>~$0.14</strong></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+    <p><em>Key takeaway: Switching from Full Fine-Tuning on a multi-GPU cluster to QLoRA on a single Spot instance reduces your iteration cost by over 95%, enabling continuous domain adaptation for a fraction of the price.</em></p>
 </section>
-<div class="tags-container" id="dynamic-tags">
-<!-- Tags will be dynamically generated here -->
-</div>
-<hr class="divider"/>
-<section class="related-articles" id="related-series">
-<h2 class="series-title">Article Series</h2>
-<a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
-<div id="related-posts-container"></div>
+
+<section id="summary-checklist">
+    <h2>Summary Checklist for AWS Fine-Tuning</h2>
+    <ul>
+        <li>Use QLoRA (4-bit NF4) as default for single-GPU fine-tuning.</li>
+        <li>Target all linear modules (q, k, v, o, gate, up, down) for maximum adaptation capability.</li>
+        <li>Enable SageMaker Managed Spot Training with checkpointing directed to <code>/opt/ml/checkpoints</code>.</li>
+        <li>Save only adapter weights (~50–200 MB) rather than full model weights (~16 GB) to S3.</li>
+    </ul>
 </section>
-</main>
-<!-- Newsletter Subscription Section -->
-<div class="newsletter-section">
-<div class="newsletter-content">
-<h3>Subscribe to our newsletter</h3>
-<p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
-<p>Subscribe to the newsletter, and don't miss out.</p>
-<div class="newsletter-form">
-<input class="newsletter-input" placeholder="Enter your email address" type="email"/>
-<button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
-</div>
-</div>
-</div>
-</div>
-<footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
-<div class="social-icons" style="margin-bottom:25px;">
-<a aria-label="GitHub profile" href="https://github.com/MuhammadTahaNasir" style="margin:0 5px; font-size:1.6em;" target="_blank" title="GitHub">
-<i aria-hidden="true" class="fab fa-github"></i>
-</a>
-<a aria-label="LinkedIn profile" href="https://www.linkedin.com/in/muhammadtahanasir/" style="margin:0 5px; font-size:1.6em;" target="_blank" title="LinkedIn">
-<i aria-hidden="true" class="fab fa-linkedin"></i>
-</a>
-<a aria-label="Send email" href="mailto:m.tahanasir.cs@gmail.com" style="margin:0 5px; font-size:1.6em;" title="Email">
-<i aria-hidden="true" class="fas fa-envelope"></i>
-</a>
-</div>
-<p style="font-size:0.9em;">© 2026 – Muhammad Taha Nasir</p>
-</footer>
-<button aria-label="Scroll to top" id="scrollTop">
-<i class="fas fa-chevron-up"></i>
-</button>
-<script src="../../assets/js/each-post.js"></script>
-<script src="../../assets/js/shared-bottom-nav.js"></script>
-<script src="../../assets/js/nav-active.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
-<script>
-        document.querySelectorAll('.copy-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                    button.innerText = "Copied!";
-                    setTimeout(() => button.innerText = "Copy", 1500);
-                });
-            });
-        });
-    </script>
+
+            <div class="tags-container" id="dynamic-tags"></div>
+            <hr class="divider" />
+            <section class="related-articles" id="related-series">
+                <h2 class="series-title">Article Series</h2>
+                <a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+                <div id="related-posts-container"></div>
+            </section>
+        </main>
+        <div class="newsletter-section">
+            <div class="newsletter-content">
+                <h3>Subscribe to our newsletter</h3>
+                <p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+                <p>Subscribe to the newsletter, and don't miss out.</p>
+                <div class="newsletter-form">
+                    <input class="newsletter-input" placeholder="Enter your email address" type="email" />
+                    <button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../../assets/js/each-post.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="../../assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal()){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/shared-bottom-nav.js"></script>
 </body>
 </html>

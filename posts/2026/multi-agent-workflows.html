@@ -1,184 +1,608 @@
 <!DOCTYPE html>
-
 <html dir="auto" lang="en">
 <head>
-<link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
-<link href="/assets/images/favicon.ico" rel="shortcut icon"/>
-<link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
-<meta content="Terry" name="apple-mobile-web-app-title"/>
-<link href="/assets/images/site.webmanifest" rel="manifest"/>
-<meta charset="utf-8"/>
-<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
-<meta content="noindex, nofollow" name="robots"/>
-<meta content="Architecting multi-agent systems where specialized LLMs communicate and collaborate to solve complex, multi-step problems." name="description"/>
-<meta content="Muhammad Taha Nasir" name="author"/>
-<meta content="Agentic AI, Multi-Agent Systems, LangChain, AutoGen" name="tags"/>
-<meta content="/assets/images/posts/multi-agent-workflows-2026.png" name="thumbnail"/>
-<title>Building Multi-Agent Workflows: How I Connected LLM Agents to Solve Complex Tasks</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
-<link href="../../assets/css/each-post.css" rel="stylesheet"/>
-<link href="../../assets/css/bottom-nav.css" rel="stylesheet"/>
-<style>
-        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;} .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>');
+    })();
+  </script>
+    <link href="/assets/images/favicon-96x96.png?v=5" rel="icon" sizes="96x96" type="image/png" />
+    <link href="/assets/images/favicon.ico?v=5" rel="shortcut icon" />
+    <link href="/assets/images/apple-touch-icon.png?v=5" rel="apple-touch-icon" sizes="180x180" />
+    <meta content="Terry" name="apple-mobile-web-app-title" />
+    <link href="/assets/images/site.webmanifest" rel="manifest" />
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta content="Architectural comparison of LangGraph, CrewAI, and AutoGen (AG2) for enterprise stateful multi-agent system design." name="description" />
+    <meta content="Muhammad Taha Nasir" name="author" />
+    <meta content="Multi-Agent Systems, LangGraph, CrewAI, AutoGen, System Architecture" name="tags" />
+    <meta name="thumbnail" content="/assets/images/posts/multi-agent-workflows.png" />
+    <title>Architecting Multi-Agent Workflows: LangGraph vs CrewAI vs AutoGen</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/stylesheet.css" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet" />
+    <link href="../../assets/css/bottom-nav.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <style>
+        .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}
         .loader.hidden{opacity:0;visibility:hidden}
+        .code-block { position: relative; margin: 25px 0; border-radius: 10px; background: #0d1117 !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; overflow: hidden; }
+        .code-block pre, .code-block pre[class*="language-"] { background: #0d1117 !important; color: #e6edf3 !important; text-shadow: none !important; padding: 20px 22px !important; margin: 0 !important; font-family: "SF Mono", "Fira Code", monospace !important; font-size: 0.94rem !important; line-height: 1.6 !important; border-radius: 10px !important; }
+        .code-block code { opacity: 1 !important; color: #e6edf3 !important; background: transparent !important; text-shadow: none !important; }
+
+        .cinematic-intro-card {
+            background: var(--entry);
+            border-left: 4px solid var(--accent);
+            border-top: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            border-radius: 0 12px 12px 0;
+            padding: 24px 28px;
+            margin: 25px 0 35px 0;
+            box-shadow: var(--shadow-medium);
+        }
+        .cinematic-intro-card p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            color: var(--primary);
+        }
+        .cinematic-intro-card p:last-child {
+            margin-bottom: 0;
+        }
+        .hero-banner-img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            margin: 20px 0 30px 0;
+            border-radius: 12px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--border);
+            display: block;
+        }
+        .svg-diagram-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; background: var(--entry) !important; border: 1px solid var(--border) !important; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-small); transition: background 0.3s ease, border-color 0.3s ease; }
+        .svg-diagram {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+        @media (max-width: 768px) {
+            .hero-banner-img { margin: 15px 0 20px 0; }
+            .cinematic-intro-card { padding: 18px 20px; margin: 20px 0 25px 0; }
+            .cinematic-intro-card p { font-size: 0.98rem; line-height: 1.6; margin-bottom: 10px; }
+        }
+        @media (max-width: 480px) {
+            .hero-banner-img { border-radius: 8px; }
+            .cinematic-intro-card { padding: 14px 16px; border-left-width: 3px; }
+        }
     </style>
-<script>
-        (function () {
-            const savedTheme = localStorage.getItem('pref-theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
-        })();
-    </script>
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="../../assets/js/bg-canvas.js"></script>
 </head>
-<body class="dark" id="top" post-date="2026-01-15">
-<div aria-hidden="true" class="loader" id="loader">
-<div class="terry-animation">
-<span class="letter">t</span>
-<span class="letter">e</span>
-<span class="letter">r</span>
-<span class="letter">r</span>
-<span class="letter">y</span>
-</div>
-</div>
-<header class="header">
-<nav class="nav">
-<div class="nav-left"><a class="logo" href="/index.html">&lt;terry/&gt;</a></div>
-<div class="nav-center">
-<div class="pill-nav">
-<a href="/projects.html">Projects</a>
-<a href="/archives.html">Archives</a>
-<a href="/resume.html">Resume</a>
-<a href="/search.html">Search</a>
-</div>
-</div>
-<div class="nav-right">
-<button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
-<svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<circle cx="12" cy="12" r="5"></circle>
-<line x1="12" x2="12" y1="1" y2="3"></line>
-<line x1="12" x2="12" y1="21" y2="23"></line>
-<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
-<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
-<line x1="1" x2="3" y1="12" y2="12"></line>
-<line x1="21" x2="23" y1="12" y2="12"></line>
-<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
-<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
-</svg>
-<svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-</svg>
-</button>
-</div>
-</nav>
-</header>
-<div class="container">
-<nav class="breadcrumb">
-<a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
-</nav>
-<main class="post-content">
-<header class="post-header">
-<h1 class="post-title">Building Multi-Agent Workflows: How I Connected LLM Agents to Solve Complex Tasks</h1>
-<div class="post-meta">January 15, 2026 • 2 min • Muhammad Taha Nasir</div>
-</header>
-<img alt="Building Multi-Agent Workflows: How I Connected LLM Agents to Solve Complex Tasks" src="/assets/images/posts/multi-agent-workflows-2026.png" style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;"/>
-<aside class="table-of-contents">
-<details>
-<summary>Table of Contents</summary>
-<ul>
-<li><a href="#the-grind">The Grind</a></li>
-<li><a href="#tech-deep-dive">Tech Deep Dive</a></li>
-<li><a href="#the-code">The Code</a></li>
-<li><a href="#lessons-learned">Lessons Learned</a></li>
-</ul>
-</details>
-</aside>
-<div class="social-sharing-toolbar">
-<button class="social-btn subscribe-btn" title="Subscribe to newsletter"><i class="fas fa-envelope"></i></button>
-<button class="social-btn share-btn" title="Share"><i class="fas fa-share-alt"></i></button>
-</div>
-<section id="the-grind">
-<h2>The Grind</h2>
-<p>Assalam o Alaikum, tech fam! Let me tell you, the era of typing a single prompt and getting a magical answer is officially over. Welcome to 2026, where we build armies of AI agents. I spent the last month architecting a system where multiple specialized LLMs literally talk to each other to solve problems. Bro, it felt like I was managing a tiny virtual tech team.</p>
-</section>
-<section id="tech-deep-dive">
-<h2>Tech Deep Dive</h2>
-<p>I used LangGraph and AutoGen to create a 'Planner' agent, a 'Researcher' agent, and a 'Coder' agent. The Planner breaks down a user prompt into sub-tasks. The Researcher browses the web for documentation, and the Coder writes the code. But the real magic is the feedback loop: if the Coder writes bad code, the 'Reviewer' agent sends it back with an error log. Managing the state and memory between these agents was like untangling headphones in the dark, but the results are insanely powerful.</p>
-</section>
-<section id="the-code">
-<h2>The Code</h2>
-<p>Here is a simplified conceptual look at defining agent roles using AutoGen:</p>
-<div class="code-block">
-<button class="copy-btn">Copy</button>
-<pre class="language-python" data-lang="Python"><code>import autogen
+<body id="top" post-date="2026-01-14T00:00:00Z">
+    <div aria-hidden="true" class="loader" id="loader">
+        <div class="terry-animation">
+            <span class="letter">t</span>
+            <span class="letter">e</span>
+            <span class="letter">r</span>
+            <span class="letter">r</span>
+            <span class="letter">y</span>
+        </div>
+    </div>
+        <!-- ---------- Header Navigation ---------- -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+    <div class="container">
+        <nav class="breadcrumb">
+      <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a> » <span class="breadcrumb-current">Architecting Multi-Agent Workflows: LangGraph vs CrewAI vs AutoGen</span>
+    </nav>
+        <main class="post-content">
+            <header class="post-header">
+                <h1 class="post-title">Architecting Multi-Agent Workflows: LangGraph vs CrewAI vs AutoGen</h1>
+                <div class="post-meta">January 14, 2026 • 5 min • Muhammad Taha Nasir</div>
+            </header>
+            <img alt="Architecting Multi-Agent Workflows: LangGraph vs CrewAI vs AutoGen" class="hero-banner-img" src="/assets/images/posts/multi-agent-workflows.png"/>
+            <aside class="table-of-contents">
+                <details>
+                    <summary>Table of Contents</summary>
+                    <ul>
+                        <li><a href="#introduction">Introduction &amp; The Shift to Multi-Agent Systems</a></li>
+                        <li><a href="#core-paradigms">Core Architectural Philosophies</a></li>
+                        <li><a href="#state-management-fault-tolerance">State Management &amp; Fault Tolerance</a></li>
+                        <li><a href="#code-blueprint">Code Blueprint: Research &amp; Review Workflow</a></li>
+                        <li><a href="#decision-matrix">Decision Matrix &amp; Production Recommendations</a></li>
+                    </ul>
+                </details>
+            </aside>
+            <div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter" type="button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share article" type="button">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
 
-config_list = [{"model": "gpt-4-turbo", "api_key": "your_api_key"}]
+            <div class="cinematic-intro-card">
+                <p>"In 2026, single-prompt AI loops have reached their scaling limits. Comparing cyclic graph state machines, role-playing agent pools, and message-centric conversational frameworks to build enterprise-grade agentic systems."</p>
+            </div>
 
-# The Boss
-planner = autogen.AssistantAgent(
-    name="Planner",
-    system_message="You break down coding tasks into steps.",
-    llm_config={"config_list": config_list}
+<section id="introduction">
+    <h2>Introduction &amp; The Shift to Multi-Agent Systems</h2>
+    <p>In the early era of LLM application development, single-agent ReAct (Reason + Act) loops were enough to build basic tools and conversational assistants. However, as enterprise AI workloads scaled to handle complex multi-step research, automated code generation, and cross-system database operations, single-agent loops hit a hard wall.</p>
+
+    <p>Single prompts overwhelmed context windows, hallucination rates compounded exponentially with trace depth, and long-running execution traces lacked determinism. When an agent failed at step 12 of a 15-step pipeline, restarting the entire chain was both cost-prohibitive and fragile.</p>
+
+    <p>In 2026, the industry standard has firmly shifted to <strong>multi-agent orchestration systems</strong>. By decomposing complex problems into specialized, interconnected agents, systems gain modularity, better context management, and higher overall task success rates. Choosing the right orchestration paradigm is one of the most critical decisions in your AI stack, framework selection alone can impact task latency and token efficiency by up to 300% on identical foundation models.</p>
+
+    <p>This post provides an architectural comparison of the three dominant multi-agent frameworks in 2026: <strong>LangGraph</strong>, <strong>CrewAI</strong>, and <strong>AutoGen</strong> (and its AG2 / Microsoft Agent Framework successors).</p>
+</section>
+
+<section id="core-paradigms">
+    <h2>Core Architectural Philosophies</h2>
+    <p>Every framework approaches multi-agent orchestration through a distinct mental model and structural primitives:</p>
+
+    <div class="svg-diagram-wrapper">
+        <svg class="svg-diagram" viewBox="0 0 880 290" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="860" height="270" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+
+            <!-- Column 1: LangGraph -->
+            <rect x="30" y="30" width="260" height="230" rx="8" fill="var(--svg-blue-bg)" stroke="var(--svg-blue-border)" stroke-width="1.5"/>
+            <text x="160" y="55" fill="var(--svg-blue-text)" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">1. LangGraph</text>
+            <text x="160" y="72" fill="var(--svg-text-muted)" font-family="monospace" font-size="10" text-anchor="middle">Cyclic State Machine</text>
+
+            <rect x="50" y="95" width="90" height="40" rx="6" fill="var(--svg-card-bg)" stroke="var(--svg-blue-border)" stroke-width="1"/>
+            <text x="95" y="119" fill="var(--svg-text-main)" font-family="monospace" font-size="10" text-anchor="middle">Node: Agent A</text>
+
+            <path d="M 140 115 L 180 115" stroke="var(--svg-blue-border)" stroke-width="2"/>
+
+            <rect x="180" y="95" width="90" height="40" rx="6" fill="var(--svg-card-bg)" stroke="var(--svg-blue-border)" stroke-width="1"/>
+            <text x="225" y="119" fill="var(--svg-text-main)" font-family="monospace" font-size="10" text-anchor="middle">Node: Agent B</text>
+
+            <!-- Loop Arrow -->
+            <path d="M 225 135 C 225 180, 95 180, 95 135" stroke="var(--svg-orange-border)" stroke-width="2" fill="none" stroke-dasharray="3"/>
+            <text x="160" y="195" fill="var(--svg-orange-text)" font-family="monospace" font-size="9" text-anchor="middle">Conditional Edge (State Mutated)</text>
+
+            <rect x="50" y="215" width="220" height="30" rx="4" fill="#030712" stroke="var(--svg-blue-border)" stroke-width="1"/>
+            <text x="160" y="234" fill="var(--svg-blue-text)" font-family="monospace" font-size="9" font-weight="bold" text-anchor="middle">💾 Postgres / Redis Checkpointer</text>
+
+            <!-- Column 2: CrewAI -->
+            <rect x="310" y="30" width="260" height="230" rx="8" fill="#1c1917" stroke="#f97316" stroke-width="1.5"/>
+            <text x="440" y="55" fill="var(--svg-text-muted)" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">2. CrewAI</text>
+            <text x="440" y="72" fill="#fed7aa" font-family="monospace" font-size="10" text-anchor="middle">Role-Based Team Hierarchy</text>
+
+            <rect x="370" y="90" width="140" height="35" rx="5" fill="#441907" stroke="#f97316" stroke-width="1"/>
+            <text x="440" y="112" fill="#ffedd5" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">Crew Manager</text>
+
+            <path d="M 410 125 L 370 150" stroke="#f97316" stroke-width="1.5"/>
+            <path d="M 470 125 L 510 150" stroke="#f97316" stroke-width="1.5"/>
+
+            <rect x="330" y="150" width="95" height="40" rx="5" fill="#292524" stroke="#fb923c" stroke-width="1"/>
+            <text x="377" y="174" fill="#fed7aa" font-family="monospace" font-size="9" text-anchor="middle">Agent: Researcher</text>
+
+            <rect x="465" y="150" width="95" height="40" rx="5" fill="#292524" stroke="#fb923c" stroke-width="1"/>
+            <text x="512" y="174" fill="#fed7aa" font-family="monospace" font-size="9" text-anchor="middle">Agent: Writer</text>
+
+            <rect x="330" y="215" width="230" height="30" rx="4" fill="#441907"/>
+            <text x="445" y="234" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" font-weight="bold" text-anchor="middle">Sequential / Hierarchical Process</text>
+
+            <!-- Column 3: AutoGen / AG2 -->
+            <rect x="590" y="30" width="260" height="230" rx="8" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="1.5"/>
+            <text x="720" y="55" fill="var(--svg-text-muted)" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">3. AutoGen / AG2</text>
+            <text x="720" y="72" fill="var(--svg-green-text)" font-family="monospace" font-size="10" text-anchor="middle">Message-Centric GroupChat</text>
+
+            <rect x="635" y="90" width="170" height="35" rx="5" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="1"/>
+            <text x="720" y="112" fill="var(--svg-green-text)" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">GroupChatManager</text>
+
+            <path d="M 660 125 L 630 155" stroke="#34d399" stroke-width="1.5"/>
+            <path d="M 780 125 L 810 155" stroke="#34d399" stroke-width="1.5"/>
+
+            <rect x="600" y="155" width="70" height="40" rx="5" fill="#065f46"/>
+            <text x="635" y="179" fill="var(--svg-green-text)" font-family="monospace" font-size="9" text-anchor="middle">Agent A</text>
+
+            <rect x="770" y="155" width="70" height="40" rx="5" fill="#065f46"/>
+            <text x="805" y="179" fill="var(--svg-green-text)" font-family="monospace" font-size="9" text-anchor="middle">Agent B</text>
+
+            <rect x="610" y="215" width="220" height="30" rx="4" fill="var(--svg-green-bg)" stroke="var(--svg-purple-border)" stroke-width="1"/>
+            <text x="720" y="234" fill="var(--svg-purple-text)" font-family="monospace" font-size="9" font-weight="bold" text-anchor="middle">💬 Messages + UserProxyAgent Interrupt</text>
+        </svg>
+    </div>
+
+    <h3>A. LangGraph: Cyclic Directed Graphs &amp; State Machines</h3>
+    <p>LangGraph models agent interactions as explicit state machines built on directed graphs:</p>
+    <ul>
+        <li><strong>Nodes:</strong> Compute steps executed as Python functions, LLM invocations, or external API calls.</li>
+        <li><strong>Edges:</strong> Directed connections determining workflow execution paths, including conditional edges for dynamic runtime routing.</li>
+        <li><strong>State:</strong> A globally shared, statically typed schema (using <code>TypedDict</code> or <code>Pydantic</code>) mutated immutably by nodes.</li>
+    </ul>
+    <p>LangGraph treats agents not as autonomous conversationalists, but as deterministic state-transition handlers, making it the premier choice for auditable enterprise backends.</p>
+
+    <h3>B. CrewAI: Role-Based Team Division</h3>
+    <p>CrewAI abstracts orchestration into human organizational terms: <strong>Agents</strong>, <strong>Tasks</strong>, and <strong>Crews</strong>:</p>
+    <ul>
+        <li><strong>Agents:</strong> Specialist entities configured with distinct roles, specific goals, and detailed backstories.</li>
+        <li><strong>Tasks:</strong> Discrete units of work assigned to specific agents, declaring structured expected outputs.</li>
+        <li><strong>Process:</strong> Sequential, hierarchical, or consensus-driven task execution pipelines managed by an automated Crew Manager.</li>
+    </ul>
+    <p>CrewAI excels at high-level rapid prototyping, providing an intuitive declarative syntax that product managers and engineers can align on within hours.</p>
+
+    <h3>C. AutoGen / AG2: Message-Centric Conversational Agents</h3>
+    <p>Originating from Microsoft Research, AutoGen models multi-agent execution as multi-turn conversational dialogue:</p>
+    <ul>
+        <li><strong>Agents:</strong> Conversational actors (such as <code>AssistantAgent</code> and <code>UserProxyAgent</code>) communicating via structured or unstructured message streams.</li>
+        <li><strong>GroupChat Manager:</strong> Coordinates dynamic speaker selection, turn-taking rules, and execution termination criteria.</li>
+    </ul>
+    <p>AutoGen is ideal for open-ended problem solving, agent-to-agent technical debate, dynamic sandboxed code execution, and interactive human-in-the-loop oversight.</p>
+</section>
+
+<section id="state-management-fault-tolerance">
+    <h2>State Management &amp; Fault Tolerance</h2>
+    <p>The primary factor separating production-ready agent deployments from experimental scripts is state persistence and fault tolerance during network interruptions or tool failures:</p>
+
+    <div class="table-responsive">
+<table class="benchmark-table">
+        <thead>
+            <tr>
+                <th>Orchestration Layer</th>
+                <th>State Persistence Model</th>
+                <th>Checkpointing &amp; Resume</th>
+                <th>Human-in-the-Loop (HITL)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>LangGraph</strong></td>
+                <td>First-class Checkpointer (Postgres, Redis, MongoDB) saving full graph state per node step.</td>
+                <td>Native support for "Time-Travel" (replay state, modify past nodes, resume execution).</td>
+                <td>Interrupt nodes pause state indefinitely until explicit external resume signals arrive.</td>
+            </tr>
+            <tr>
+                <td><strong>CrewAI</strong></td>
+                <td>Memory layers (Short-term, Long-term, Entity, and Contextual RAG memory).</td>
+                <td>Task outputs pass sequentially; event-driven flows allow step saving.</td>
+                <td>Built-in human input prompts during task execution.</td>
+            </tr>
+            <tr>
+                <td><strong>AutoGen / AG2</strong></td>
+                <td>Ephemeral or database-backed conversation history logs.</td>
+                <td>Session state persistence across chat turns; state resumption via log replay.</td>
+                <td>Native <code>UserProxyAgent</code> intercepts dialogue turns before tool execution.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</section>
+
+<section id="code-blueprint">
+    <h2>Code Blueprint: Building a Research &amp; Review Workflow</h2>
+    <p>To illustrate the developer experience across all three frameworks, consider a simple two-agent system: a <strong>Researcher</strong> fetches data on a topic, and a <strong>Reviewer</strong> evaluates whether the summary meets publishing quality criteria.</p>
+
+    <h3>LangGraph (Explicit State Graph)</h3>
+    <div class="code-block">
+
+<pre><code class="language-python">from typing import TypedDict, Literal
+from langgraph.graph import StateGraph, END
+
+# 1. Define explicit state schema
+class WorkflowState(TypedDict):
+    topic: str
+    draft: str
+    review_status: str
+    iterations: int
+
+# 2. Define Node Functions
+async def research_node(state: WorkflowState) -> dict:
+    topic = state["topic"]
+    draft = f"Detailed research findings on {topic}."
+    return {"draft": draft, "iterations": state["iterations"] + 1}
+
+async def review_node(state: WorkflowState) -> dict:
+    if len(state["draft"]) > 20 or state["iterations"] >= 3:
+        return {"review_status": "APPROVED"}
+    return {"review_status": "NEEDS_REVISION"}
+
+# 3. Conditional Router
+def route_approval(state: WorkflowState) -> Literal["approved", "research"]:
+    if state["review_status"] == "APPROVED":
+        return "approved"
+    return "research"
+
+# 4. Construct State Graph
+builder = StateGraph(WorkflowState)
+builder.add_node("research", research_node)
+builder.add_node("review", review_node)
+
+builder.set_entry_point("research")
+builder.add_edge("research", "review")
+builder.add_conditional_edges("review", route_approval, {
+    "approved": END,
+    "research": "research"
+})
+
+app = builder.compile()
+# result = await app.ainvoke({"topic": "WebRTC vs WebSockets", "iterations": 0})</code></pre>
+    </div>
+
+    <h3>CrewAI (Role &amp; Task Crew)</h3>
+    <div class="code-block">
+
+<pre><code class="language-python">from crewai import Agent, Task, Crew, Process
+
+# 1. Define Agents with Roles & Backstories
+researcher = Agent(
+    role="Lead Tech Researcher",
+    goal="Gather detailed technical context on {topic}",
+    backstory="Senior analyst specializing in technology breakthroughs.",
+    verbose=True
 )
 
-# The Dev
-coder = autogen.AssistantAgent(
-    name="Coder",
-    system_message="You write clean, documented Python code.",
-    llm_config={"config_list": config_list}
+reviewer = Agent(
+    role="Managing Editor",
+    goal="Ensure quality and clarity of technical summaries.",
+    backstory="Rigorous editor with high publishing standards.",
+    verbose=True
 )
 
-# The User Proxy initiates the chat
-user_proxy = autogen.UserProxyAgent(name="User", human_input_mode="NEVER")
+# 2. Define Tasks
+research_task = Task(
+    description="Research the latest updates regarding {topic}.",
+    expected_output="Comprehensive raw research summary.",
+    agent=researcher
+)
 
-user_proxy.initiate_chat(
-    planner,
-    message="Create a Python script to scrape a website and save to CSV."
-)</code></pre>
-</div>
+review_task = Task(
+    description="Review the raw research for publishing standard.",
+    expected_output="Final published report.",
+    agent=reviewer
+)
+
+# 3. Assemble Crew
+crew = Crew(
+    agents=[researcher, reviewer],
+    tasks=[research_task, review_task],
+    process=Process.sequential
+)
+
+# result = crew.kickoff(inputs={"topic": "WebRTC vs WebSockets"})</code></pre>
+    </div>
+
+    <h3>AutoGen / AG2 (Conversational GroupChat)</h3>
+    <div class="code-block">
+
+<pre><code class="language-python">from autogen import AssistantAgent, UserProxyAgent, GroupChat, GroupChatManager
+
+# 1. Configure Agents
+llm_config = {"config_list": [{"model": "gpt-4o", "api_key": "YOUR_KEY"}]}
+
+researcher = AssistantAgent(
+    name="Researcher",
+    llm_config=llm_config,
+    system_message="You are a research specialist. Produce detailed summaries when given a topic."
+)
+
+reviewer = AssistantAgent(
+    name="Reviewer",
+    llm_config=llm_config,
+    system_message="You are a quality reviewer. Reply with 'APPROVED' if the research is thorough."
+)
+
+user_proxy = UserProxyAgent(
+    name="Admin",
+    human_input_mode="NEVER",
+    is_termination_msg=lambda x: "APPROVED" in x.get("content", "")
+)
+
+# 2. Setup Conversational Group Chat
+group_chat = GroupChat(
+    agents=[user_proxy, researcher, reviewer],
+    messages=[],
+    max_round=6
+)
+
+manager = GroupChatManager(groupchat=group_chat, llm_config=llm_config)
+# user_proxy.initiate_chat(manager, message="Research WebRTC vs WebSockets")</code></pre>
+    </div>
 </section>
-<section id="lessons-learned">
-<h2>Lessons Learned</h2>
-<p>Orchestrating AI agents taught me a lot about software architecture. You can't just rely on the LLM being smart; you have to design robust systems that handle failure, loop limits, and state tracking. This project blew my mind and proved that the future of SWE is managing AI workflows, not just writing syntax.</p>
+
+<section id="decision-matrix">
+    <h2>Decision Matrix &amp; Production Recommendations</h2>
+    <p>To select the right orchestration engine for your production workload, evaluate your team's primary system requirements using the flowchart and decision matrix below:</p>
+
+    <div class="svg-diagram-wrapper">
+        <svg class="svg-diagram" viewBox="0 0 880 260" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="860" height="240" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+
+            <rect x="290" y="30" width="300" height="40" rx="6" fill="var(--svg-card-bg)" stroke="var(--svg-blue-border)" stroke-width="1.5"/>
+            <text x="440" y="55" fill="var(--svg-text-main)" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">What is your primary architectural constraint?</text>
+
+            <path d="M 440 70 L 160 115" stroke="#30363d" stroke-width="1.5"/>
+            <path d="M 440 70 L 440 115" stroke="#30363d" stroke-width="1.5"/>
+            <path d="M 440 70 L 720 115" stroke="#30363d" stroke-width="1.5"/>
+
+            <!-- Branch 1 -->
+            <rect x="50" y="115" width="220" height="45" rx="5" fill="var(--svg-blue-bg)" stroke="var(--svg-blue-border)" stroke-width="1"/>
+            <text x="160" y="135" fill="var(--svg-blue-text)" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">Deterministic Control &amp; State Audit</text>
+            <text x="160" y="150" fill="var(--svg-text-muted)" font-family="monospace" font-size="9" text-anchor="middle">Strict Branching &amp; Persistence</text>
+
+            <path d="M 160 160 L 160 190" stroke="var(--svg-blue-border)" stroke-width="2"/>
+
+            <rect x="50" y="190" width="220" height="40" rx="6" fill="#030712" stroke="var(--svg-blue-border)" stroke-width="2"/>
+            <text x="160" y="215" fill="var(--svg-blue-text)" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Choose LangGraph</text>
+
+            <!-- Branch 2 -->
+            <rect x="330" y="115" width="220" height="45" rx="5" fill="#1c1917" stroke="#f97316" stroke-width="1"/>
+            <text x="440" y="135" fill="var(--svg-text-muted)" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">Rapid Prototyping &amp; Role Teams</text>
+            <text x="440" y="150" fill="#a8a29e" font-family="monospace" font-size="9" text-anchor="middle">Human Role Division DSL</text>
+
+            <path d="M 440 160 L 440 190" stroke="#f97316" stroke-width="2"/>
+
+            <rect x="330" y="190" width="220" height="40" rx="6" fill="#441907" stroke="#f97316" stroke-width="2"/>
+            <text x="440" y="215" fill="var(--svg-text-muted)" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Choose CrewAI</text>
+
+            <!-- Branch 3 -->
+            <rect x="610" y="115" width="220" height="45" rx="5" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="1"/>
+            <text x="720" y="135" fill="var(--svg-text-muted)" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">Conversational Debate &amp; Code Sandbox</text>
+            <text x="720" y="150" fill="#6ee7b7" font-family="monospace" font-size="9" text-anchor="middle">Dynamic Multi-Turn Debate</text>
+
+            <path d="M 720 160 L 720 190" stroke="var(--svg-green-border)" stroke-width="2"/>
+
+            <rect x="610" y="190" width="220" height="40" rx="6" fill="var(--svg-green-bg)" stroke="var(--svg-green-border)" stroke-width="2"/>
+            <text x="720" y="215" fill="var(--svg-text-muted)" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Choose AutoGen / AG2</text>
+        </svg>
+    </div>
+
+    <h3>Comprehensive Comparison Matrix</h3>
+    <div class="table-responsive">
+<table class="benchmark-table">
+        <thead>
+            <tr>
+                <th>Dimension</th>
+                <th>LangGraph</th>
+                <th>CrewAI</th>
+                <th>AutoGen / AG2</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Primary Abstraction</strong></td>
+                <td>State Graph (Nodes / Edges)</td>
+                <td>Role-based Crew (Agents / Tasks)</td>
+                <td>Dialogue-based Chat (GroupChat)</td>
+            </tr>
+            <tr>
+                <td><strong>Learning Curve</strong></td>
+                <td>High (Requires state machine thinking)</td>
+                <td>Low (Intuitive English-like DSL)</td>
+                <td>Medium (Understanding turn-taking)</td>
+            </tr>
+            <tr>
+                <td><strong>Token Efficiency</strong></td>
+                <td>Highest (prunes unneeded history per node)</td>
+                <td>Medium (passes task contexts sequentially)</td>
+                <td>Lower (conversation thread accumulates)</td>
+            </tr>
+            <tr>
+                <td><strong>Branching &amp; Loops</strong></td>
+                <td>Native conditional graph routing</td>
+                <td>Sequential, Hierarchical, or Event Flows</td>
+                <td>Conversational routing via speaker selection</td>
+            </tr>
+            <tr>
+                <td><strong>Human-in-the-Loop</strong></td>
+                <td>Native interrupt nodes with time-travel</td>
+                <td>Built-in human task approval prompts</td>
+                <td>First-class UserProxyAgent interaction</td>
+            </tr>
+            <tr>
+                <td><strong>Ideal Production Use Case</strong></td>
+                <td>Regulated Fintech/Healthcare, Browser automation, SaaS backends</td>
+                <td>Content generation, SDR automation, Quick POCs</td>
+                <td>Automated debugging, research debates, multi-agent sandbox execution</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+    <h3>Summary Recommendations</h3>
+    <ul>
+        <li><strong>Pick LangGraph</strong> if you are building complex enterprise software that requires deterministic branching, reliable database checkpointing, and strict state auditing.</li>
+        <li><strong>Pick CrewAI</strong> if you need to build a proof-of-concept in hours, or if your business domain maps directly to human role divisions (e.g., SDR + Account Exec + Researcher).</li>
+        <li><strong>Pick AutoGen / AG2</strong> if your workflow requires iterative multi-agent debate, dynamic code execution, or deep human-in-the-loop oversight during problem solving.</li>
+    </ul>
 </section>
-<div class="tags-container" id="dynamic-tags"></div>
-<hr class="divider"/>
-<section class="related-articles" id="related-series">
-<h2 class="series-title">Article Series</h2>
-<a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
-<div id="related-posts-container"></div>
-</section>
-</main>
-<div class="newsletter-section">
-<div class="newsletter-content">
-<h3>Subscribe to our newsletter</h3>
-<p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
-<div class="newsletter-form">
-<input class="newsletter-input" placeholder="Enter your email address" type="email"/>
-<button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
-</div>
-</div>
-</div>
-</div>
-<footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
-<p style="font-size:0.9em;">© 2026 – Muhammad Taha Nasir</p>
-</footer>
-<button aria-label="Scroll to top" id="scrollTop">
-<i class="fas fa-chevron-up"></i>
-</button>
-<script src="../../assets/js/each-post.js"></script>
-<script src="../../assets/js/shared-bottom-nav.js"></script>
-<script src="../../assets/js/nav-active.js"></script>
-<script>
-        document.querySelectorAll('.copy-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                    button.innerText = "Copied!";
-                    setTimeout(() => button.innerText = "Copy", 1500);
-                });
-            });
-        });
-    </script>
+
+            <div class="tags-container" id="dynamic-tags"></div>
+            <hr class="divider" />
+            <section class="related-articles" id="related-series">
+                <h2 class="series-title">Article Series</h2>
+                <a class="series-link" href="../../posts.html">Zero to One: Dev Diaries</a>
+                <div id="related-posts-container"></div>
+            </section>
+        </main>
+        <div class="newsletter-section">
+            <div class="newsletter-content">
+                <h3>Subscribe to our newsletter</h3>
+                <p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+                <p>Subscribe to the newsletter, and don't miss out.</p>
+                <div class="newsletter-form">
+                    <input class="newsletter-input" placeholder="Enter your email address" type="email" />
+                    <button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
+    <button aria-label="Scroll to top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="../../assets/js/each-post.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="../../assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/shared-bottom-nav.js"></script>
 </body>
 </html>

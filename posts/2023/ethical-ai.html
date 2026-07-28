@@ -1,150 +1,391 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html dir="auto" lang="en">
 <head>
-<link href="/assets/images/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
-<link href="/assets/images/favicon.ico" rel="shortcut icon"/>
-<link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}        .code-block { position: relative; margin: 25px 0; border-radius: 10px; background: #0d1117 !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; overflow: hidden; }
+        .code-block pre, .code-block pre[class*="language-"] { background: #0d1117 !important; color: #e6edf3 !important; text-shadow: none !important; padding: 20px 22px !important; margin: 0 !important; font-family: "SF Mono", "Fira Code", monospace !important; font-size: 0.94rem !important; line-height: 1.6 !important; border-radius: 10px !important; }
+        .code-block code { opacity: 1 !important; color: #e6edf3 !important; background: transparent !important; text-shadow: none !important; }
+    </style>');
+    })();
+  </script>
+<link href="/assets/images/favicon-96x96.png?v=5" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/assets/images/favicon.ico?v=5" rel="shortcut icon"/>
+<link href="/assets/images/apple-touch-icon.png?v=5" rel="apple-touch-icon" sizes="180x180"/>
 <meta content="Terry" name="apple-mobile-web-app-title"/>
 <link href="/assets/images/site.webmanifest" rel="manifest"/>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
 <meta content="noindex, nofollow" name="robots"/>
-<meta content="A tech blogger’s reflection on AI ethics after a 1.5-hour session, exploring bias, responsibility, and personal growth with humor and insights." name="description"/>
+<meta content="A technical reflection on AI ethics, algorithmic bias, data auditing, and responsible software engineering after moving into hostel life and completing Sessional 2 exams." name="description"/>
 <meta content="Muhammad Taha Nasir" name="author"/>
-<meta content="Machine Learning, Generative AI" name="tags"/>
-<meta content="/assets/images/posts/ethical-ai.jpg" name="thumbnail"/>
-<title>Ethical AI: Why It’s More Than Hype</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
-<link href="../../assets/css/each-post.css" rel="stylesheet"/>
+<meta content="Ethical AI, Responsible AI, Algorithmic Bias" name="tags" />
+<meta name="thumbnail" content="/assets/images/posts/ethical-ai.jpg" />
+<title>Ethical AI &amp; Bias in LLMs: Why It Matters to Software Engineers</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/css/stylesheet.css" />
+    <link href="../../assets/css/each-post.css" rel="stylesheet"/>
+<link href="../../assets/css/bottom-nav.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/>
 <style>
-        .urdu-shair {
-            font-family: 'Amiri', 'Noto Naskh Arabic', serif;
-            direction: rtl;
-            text-align: right;
-            font-size: 1.2em;
-            line-height: 1.5;
+         .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}
+        .loader.hidden{opacity:0;visibility:hidden}
+        
+        /* Theme-Adaptive Styling */
+        .cinematic-intro-card {
+            background: var(--entry);
+            border-left: 4px solid var(--accent);
+            border-top: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            border-radius: 0 12px 12px 0;
+            padding: 24px 28px;
+            margin: 25px 0 35px 0;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .cinematic-intro-card p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            color: var(--primary);
+        }
+        
+        .cinematic-intro-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .svg-diagram-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; background: var(--entry) !important; border: 1px solid var(--border) !important; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-small); transition: background 0.3s ease, border-color 0.3s ease; }
+        
+        .svg-diagram { 
+            max-width: 700px; 
+            width: 100%; 
+            height: auto; 
+            background: transparent; 
+            padding: 24px; 
+        }
+
+        .thought-card {
+            background: var(--entry);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 26px;
+            margin: 32px 0;
+            color: var(--primary);
+            box-shadow: var(--shadow-light);
+        }
+
+        .hero-banner-img {
+            max-width: 100%;
+            width: 100%;
+            max-height: 420px;
+            object-fit: cover;
+            object-position: center;
+            margin: 20px 0 30px 0;
+            border-radius: 12px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--border);
+            display: block;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .benchmark-table {
+            width: 100%;
+            min-width: 580px;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .benchmark-table th {
+            background: var(--code-bg);
+            color: var(--primary);
+            padding: 12px 14px;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .benchmark-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+            color: var(--primary);
+        }
+
+        /* Transparent Scrollbars */
+        .table-responsive, .code-block, .code-block pre, pre, pre[class*="language-"] {
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+
+        .table-responsive::-webkit-scrollbar, .code-block::-webkit-scrollbar, .code-block pre::-webkit-scrollbar, pre::-webkit-scrollbar, pre[class*="language-"]::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            background: transparent !important;
+        }
+
+        /* Mobile Media Queries */
+        @media (max-width: 768px) {
+            .hero-banner-img {
+                max-height: 260px;
+                margin: 15px 0 20px 0;
+            }
+
+            .cinematic-intro-card {
+                padding: 18px 20px;
+                margin: 20px 0 25px 0;
+            }
+
+            .cinematic-intro-card p {
+                font-size: 0.98rem;
+                line-height: 1.6;
+                margin-bottom: 10px;
+            }
+
+            .thought-card {
+                padding: 18px 20px;
+                margin: 20px 0;
+            }
+
+            .svg-diagram {
+                padding: 14px 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-banner-img {
+                max-height: 200px;
+                border-radius: 8px;
+            }
+
+            .cinematic-intro-card {
+                padding: 14px 16px;
+                border-left-width: 3px;
+            }
         }
     </style>
-<script>
-        // Apply theme immediately on page load
-        (function () {
-            const savedTheme = localStorage.getItem('pref-theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            document.documentElement.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
-        })();
-    </script>
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="../../assets/js/bg-canvas.js"></script>
 </head>
-<body class="dark" id="top" post-date="2023-11-15T00:00:00Z">
-<header class="header">
-<nav class="nav">
-<!-- Left: Logo -->
-<div class="nav-left">
-<a class="logo" href="/index.html">&lt;terry/&gt;</a>
-</div>
-<!-- Center: Pills Navigation -->
-<div class="nav-center">
-<div class="pill-nav">
-<a href="/projects.html">Projects</a>
-<a href="/archives.html">Archives</a>
-<a href="/resume.html">Resume</a>
-<a href="/search.html">Search</a>
+<body id="top" post-date="2023-11-18T00:00:00Z">
+<div aria-hidden="true" class="loader" id="loader">
+<div class="terry-animation">
+<span class="letter">t</span>
+<span class="letter">e</span>
+<span class="letter">r</span>
+<span class="letter">r</span>
+<span class="letter">y</span>
 </div>
 </div>
-<!-- Right: Theme toggle -->
-<div class="nav-right">
-<button aria-label="Toggle theme" id="theme-toggle" title="Toggle theme">
-<svg fill="none" id="sun" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<circle cx="12" cy="12" r="5"></circle>
-<line x1="12" x2="12" y1="1" y2="3"></line>
-<line x1="12" x2="12" y1="21" y2="23"></line>
-<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
-<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
-<line x1="1" x2="3" y1="12" y2="12"></line>
-<line x1="21" x2="23" y1="12" y2="12"></line>
-<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
-<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
-</svg>
-<svg fill="none" id="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-</svg>
-</button>
-</div>
-</nav>
-</header>
+    <!-- Header Navigation -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
 <div class="container">
 <nav class="breadcrumb">
-<a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a>
-</nav>
+      <a href="../../index.html">Home</a> » <a href="../../posts.html">Posts</a> » <span class="breadcrumb-current">Ethical AI &amp; Bias in LLMs: Why It Matters to Software Engineers</span>
+    </nav>
 <main class="post-content">
 <header class="post-header">
-<h1 class="post-title">Ethical AI: Why It’s More Than Hype</h1>
-<div class="post-meta">Nov 15, 2023 • 3 min • Muhammad Taha Nasir</div>
+<h1 class="post-title">Ethical AI &amp; Bias in LLMs: Why It Matters to Software Engineers</h1>
+<div class="post-meta">November 18, 2023 • 2 min • Muhammad Taha Nasir</div>
 </header>
+<img alt="Ethical AI Algorithmic Bias in Machine Learning" class="hero-banner-img" src="/assets/images/posts/ethical-ai.jpg"/>
+<div class="cinematic-intro-card">
+<p><em>What happens when the algorithmic models we train accidentally reflect human bias, and why every developer needs to build with guardrails.</em></p>
+<p>Hostel life, campus panel sessions, and accidental chai spills across clean notebooks: November 2023 has been an eye-opening chapter.</p>
+<p>Attending a 1.5-hour stage panel on AI ethics shifted my perspective on software development. Model ethics isn't just a philosophical discussion, it's a critical software engineering requirement.</p>
+</div>
 <aside class="table-of-contents">
 <details>
 <summary>Table of Contents</summary>
 <ul>
-<li><a href="#session-spark">The Session That Got Me Thinking</a></li>
+<li><a href="#session-thinking">The Session That Got Me Thinking</a></li>
 <li><a href="#unpacking-bias">Unpacking AI Bias</a></li>
-<li><a href="#ethics-real-deal">Ethics in the Real World</a></li>
-<li><a href="#my-journey">My Journey So Far</a></li>
+<li><a href="#real-world-ethics">Ethics in Real-World Deployments</a></li>
+<li><a href="#systems-rant">The Systems Engineer Reality Check</a></li>
+<li><a href="#hostel-lab-grind">Hostel Life, Sessional Exams &amp; Debugging C</a></li>
+<li><a href="#takeaways">Key Takeaways on Responsible AI</a></li>
 </ul>
 </details>
 </aside>
-<section id="session-spark">
+<div class="social-sharing-toolbar">
+                <button class="social-btn subscribe-btn" title="Subscribe to newsletter" type="button">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="social-btn share-btn" title="Share article" type="button">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+<section id="session-thinking">
 <h2>The Session That Got Me Thinking</h2>
-<p>سلام، ٹیک فیم! So, I moved to the hostel and thought, time to level up! That’s when I caught a 1.5
-                    hour session on stage, not some boring lecture, just smart folks chatting about AI ethics. It hit me
-                    like a chai spill on my notebook! Got curious, so I dug into articles from places like MIT
-                    Technology Review and The Guardian, plus some random PDFs I found online. I scribbled notes, mixed
-                    them with my own thoughts, and now I’m here, your friendly tech blogger, ready to share the scoop on
-                    why AI ethics isn’t just talk!</p>
+<p>After moving into the hostel and settling into university campus life, I attended a 1.5-hour stage session on AI ethics featuring an impressive panel of researchers and engineers.</p>
+<p>Digging into technical papers from MIT Technology Review, The Guardian, and machine learning research PDFs made one reality clear: when code fails mechanically, you get a runtime error. When AI fails ethically, it systematically discriminates at scale.</p>
+<div class="thought-card">
+<p><strong>Unchecked Data vs Responsible AI Pipeline:</strong></p>
+<div style="margin-top: 16px;">
+<img src="/assets/images/posts/ethical-pipeline.png" alt="Unchecked Data vs Responsible AI Pipeline" style="width: 100%; height: auto; border-radius: 8px;">
+</div>
+</div>
 </section>
 <section id="unpacking-bias">
 <h2>Unpacking AI Bias</h2>
-<p>AI can be a bit of a drama queen, you know? Those articles showed me how it messes up. Picture facial
-                    recognition tech flopping on darker skin tones because the data was mostly light faces. Or a job
-                    algorithm tossing out women’s resumes since it learned from male heavy datasets. As a coder playing
-                    with NLP and ML, like I mentioned in my <a href="surviving-first-semester.html">last post</a>, I
-                    realized my projects could accidentally carry these traps. One article talked about a chatbot
-                    picking up toxic slang from the internet, yikes! It’s like AI mirrors our worst habits unless we
-                    clean it up. Check these out for more:</p>
-<ul style="list-style: none; padding: 0;">
-<li style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
-<strong>MIT Technology Review</strong>: How biased data skews AI results.<br/>
-<a href="https://www.technologyreview.com/2023/02/09/1067821/ai-bias-black-box">AI Bias Black
-                            Box</a>
-</li>
-<li style="margin: 0.5rem 0; background: var(--tertiary); padding: 0.8rem; border-radius: 8px; box-shadow: var(--shadow);">
-<strong>The Guardian</strong>: Amazon’s scrapped AI tool and lessons learned.<br/>
-<a href="https://www.theguardian.com/technology/2018/oct/10/amazon-hiring-ai-gender-bias-recruiting-tool">Amazon
-                            AI Bias</a>
-</li>
-</ul>
-</section>
-<section id="ethics-real-deal">
-<h2>Ethics in the Real World</h2>
-<p>Ethics isn’t just a fancy word, it’s the soul of AI. Those articles and the session made it clear: AI
-                    shapes lives. Imagine an AI misdiagnosing someone in a hospital because of bad data, or a loan
-                    system unfairly rejecting people. The session folks said it’s like cooking biryani, get the
-                    ingredients wrong, and the whole dish flops! As a uni coder struggling with C and Python under crazy
-                    pressure, I’m starting to see how I can build AI that’s fair. It’s tough, but coding something that
-                    helps instead of hurts? That’s my goal. The articles suggested audits and diverse data, stuff I’ll
-                    try when I’m better at this.</p>
-<img alt="AI Ethics Reflection" src="/assets/images/posts/ethical-ai.jpg" style="max-width:100%;height:auto;margin:20px 0;border-radius:8px;"/>
-</section>
-<section id="my-journey">
-<h2>My Journey So Far</h2>
-<p>Big win, fam! Sessional 2 exams went great, and my results were solid. But programming? Still a
-                    struggle. The uni grind and late night debugging are no joke, and I know I need to level up my
-                    skills. This AI ethics stuff feels like a perfect side project to grow with. I’m reading,
-                    experimenting, and dreaming of an ethical ML project to share soon. Stay tuned for more!</p>
-</section>
-<div class="tags-container" id="dynamic-tags">
-<!-- Tags will be dynamically generated here -->
+<p>Language models and neural networks are statistical mirrors: they predict probability distributions based on historical input corpora.</p>
+<div class="code-block">
+
+<pre><code class="language-python"># The illusion of "objective" machine learning
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
+
+# If historical training data contains systemic bias, weights inherit that bias
+model = LogisticRegression()
+model.fit(historical_hiring_data, historical_decisions)
+# The model automates historical decision patterns without context</code></pre>
 </div>
+<!-- Theme-Adaptive Vector SVG Diagram for AI Bias Data Flow -->
+<div class="svg-diagram-wrapper">
+<svg class="svg-diagram" viewbox="0 0 520 220" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arrow" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="5" refy="5" viewbox="0 0 10 10">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="var(--svg-text-muted)"></path>
+</marker>
+</defs>
+<!-- Pipeline Steps -->
+<rect fill="#0284c7" height="42" rx="6" width="130" x="25" y="30"></rect>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="90" y="56">Biased Raw Data</text>
+<line marker-end="url(#arrow)" stroke="#94a3b8" stroke-width="2" x1="155" x2="180" y1="51" y2="51"></line>
+<rect fill="#6366f1" height="42" rx="6" width="130" x="185" y="30"></rect>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="250" y="56">Vector Embedding</text>
+<line marker-end="url(#arrow)" stroke="#94a3b8" stroke-width="2" x1="315" x2="340" y1="51" y2="51"></line>
+<rect fill="#7c3aed" height="42" rx="6" width="150" x="345" y="30"></rect>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="420" y="56">Unfiltered Weights</text>
+<!-- Down Arrow -->
+<path d="M 420 72 L 420 135 L 340 135" fill="none" marker-end="url(#arrow)" stroke="#94a3b8" stroke-width="2"></path>
+<rect fill="#d97706" height="42" rx="6" width="185" x="150" y="115"></rect>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="242" y="141">Data Audit &amp; Guardrails</text>
+<line marker-end="url(#arrow)" stroke="#94a3b8" stroke-width="2" x1="150" x2="125" y1="136" y2="136"></line>
+<rect fill="#059669" height="42" rx="6" width="105" x="15" y="115"></rect>
+<text fill="var(--svg-text-main)" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="67" y="141">Fair Output</text>
+</svg>
+</div>
+<p>Dataset imbalances create real-world skew: facial recognition models historically failing on darker skin tones, or recruiting tools penalizing specific demographics due to historical data distributions.</p>
+</section>
+<section id="real-world-ethics">
+<h2>Ethics in Real-World Deployments</h2>
+<p>Auditing ethical failures across major machine learning application domains:</p>
+<div class="table-responsive">
+<table class="benchmark-table">
+<thead>
+<tr>
+<th>Domain / Pipeline</th>
+<th>Primary Cause of Bias</th>
+<th>Real-World Impact</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Recruiting &amp; HR</strong></td>
+<td>Skewed historical hiring datasets</td>
+<td>Penalizes underrepresented candidate groups</td>
+<td>Dataset balancing &amp; anonymization</td>
+</tr>
+<tr>
+<td><strong>Facial Analysis</strong></td>
+<td>Imbalanced demographic image sampling</td>
+<td>Higher false-positive error rates</td>
+<td>Diverse benchmark evaluation</td>
+</tr>
+<tr>
+<td><strong>Credit &amp; Lending</strong></td>
+<td>Proxy feature variables (e.g. zip code)</td>
+<td>Unfair loan rejections</td>
+<td>Feature ablation &amp; algorithmic auditing</td>
+</tr>
+<tr>
+<td><strong>Medical Diagnostics</strong></td>
+<td>Clinical trials lacking demographic variety</td>
+<td>Misdiagnoses across specific groups</td>
+<td>Multi-center dataset aggregation</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>As the session speakers put it: <em>Building AI without data auditing is like cooking biryani with spoiled ingredients: get the base wrong, and the entire dish flops!</em></p>
+</section>
+<section id="systems-rant">
+<h2>The Systems Engineer Reality Check</h2>
+<p>Data auditing is as fundamental to software quality as execution profiling and memory management:</p>
+<div class="thought-card">
+<p><strong>Unfiltered Web Dump vs Audited Pipeline:</strong></p>
+<div style="margin-top: 16px;">
+<img src="/assets/images/posts/audited-pipeline.png" alt="Unfiltered Web Dump vs Audited Pipeline" style="width: 100%; height: auto; border-radius: 8px;">
+</div>
+</div>
+<p>Evaluating feature attribution, dataset distributions, and output guardrails prevents silent model failures before deployment.</p>
+</section>
+<section id="hostel-lab-grind">
+<h2>Hostel Life, Sessional Exams &amp; Debugging C</h2>
+<p>Big milestone: Sessional 2 exams went great, and my results came back solid! Balancing hostel routines, sessional exams, C pointer memory labs, and personal ML interest keeps the daily schedule packed.</p>
+<p>Debugging C pointer allocations at 2 AM while studying responsible AI principles reinforces that attention to detail in code and data is what separates reliable systems from fragile ones.</p>
+</section>
+<section id="takeaways">
+<h2>Key Takeaways on Responsible AI</h2>
+<p>Building responsible software requires auditing training data distributions alongside runtime performance.</p>
+<p>Every late-night debugging session in C and Python is a step toward building reliable, ethically sound engineering projects.</p>
+<p class="next-post-link" style="margin-top: 25px; font-size: 1.05rem;">
+          <em>Next: <a href="finetuning-vs-prompt-eng.html">Fine-Tuning vs Prompt Engineering: When to Use What in Practice &rarr;</a></em>
+        </p>
+</section>
+<div class="tags-container" id="dynamic-tags"></div>
 <hr class="divider"/>
 <section class="related-articles" id="related-series">
 <h2 class="series-title">Article Series</h2>
@@ -152,18 +393,47 @@
 <div id="related-posts-container"></div>
 </section>
 </main>
-<footer class="footer">
-<div class="social-icons">
-<a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-<a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-<a href="mailto:m.tahanasir.cs@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+<div class="newsletter-section">
+<div class="newsletter-content">
+<h3>Subscribe to our newsletter</h3>
+<p>Read articles from <strong>&lt;terry/&gt;</strong> directly inside your inbox.</p>
+<p>Subscribe to the newsletter, and don't miss out.</p>
+<div class="newsletter-form">
+<input class="newsletter-input" placeholder="Enter your email address" type="email"/>
+<button class="newsletter-btn" onclick="handleNewsletterSubmit(event)">SUBSCRIBE</button>
 </div>
-<p>© 2023 – Muhammad Taha Nasir</p>
-</footer>
 </div>
+</div>
+</div>
+<footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
 <button aria-label="Scroll to top" id="scrollTop">
 <i class="fas fa-chevron-up"></i>
 </button>
 <script src="../../assets/js/each-post.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="../../assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/shared-bottom-nav.js"></script>
 </body>
 </html>
