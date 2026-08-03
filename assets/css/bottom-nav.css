@@ -21,7 +21,7 @@
 
 @media (max-width: 768px) {
   .header .bottom-nav { display: none !important; }
-  body { padding-bottom: 90px !important; }
+  body { padding-bottom: 150px !important; }
 
   .bottom-nav.premium-nav {
     display: flex !important;
@@ -55,7 +55,7 @@
   /* Sliding Indicator */
   .nav-indicator {
     position: absolute;
-    width: 20%; /* 100% / 5 items */
+    width: 25%; /* 100% / 4 items */
     height: 56px;
     background: var(--accent);
     border-radius: 30px;
@@ -145,3 +145,85 @@
 [data-theme="light"] .bottom-nav.premium-nav .nav-item.active span {
   color: #ffffff !important;
 }
+
+
+/* Standardized Footer Styles (Matched to Each Projects Page) */
+.footer {
+  text-align: center;
+  padding: 40px 20px 80px 20px;
+  margin-top: 80px;
+  position: relative;
+  color: var(--secondary);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-hover) 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer:hover::before {
+  transform: translateX(-50%) scale(1.1);
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.7);
+}
+
+.footer p {
+  margin: 12px 0 0 0;
+  font-size: 0.9em;
+  color: var(--secondary);
+}
+
+.social-icons {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin-bottom: 12px !important;
+}
+
+.social-icons a {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 44px !important;
+  height: 44px !important;
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 12px !important;
+  color: var(--primary) !important;
+  text-decoration: none !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: var(--shadow-light) !important;
+  font-size: 1.15em !important;
+  margin: 0 !important;
+}
+
+.social-icons a i {
+  color: var(--primary) !important;
+  transition: color 0.2s ease !important;
+}
+
+.social-icons a:hover {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  transform: translateY(-3px) scale(1.08) !important;
+  box-shadow: var(--shadow-medium) !important;
+}
+
+.social-icons a:hover i {
+  color: #ffffff !important;
+}
+

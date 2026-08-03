@@ -1,4 +1,4 @@
-/* ---------- 1. Apple-Inspired Design System ---------- */
+/* Core Design Tokens & Theme Variables */
 :root {
   --theme: #f5f5f7;
   --entry: rgba(255, 255, 255, 0.8);
@@ -35,7 +35,7 @@
   --glass-border: rgba(255, 255, 255, 0.12);
 }
 
-/* ---------- 2. Global Layout & Typography ---------- */
+/* Global Layout & Typography */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
@@ -75,7 +75,7 @@ body.skeleton-active .resume-container {
   overflow: hidden;
 }
 
-/* ---------- 3. Header and Navigation ---------- */
+/* Header and Navigation */
 .header {
   background: var(--theme);
   position: sticky;
@@ -297,7 +297,7 @@ body.skeleton-active .resume-container {
   display: block;
 }
 
-/* ---------- 4. Resume Container ---------- */
+/* Resume Container */
 .post-container {
   max-width: 900px;
   margin: 0 auto;
@@ -334,7 +334,7 @@ body.skeleton-active .resume-container {
   background: rgba(0, 122, 255, 0.1);
 }
 
-/* ---------- 6. Header Bar ---------- */
+/* Header Bar */
 .header-bar {
   display: flex;
   flex-direction: column;
@@ -367,14 +367,14 @@ body.skeleton-active .resume-container {
   text-align: left;
 }
 
-/* ---------- 7. Download Section ---------- */
+/* Download Section */
 .download-section {
   margin-bottom: 2rem;
   display: flex;
   justify-content: flex-start;
 }
 
-/* ---------- 8. Toggle Container ---------- */
+/* Toggle Container */
 .toggle-container {
   background: var(--glass-bg);
   backdrop-filter: blur(25px) saturate(180%);
@@ -446,7 +446,7 @@ body.skeleton-active .resume-container {
   background: rgba(0, 122, 255, 0.08);
 }
 
-/* ---------- 9. Resume Content ---------- */
+/* Resume Content */
 .resume-content {
   min-height: 400px;
 }
@@ -511,7 +511,7 @@ body.skeleton-active .resume-container {
   }
 }
 
-/* ---------- 7. Resume Header ---------- */
+/* Resume Header */
 .resume-header {
   display: flex;
   /* Flex layout */
@@ -573,7 +573,7 @@ body.skeleton-active .resume-container {
   /* Lift effect on hover */
 }
 
-/* ---------- 7. Resume Sections ---------- */
+/* Resume Sections */
 .resume-section {
   margin-bottom: 3rem;
   /* Space below sections */
@@ -600,7 +600,7 @@ body.skeleton-active .resume-container {
   font-size: 1.6rem;
 }
 
-/* ---------- 8. Technology Tags ---------- */
+/* Technology Tags */
 .tech-tags {
   display: flex;
   /* Flex layout */
@@ -640,7 +640,7 @@ body.skeleton-active .resume-container {
   transform: none;
 }
 
-/* ---------- 9. Skills Icon Grid ---------- */
+/* Skills Icon Grid */
 .skills-icon-grid {
   display: flex;
   /* Flex layout */
@@ -742,281 +742,220 @@ body.skeleton-active .resume-container {
   /* Space below additional tech */
 }
 
-/* ---------- 10. Timeline Layout ---------- */
+/* Timeline Layout */
 .timeline {
   position: relative;
-  /* Relative positioning for timeline line */
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px 0;
 }
 
+/* Static Unfilled Dark Gray Base Track Line */
 .timeline::before {
   content: '';
-  /* Empty content for line */
   position: absolute;
-  /* Absolute positioning */
   top: 0;
-  /* Start at top */
   bottom: 0;
-  /* Extend to bottom */
-  left: 55%;
-  /* Move slightly to the right */
-  width: 3px;
-  /* Slightly thicker line */
-  background: var(--accent);
-  /* Accent color for line */
+  left: 50%;
+  width: 2.5px;
+  background: var(--border);
   transform: translateX(-50%);
-  /* Center the line */
   z-index: 1;
-  /* Ensure line is behind cards */
-  box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
-  /* Glow effect */
+}
+
+/* Dynamic Scroll-Filled Glowing Pure Sky Blue Line */
+.timeline-line-fill {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 3.5px;
+  height: 0%;
+  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+  transform: translateX(-50%);
+  z-index: 2;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.9), 0 0 20px rgba(2, 132, 199, 0.6);
+  border-radius: 3px;
+  transition: height 0.08s ease-out;
+  pointer-events: none;
+}
+
+/* Avatar Ball Riding on Top of Filled Line */
+.timeline-avatar-ball {
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2.5px solid #38bdf8;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.9), 0 0 24px rgba(2, 132, 199, 0.6);
+  overflow: hidden;
+  z-index: 4;
+  background: var(--entry);
+  transition: top 0.08s ease-out;
+  pointer-events: none;
+}
+
+.timeline-avatar-ball img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .timeline-card {
-  width: 45%;
-  /* Card width */
-  background: linear-gradient(135deg, var(--entry) 0%, rgba(255, 255, 255, 0.05) 100%);
-  /* Card background */
-  border-radius: 16px;
-  /* Rounded corners */
-  padding: 24px;
-  /* Padding */
-  margin: 24px 0;
-  /* Vertical spacing */
-  position: relative;
-  /* Relative positioning */
-  opacity: 0;
-  /* Start invisible */
-  transform: translateY(30px);
-  /* Start below */
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Smooth animation */
-  box-shadow: var(--shadow-light);
+  width: 44%;
+  background: var(--entry);
   border: 1px solid var(--border);
-  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 24px;
+  margin: 30px 0;
+  position: relative;
+  opacity: 1;
+  transform: none;
+  box-shadow: var(--shadow-medium);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-sizing: border-box;
+  z-index: 2;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
   overflow: hidden;
 }
 
+/* Top Accent Line - Hidden by default (opacity: 0). Glows ONLY when avatar ball is at the card (.active) */
 .timeline-card::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
+  height: 2.5px;
+  background: linear-gradient(90deg, #38bdf8 0%, rgba(56, 189, 248, 0.3) 70%, transparent 100%);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   opacity: 0;
-  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.3s ease, box-shadow 0.3s ease;
+  pointer-events: none;
 }
 
-.timeline-card:hover::before {
-  opacity: 1;
-}
-
+/* Hover effect: Only subtle lift, NO top glow unless active */
 .timeline-card:hover {
-  transform: translateY(-4px);
-  /* Lift effect on hover */
-  box-shadow: var(--shadow-medium);
-  /* Enhanced shadow on hover */
-  border-color: var(--accent);
+  transform: translateY(-3px);
 }
 
-.milestone.highlight {
-  transform: translateX(-50%) scale(1.1);
-  box-shadow: 0 0 0 4px var(--entry), 0 0 0 8px var(--accent);
-}
-
-.timeline-card.reveal {
+/* Card Glow ONLY when Avatar Ball is near it (.active class added by JS on scroll) */
+.timeline-card.active::before,
+.timeline-card.active-scroll::before {
   opacity: 1;
-  /* Fully visible */
-  transform: translateY(0);
-  /* Reset position */
+  height: 3px;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.9);
+}
+
+.timeline-card.active,
+.timeline-card.active-scroll {
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 22px rgba(56, 189, 248, 0.28), 0 8px 24px rgba(0, 0, 0, 0.4) !important;
 }
 
 .timeline-card.left {
-  margin-right: 50%;
-  /* Less space from timeline line */
+  margin-left: 0;
+  margin-right: auto;
   text-align: left;
-  /* Left-align text */
-  box-shadow: var(--shadow-light);
-  /* Add shadow */
 }
 
 .timeline-card.right {
-  margin-left: 60%;
-  /* More space from timeline line */
+  margin-left: auto;
+  margin-right: 0;
   text-align: left;
-  /* Left-align text */
-  box-shadow: var(--shadow-light);
-  /* Add shadow */
 }
 
-.timeline .milestone {
+/* Centered Milestone Node sitting directly on vertical timeline line */
+.milestone {
   position: absolute;
-  /* Absolute positioning */
-  width: 16px;
-  /* Marker size */
-  height: 16px;
-  /* Marker size */
-  background: var(--accent);
-  /* Accent color */
-  border: 3px solid var(--theme);
-  /* Theme-colored border */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  /* Circular shape */
-  transform: translateX(-50%) scale(0);
-  /* Start small */
-  z-index: 2;
-  /* Ensure dots are above the line */
-  box-shadow: 0 0 0 3px var(--entry);
-  animation: scaleIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  left: 55%;
-  /* Center on timeline line (moved right) */
-}
-
-.timeline .milestone:nth-child(2) {
-  top: 44px;
-  /* Align with first card */
-  animation-delay: 0.3s;
-  /* Delay after first card appears */
-}
-
-.timeline .milestone:nth-child(4) {
-  top: 200px;
-  /* Align with second card */
-  animation-delay: 0.5s;
-  /* Delay after second card appears */
-}
-
-.timeline .milestone:nth-child(6) {
-  top: 356px;
-  /* Align with third card */
-  animation-delay: 0.7s;
-  /* Delay after third card appears */
-}
-
-/* Education section dots */
-#education-section .timeline .milestone:nth-child(2) {
-  top: 44px;
-  /* Align with first education card */
-  animation-delay: 0.3s;
-  /* Delay after first card appears */
-}
-
-#education-section .timeline .milestone:nth-child(4) {
-  top: 200px;
-  /* Align with second education card */
-  animation-delay: 0.5s;
-  /* Delay after second card appears */
+  background: #38bdf8;
+  border: 3px solid var(--entry);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.9);
+  z-index: 3;
 }
 
 .timeline-card .year {
-  position: absolute;
-  /* Absolute positioning */
-  top: 8px;
-  /* Align near top */
-  right: 15px;
-  /* Right-align */
-  font-size: 0.85rem;
-  /* Font size */
-  color: var(--secondary);
-  /* Secondary color */
-  font-weight: 500;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--secondary);
   background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  padding: 4px 8px;
-  border-radius: 6px;
-  border: 1px solid var(--glass-border);
-}
-
-.timeline-card .year i {
-  color: var(--accent);
-  font-size: 0.8rem;
-}
-
-.timeline-card .card-header {
-  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: 12px;
+  float: right;
+  margin-bottom: 12px;
 }
 
 .timeline-card h3 {
-  font-size: 1.3rem;
-  /* Title size */
-  font-weight: 700;
-  /* Bold title */
-  margin-bottom: 0.3rem;
-  /* Space below */
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.22rem;
+  font-weight: 800;
   color: var(--primary);
-  /* Primary color */
+  margin: 0 0 4px 0;
   display: flex;
   align-items: center;
   gap: 8px;
-  letter-spacing: -0.3px;
+  letter-spacing: -0.01em;
 }
 
 .timeline-card h3 i {
   color: var(--accent);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 }
 
 .timeline-card .company {
+  font-family: 'Outfit', sans-serif;
   font-size: 1rem;
-  color: var(--accent);
-  font-weight: 600;
-  opacity: 0.9;
+  font-weight: 700;
+  color: #38bdf8 !important;
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 12px;
+  clear: both;
 }
 
 .timeline-card p {
-  font-size: 0.9rem;
-  /* Description size */
-  margin: 0.5rem 0;
-  /* Vertical spacing */
+  font-size: 0.88rem;
+  line-height: 1.55;
   color: var(--secondary);
-  /* Secondary color */
+  margin: 0 0 16px 0;
 }
 
 .timeline-card .tags {
   display: flex;
-  /* Flex layout */
-  gap: 0.5rem;
-  /* Space between tags */
-  margin-top: 0.5rem;
-  /* Space above */
   flex-wrap: wrap;
-  /* Allow wrapping */
-  justify-content: flex-start;
-  /* Left-align tags */
+  gap: 8px;
 }
 
 .timeline-card .tags span {
-  background: var(--entry);
-  /* Entry background */
-  padding: 0.4rem 0.8rem;
-  /* Padding */
-  border-radius: 6px;
-  /* Rounded corners */
-  font-size: 0.8rem;
-  /* Font size */
+  font-size: 0.76rem;
+  font-weight: 600;
   color: var(--primary);
-  /* Primary color */
+  background: var(--glass-bg);
   border: 1px solid var(--border);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Smooth transitions */
-  display: flex;
+  padding: 5px 12px;
+  border-radius: 12px;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-weight: 500;
+  transition: all 0.25s ease;
 }
 
 .timeline-card .tags span i {
   color: var(--accent);
-  font-size: 0.75rem;
+  font-size: 0.8rem;
 }
 
 .timeline-card .tags span:hover {
@@ -1046,7 +985,7 @@ body.skeleton-active .resume-container {
   /* Delay for fourth card */
 }
 
-/* ---------- 11. Project Box ---------- */
+/* Project Box */
 .project-box {
   max-width: 800px;
   /* Constrain width */
@@ -1095,7 +1034,7 @@ body.skeleton-active .resume-container {
   /* Keep no underline */
 }
 
-/* ---------- 12. Footer ---------- */
+/* Footer */
 .footer {
   text-align: center;
   padding: 40px 20px;
@@ -1118,7 +1057,7 @@ body.skeleton-active .resume-container {
   box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
   /* Glow effect matching accent */
   backdrop-filter: blur(10px);
-  /* Glassmorphic effect */
+  /* Translucent effect */
   -webkit-backdrop-filter: blur(10px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -1189,7 +1128,7 @@ body.skeleton-active .resume-container {
   opacity: 0.8;
 }
 
-/* ---------- 13. Scroll to Top Button ---------- */
+/* Scroll to Top Button */
 #scrollTop {
   position: fixed;
   bottom: 30px;
@@ -1238,7 +1177,7 @@ body.skeleton-active .resume-container {
   /* Icon size */
 }
 
-/* ---------- 14. Loader Styles ---------- */
+/* Loader Styles */
 
 .loader {
   position: fixed;
@@ -1278,7 +1217,7 @@ body.skeleton-active .resume-container {
   50% { transform: rotateY(180deg); opacity: 0.9; }
 }
 
-/* ---------- 15. Responsive Adjustments ---------- */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
   body {
     padding-bottom: 100px;
@@ -1510,98 +1449,40 @@ body.skeleton-active .resume-container {
     /* Glow effect */
   }
 
+  .timeline::before,
+  .timeline-line-fill {
+    left: 20px !important;
+    transform: translateX(-50%) !important;
+  }
+
+  .timeline-avatar-ball {
+    left: 20px !important;
+  }
+
+  .milestone {
+    left: 20px !important;
+    display: block !important;
+  }
+
   .timeline-card,
   .timeline-card.left,
   .timeline-card.right {
-    width: 100%;
-    /* Full width */
-    max-width: 100%;
-    /* Constrain width */
-    margin: 24px 0;
-    /* Vertical spacing */
-    padding: 12px 16px 12px 32px;
-    /* More left padding for spacing from line */
-    background: var(--card-bg);
-    /* Card background */
-    border-radius: 8px;
-    /* Rounded corners */
-    box-shadow: var(--shadow);
-    /* Theme shadow */
-    position: relative;
-    /* Relative positioning */
-    text-align: left;
-    /* Left-align text */
-    box-sizing: border-box;
-    /* Include padding in width */
-    overflow-wrap: break-word;
-    /* Break long words */
-    display: grid;
-    grid-template-columns: 1fr; /* single column: year above, role below */
-    grid-auto-rows: auto;
-    row-gap: 6px;
-    overflow: visible; /* allow the dot to sit on the outside line */
+    width: calc(100% - 44px) !important;
+    margin-left: 44px !important;
+    margin-right: 0 !important;
+    padding: 18px 16px !important;
+    box-sizing: border-box !important;
+    display: block !important;
   }
-
-  /* Intentionally handled in combined selector block above */
-
-  .timeline .milestone {
-    position: absolute;
-    /* Absolute positioning */
-    top: 16px;
-    /* Align with content */
-    left: 19px;
-    /* Align with timeline line (moved right) */
-    width: 12px;
-    /* Marker size */
-    height: 12px;
-    /* Marker size */
-    background: var(--accent);
-    /* Accent color */
-    border: 2px solid var(--theme);
-    /* Theme-colored border */
-    border-radius: 50%;
-    /* Circular shape */
-    z-index: 1;
-    /* Above timeline line */
-    transform: translateX(-50%) scale(1);
-  }
-
-  .timeline .milestone:nth-child(2) {
-    top: 36px;
-    /* Align with first card */
-    animation-delay: 0.3s;
-    /* Delay after first card appears */
-  }
-
-  .timeline .milestone:nth-child(4) {
-    top: 160px;
-    /* Align with second card */
-    animation-delay: 0.5s;
-    /* Delay after second card appears */
-  }
-
-  .timeline .milestone:nth-child(6) {
-    top: 284px;
-    /* Align with third card */
-    animation-delay: 0.7s;
-    /* Delay after third card appears */
-  }
-
-  /* Use per-card dots on mobile instead of absolute milestones */
-  .timeline .milestone { display: none; }
 
   .timeline-card::after {
-    content: '';
-    position: absolute;
-    left: -24px; /* fine-tune: nudge slightly left to center on line */
-    top: 16px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--accent);
-    border: 2px solid var(--theme);
-    box-shadow: 0 0 0 3px var(--entry);
-    z-index: 2;
+    display: none !important;
+  }
+
+  .timeline-card .year {
+    float: none !important;
+    display: inline-flex !important;
+    margin-bottom: 10px !important;
   }
 
   /* Education section dots - mobile */
@@ -1970,7 +1851,7 @@ body.skeleton-active .resume-container {
   }
 }
 
-/* ---------- 11. Project Carousel Styles ---------- */
+/* Project Carousel Styles */
 .project-carousel-wrapper {
   position: relative;
   width: 100%;
@@ -2211,7 +2092,7 @@ body.skeleton-active .resume-container {
   filter: invert(1) brightness(2);
 }
 
-/* ---------- 11. Project Grid Styles (Bento Style) ---------- */
+/* Project Grid Styles (Bento Style) */
 .project-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -2396,9 +2277,214 @@ body.skeleton-active .resume-container {
     grid-template-columns: 1fr;
   }
   
-  .service-card {
-    min-height: auto;
-  }
+.resume-section-title {
+  font-family: 'Outfit', -apple-system, sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 32px 0 24px 0;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+.resume-section-title i {
+  color: var(--accent);
+  font-size: 1.6rem;
+}
+
+/* ---------- macOS Raycast Style Tech Dock & Dynamic HUD ---------- */
+.tech-dock-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 20px 0 40px 0;
+}
+
+/* Dynamic Spec Preview HUD Window with Fixed Container Height */
+.tech-spec-hud {
+  width: 100%;
+  max-width: 720px;
+  min-height: 110px;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-medium);
+  margin-bottom: 28px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.tech-spec-icon-box {
+  width: 68px;
+  height: 68px;
+  min-width: 68px;
+  max-width: 68px;
+  max-height: 68px;
+  background: var(--glass-bg);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  box-shadow: var(--shadow-light);
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.tech-spec-icon-box img,
+.tech-spec-icon-box svg {
+  width: 44px !important;
+  height: 44px !important;
+  max-width: 44px !important;
+  max-height: 44px !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+.tech-spec-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tech-spec-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.tech-spec-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.tech-spec-category {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+.tech-spec-desc {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--secondary);
+  margin: 0;
+}
+
+/* Floating Translucent Tech Dock Bar */
+.tech-dock-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 16px 20px 28px 20px;
+  box-sizing: border-box;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  display: block;
+  text-align: center;
+}
+
+.tech-dock-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.tech-dock-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  padding: 14px 22px;
+  border-radius: 36px;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: var(--shadow-medium);
+  width: max-content;
+  margin: 0 auto;
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+  box-sizing: border-box;
+}
+
+.tech-dock-item {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  max-width: 60px;
+  max-height: 60px;
+  border-radius: 18px;
+  background: var(--glass-bg);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.tech-dock-item img,
+.tech-dock-item svg {
+  width: 38px !important;
+  height: 38px !important;
+  max-width: 38px !important;
+  max-height: 38px !important;
+  object-fit: contain !important;
+  display: block !important;
+  transition: transform 0.25s ease;
+}
+
+.tech-dock-item:hover {
+  transform: translateY(-6px) scale(1.12);
+  border-color: var(--accent) !important;
+  box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
+}
+
+.tech-dock-item.active {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 18px 2px rgba(56, 189, 248, 0.6) !important;
+  background: rgba(56, 189, 248, 0.15) !important;
+  transform: translateY(-4px) scale(1.08);
+}
+
+.tech-dock-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
 }
 
 
