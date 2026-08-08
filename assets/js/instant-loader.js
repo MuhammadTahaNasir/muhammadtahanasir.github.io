@@ -7,6 +7,8 @@
 			loader.style.opacity = '0';
 			loader.style.visibility = 'hidden';
 			loader.classList.add('hidden');
+			document.documentElement.style.overflow = '';
+			document.body.style.overflow = '';
 		}
 	}
 

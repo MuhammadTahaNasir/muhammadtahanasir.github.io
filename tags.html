@@ -2,39 +2,42 @@
 <html lang="en" dir="auto">
 
 <head>
-  <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
-  <link rel="shortcut icon" href="/assets/images/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>');
+    })();
+  </script>
+  <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png?v=6" sizes="96x96" />
+  <link rel="shortcut icon" href="/assets/images/favicon.ico?v=6" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png?v=6" />
   <meta name="apple-mobile-web-app-title" content="Terry" />
   <link rel="manifest" href="/assets/images/site.webmanifest" />
 
-  <!-- ---------- 1. Meta Tags ---------- -->
+  <!-- Meta Tags -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>All Tags | Muhammad Taha Nasir</title>
   <meta name="description" content="Browse all tags for posts and projects" />
 
-  <!-- ---------- 2. Stylesheets ---------- -->
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="/assets/css/stylesheet.css" />
   <link rel="stylesheet" href="assets/css/tags.css" />
   <link rel="stylesheet" href="assets/css/bottom-nav.css" />
-  <style>
-    .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
-    .loader.hidden{opacity:0;visibility:hidden}
-  </style>
-
-  <!-- ---------- 3. Theme Initialization Script ---------- -->
-  <script>
-    // Apply saved theme immediately to prevent flash
-    const savedTheme = localStorage.getItem('pref-theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = savedTheme || (prefersDark ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', theme);
-  </script>
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <script src="/assets/js/bg-canvas.js"></script>
 </head>
 
 <body>
-  <!-- ---------- 4. Loader Animation ---------- -->
+  <!-- Loader Animation -->
   <div class="loader" id="loader" aria-hidden="true">
     <div class="terry-animation">
       <span class="letter">t</span>
@@ -45,50 +48,45 @@
     </div>
   </div>
 
-  <!-- ---------- 5. Header Navigation ---------- -->
+  <!-- Header Navigation -->
+      <!-- Header Navigation -->
   <header class="header" role="banner">
     <nav class="nav" role="navigation" aria-label="Main navigation">
-      <!-- Left: Logo -->
       <div class="nav-left">
         <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
       </div>
-
-      <!-- Center: Pills Navigation -->
-      <div class="nav-center">
-        <div class="pill-nav" role="tablist">
-          <a href="projects.html" role="tab">Projects</a>
-          <a href="archives.html" role="tab">Archives</a>
-          <a href="resume.html" role="tab">Resume</a>
-          <a href="search.html" role="tab">Search</a>
-        </div>
-      </div>
-      
-
-      <!-- Right: Theme toggle -->
       <div class="nav-right">
-        <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
-          <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="5" />
-            <line x1="12" y1="1" x2="12" y2="3" />
-            <line x1="12" y1="21" x2="12" y2="23" />
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-            <line x1="1" y1="12" x2="3" y2="12" />
-            <line x1="21" y1="12" x2="23" y2="12" />
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-          </svg>
-          <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-          </svg>
-        </button>
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
       </div>
     </nav>
   </header>
 
-  <!-- ---------- 6. Main Content ---------- -->
+  <!-- Main Content -->
   <main class="post-container page-fade-in" role="main">
     <!-- Breadcrumb Navigation -->
     <div class="header-bar">
@@ -101,44 +99,131 @@
       <p class="subtitle">Browse posts and projects by technology and category</p>
     </div>
 
-    <!-- Search Box -->
-    <div class="search-box">
-      <i class="fas fa-search"></i>
-      <input type="text" id="tagSearch" placeholder="Search tags..." aria-label="Search tags" />
-    </div>
+    <!-- Desktop Hybrid View -->
+    <div class="desktop-hybrid-view">
+      <!-- Top Search & Quick Links Grid -->
+      <div class="top-controls-grid">
+        <div class="search-box-hybrid">
+          <i class="fas fa-search"></i>
+          <input type="text" id="tagSearch" placeholder="Search technology tags..." aria-label="Search tags" />
+        </div>
+        <div class="quick-links-hybrid">
+          <a href="posts.html" class="quick-btn">
+            <i class="fas fa-blog"></i> All Posts
+          </a>
+          <a href="projects.html" class="quick-btn">
+            <i class="fas fa-code"></i> All Projects
+          </a>
+        </div>
+      </div>
 
-    <!-- Quick Links -->
-    <div class="quick-links">
-      <a href="posts.html" class="quick-link-card">
-        <i class="fas fa-blog"></i>
-        <span>All Posts</span>
-        <i class="fas fa-arrow-right arrow"></i>
-      </a>
-      <a href="projects.html" class="quick-link-card">
-        <i class="fas fa-code"></i>
-        <span>All Projects</span>
-        <i class="fas fa-arrow-right arrow"></i>
-      </a>
-    </div>
+      <!-- Hybrid Split-Pane Layout -->
+      <div class="hybrid-split-pane">
+        <!-- Left Category Sidebar -->
+        <aside class="hybrid-sidebar">
+          <div class="sidebar-title">Categories</div>
+          <button class="hybrid-cat-item active" data-cat="all">
+            <span><i class="fas fa-border-all" style="margin-right:8px; font-size:0.85em;"></i> All Topics</span>
+            <span class="cat-count" id="countAll">0</span>
+          </button>
+          <button class="hybrid-cat-item" data-cat="ai">
+            <span><i class="fas fa-brain" style="margin-right:8px; font-size:0.85em;"></i> AI & Machine Learning</span>
+            <span class="cat-count" id="countAI">0</span>
+          </button>
+          <button class="hybrid-cat-item" data-cat="web">
+            <span><i class="fas fa-globe" style="margin-right:8px; font-size:0.85em;"></i> Web & Full-Stack</span>
+            <span class="cat-count" id="countWeb">0</span>
+          </button>
+          <button class="hybrid-cat-item" data-cat="systems">
+            <span><i class="fas fa-microchip" style="margin-right:8px; font-size:0.85em;"></i> Systems & C++</span>
+            <span class="cat-count" id="countSystems">0</span>
+          </button>
+          <button class="hybrid-cat-item" data-cat="data">
+            <span><i class="fas fa-chart-line" style="margin-right:8px; font-size:0.85em;"></i> Data & Science</span>
+            <span class="cat-count" id="countData">0</span>
+          </button>
+        </aside>
 
-    <!-- Popular Tags Section (Mobile Only) -->
-    <div class="popular-tags-section" id="popularTagsSection">
-      <h3 class="popular-tags-title">
-        <i class="fas fa-fire"></i> Popular Tags
-      </h3>
-      <div class="popular-tags-pills" id="popularTagsPills">
-        <!-- Popular tags will be dynamically inserted here -->
+        <!-- Right Bento Tiles Grid & Pagination Column -->
+        <div class="hybrid-right-column">
+          <section class="hybrid-tiles-grid" id="tagsContainer">
+            <!-- Tags dynamically inserted by tags.js -->
+          </section>
+
+          <!-- Bento Pagination Bar -->
+          <div class="bento-pagination" id="bentoPagination">
+            <button class="bento-page-btn" id="prevPageBtn" aria-label="Previous Page">
+              <i class="fas fa-chevron-left"></i> Prev
+            </button>
+            <div class="bento-page-indicators" id="pageIndicators">
+              <!-- Page dots / numbers inserted dynamically by tags.js -->
+            </div>
+            <button class="bento-page-btn" id="nextPageBtn" aria-label="Next Page">
+              Next <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Alphabet Jump Navigation (Mobile Only) -->
-    <div class="alphabet-nav" id="alphabetNav">
-      <!-- Alphabet letters will be dynamically inserted here -->
-    </div>
+    <!-- Mobile Desktop-Adapted View (Variant 1) -->
+    <div class="mobile-original-view">
+      <!-- Mobile Search Box -->
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="mobileTagSearch" placeholder="Search technology tags..." aria-label="Search tags" />
+      </div>
 
-    <!-- Tags Grid -->
-    <div class="tags-grid" id="tagsContainer">
-      <!-- Tags will be dynamically inserted here by JavaScript -->
+      <!-- Category Filter Pill Track -->
+      <div class="mob-cat-track" id="mobileCatTrack">
+        <button class="mob-cat-pill active" data-cat="all"><i class="fas fa-border-all"></i> All (<span id="mobCountAll">0</span>)</button>
+        <button class="mob-cat-pill" data-cat="ai"><i class="fas fa-brain"></i> AI & ML (<span id="mobCountAI">0</span>)</button>
+        <button class="mob-cat-pill" data-cat="web"><i class="fas fa-globe"></i> Web (<span id="mobCountWeb">0</span>)</button>
+        <button class="mob-cat-pill" data-cat="systems"><i class="fas fa-microchip"></i> Systems (<span id="mobCountSystems">0</span>)</button>
+        <button class="mob-cat-pill" data-cat="data"><i class="fas fa-chart-line"></i> Data (<span id="mobCountData">0</span>)</button>
+      </div>
+
+      <!-- Quick Action Cards -->
+      <div class="quick-links">
+        <a href="posts.html" class="quick-link-card">
+          <i class="fas fa-blog" style="color:var(--accent);"></i>
+          <span>All Posts</span>
+          <i class="fas fa-arrow-right arrow"></i>
+        </a>
+        <a href="projects.html" class="quick-link-card">
+          <i class="fas fa-code" style="color:#38bdf8;"></i>
+          <span>All Projects</span>
+          <i class="fas fa-arrow-right arrow"></i>
+        </a>
+      </div>
+
+      <!-- Popular Tags Section (Mobile Only) -->
+      <div class="popular-tags-section" id="popularTagsSection">
+        <h3 class="popular-tags-title">
+          <i class="fas fa-fire"></i> Popular Tags
+        </h3>
+        <div class="popular-tags-pills" id="popularTagsPills">
+          <!-- Popular tags dynamically inserted by tags.js -->
+        </div>
+      </div>
+
+      <!-- Mobile Tags Container -->
+      <div class="tags-grid" id="mobileTagsContainer">
+        <!-- Tags dynamically inserted by tags.js -->
+      </div>
+
+      <!-- Mobile Pagination Bar -->
+      <div class="bento-pagination" id="mobileBentoPagination" style="margin-top: 20px; display: flex;">
+        <button class="bento-page-btn" id="mobPrevPageBtn" aria-label="Previous Page">
+          <i class="fas fa-chevron-left"></i> Prev
+        </button>
+        <div class="bento-page-indicators" id="mobPageIndicators">
+          <!-- Page indicators inserted by tags.js -->
+        </div>
+        <button class="bento-page-btn" id="mobNextPageBtn" aria-label="Next Page">
+          Next <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
     </div>
   </main>
 
@@ -146,36 +231,42 @@
 
   <!-- Bottom Nav injected by shared-bottom-nav.js -->
 
-  <!-- ---------- 7. Footer ---------- -->
-  <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
-    <div class="social-icons" style="margin-bottom:25px;">
-      <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
-        style="margin:0 5px; font-size:1.6em;">
-        <i class="fab fa-github" aria-hidden="true"></i>
-      </a>
-      <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
-        aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
-        <i class="fab fa-linkedin" aria-hidden="true"></i>
-      </a>
-      <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
-        style="margin:0 5px; font-size:1.6em;">
-        <i class="fas fa-envelope" aria-hidden="true"></i>
-      </a>
-    </div>
-    <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
-  </footer>
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
 
-  <!-- ---------- 8. Scroll to Top Button ---------- -->
+  <!-- Scroll to Top Button -->
   <button id="scrollTop" aria-label="Scroll to top" title="Scroll to top" type="button">
     <i class="fas fa-chevron-up" aria-hidden="true"></i>
   </button>
 
-  <!-- ---------- 9. JavaScript Include ---------- -->
+  
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <!-- JavaScript Include -->
   <script src="assets/js/tags.js"></script>
   <script src="assets/js/header-scroll.js"></script>
   <script src="assets/js/shared-bottom-nav.js"></script>
   <script src="assets/js/nav-active.js"></script>
   <script src="assets/js/instant-loader.js"></script>
+    <script src="/assets/js/ai-search.js"></script>
 </body>
 
 </html>
