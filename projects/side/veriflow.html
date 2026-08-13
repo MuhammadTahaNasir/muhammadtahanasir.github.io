@@ -2,9 +2,21 @@
 <html lang="en" dir="auto">
 
 <head>
-    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
-    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>');
+    })();
+  </script>
+    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png?v=5" sizes="96x96" />
+    <link rel="shortcut icon" href="/assets/images/favicon.ico?v=5" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png?v=5" />
     <meta name="apple-mobile-web-app-title" content="Veriflow" />
     <link rel="manifest" href="/assets/images/site.webmanifest" />
     
@@ -18,35 +30,22 @@
     <meta name="date" content="2026-05-30">
     <meta name="tab" content="side">
     <meta name="subcategory" content="Machine Learning">
-    <meta name="features" content="Streamlit, Python, SQLite, Scikit-learn, Random Forest, Feature Engineering">
+    <meta name="features" content="MLOps, Python, PyTorch, DevSecOps" />
     <meta name="thumbnail" content="/assets/images/projects/veriflow/dashboard_overview.png">
     <meta name="github" content="https://github.com/MuhammadTahaNasir/Veriflow">
     <title>Veriflow: B2B Revenue Leakage & Invoice Auditing System</title>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/stylesheet.css" />
     <link rel="stylesheet" href="/assets/css/each-project.css">
     <link rel="stylesheet" href="/assets/css/bottom-nav.css">
-
-    <!-- Theme Initialization Script -->
-    <script>
-        (function () {
-            const savedTheme = localStorage.getItem('pref-theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                document.documentElement.style.background = '#1a1a1a';
-                document.documentElement.style.color = '#d1d5db';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-                document.documentElement.style.background = '#f9fafc';
-                document.documentElement.style.color = '#333';
-            }
-        })();
-    </script>
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="../../assets/js/bg-canvas.js"></script>
 </head>
 
-<body class="dark" id="top">
+<body id="top">
     <!-- Loader Animation -->
     <div class="loader" id="loader" aria-hidden="true">
         <div class="terry-animation">
@@ -59,61 +58,59 @@
     </div>
 
     <!-- Header Navigation -->
-    <header class="header">
-        <nav class="nav">
-            <!-- Left: Logo -->
-            <div class="nav-left">
-                <a href="/index.html" class="logo">&lt;terry/&gt;</a>
-            </div>
-
-            <!-- Center: Pills Navigation -->
-            <div class="nav-center">
-                <div class="pill-nav">
-                    <a href="/projects.html">Projects</a>
-                    <a href="/archives.html">Archives</a>
-                    <a href="/resume.html">Resume</a>
-                    <a href="/search.html">Search</a>
-                </div>
-            </div>
-
-            <!-- Right: Theme toggle -->
-            <div class="nav-right">
-                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
-                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5" />
-                        <line x1="12" y1="1" x2="12" y2="3" />
-                        <line x1="12" y1="21" x2="12" y2="23" />
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                        <line x1="1" y1="12" x2="3" y2="12" />
-                        <line x1="21" y1="12" x2="23" y2="12" />
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                    </svg>
-                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-                    </svg>
-                </button>
-            </div>
-        </nav>
-    </header>
+        <!-- Header Navigation -->
+        <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
 
     <!-- Main Content -->
     <div class="container">
         <!-- Breadcrumb Navigation -->
         <nav class="breadcrumb">
-            <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a> » <a
-                href="/projects/side/veriflow.html">Veriflow: B2B Revenue Leakage & Invoice Auditing System</a>
-        </nav>
+        <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a> » <span class="breadcrumb-current">Veriflow</span>
+      </nav>
 
         <!-- Project Content -->
         <main class="project-content">
-            <header class="project-header">
-                <h1 class="project-title">Veriflow: B2B Revenue Leakage & Invoice Auditing System</h1>
-                <div class="project-meta">May 30 2026 • Muhammad Taha Nasir</div>
-            </header>
+        <!-- Project Header -->
+        <header class="project-header">
+          <h1 class="project-title">Veriflow: <span class="accent-title">B2B Revenue Leakage & Invoice Auditing System</span></h1>
+          <div class="project-meta">May 30 2026 • Muhammad Taha Nasir</div>
+        </header>
+
+              
 
             <!-- Image Carousel -->
             <div class="image-carousel">
@@ -263,29 +260,33 @@
                 </ul>
                 <div class="tools-section">
                     <span class="tools-label">Tools:</span>
-                    <div id="project-tools-tags"></div>
+                    <div id="project-tools-tags">
+                        <a href="/tags/tag.html?name=Machine%20Learning" class="tool-pill tag">Machine Learning</a>
+                        <a href="/tags/tag.html?name=Random%20Forest" class="tool-pill tag">Random Forest</a>
+                        <a href="/tags/tag.html?name=Scikit-learn" class="tool-pill tag">Scikit-learn</a>
+                        <a href="/tags/tag.html?name=FastAPI" class="tool-pill tag">FastAPI</a>
+                        <a href="/tags/tag.html?name=SQLite" class="tool-pill tag">SQLite</a>
+                        <a href="/tags/tag.html?name=Financial%20Auditing" class="tool-pill tag">Financial Auditing</a>
+                    </div>
                 </div>
             </section>
         </main>
     </div>
 
     <!-- Footer -->
-    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
-        <div class="social-icons" style="margin-bottom:25px;">
-            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
-                style="margin:0 5px; font-size:1.6em;">
-                <i class="fab fa-github" aria-hidden="true"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
-                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
-                <i class="fab fa-linkedin" aria-hidden="true"></i>
-            </a>
-            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
-                style="margin:0 5px; font-size:1.6em;">
-                <i class="fas fa-envelope" aria-hidden="true"></i>
-            </a>
-        </div>
-        <p style="font-size:0.9em;">© 2026 – Muhammad Taha Nasir</p>
+    <footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
     </footer>
 
     <!-- Scroll to Top Button -->
@@ -294,9 +295,18 @@
     </button>
 
     <!-- JavaScript Inclusion -->
-    <script src="../../assets/js/each-project.js"></script>
+    <script src="/assets/js/each-project.js"></script>
     <script src="/assets/js/shared-bottom-nav.js"></script>
     <script src="/assets/js/nav-active.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/ai-search.js"></script>
 </body>
 
 </html>

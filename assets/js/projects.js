@@ -40,8 +40,7 @@ function debounce(func, wait) {
 function updateCategoryDropdown(categories) {
     categorySelect.innerHTML = ''; // Clear existing options
     
-    // Ensure 'all' is the first option
-    const allOption = document.createElement('option');
+    // Ensure 'all' is the first allOption = document.createElement('option');
     allOption.value = 'all';
     allOption.textContent = 'All Categories';
     categorySelect.appendChild(allOption);
@@ -235,19 +234,17 @@ mobileToggleButtons.forEach(btn => {
     });
 });
 
-toggleButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        toggleButtons.forEach(b => b.classList.remove('active'));
+// Wire up project pill buttons (.project-pill-btn)
+const pillButtons = document.querySelectorAll('.project-pill-btn');
+pillButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        pillButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentTab = btn.getAttribute('data-tab');
-        filterBar.style.display = currentTab === 'all' ? '' : 'none';
-        
-        // Sync mobile toggle buttons
-        mobileToggleButtons.forEach(b => {
-            b.classList.toggle('active', b.getAttribute('data-tab') === currentTab);
-        });
         
         categorySelect.value = 'all';
+        currentCategory = 'all';
         searchInput.value = '';
         searchQuery = '';
         applyFilter();
@@ -265,14 +262,9 @@ window.addEventListener('scroll', () => {
 
 // Initial Load
 document.addEventListener('DOMContentLoaded', () => {
-    // Activate loader on page load
     loader.classList.add('active');
-    
-    const defaultToggle = document.querySelector('.toggle-btn[data-tab="all"]');
-    if (defaultToggle) defaultToggle.classList.add('active');
     gridViewBtn.classList.add('active');
     
-    // Load projects after a short delay to show loader
     setTimeout(() => {
         loadProjects();
     }, 100);

@@ -2,12 +2,24 @@
 <html lang="en" dir="auto">
 
 <head>
-    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
-    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>');
+    })();
+  </script>
+    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png?v=5" sizes="96x96" />
+    <link rel="shortcut icon" href="/assets/images/favicon.ico?v=5" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png?v=5" />
     <meta name="apple-mobile-web-app-title" content="Terrag AI" />
     <link rel="manifest" href="/assets/images/site.webmanifest" />
-    <!-- ---------- 1. Meta Tags ---------- -->
+    <!-- Meta Tags -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,38 +30,24 @@
     <meta name="date" content="2025-07-23">
     <meta name="tab" content="side">
     <meta name="subcategory" content="Data Science">
-    <meta name="features" content="Streamlit, Python, Pandas, Scikit-learn, Sentiment Analysis, KMeans Clustering">
+    <meta name="features" content="Agentic AI, Python, PyTorch, MLOps" />
     <meta name="thumbnail" content="/assets/images/projects/terrag-ai/terrag-ai-preview.png">
     <meta name="github" content="https://github.com/MuhammadTahaNasir/advtrix-learning/tree/main/streamlit_app">
     <meta name="hideWebLink" content="true">
     <title>Terrag AI: AI-Powered Data Analytics Platform</title>
 
-    <!-- ---------- 2. Stylesheets ---------- -->
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/stylesheet.css" />
     <link rel="stylesheet" href="/assets/css/each-project.css">
     <link rel="stylesheet" href="/assets/css/bottom-nav.css">
 
-    <!-- ---------- 3. Theme Initialization Script ---------- -->
-    <script>
-        // Apply theme immediately on page load to prevent flash
-        (function () {
-            const savedTheme = localStorage.getItem('pref-theme'); // Get saved theme
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; // Check system dark mode
-            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                document.documentElement.setAttribute('data-theme', 'dark'); // Apply dark theme
-                document.documentElement.style.background = '#1a1a1a'; // Set background immediately
-                document.documentElement.style.color = '#d1d5db'; // Set text color immediately
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light'); // Apply light theme
-                document.documentElement.style.background = '#f9fafc'; // Set background immediately
-                document.documentElement.style.color = '#333'; // Set text color immediately
-            }
-        })();
-    </script>
-
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="../../assets/js/bg-canvas.js"></script>
 </head>
 
-<body class="dark" id="top">
+<body id="top">
     <!-- Loader Animation -->
     <div class="loader" id="loader" aria-hidden="true">
         <div class="terry-animation">
@@ -61,61 +59,60 @@
         </div>
     </div>
 
-    <!-- ---------- 4. Header Navigation ---------- -->
-    <header class="header"> <!-- Header section -->
-        <nav class="nav"> <!-- Navigation bar -->
-            <!-- Left: Logo -->
-            <div class="nav-left">
-                <a href="/index.html" class="logo">&lt;terry/&gt;</a>
-            </div>
+    <!-- Header Navigation -->
+        <!-- Header Navigation -->
+        <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
 
-            <!-- Center: Pills Navigation -->
-            <div class="nav-center"> <!-- Navigation links container -->
-                <div class="pill-nav"> <!-- Pill-style navigation -->
-                    <a href="/projects.html">Projects</a> <!-- Resources link -->
-                    <a href="/archives.html">Archives</a> <!-- Archives link -->
-                    <a href="/resume.html">Resume</a> <!-- Resume link -->
-                    <a href="/search.html">Search</a> <!-- Search link -->
-                </div>
-            </div>
-<!-- Right: Theme toggle -->
-            <div class="nav-right"> <!-- Theme toggle container -->
-                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme"> <!-- Theme toggle button -->
-                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round"> <!-- Sun icon for light mode -->
-                        <circle cx="12" cy="12" r="5" />
-                        <line x1="12" y1="1" x2="12" y2="3" />
-                        <line x1="12" y1="21" x2="12" y2="23" />
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                        <line x1="1" y1="12" x2="3" y2="12" />
-                        <line x1="21" y1="12" x2="23" y2="12" />
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                    </svg>
-                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round"> <!-- Moon icon for dark mode -->
-                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-                    </svg>
-                </button>
-            </div>
-        </nav>
-    </header>
-
-    <!-- ---------- 5. Main Content ---------- -->
+    <!-- Main Content -->
     <div class="container">
         <!-- Breadcrumb Navigation -->
         <nav class="breadcrumb">
-            <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a> » <a
-                href="/projects/side/terrag-ai.html">Terrag AI: AI-Powered Data Analytics Platform</a>
-        </nav>
+        <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a> » <span class="breadcrumb-current">TerrAG AI</span>
+      </nav>
 
         <!-- Project Content -->
         <main class="project-content">
-            <header class="project-header">
-                <h1 class="project-title">Terrag AI: AI-Powered Data Analytics Platform</h1>
-                <div class="project-meta">Jul 23 2025 • Muhammad Taha Nasir</div>
-            </header>
+        <!-- Project Header -->
+        <header class="project-header">
+          <h1 class="project-title">Terrag AI: <span class="accent-title">AI-Powered Data Analytics Platform</span></h1>
+          <div class="project-meta">March 2 2026 • Muhammad Taha Nasir</div>
+        </header>
+
+              
 
             <!-- Project Image Carousel -->
             <div class="image-carousel">
@@ -294,39 +291,51 @@
                 </ul>
                 <div class="tools-section">
                     <span class="tools-label">Tools:</span>
-                    <div id="project-tools-tags"></div>
+                    <div id="project-tools-tags">
+                        <a href="/tags/tag.html?name=Data%20Analytics" class="tool-pill tag">Data Analytics</a>
+                        <a href="/tags/tag.html?name=Scikit-learn" class="tool-pill tag">Scikit-learn</a>
+                        <a href="/tags/tag.html?name=K-Means%20Clustering" class="tool-pill tag">K-Means Clustering</a>
+                        <a href="/tags/tag.html?name=Pandas" class="tool-pill tag">Pandas</a>
+                        <a href="/tags/tag.html?name=Streamlit" class="tool-pill tag">Streamlit</a>
+                    </div>
                 </div>
             </section>
         </main>
     </div>
 
-    <!-- ---------- 6. Footer ---------- -->
-    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
-        <div class="social-icons" style="margin-bottom:25px;">
-            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
-                style="margin:0 5px; font-size:1.6em;">
-                <i class="fab fa-github" aria-hidden="true"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
-                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
-                <i class="fab fa-linkedin" aria-hidden="true"></i>
-            </a>
-            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
-                style="margin:0 5px; font-size:1.6em;">
-                <i class="fas fa-envelope" aria-hidden="true"></i>
-            </a>
-        </div>
-        <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
     </footer>
 
-    <!-- ---------- 7. Scroll to Top Button ---------- -->
+    <!-- Scroll to Top Button -->
     <button id="scrollTop" aria-label="Scroll to top"> <!-- Scroll to top button -->
         <i class="fas fa-chevron-up"></i> <!-- Up arrow icon -->
     </button>
-    <!-- ---------- 8. JavaScript Inclusion ---------- -->
-    <script src="../../assets/js/each-project.js"></script>
+    <!-- JavaScript Inclusion -->
+    <script src="/assets/js/each-project.js"></script>
     <script src="/assets/js/shared-bottom-nav.js"></script>
     <script src="/assets/js/nav-active.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/ai-search.js"></script>
 </body>
 
 </html>

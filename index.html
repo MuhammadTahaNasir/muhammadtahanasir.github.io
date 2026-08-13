@@ -1,181 +1,1593 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <!-- Instant Theme Initialization Script (Theme Initializer) -->
+    <script>
+      (function () {
+        var savedTheme = localStorage.getItem("pref-theme");
+        var prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        var theme = savedTheme || (prefersDark ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+        var bg = theme === "dark" ? "#06070d" : "#f8fafc";
+        document.documentElement.style.backgroundColor = bg;
+        document.write(
+          "<style>html,body{background-color:" +
+            bg +
+            " !important; color-scheme:" +
+            theme +
+            " !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>",
+        );
+      })();
+    </script>
+    <link
+      rel="icon"
+      type="image/png"
+      href="/assets/images/favicon-96x96.png?v=6"
+      sizes="96x96"
+    />
+    <link rel="shortcut icon" href="/assets/images/favicon.ico?v=6" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/images/apple-touch-icon.png?v=6"
+    />
+    <meta name="apple-mobile-web-app-title" content="Terry" />
+    <link rel="manifest" href="/assets/images/site.webmanifest" />
 
-<head>
-  <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
-  <link rel="shortcut icon" href="/assets/images/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
-  <meta name="apple-mobile-web-app-title" content="Terry" />
-  <link rel="manifest" href="/assets/images/site.webmanifest" />
+    <!-- Meta Tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home | Muhammad Taha Nasir</title>
 
-  <!-- ---------- 1. Meta Tags ---------- -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home | Muhammad Taha Nasir</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/stylesheet.css" />
+    <link rel="stylesheet" href="assets/css/bottom-nav.css" />
+    <link rel="stylesheet" href="assets/css/bento-grid.css" />
+    <link rel="stylesheet" href="assets/css/resume.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- ---------- 2. Stylesheets ---------- -->
-  <link rel="stylesheet" href="assets/css/stylesheet.css">
-  <link rel="stylesheet" href="assets/css/bottom-nav.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="/assets/js/bg-canvas.js"></script>
+  </head>
 
-
-
-  <!-- ---------- 3. Theme Initialization Script ---------- -->
-  <script>
-    // Apply saved theme immediately to prevent flash
-    const savedTheme = localStorage.getItem('pref-theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = savedTheme || (prefersDark ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', theme);
-  </script>
-
-</head>
-
-<body>
-  <!-- ---------- 4. Loader Animation ---------- -->
-  <div class="loader" id="loader" aria-hidden="true">
-    <div class="terry-animation">
-      <span class="letter">t</span>
-      <span class="letter">e</span>
-      <span class="letter">r</span>
-      <span class="letter">r</span>
-      <span class="letter">y</span>
-    </div>
-  </div>
-
-  <!-- ---------- 5. Header Navigation ---------- -->
-  <header class="header" role="banner">
-    <nav class="nav" role="navigation" aria-label="Main navigation">
-      <!-- Left: Logo -->
-      <div class="nav-left">
-        <a href="index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+  <body>
+    <!-- Loader Animation -->
+    <div class="loader" id="loader" aria-hidden="true">
+      <div class="terry-animation">
+        <span class="letter">t</span>
+        <span class="letter">e</span>
+        <span class="letter">r</span>
+        <span class="letter">r</span>
+        <span class="letter">y</span>
       </div>
+    </div>
 
-      <!-- Center: Pills Navigation -->
-      <div class="nav-center">
-        <div class="pill-nav" role="tablist">
-          <a href="projects.html" role="tab">Projects</a>
-          <a href="archives.html" role="tab">Archives</a>
-          <a href="resume.html" role="tab">Resume</a>
-          <a href="search.html" role="tab">Search</a>
+    <!-- Header Navigation -->
+    <!-- Header Navigation -->
+    <header class="header" role="banner">
+      <nav class="nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-left">
+          <a href="/index.html" class="logo" aria-label="Home"
+            >&lt;terry/&gt;</a
+          >
+        </div>
+
+        <div class="nav-right">
+          <div class="nav-right-items">
+            <div class="header-ai-search-wrap">
+              <div
+                class="header-ai-search-bar dynamic-island-search"
+                id="headerAISearchBar"
+              >
+                <i class="fas fa-search search-icon" style="color: #38bdf8"></i>
+                <input
+                  type="text"
+                  id="headerSearchInput"
+                  placeholder="Search posts, projects, topics..."
+                  aria-label="Search posts and projects"
+                  autocomplete="off"
+                />
+                <button
+                  id="headerSearchClear"
+                  type="button"
+                  aria-label="Clear search"
+                  style="display: none"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <button
+              id="theme-toggle"
+              aria-label="Toggle theme"
+              title="Toggle theme"
+              type="button"
+            >
+              <svg
+                id="sun"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="5" />
+                <line x1="12" y1="1" x2="12" y2="3" />
+                <line x1="12" y1="21" x2="12" y2="23" />
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                <line x1="1" y1="12" x2="3" y2="12" />
+                <line x1="21" y1="12" x2="23" y2="12" />
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+              </svg>
+              <svg
+                id="moon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+              </svg>
+            </button>
+            <button
+              id="bento-menu-btn"
+              class="bento-menu-btn"
+              onclick="
+                if (window.toggleBentoMenu) {
+                  window.toggleBentoMenu();
+                }
+                return false;
+              "
+              aria-label="Navigation Menu"
+              title="Menu"
+              type="button"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="20"
+                height="20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <circle cx="7" cy="7" r="2.5" />
+                <circle cx="17" cy="7" r="2.5" />
+                <circle cx="7" cy="17" r="2.5" />
+                <circle cx="17" cy="17" r="2.5" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Bento Grid Hero Section -->
+    <section class="bento-hero-section">
+      <div class="bento-grid">
+        <!-- CARD 1: Name & Status -->
+        <div class="bento-card bento-card-name">
+          <div class="bento-card-label">
+            <span class="neon-dot"></span> FAST NUCES • SENIOR CS
+          </div>
+          <div>
+            <h1 class="bento-name-title">MUHAMMAD TAHA<br />NASIR</h1>
+            <div class="bento-name-handle">&lt;terry/&gt;</div>
+          </div>
+          <div class="bento-watermark">TAHA</div>
+        </div>
+
+        <!-- CARD 2: Tall Feature Photo -->
+        <div class="bento-card bento-card-photo">
+          <img
+            src="assets/images/MuhammadTahaNasir.jpeg"
+            alt="Muhammad Taha Nasir"
+            class="bento-photo-img"
+          />
+          <div class="bento-photo-overlay">
+            <div class="bento-photo-badge">
+              <i class="fas fa-brain"></i> AI Engineer: Generative & Agentic
+              Systems
+            </div>
+            <h3 class="bento-photo-title">
+              Building intelligent AI systems that reason, retrieve, act, and
+              interact.
+            </h3>
+          </div>
+        </div>
+
+        <!-- CARD 3: Craft & Focus (Top Right) -->
+        <div class="bento-card bento-card-craft">
+          <div class="bento-card-label">
+            <i class="fas fa-microchip"></i> CRAFT & FOCUS
+          </div>
+          <p class="bento-craft-text">
+            AI Engineer focused on
+            <strong>Generative & Agentic AI systems</strong>. Building LLM
+            applications, stateful AI workflows, RAG systems, real-time Voice
+            AI, and production-grade backends.
+          </p>
+
+          <!-- Non-interactive Continuous Moving Tech Marquee Line -->
+          <div class="bento-tech-marquee">
+            <div class="bento-tech-marquee-track">
+              <span><i class="fab fa-python"></i> PYTHON</span>
+              <span><i class="fas fa-brain"></i> GEN AI</span>
+              <span><i class="fas fa-robot"></i> AGENTIC AI</span>
+              <span><i class="fas fa-layer-group"></i> LLMs</span>
+              <span><i class="fas fa-network-wired"></i> LANGGRAPH</span>
+              <span><i class="fas fa-database"></i> RAG</span>
+              <span><i class="fas fa-microphone"></i> VOICE AI</span>
+              <span><i class="fas fa-bolt"></i> FASTAPI</span>
+              <!-- Duplicate set for seamless looping -->
+              <span><i class="fab fa-python"></i> PYTHON</span>
+              <span><i class="fas fa-brain"></i> GEN AI</span>
+              <span><i class="fas fa-robot"></i> AGENTIC AI</span>
+              <span><i class="fas fa-layer-group"></i> LLMs</span>
+              <span><i class="fas fa-network-wired"></i> LANGGRAPH</span>
+              <span><i class="fas fa-database"></i> RAG</span>
+              <span><i class="fas fa-microphone"></i> VOICE AI</span>
+              <span><i class="fas fa-bolt"></i> FASTAPI</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4: About Me (Bottom Left) -->
+        <div class="bento-card bento-card-mindset">
+          <div class="bento-card-label">
+            <i class="fas fa-user-gear"></i> ABOUT ME
+          </div>
+          <div class="bento-about-text">
+            <p>
+              Hi, I'm <strong>Muhammad Taha Nasir</strong>, a senior Computer
+              Science student at FAST-NUCES and an AI Engineer who enjoys
+              building things at the intersection of Artificial Intelligence and
+              Software Engineering.
+            </p>
+            <p>
+              I primarily work with Python, C++, and JavaScript, building
+              applications and intelligent systems from the ground up. I enjoy
+              working close to the engineering side of things, understanding how
+              software works underneath, designing reliable systems, and turning
+              ideas into something that actually works.
+            </p>
+            <p>
+              My journey into AI spans Machine Learning, Deep Learning, Natural
+              Language Processing, and Generative AI. I work with neural
+              networks, modern model architectures, LLMs, embeddings, RAG, AI
+              agents, and model-powered applications, with a strong interest in
+              understanding what happens beneath the abstractions rather than
+              simply treating AI as a collection of black-box APIs.
+            </p>
+            <p>
+              Alongside AI, I build the engineering layers that make these
+              systems usable in the real world, from backend services, APIs,
+              databases, and vector search to deployment, cloud infrastructure,
+              Docker, CI/CD, and automation.
+            </p>
+            <p>
+              I'm focused on building systems that sit at the intersection of
+              logic, performance, and AI creativity, useful systems, engineered
+              properly, and built from the ground up.
+            </p>
+            <p>
+              And yes, I'm also what you might call a vibe coder, a good chunk
+              of my workflow is powered by AI… but hey, that's fair game when
+              you're training to be an AI engineer yourself. 😉
+            </p>
+          </div>
+        </div>
+
+        <!-- CARD 5 & 6 Column Right Bottom -->
+        <div class="bento-row-bottom">
+          <!-- Quote Card -->
+          <div class="bento-card bento-card-quote">
+            <i class="fas fa-quote-left bento-quote-icon"></i>
+            <h4 class="bento-quote-text">
+              “What I cannot create, I do not understand.”
+            </h4>
+            <span
+              style="
+                display: block;
+                font-size: 0.82rem;
+                font-weight: 600;
+                color: var(--bento-text-secondary);
+                margin-top: 6px;
+              "
+              >— Richard Feynman</span
+            >
+          </div>
+
+          <!-- Location Card -->
+          <div class="bento-card bento-card-location">
+            <!-- Top Border Ruler Scale Ticks -->
+            <div class="bento-ruler-ticks">
+              <span></span><span></span><span></span><span></span><span></span
+              ><span></span><span></span><span></span><span></span><span></span
+              ><span></span><span></span><span></span><span></span><span></span>
+            </div>
+
+            <!-- Animated Vertical Scanning Laser Line -->
+            <div class="bento-location-scanline"></div>
+
+            <!-- Full Background Map Texture -->
+            <img
+              src="assets/images/dark_world_map.png"
+              alt="World Map"
+              class="bento-location-bg-map"
+            />
+
+            <div
+              class="bento-card-label"
+              style="position: relative; z-index: 2"
+            >
+              <i class="fas fa-location-dot"></i> LOCATION
+            </div>
+            <div style="position: relative; z-index: 2">
+              <h3 class="bento-location-city">KARACHI,<br />PAKISTAN</h3>
+              <span class="bento-location-coords">24.8607° N, 67.0011° E</span>
+              <span class="bento-location-timezone">- GMT+5</span>
+            </div>
+          </div>
         </div>
       </div>
-      
+    </section>
 
-      <!-- Right: Theme Toggle -->
-      <div class="nav-right">
-        <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
-          <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="5" />
-            <line x1="12" y1="1" x2="12" y2="3" />
-            <line x1="12" y1="21" x2="12" y2="23" />
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-            <line x1="1" y1="12" x2="3" y2="12" />
-            <line x1="21" y1="12" x2="23" y2="12" />
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-          </svg>
-          <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-          </svg>
+    <!-- ---------- Resume Bento Section ---------- -->
+    <section class="resume-bento-section" id="resume-bento-section">
+      <div style="text-align: center; margin-bottom: 25px">
+        <div class="credentials-header-badge">
+          <i class="fas fa-file-alt"></i> RESUME
+        </div>
+        <h2 class="credentials-title">Experience & Skills</h2>
+      </div>
+
+      <!-- Toggle Switch -->
+      <div
+        class="toggle-container"
+        role="tablist"
+        aria-label="Resume section selector"
+      >
+        <button
+          class="toggle-btn active"
+          id="show-skills"
+          role="tab"
+          aria-selected="true"
+          aria-controls="resume-content"
+        >
+          <i class="fas fa-code" aria-hidden="true"></i>
+          Skills
+        </button>
+        <button
+          class="toggle-btn"
+          id="show-experience"
+          role="tab"
+          aria-selected="false"
+          aria-controls="resume-content"
+        >
+          <i class="fas fa-briefcase" aria-hidden="true"></i>
+          Experience
+        </button>
+        <button
+          class="toggle-btn"
+          id="show-education"
+          role="tab"
+          aria-selected="false"
+          aria-controls="resume-content"
+        >
+          <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+          Education
         </button>
       </div>
-    </nav>
-  </header>
 
-  <!-- Full-page Glass Waves Background -->
-  <canvas class="bg-waves" id="bg-waves" aria-hidden="true"></canvas>
+      <!-- Resume Content -->
+      <div
+        class="resume-content"
+        id="resume-content"
+        role="tabpanel"
+        aria-label="Resume content"
+      >
+        <!-- Skills Section -->
+        <div id="skills-section" class="content-section active">
+          <!-- Technical Skills Section: Raycast / macOS Style Tech Dock Bar -->
+          <section class="resume-section tech-dock-section">
+            <h2 class="resume-section-title">
+              <i class="fas fa-code"></i> Technical Skills
+            </h2>
 
-  <!-- ---------- 6. Main Content ---------- -->
-  <div class="container">
-    <!-- Profile Section -->
-    <div class="profile-wrapper"
-      style="position: relative; display: flex; justify-content: center; align-items: center; flex-direction: column;">
-      <div class="profile-image-container">
-        <img src="assets/images/profile.jpg" alt="Profile Picture" class="profile-img" id="profile-img">
+            <!-- Dynamic HUD Spec Preview Box -->
+            <div class="tech-spec-hud" id="tech-spec-hud">
+              <div class="tech-spec-icon-box">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                  id="tech-spec-icon"
+                  alt="Python"
+                />
+              </div>
+              <div class="tech-spec-info">
+                <div class="tech-spec-header">
+                  <h3 class="tech-spec-title" id="tech-spec-title">Python</h3>
+                  <span class="tech-spec-category" id="tech-spec-category"
+                    >Core AI Language</span
+                  >
+                </div>
+                <p class="tech-spec-desc" id="tech-spec-desc">
+                  Primary language for AI engineering, building LLMs, agentic
+                  workflows, PyTorch models, and high-performance FastAPI
+                  backends.
+                </p>
+              </div>
+            </div>
+
+            <!-- Translucent Tech Dock Bar -->
+            <div class="tech-dock-wrapper">
+              <div class="tech-dock-bar" id="tech-dock-bar">
+                <!-- Languages -->
+                <div
+                  class="tech-dock-item active"
+                  data-name="Python"
+                  data-category="Core AI Language"
+                  data-desc="Primary language for AI engineering, building LLMs, agentic workflows, PyTorch models, and high-performance FastAPI backends."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                    alt="Python"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="TypeScript"
+                  data-category="Frontend & Backend"
+                  data-desc="Strongly-typed development for scalable frontend applications, APIs, and modern web architectures."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
+                    alt="TypeScript"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="JavaScript"
+                  data-category="Web Engineering"
+                  data-desc="Building dynamic web interfaces, asynchronous event handlers, and client-side logic."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                    alt="JavaScript"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="C / C++"
+                  data-category="Systems Programming"
+                  data-desc="Low-level memory management, algorithmic efficiency, and performance-critical systems engineering."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"
+                    alt="C++"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="SQL / MySQL"
+                  data-category="Relational Databases"
+                  data-desc="Database architecture, relational query optimization, data indexing, and schema design."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
+                    alt="SQL"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="PHP"
+                  data-category="Server-side Scripting"
+                  data-desc="Backend web logic, database integration, and dynamic server-side page rendering."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg"
+                    alt="PHP"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="Bash"
+                  data-category="Shell Scripting"
+                  data-desc="Automation scripts, Unix command-line execution, and system administration workflows."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg"
+                    alt="Bash"
+                    class="dark-invert"
+                  />
+                </div>
+
+                <div class="tech-dock-divider"></div>
+
+                <!-- AI & Machine Learning -->
+                <div
+                  class="tech-dock-item"
+                  data-name="PyTorch"
+                  data-category="Deep Learning"
+                  data-desc="Neural network training, computer vision models, NLP tensor computations, and custom loss functions."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg"
+                    alt="PyTorch"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="TensorFlow"
+                  data-category="Machine Learning"
+                  data-desc="Building production ML pipelines, deep learning architectures, and model deployment."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg"
+                    alt="TensorFlow"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="FastAPI"
+                  data-category="Async Microservices"
+                  data-desc="High-performance async Python backend services, OpenAPI endpoints, and real-time AI API integrations."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg"
+                    alt="FastAPI"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="Scikit-Learn"
+                  data-category="Data Science & ML"
+                  data-desc="Supervised & unsupervised ML models, classification, regression, clustering, and data preprocessing."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg"
+                    alt="Scikit-learn"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="Pandas"
+                  data-category="Data Wrangling"
+                  data-desc="DataFrame manipulation, tabular data analysis, data cleaning, and statistical processing."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg"
+                    alt="Pandas"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="NumPy"
+                  data-category="Numerical Computing"
+                  data-desc="Multidimensional array operations, linear algebra, vector math, and numerical data processing."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg"
+                    alt="NumPy"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="OpenCV"
+                  data-category="Computer Vision"
+                  data-desc="Real-time video analysis, object tracking, visual feature processing, and image transformation."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg"
+                    alt="OpenCV"
+                  />
+                </div>
+
+                <div class="tech-dock-divider"></div>
+
+                <!-- Web & Databases -->
+                <div
+                  class="tech-dock-item"
+                  data-name="React.js"
+                  data-category="Frontend Architecture"
+                  data-desc="Building modern single-page applications, custom UI components, and reactive state management."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                    alt="React"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="Next.js"
+                  data-category="Fullstack Web"
+                  data-desc="Server-side rendering, static site generation, API routing, and optimized React applications."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"
+                    alt="Next.js"
+                    class="dark-invert"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="Express.js"
+                  data-category="Node Backend"
+                  data-desc="Minimalist web framework for Node.js REST APIs and server-side middleware."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg"
+                    alt="Express"
+                    class="dark-invert"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="MongoDB"
+                  data-category="NoSQL Database"
+                  data-desc="Document-oriented database for flexible JSON data schemas and scalable data storage."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
+                    alt="MongoDB"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="PostgreSQL"
+                  data-category="Advanced Relational DB"
+                  data-desc="Complex relational queries, JSONB document storage, indexing, and vector similarity search."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
+                    alt="PostgreSQL"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="Flutter"
+                  data-category="Cross-Platform Mobile"
+                  data-desc="Building natively compiled cross-platform mobile apps for Android & iOS from a single Dart codebase."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg"
+                    alt="Flutter"
+                  />
+                </div>
+
+                <div class="tech-dock-divider"></div>
+
+                <!-- Big Data & Infrastructure -->
+                <div
+                  class="tech-dock-item"
+                  data-name="Hadoop"
+                  data-category="Big Data Distributed System"
+                  data-desc="HDFS distributed file storage and MapReduce processing for large-scale data analytics."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hadoop/hadoop-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hadoop/hadoop-original.svg"
+                    alt="Hadoop"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="Apache Spark"
+                  data-category="Big Data Processing"
+                  data-desc="Distributed data processing, Spark SQL queries, large-scale dataset transformations, and MLlib."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachespark/apachespark-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachespark/apachespark-original.svg"
+                    alt="Spark"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="Kafka"
+                  data-category="Event Streaming"
+                  data-desc="Real-time event streaming, distributed pub/sub messaging, and high-throughput data pipelines."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachekafka/apachekafka-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachekafka/apachekafka-original.svg"
+                    alt="Kafka"
+                    class="dark-invert"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="Docker"
+                  data-category="Containerization"
+                  data-desc="Creating isolated container environments, Dockerfiles, multi-container compose stacks, and microservices."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"
+                    alt="Docker"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="GCP"
+                  data-category="Google Cloud Platform"
+                  data-desc="Cloud computing, Vertex AI, BigQuery data analytics, and cloud storage management."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg"
+                    alt="GCP"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="AWS"
+                  data-category="Cloud Infrastructure"
+                  data-desc="Amazon Web Services cloud infrastructure, EC2 instances, S3 storage, Lambda, and IAM security."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg"
+                    alt="AWS"
+                    class="dark-invert"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="Git & GitHub"
+                  data-category="Version Control & CI/CD"
+                  data-desc="Distributed source control, Git branching strategies, pull requests, and automated GitHub Actions."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
+                    alt="Git"
+                    class="dark-invert"
+                  />
+                </div>
+                <div
+                  class="tech-dock-item"
+                  data-name="Linux"
+                  data-category="Operating System"
+                  data-desc="Linux environment administration, shell utilities, permissions, process management, and server hosting."
+                  data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg"
+                >
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg"
+                    alt="Linux"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Additional Technologies Section -->
+          <section class="resume-section" style="margin-top: 30px">
+            <h2 class="resume-section-title">
+              <i class="fas fa-layer-group"></i> Additional Technologies
+            </h2>
+            <div class="tech-tags">
+              <!-- AI & Voice Agents -->
+              <span>Vapi AI (Voice Telephony)</span>
+              <span>Generative AI</span>
+              <span>LLMs</span>
+              <span>RAG</span>
+              <span>Prompt Engineering</span>
+              <span>Agentic AI (CrewAI)</span>
+              <span>LlamaIndex</span>
+              <span>LangGraph</span>
+              <span>Hugging Face</span>
+              <span>LangChain</span>
+
+              <!-- AI Infrastructure & Automation -->
+              <span>n8n (Self-Hosted Workflows)</span>
+              <span>GoHighLevel (GHL)</span>
+              <span>HubSpot CRM Automation</span>
+              <span>Vector DBs (Pinecone, Chroma)</span>
+              <span>Weaviate</span>
+              <span>MLflow</span>
+              <span>CUDA</span>
+              <span>Model Quantization</span>
+              <span>Streamlit</span>
+
+              <!-- Modern Web & DevOps -->
+              <span>ShadCN UI</span>
+              <span>DaisyUI</span>
+              <span>Zustand</span>
+              <span>Supabase</span>
+              <span>GitHub Actions / Jenkins</span>
+              <span>Vercel / Railway</span>
+              <span>Docker / Podman</span>
+              <span>Docker Compose</span>
+            </div>
+          </section>
+        </div>
+
+        <!-- Experience Section -->
+        <div
+          id="experience-section"
+          class="content-section"
+          style="display: none"
+        >
+          <!-- Work Experience Section -->
+          <div class="resume-section">
+            <h2 class="resume-section-title">
+              <i class="fas fa-briefcase"></i> Work Experience
+            </h2>
+            <div class="timeline">
+              <div class="timeline-line-fill"></div>
+              <div class="timeline-avatar-ball" title="Muhammad Taha Nasir">
+                <img
+                  src="assets/images/MuhammadTahaNasir.jpeg"
+                  alt="Muhammad Taha Nasir"
+                />
+              </div>
+              <div class="milestone"></div>
+              <div class="timeline-card left">
+                <div class="year">
+                  <i class="fas fa-calendar-alt"></i> Jul 2024 – Sep 2024
+                </div>
+                <div class="card-header">
+                  <h3>
+                    <i class="fas fa-code"></i> Software Engineering Fellow
+                  </h3>
+                  <span class="company">Headstarter AI</span>
+                </div>
+                <p>
+                  Built 5 AI projects in 5 weeks with React JS, Next.js, and
+                  CI/CD. Created a support agent and SaaS app using RAG and AI
+                  APIs.
+                </p>
+                <div class="tags">
+                  <span><i class="fab fa-react"></i> React JS</span>
+                  <span><i class="fab fa-node-js"></i> Next.js</span>
+                  <span><i class="fas fa-robot"></i> AI</span>
+                  <span><i class="fas fa-brain"></i> RAG</span>
+                  <span><i class="fas fa-cogs"></i> CI/CD</span>
+                </div>
+              </div>
+              <div class="milestone"></div>
+              <div class="timeline-card right">
+                <div class="year">
+                  <i class="fas fa-calendar-alt"></i> Jun 2025 – Aug 2025
+                </div>
+                <div class="card-header">
+                  <h3><i class="fas fa-brain"></i> AI/ML Intern</h3>
+                  <span class="company">Advrtix</span>
+                </div>
+                <p>
+                  Supported marketing with AI insights, built models for
+                  campaign performance, automated segmentation, and analyzed
+                  data trends.
+                </p>
+                <div class="tags">
+                  <span><i class="fas fa-robot"></i> AI/ML</span>
+                  <span><i class="fas fa-chart-line"></i> Marketing</span>
+                  <span><i class="fas fa-magic"></i> Automation</span>
+                  <span><i class="fas fa-chart-bar"></i> Data Analysis</span>
+                </div>
+              </div>
+              <div class="milestone"></div>
+              <div class="timeline-card left">
+                <div class="year">
+                  <i class="fas fa-calendar-alt"></i> Aug 2025 – Sep 2025
+                </div>
+                <div class="card-header">
+                  <h3>
+                    <i class="fas fa-laptop-code"></i> Frontend Developer Intern
+                  </h3>
+                  <span class="company">hwhelp.me</span>
+                </div>
+                <p>
+                  Designed, developed, and maintained web applications using
+                  HTML, CSS, JavaScript, Bootstrap, PHP, and MySQL. Created
+                  responsive designs and assisted in debugging, testing, and
+                  deploying projects.
+                </p>
+                <div class="tags">
+                  <span><i class="fab fa-html5"></i> HTML/CSS</span>
+                  <span><i class="fab fa-js"></i> JavaScript</span>
+                  <span><i class="fab fa-bootstrap"></i> Bootstrap</span>
+                  <span><i class="fab fa-php"></i> PHP</span>
+                  <span><i class="fas fa-database"></i> MySQL</span>
+                </div>
+              </div>
+              <div class="milestone"></div>
+              <div class="timeline-card right">
+                <div class="year">
+                  <i class="fas fa-calendar-alt"></i> Oct 2025 – Nov 2025
+                </div>
+                <div class="card-header">
+                  <h3>
+                    <i class="fas fa-network-wired"></i> Information Technology
+                    Intern
+                  </h3>
+                  <span class="company">UBL Insurers Ltd</span>
+                </div>
+                <p>
+                  Supported core operational systems, SQL-based data workflows,
+                  and Active Directory-based access controls in a regulated
+                  corporate insurance IT environment. Assisted in multi-branch
+                  IT helpdesk operations and identified opportunities where AI
+                  and automation could streamline claims and underwriting
+                  workflows.
+                </p>
+                <div class="tags">
+                  <span><i class="fas fa-database"></i> SQL</span>
+                  <span
+                    ><i class="fas fa-users-gear"></i> Active Directory</span
+                  >
+                  <span
+                    ><i class="fas fa-file-invoice-dollar"></i> Core Insurance
+                    Systems</span
+                  >
+                  <span
+                    ><i class="fas fa-shield-halved"></i> Cybersecurity</span
+                  >
+                  <span><i class="fas fa-robot"></i> IT Automation</span>
+                </div>
+              </div>
+              <div class="milestone"></div>
+              <div class="timeline-card left">
+                <div class="year">
+                  <i class="fas fa-calendar-alt"></i> Feb 2026 – May 2026
+                </div>
+                <div class="card-header">
+                  <h3>
+                    <i class="fas fa-chalkboard-user"></i> Teaching Assistant
+                  </h3>
+                  <span class="company"
+                    >National University of Computer and Emerging Sciences</span
+                  >
+                </div>
+                <p>
+                  Assisted undergraduate students in Expository Writing to
+                  develop structured thinking, argument development, clarity of
+                  expression, and analytical communication. Conducted support
+                  sessions for academic writing, evaluated assignments with
+                  technical feedback, and reinforced software documentation and
+                  structured communication principles.
+                </p>
+                <div class="tags">
+                  <span><i class="fas fa-pen-nib"></i> Expository Writing</span>
+                  <span><i class="fas fa-brain"></i> Critical Thinking</span>
+                  <span
+                    ><i class="fas fa-file-signature"></i> Technical
+                    Writing</span
+                  >
+                  <span
+                    ><i class="fas fa-graduation-cap"></i> Academic
+                    Support</span
+                  >
+                </div>
+              </div>
+              <div class="milestone"></div>
+              <div class="timeline-card right">
+                <div class="year">
+                  <i class="fas fa-calendar-alt"></i> Jul 2026 – Aug 2026
+                </div>
+                <div class="card-header">
+                  <h3>
+                    <i class="fas fa-shield-alt"></i> Enterprise Security Intern
+                  </h3>
+                  <span class="company"
+                    >Central Depository Company of Pakistan Limited</span
+                  >
+                </div>
+                <p>
+                  Supporting the Enterprise Security team in securing enterprise
+                  systems within a regulated financial environment. Learning
+                  IAM, security operations, and cybersecurity best practices.
+                  Gaining exposure to security governance, risk management, and
+                  compliance frameworks. Understanding security processes across
+                  infrastructure and building an understanding of considerations
+                  in modern software and cloud systems.
+                </p>
+                <div class="tags">
+                  <span><i class="fas fa-user-lock"></i> IAM</span>
+                  <span
+                    ><i class="fas fa-shield-halved"></i> Cybersecurity</span
+                  >
+                  <span><i class="fas fa-gavel"></i> Compliance</span>
+                  <span><i class="fas fa-cloud"></i> Cloud Security</span>
+                </div>
+              </div>
+              <div class="milestone"></div>
+              <div class="timeline-card left">
+                <div class="year">
+                  <i class="fas fa-calendar-alt"></i> Jul 2026 – Aug 2026
+                </div>
+                <div class="card-header">
+                  <h3>
+                    <i class="fas fa-microphone-alt"></i> Voice AI & Automation
+                    Engineering Intern
+                  </h3>
+                  <span class="company">Verxeon Technologies</span>
+                </div>
+                <p>
+                  Engineered VoxLead, an end-to-end automated AI voice lead
+                  qualification engine integrating Vapi AI, self-hosted n8n
+                  Docker workflows, and GoHighLevel (GHL) for sub-60s SLA
+                  outbound calling, structured JSON data extraction, and
+                  multi-channel routing (SMS alerts & email nurture). Designed
+                  enterprise HubSpot CRM intake & onboarding pipelines featuring
+                  automatic deduplication, response-time SLA clocks, document
+                  re-request branches, owner rotation, and Slack notifications.
+                </p>
+                <div class="tags">
+                  <span><i class="fas fa-robot"></i> Vapi AI</span>
+                  <span
+                    ><i class="fas fa-diagram-project"></i> n8n Workflows</span
+                  >
+                  <span
+                    ><i class="fas fa-network-wired"></i> GoHighLevel
+                    (GHL)</span
+                  >
+                  <span><i class="fas fa-hubspot"></i> HubSpot Automation</span>
+                  <span><i class="fas fa-brain"></i> LangGraph & RAG</span>
+                  <span><i class="fab fa-slack"></i> Slack Integration</span>
+                </div>
+              </div>
+              <div class="milestone"></div>
+              <div class="timeline-card right">
+                <div class="year">
+                  <i class="fas fa-calendar-alt"></i> Jul 2026 – Sep 2026
+                </div>
+                <div class="card-header">
+                  <h3>
+                    <i class="fas fa-diagram-project"></i> Software Engineering
+                    Intern
+                  </h3>
+                  <span class="company">NUSyS Lab (NUtomate Project)</span>
+                </div>
+                <p>
+                  Developing a Student Society Management Module for NUtomate
+                  covering society creation, member elections and appointments,
+                  event calendar, university finance integration, project
+                  management, and website frontend integration under FIS & IIS
+                  Dr. Omar Usman Khan (160 Hrs Hybrid Internship).
+                </p>
+                <div class="tags">
+                  <span><i class="fas fa-university"></i> NUtomate</span>
+                  <span
+                    ><i class="fas fa-users-gear"></i> Society Management</span
+                  >
+                  <span
+                    ><i class="fas fa-calculator"></i> Finance Integration</span
+                  >
+                  <span><i class="fas fa-code"></i> Full-Stack</span>
+                  <span
+                    ><i class="fas fa-calendar-days"></i> Event Systems</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education Section -->
+        <div
+          id="education-section"
+          class="content-section"
+          style="display: none"
+        >
+          <!-- Education Section -->
+          <section class="resume-section">
+            <h2 class="resume-section-title">
+              <i class="fas fa-graduation-cap"></i> Education
+            </h2>
+            <div class="timeline">
+              <div class="timeline-line-fill"></div>
+              <div class="timeline-avatar-ball" title="Muhammad Taha Nasir">
+                <img
+                  src="assets/images/MuhammadTahaNasir.jpeg"
+                  alt="Muhammad Taha Nasir"
+                />
+              </div>
+              <div class="milestone"></div>
+              <div class="timeline-card left">
+                <div class="year">
+                  <i class="fas fa-calendar-alt"></i> Class of 2021
+                </div>
+                <div class="card-header">
+                  <h3>
+                    <i class="fas fa-microscope"></i> Intermediate
+                    (Pre-Engineering)
+                  </h3>
+                  <span class="company">Bahria College Karachi</span>
+                </div>
+                <p>
+                  Focused on core subjects like Physics and Mathematics,
+                  building a solid foundation for higher studies in technology.
+                </p>
+                <div class="tags">
+                  <span><i class="fas fa-atom"></i> Physics</span>
+                  <span><i class="fas fa-calculator"></i> Mathematics</span>
+                  <span><i class="fas fa-cogs"></i> Pre-Engineering</span>
+                </div>
+              </div>
+              <div class="milestone"></div>
+              <div class="timeline-card right">
+                <div class="year">
+                  <i class="fas fa-calendar-alt"></i> Class of 2023 – Present
+                </div>
+                <div class="card-header">
+                  <h3>
+                    <i class="fas fa-laptop-code"></i> Bachelor of Science in
+                    Computer Science
+                  </h3>
+                  <span class="company">FAST NUCES</span>
+                </div>
+                <p>
+                  Currently enrolled, exploring areas like artificial
+                  intelligence, system design, and software engineering.
+                </p>
+                <div class="tags">
+                  <span><i class="fas fa-robot"></i> AI</span>
+                  <span><i class="fas fa-code"></i> Software Engineering</span>
+                  <span><i class="fas fa-desktop"></i> Computer Science</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
-      <div class="subtitle" style="text-align:center;">
-        <span id="role-typer" class="role-typer"></span>
-        <p>(in making)</p>
+
+      <div style="text-align: center; margin-top: 35px; margin-bottom: 15px">
+        <a
+          href="/resume/muhammadtahanasir.pdf"
+          download
+          class="resume-download"
+        >
+          <i class="fas fa-download"></i> Download Full Resume
+        </a>
       </div>
-      <div class="typing-text" id="typing-text">
-        Hi, I'm Taha <span class="animate-wave">👋</span>
+    </section>
+
+    <!-- Top / Featured Projects Section -->
+    <section
+      class="credentials-section"
+      id="featured-projects-section"
+      style="margin-top: 40px"
+    >
+      <div class="credentials-header-badge">
+        <i class="fas fa-folder-open"></i> PORTFOLIO
       </div>
-    </div>
+      <h2 class="credentials-title">Top Projects</h2>
 
-    <!-- Dynamic Content Sections -->
-    <div class="title" id="title"></div>
-    <div class="subtitle" id="subtitle"></div>
-    <div class="prompt" id="prompt" style="display: none;">Loading latest posts...</div>
-    <div class="typing" id="typing" style="display: none;">.</div>
-    <div class="content" id="content" style="display: none;"></div>
-    <div class="projects-container" id="projects-container" style="display:none;"></div>
-    <div class="tags-container" id="tags-container" style="display:none;"></div>
+      <div
+        class="project-grid"
+        id="project-grid-container"
+        style="margin-top: 25px"
+      >
+        <!-- Card 1: AI Dental Receptionist (Vibrant Electric Blue Accent) -->
+        <a
+          href="projects/featured/ai-dental-receptionist.html"
+          class="service-card"
+        >
+          <div class="project-card-image">
+            <img
+              src="assets/images/projects/ai-dental-receptionist/1.png"
+              alt="AI Dental Receptionist"
+              loading="lazy"
+            />
+          </div>
+          <div class="project-card-content">
+            <h3>AI Dental Receptionist</h3>
+            <p class="summary">
+              AI Dental Receptionist: A production-grade voice agent platform
+              developed during an internship at Verxeon Technologies...
+            </p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check"></i> LangGraph</li>
+              <li><i class="fas fa-check"></i> Pipecat</li>
+            </ul>
+            <div class="card-footer">
+              <div class="project-links"></div>
+              <div class="card-arrow" title="View Details">
+                <i class="fas fa-arrow-right"></i>
+              </div>
+            </div>
+          </div>
+        </a>
 
-    <!-- Skills Introduction -->
-    <div class="skills-intro" id="skills-intro"
-      style="display: none; margin-bottom: 20px; max-width: 500px; font-size: 1.1em; color: var(--secondary); line-height: 1.5;">
-      Hey there! You can explore all my skills below, but here’s a quick overview:
-      I'm an aspiring AI/ML and LLM engineer, currently learning Generative AI and working with Python, C/C++,
-      JavaScript, and tools like TensorFlow, PyTorch, CUDA, Pinecone, and Weaviate.
-      My soft skills include team collaboration, problem-solving, and technical writing.
-    </div>
+        <!-- Card 2: OptiLux -->
+        <a href="projects/academic/optilux.html" class="service-card">
+          <div class="project-card-image">
+            <img
+              src="assets/images/projects/optilux/social-preview.png"
+              alt="OptiLux"
+              loading="lazy"
+            />
+          </div>
+          <div class="project-card-content">
+            <h3>OptiLux</h3>
+            <p class="summary">
+              OptiLux is a professional-grade web application designed for
+              digital image processing (DIP)...
+            </p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check"></i> OpenCV</li>
+              <li><i class="fas fa-check"></i> NumPy</li>
+              <li><i class="fas fa-check"></i> FastAPI</li>
+            </ul>
+            <div class="card-footer">
+              <div class="project-links">
+                <span class="project-link-icon" title="GitHub"
+                  ><i class="fab fa-github"></i
+                ></span>
+              </div>
+              <div class="card-arrow" title="View Details">
+                <i class="fas fa-arrow-right"></i>
+              </div>
+            </div>
+          </div>
+        </a>
 
-    <!-- Ask Bar -->
-    <div class="ask-bar" id="ask-bar">
-      <input type="text" placeholder="Ask me anything…">
-      <button aria-label="Send"><i class="fas fa-chevron-right"></i></button>
-    </div>
+        <!-- Card 3: Veriflow -->
+        <a href="projects/side/veriflow.html" class="service-card">
+          <div class="project-card-image">
+            <img
+              src="assets/images/projects/veriflow/dashboard_overview.png"
+              alt="Veriflow"
+              loading="lazy"
+            />
+          </div>
+          <div class="project-card-content">
+            <h3>Veriflow</h3>
+            <p class="summary">
+              Veriflow: A production-oriented dual-model machine learning
+              compliance system that flags...
+            </p>
+            <ul class="feature-list">
+              <li><i class="fas fa-cubes"></i> Streamlit</li>
+              <li><i class="fab fa-python"></i> Python</li>
+              <li><i class="fas fa-database"></i> SQLite</li>
+            </ul>
+            <div class="card-footer">
+              <div class="project-links">
+                <span class="project-link-icon" title="GitHub"
+                  ><i class="fab fa-github"></i
+                ></span>
+              </div>
+              <div class="card-arrow" title="View Details">
+                <i class="fas fa-arrow-right"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
 
-    <!-- Action Buttons -->
-    <div class="action-buttons">
-      <div class="button" onclick="changeSection('about')">About Me</div>
-      <div class="button" onclick="changeSection('posts')">Posts</div>
-      <div class="button" onclick="changeSection('projects')">Projects</div>
-      <div class="button" onclick="changeSection('skills')">Skills</div>
-      <div class="button" onclick="changeSection('tags')">Tags</div>
-    </div>
+      <div style="text-align: center; margin-top: 30px">
+        <p
+          style="
+            color: var(--secondary);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            font-weight: 500;
+          "
+        >
+          Want to see more?
+        </p>
+        <a
+          href="projects.html"
+          class="resume-download"
+          style="
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+          "
+        >
+          Explore All Projects <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </section>
 
-    <!-- Bottom Nav injected by shared-bottom-nav.js -->
+    <!-- GitHub Contribution Graph Section -->
+    <section
+      class="github-graph-section"
+      id="github-graph-section"
+      style="margin-top: 40px"
+    >
+      <div class="github-graph-header">
+        <div class="github-user-meta">
+          <div class="github-avatar-box">
+            <i class="fab fa-github"></i>
+          </div>
+          <div class="github-user-info">
+            <a
+              href="https://github.com/MuhammadTahaNasir"
+              target="_blank"
+              rel="noopener"
+              class="github-username"
+              >@MuhammadTahaNasir</a
+            >
+            <span class="github-subtext">2,778 contributions in 2026</span>
+          </div>
+        </div>
+        <div class="github-stats-badge">
+          <span class="github-total-count" id="github-total-commits"
+            >2,778</span
+          >
+          <span class="github-total-label">CONTRIBUTIONS IN 2026</span>
+        </div>
+      </div>
 
-    <!-- ---------- 8. Footer ---------- -->
-    <!-- Social Icons -->
-    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
-      <div class="social-icons" style="margin-bottom:25px;">
-        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
-          style="margin:0 5px; font-size:1.6em;">
+      <!-- Scrollable Heatmap Grid Container -->
+      <div class="github-graph-wrapper">
+        <div class="github-graph-inner">
+          <!-- Day Labels on Left -->
+          <div class="github-graph-days">
+            <span>Mon</span>
+            <span>Wed</span>
+            <span>Fri</span>
+          </div>
+
+          <div class="github-graph-content">
+            <div class="github-graph-months">
+              <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span
+              ><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span
+              ><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
+            </div>
+            <div class="github-graph-grid" id="github-graph-grid">
+              <!-- Rendered dynamically by github-graph.js -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="github-graph-footer">
+        <a
+          href="https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/managing-contribution-settings-on-your-profile/showing-history-of-your-contributions-on-your-profile"
+          target="_blank"
+          rel="noopener"
+          class="github-learn-link"
+          >Learn how we count contributions</a
+        >
+        <div class="github-legend">
+          <span>Less</span>
+          <span class="legend-square lvl-0"></span>
+          <span class="legend-square lvl-1"></span>
+          <span class="legend-square lvl-2"></span>
+          <span class="legend-square lvl-3"></span>
+          <span class="legend-square lvl-4"></span>
+          <span>More</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Credentials & Certificates Section -->
+    <section
+      class="credentials-section"
+      id="credentials-section"
+      style="margin-top: 40px"
+    >
+      <div class="credentials-header-badge">
+        <i class="fas fa-award"></i> CREDENTIALS
+      </div>
+      <h2 class="credentials-title">Certificates</h2>
+      <p class="credentials-desc">
+        These certifications show my learning progress in AI, Generative
+        Systems, Cloud Architecture, and Enterprise Systems Engineering.
+      </p>
+
+      <div class="credentials-grid">
+        <!-- Certificate 1: Deep Learning Specialization -->
+        <div class="cert-card">
+          <div
+            class="cert-icon-box"
+            style="
+              background: rgba(14, 165, 233, 0.12);
+              border-color: rgba(14, 165, 233, 0.3);
+            "
+          >
+            <i class="fas fa-brain" style="color: #38bdf8"></i>
+          </div>
+          <div class="cert-info">
+            <h3 class="cert-name">Deep Learning Specialization</h3>
+            <p class="cert-issuer-text">DeepLearning.AI / Coursera</p>
+            <span class="cert-badge-tag"
+              ><i class="fas fa-check-circle"></i> Verified Credential</span
+            >
+          </div>
+        </div>
+
+        <!-- Certificate 2: AWS Certified Developer -->
+        <div class="cert-card">
+          <div
+            class="cert-icon-box"
+            style="
+              background: rgba(245, 158, 11, 0.12);
+              border-color: rgba(245, 158, 11, 0.3);
+            "
+          >
+            <i class="fab fa-aws" style="color: #f59e0b"></i>
+          </div>
+          <div class="cert-info">
+            <h3 class="cert-name">AWS Certified Developer</h3>
+            <p class="cert-issuer-text">Amazon Web Services</p>
+            <span
+              class="cert-badge-tag"
+              style="
+                background: rgba(245, 158, 11, 0.12);
+                color: #f59e0b;
+                border-color: rgba(245, 158, 11, 0.3);
+              "
+              ><i class="fas fa-check-circle"></i> Associate Level</span
+            >
+          </div>
+        </div>
+
+        <!-- Certificate 3: AWS Cloud Practitioner -->
+        <div class="cert-card">
+          <div
+            class="cert-icon-box"
+            style="
+              background: rgba(245, 158, 11, 0.12);
+              border-color: rgba(245, 158, 11, 0.3);
+            "
+          >
+            <i class="fas fa-cloud" style="color: #f59e0b"></i>
+          </div>
+          <div class="cert-info">
+            <h3 class="cert-name">AWS Cloud Practitioner</h3>
+            <p class="cert-issuer-text">Amazon Web Services</p>
+            <span
+              class="cert-badge-tag"
+              style="
+                background: rgba(245, 158, 11, 0.12);
+                color: #f59e0b;
+                border-color: rgba(245, 158, 11, 0.3);
+              "
+              ><i class="fas fa-check-circle"></i> Foundational</span
+            >
+          </div>
+        </div>
+
+        <!-- Certificate 4: LangChain & Agentic AI Architect -->
+        <div class="cert-card">
+          <div
+            class="cert-icon-box"
+            style="
+              background: rgba(168, 85, 247, 0.12);
+              border-color: rgba(168, 85, 247, 0.3);
+            "
+          >
+            <i class="fas fa-diagram-project" style="color: #c084fc"></i>
+          </div>
+          <div class="cert-info">
+            <h3 class="cert-name">LangChain & Agentic AI</h3>
+            <p class="cert-issuer-text">Systems Architect</p>
+            <span
+              class="cert-badge-tag"
+              style="
+                background: rgba(168, 85, 247, 0.12);
+                color: #c084fc;
+                border-color: rgba(168, 85, 247, 0.3);
+              "
+              ><i class="fas fa-check-circle"></i> Multi-Agent Graph</span
+            >
+          </div>
+        </div>
+
+        <!-- Certificate 5: Enterprise Security -->
+        <div class="cert-card">
+          <div
+            class="cert-icon-box"
+            style="
+              background: rgba(16, 185, 129, 0.12);
+              border-color: rgba(16, 185, 129, 0.3);
+            "
+          >
+            <i class="fas fa-shield-halved" style="color: #34d399"></i>
+          </div>
+          <div class="cert-info">
+            <h3 class="cert-name">Enterprise Security & Cloud</h3>
+            <p class="cert-issuer-text">CDC Pakistan</p>
+            <span
+              class="cert-badge-tag"
+              style="
+                background: rgba(16, 185, 129, 0.12);
+                color: #34d399;
+                border-color: rgba(16, 185, 129, 0.3);
+              "
+              ><i class="fas fa-check-circle"></i> Enterprise Security</span
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a
+          href="https://github.com/MuhammadTahaNasir"
+          target="_blank"
+          title="GitHub"
+          aria-label="GitHub profile"
+        >
           <i class="fab fa-github" aria-hidden="true"></i>
         </a>
-        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
-          aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
+        <a
+          href="https://www.linkedin.com/in/muhammadtahanasir/"
+          target="_blank"
+          title="LinkedIn"
+          aria-label="LinkedIn profile"
+        >
           <i class="fab fa-linkedin" aria-hidden="true"></i>
         </a>
-        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
-          style="margin:0 5px; font-size:1.6em;">
+        <a
+          href="mailto:m.tahanasir.cs@gmail.com"
+          title="Email"
+          aria-label="Send email"
+        >
           <i class="fas fa-envelope" aria-hidden="true"></i>
         </a>
       </div>
-      <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+      <p>© 2026 – Muhammad Taha Nasir</p>
     </footer>
 
-    <!-- Floating Chat Widget -->
+    <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
     <div class="floating-chat-widget">
-      <a href="contact.html" class="chat-widget-btn" title="Chat with me">
+      <a
+        href="javascript:void(0)"
+        onclick="
+          if (window.openAISearchModal) {
+            window.openAISearchModal();
+          }
+          return false;
+        "
+        class="chat-widget-btn"
+        title="Chat with AI Assistant"
+      >
         <i class="fas fa-comments"></i>
       </a>
     </div>
-  </div>
 
-  <!-- ---------- 9. JavaScript Include ---------- -->
-  <script src="assets/js/scripts.js"></script>
-  <script src="assets/js/header-scroll.js"></script>
-  <script src="assets/js/shared-bottom-nav.js"></script>
-  <script src="assets/js/nav-active.js"></script>
-  <script src="assets/js/instant-loader.js"></script>
-</body>
-
+    <!-- JavaScript Include -->
+    <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/header-scroll.js"></script>
+    <script src="assets/js/shared-bottom-nav.js"></script>
+    <script src="assets/js/nav-active.js"></script>
+    <script src="assets/js/instant-loader.js"></script>
+    <script src="assets/js/instant-search.js"></script>
+    <script src="/assets/js/ai-search.js"></script>
+    <script src="assets/js/github-graph.js"></script>
+    <script src="assets/js/resume-tabs-index.js"></script>
+  </body>
 </html>

@@ -2,142 +2,625 @@
 <html lang="en" dir="auto">
 
 <head>
-    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
-    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>');
+    })();
+  </script>
+    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png?v=6" sizes="96x96" />
+    <link rel="shortcut icon" href="/assets/images/favicon.ico?v=6" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png?v=6" />
     <meta name="apple-mobile-web-app-title" content="Terry" />
     <link rel="manifest" href="/assets/images/site.webmanifest" />
 
-    <!-- ---------- 1. Meta Tags ---------- -->
-    <meta charset="UTF-8" /> <!-- Set character encoding to UTF-8 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Ensure responsive viewport -->
-    <meta name="theme-color" content="#1a1a1a"> <!-- Theme color for mobile browsers -->
-    <meta name="description" content="Contact Form - Muhammad Taha Nasir"> <!-- Page description -->
-    <title>Contact | Muhammad Taha Nasir</title> <!-- Page title -->
+    <!-- Meta Tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#06070d">
+    <meta name="description" content="Reach Out - Muhammad Taha Nasir">
+    <title>Contact | Muhammad Taha Nasir</title>
 
-    <!-- ---------- 2. Stylesheets ---------- -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/stylesheet.css">
     <link rel="stylesheet" href="assets/css/contact.css">
     <link rel="stylesheet" href="assets/css/bottom-nav.css">
-
-    <!-- ---------- 3. Theme Initialization Script ---------- -->
-    <script>
-        // Apply saved theme immediately to prevent flash
-        (function () {
-            const savedTheme = localStorage.getItem('pref-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            if (savedTheme === 'dark') document.documentElement.classList.add('dark');
-            document.documentElement.style.background = savedTheme === 'dark' ? '#1a1a1a' : '#f9fafc';
-            document.documentElement.style.color = savedTheme === 'dark' ? '#d1d5db' : '#333';
-        })();
-    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="/assets/js/bg-canvas.js"></script>
 </head>
 
 <body>
-    <!-- ---------- 4. Header Navigation ---------- -->
-    <header class="header" role="banner">
-        <nav class="nav" role="navigation" aria-label="Main navigation">
-            <!-- Left: Logo -->
-            <div class="nav-left">
-                <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
-            </div>
+    <!-- Header Navigation -->
+        <!-- Header Navigation -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
 
-            <!-- Center: Pills Navigation -->
-            <div class="nav-center">
-                <div class="pill-nav" role="tablist">
-                    <a href="/projects.html" role="tab">Projects</a>
-                    <a href="/archives.html" role="tab">Archives</a>
-                    <a href="/resume.html" role="tab">Resume</a>
-                    <a href="/search.html" role="tab">Search</a>
-                </div>
-            </div>
-
-            <!-- Right: Theme toggle -->
-            <div class="nav-right">
-                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
-                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" aria-hidden="true">
-                        <circle cx="12" cy="12" r="5" />
-                        <line x1="12" y1="1" x2="12" y2="3" />
-                        <line x1="12" y1="21" x2="12" y2="23" />
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                        <line x1="1" y1="12" x2="3" y2="12" />
-                        <line x1="21" y1="12" x2="23" y2="12" />
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                    </svg>
-                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" aria-hidden="true">
-                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-                    </svg>
-                </button>
-            </div>
-        </nav>
-    </header>
-
-
-    <!-- ---------- 5. Main Content ---------- -->
-    <div class="post-container"> <!-- Main content container -->
-        <!-- ---------- 8. Breadcrumb Navigation ---------- -->
-        <nav class="breadcrumb">
-            <a href="/">Home</a> » <a href="/contact.html">Contact</a>
-        </nav>
-
-        <!-- ---------- 6. Contact Form ---------- -->
-        <div class="contact-form"> <!-- Contact form container -->
-            <h2>Get In Touch</h2> <!-- Form heading -->
-            <hr class="section-divider" /> <!-- Section divider -->
-            <p>I'm all in for awesome projects! Drop me a line, and let's collaborate to create something bold, unique,
-                and truly transformative!</p>
-            <form id="contact-form" method="POST" enctype="multipart/form-data">
-                <div class="form-group">
-                    <input type="text" id="name" name="name" placeholder=" " required>
-                    <label for="name">Full Name *</label>
-                </div>
-                <div class="form-group">
-                    <input type="email" id="email" name="email" placeholder=" " required>
-                    <label for="email">Email Address *</label>
-                </div>
-                <div class="form-group">
-                    <textarea id="message" name="message" placeholder=" " required></textarea>
-                    <label for="message">Message *</label>
-                </div>
-                <button type="submit" aria-label="Send message">Send Message</button>
-                <p class="note">I typically respond within 24 hours during business days.</p>
-            </form>
+    <!-- Main Content -->
+    <main class="post-container page-fade-in" role="main">
+        <!-- ---------- Header & Breadcrumb ---------- -->
+        <div class="header-bar">
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="index.html">Home</a>
+                <span aria-hidden="true">»</span>
+                <a href="contact.html" aria-current="page">Reach Out</a>
+            </nav>
+            <h1>Reach Out</h1>
+            <p class="subtitle">GET IN TOUCH OR SEND A DIRECT MESSAGE</p>
         </div>
 
-  <!-- Bottom Nav injected by shared-bottom-nav.js -->
+        <!-- Reach Out Container -->
+        <div class="reach-out-wrapper">
+            
+            <div class="reach-out-card">
+                <!-- Direct Message Section -->
+                <div class="message-box-card">
+                    <div class="message-card-header">
+                        <div class="avatar-badge">
+                            <img src="assets/images/MuhammadTahaNasir.jpeg" alt="Muhammad Taha Nasir" class="avatar-img" />
+                        </div>
+                        <div class="message-header-text">
+                            <span class="send-label">Send Taha a message</span>
+                            <span class="sub-label">I read every single message</span>
+                        </div>
+                    </div>
 
-  <!-- ---------- 11. Footer ---------- -->
-  <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
-    <div class="social-icons" style="margin-bottom:25px;">
-      <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
-        style="margin:0 5px; font-size:1.6em;">
-        <i class="fab fa-github" aria-hidden="true"></i>
-      </a>
-      <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
-        aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
-        <i class="fab fa-linkedin" aria-hidden="true"></i>
-      </a>
-      <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
-        style="margin:0 5px; font-size:1.6em;">
-        <i class="fas fa-envelope" aria-hidden="true"></i>
-      </a>
+                    <form id="contact-form" method="POST">
+                        <div class="input-row">
+                            <input type="text" id="sender-name" name="name" placeholder="Your Name *" required class="reach-input" />
+                            <input type="email" id="sender-email" name="email" placeholder="Your Email *" required class="reach-input" />
+                        </div>
+                        <textarea id="message" name="message" class="reach-textarea" placeholder="Hey Taha, I have a project idea..." required></textarea>
+                        
+                        <div class="message-card-footer">
+                            <button type="submit" class="continue-btn" id="send-msg-btn">
+                                Send Message <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                        <div id="form-feedback" class="form-feedback"></div>
+                    </form>
+                </div>
+
+                <!-- Dual Action Cards (Book a Call & Email Me) -->
+                <div class="reach-out-grid">
+                    <!-- Card 1: Book a Call -->
+                    <div class="action-card booking-card" id="book-call-btn" role="button" tabindex="0">
+                        <div class="card-avatars">
+                            <img src="assets/images/MuhammadTahaNasir.jpeg" alt="Taha" class="avatar-circle" />
+                            <span class="plus-symbol">+</span>
+                            <div class="you-avatar">You</div>
+                        </div>
+                        <h3 class="card-action-title">Book a call</h3>
+                        <p class="card-action-sub">30 min • Intro Call</p>
+                    </div>
+
+                    <!-- Card 2: Email Me -->
+                    <a href="mailto:m.tahanasir.cs@gmail.com" class="action-card email-card">
+                        <div class="card-icon-box">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </div>
+                        <h3 class="card-action-title">Email me</h3>
+                        <p class="card-action-sub">m.tahanasir.cs@gmail.com</p>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
-    <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
-  </footer>
-        <!-- ---------- 8. Scroll to Top Button ---------- -->
-        <button id="scrollTop" aria-label="Scroll to top" title="Scroll to top" type="button">
-            <i class="fas fa-chevron-up" aria-hidden="true"></i>
-        </button>
 
-        <!-- ---------- 9. JavaScript ---------- -->
-        <script src="assets/js/contact.js"></script>
-        <script src="assets/js/header-scroll.js"></script>
-        <script src="assets/js/shared-bottom-nav.js"></script>
-        <script src="assets/js/nav-active.js"></script>
+    <!-- Full Monthly Availability Calendar Modal -->
+    <div class="booking-modal-overlay" id="booking-modal" aria-hidden="true">
+        <div class="booking-modal-card">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Schedule 30-Min Call with Taha</span>
+                </div>
+                <button class="modal-close-btn" id="close-booking-modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="full-calendar-card" style="position: relative;">
+                    <!-- Month Header & Navigation Arrows -->
+                    <div class="cal-month-nav">
+                        <div class="cal-month-title">
+                            <span id="current-month-year">August 2026</span>
+                            <span class="call-duration-tag">30 min call</span>
+                        </div>
+                        <div class="cal-nav-buttons">
+                            <button type="button" class="cal-arrow-btn" id="prev-month-btn" title="Previous Month"><i class="fas fa-chevron-left"></i></button>
+                            <button type="button" class="cal-arrow-btn" id="next-month-btn" title="Next Month"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Weekdays Row -->
+                    <div class="cal-weekdays-row">
+                        <span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span>
+                    </div>
+
+                    <!-- Full 7x5 Days Grid -->
+                    <div class="cal-days-grid" id="cal-days-grid"></div>
+
+                    <!-- Floating Request Arrow Button (Matching Reference Screenshot 1) -->
+                    <button type="button" class="cal-request-arrow-btn" id="open-custom-request-btn" title="Request custom meeting slot">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="7" y1="17" x2="17" y2="7"></line>
+                            <polyline points="7 7 17 7 17 17"></polyline>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Time Slot & Booking Details Form (Shown upon Date Click) -->
+                <div class="booking-step-details" id="booking-step-details" style="display: none;">
+                    <div class="selected-summary-badge" id="selected-summary-badge">
+                        <i class="fas fa-clock"></i> <span id="summary-datetime-text">Selected Date</span>
+                    </div>
+
+                    <div class="time-slots-label"><i class="far fa-clock"></i> Select 30-Min Slot</div>
+                    <div class="time-slots-grid" id="time-slots-grid">
+                        <button type="button" class="time-slot active" data-time="11:00 AM" data-hour="11" data-min="00">11:00 AM</button>
+                        <button type="button" class="time-slot" data-time="02:30 PM" data-hour="14" data-min="30">02:30 PM</button>
+                        <button type="button" class="time-slot" data-time="04:00 PM" data-hour="16" data-min="00">04:00 PM</button>
+                        <button type="button" class="time-slot" data-time="06:30 PM" data-hour="18" data-min="30">06:30 PM</button>
+                        <button type="button" class="time-slot" data-time="08:00 PM" data-hour="20" data-min="00">08:00 PM</button>
+                    </div>
+
+                    <form class="booking-confirm-form" id="booking-confirm-form">
+                        <div class="input-row">
+                            <input type="text" id="booking-name" required placeholder="Your Name *" class="reach-input" />
+                            <input type="email" id="booking-email" required placeholder="Your Email *" class="reach-input" />
+                        </div>
+                        <textarea id="booking-notes" rows="2" required placeholder="What would you like to discuss? *" class="reach-textarea"></textarea>
+
+                        <button type="submit" class="continue-btn confirm-booking-btn">
+                            Add to Google Calendar <i class="fab fa-google"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- "Request a Meeting" Sub-Modal (Matching Reference Screenshot 2) -->
+    <div class="booking-modal-overlay" id="request-meeting-modal" aria-hidden="true">
+        <div class="request-meeting-card">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <span>Request a meeting</span>
+                </div>
+                <button class="modal-close-btn" id="close-request-modal" aria-label="Close">&times;</button>
+            </div>
+            <form class="request-meeting-form" id="request-meeting-form">
+                <div class="preferred-date-badge">
+                    <span>Preferred date: <strong id="req-date-label">August 10, 2026</strong></span>
+                </div>
+
+                <div class="form-group-field">
+                    <input type="text" id="req-name" required placeholder="Your name *" class="reach-input" />
+                </div>
+                <div class="form-group-field">
+                    <input type="email" id="req-email" required placeholder="Your email *" class="reach-input" />
+                </div>
+                <div class="form-group-field">
+                    <textarea id="req-notes" rows="3" required placeholder="What would you like to discuss? *" class="reach-textarea"></textarea>
+                </div>
+
+                <button type="submit" class="send-request-btn" id="send-request-submit-btn">
+                    <i class="fas fa-paper-plane"></i> Send request
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTop" aria-label="Scroll to top" title="Scroll to top" type="button">
+        <i class="fas fa-chevron-up" aria-hidden="true"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="assets/js/contact.js"></script>
+    <script src="assets/js/header-scroll.js"></script>
+    <script src="assets/js/shared-bottom-nav.js"></script>
+    <script src="assets/js/nav-active.js"></script>
+    <script src="assets/js/instant-loader.js"></script>
+    <script src="assets/js/ai-search.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const bookCallBtn = document.getElementById('book-call-btn');
+            const bookingModal = document.getElementById('booking-modal');
+            const closeModalBtn = document.getElementById('close-booking-modal');
+
+            const requestModal = document.getElementById('request-meeting-modal');
+            const closeRequestModalBtn = document.getElementById('close-request-modal');
+            const openRequestBtn = document.getElementById('open-custom-request-btn');
+            const reqDateLabel = document.getElementById('req-date-label');
+
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            
+            const today = new Date();
+            let currYear = today.getFullYear();
+            let currMonth = today.getMonth(); // Current real-time month
+            let selectedDay = today.getDate();
+            let selectedDateStr = `${monthNames[currMonth]} ${selectedDay}, ${currYear}`;
+            let selectedTimeSlot = "11:00 AM";
+            let selectedHour = 11;
+            let selectedMin = 0;
+
+            // Realistic pseudo-random open/busy date generator
+            function isDateOpen(dayNumber, dayOfWeek, year, month) {
+                if (dayOfWeek === 0) return false; // Sundays closed
+                const hash = (year * 365 + (month + 1) * 31 + dayNumber * 19) % 100;
+                return hash > 30; // ~70% open, 30% busy
+            }
+
+            function openRequestMeetingModal(dateStrFormatted) {
+                if (reqDateLabel) reqDateLabel.textContent = dateStrFormatted;
+                if (requestModal) {
+                    requestModal.classList.add('active');
+                    requestModal.setAttribute('aria-hidden', 'false');
+                }
+            }
+
+            function closeRequestMeetingModal() {
+                if (document.activeElement) document.activeElement.blur();
+                if (requestModal) {
+                    requestModal.classList.remove('active');
+                    requestModal.setAttribute('aria-hidden', 'true');
+                }
+            }
+
+            function closeBookingModal() {
+                if (document.activeElement) document.activeElement.blur();
+                if (bookingModal) {
+                    bookingModal.classList.remove('active');
+                    bookingModal.setAttribute('aria-hidden', 'true');
+                }
+            }
+
+            function renderCalendar() {
+                const monthYearText = document.getElementById('current-month-year');
+                const daysGrid = document.getElementById('cal-days-grid');
+                const prevBtn = document.getElementById('prev-month-btn');
+                if (!monthYearText || !daysGrid) return;
+
+                // Prevent navigating to past months
+                const isCurrentMonthOrPast = (currYear < today.getFullYear()) || (currYear === today.getFullYear() && currMonth <= today.getMonth());
+                if (prevBtn) {
+                    if (isCurrentMonthOrPast) {
+                        prevBtn.disabled = true;
+                        prevBtn.style.opacity = '0.3';
+                        prevBtn.style.pointerEvents = 'none';
+                        prevBtn.style.cursor = 'not-allowed';
+                    } else {
+                        prevBtn.disabled = false;
+                        prevBtn.style.opacity = '1';
+                        prevBtn.style.pointerEvents = 'auto';
+                        prevBtn.style.cursor = 'pointer';
+                    }
+                }
+
+                // Hide floating request arrow button if viewing a past month
+                const isPastMonth = (currYear < today.getFullYear()) || (currYear === today.getFullYear() && currMonth < today.getMonth());
+                if (openRequestBtn) {
+                    openRequestBtn.style.display = isPastMonth ? 'none' : 'flex';
+                }
+
+                monthYearText.textContent = `${monthNames[currMonth]} ${currYear}`;
+
+                const firstDayIndex = new Date(currYear, currMonth, 1).getDay();
+                const totalDays = new Date(currYear, currMonth + 1, 0).getDate();
+
+                daysGrid.innerHTML = '';
+
+                // Blank cells before day 1
+                for (let i = 0; i < firstDayIndex; i++) {
+                    const emptyCell = document.createElement('div');
+                    emptyCell.className = 'cal-day empty';
+                    daysGrid.appendChild(emptyCell);
+                }
+
+                const todayZero = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+                for (let d = 1; d <= totalDays; d++) {
+                    const dayCell = document.createElement('div');
+                    dayCell.className = 'cal-day';
+                    
+                    const cellDate = new Date(currYear, currMonth, d);
+                    const dayOfWeek = cellDate.getDay();
+                    
+                    const isPast = cellDate < todayZero;
+                    const isOpen = isDateOpen(d, dayOfWeek, currYear, currMonth);
+
+                    if (isPast) {
+                        dayCell.classList.add('disabled-past');
+                        dayCell.innerHTML = `<span class="day-number past">${d}</span>`;
+                    } else if (!isOpen) {
+                        // Busy/Booked future date
+                        dayCell.classList.add('busy-date');
+                        dayCell.innerHTML = `<button type="button" class="day-busy-btn" data-day="${d}" title="Slot Booked - Click to Request Custom Time">${d}</button>`;
+                    } else {
+                        // Open available date
+                        dayCell.classList.add('available');
+                        dayCell.innerHTML = `<button type="button" class="day-circle" data-day="${d}">${d}</button>`;
+                    }
+
+                    daysGrid.appendChild(dayCell);
+                }
+
+                // Event listeners for OPEN day clicks
+                document.querySelectorAll('.day-circle').forEach(circle => {
+                    circle.addEventListener('click', () => {
+                        document.querySelectorAll('.day-circle').forEach(c => c.classList.remove('selected'));
+                        circle.classList.add('selected');
+                        
+                        selectedDay = parseInt(circle.getAttribute('data-day'), 10);
+                        selectedDateStr = `${monthNames[currMonth]} ${selectedDay}, ${currYear}`;
+                        
+                        const detailsSec = document.getElementById('booking-step-details');
+                        if (detailsSec) detailsSec.style.display = 'flex';
+                        
+                        updateSummary();
+                        const modalBody = document.querySelector('.modal-body');
+                        if (modalBody) {
+                            modalBody.scrollTo({ top: modalBody.scrollHeight, behavior: 'smooth' });
+                        }
+                    });
+                });
+
+                // Event listeners for BUSY day clicks (opens Request a Meeting modal)
+                document.querySelectorAll('.day-busy-btn').forEach(busyBtn => {
+                    busyBtn.addEventListener('click', () => {
+                        const dNum = busyBtn.getAttribute('data-day');
+                        const formatted = `${monthNames[currMonth]} ${dNum}, ${currYear}`;
+                        openRequestMeetingModal(formatted);
+                    });
+                });
+            }
+
+            function updateSummary() {
+                const summaryText = document.getElementById('summary-datetime-text');
+                if (summaryText) {
+                    summaryText.textContent = `${selectedDateStr} at ${selectedTimeSlot} (PKT)`;
+                }
+            }
+
+            // Floating Request Arrow Button Click (`↗` matching screenshot 1)
+            if (openRequestBtn) {
+                openRequestBtn.addEventListener('click', () => {
+                    const formattedDate = `${monthNames[currMonth]} ${selectedDay}, ${currYear}`;
+                    openRequestMeetingModal(formattedDate);
+                });
+            }
+
+            // Close Request Meeting Modal
+            if (closeRequestModalBtn) {
+                closeRequestModalBtn.addEventListener('click', closeRequestMeetingModal);
+            }
+
+            if (requestModal) {
+                requestModal.addEventListener('click', (e) => {
+                    if (e.target === requestModal) {
+                        closeRequestMeetingModal();
+                    }
+                });
+            }
+
+            // Submit Custom Meeting Request (Screenshot 2 Form)
+            const requestForm = document.getElementById('request-meeting-form');
+            if (requestForm) {
+                requestForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const name = document.getElementById('req-name').value;
+                    const email = document.getElementById('req-email').value;
+                    const notes = document.getElementById('req-notes').value;
+                    const prefDate = reqDateLabel ? reqDateLabel.textContent : "Selected Date";
+
+                    const formData = new FormData();
+                    formData.append('name', name);
+                    formData.append('email', email);
+                    formData.append('message', `[MEETING REQUEST] Preferred Date: ${prefDate}\nDiscussion: ${notes}`);
+
+                    try {
+                        await fetch('https://contact-form-plum-five.vercel.app/api/submit-contact', {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            body: formData
+                        });
+                    } catch (err) {
+                        console.log('Submission sent.');
+                    }
+
+                    alert(`🎉 Meeting Request Dispatched!\n\nThank you ${name}. Taha has received your request for ${prefDate} and will send a calendar invite shortly.`);
+
+                    closeRequestMeetingModal();
+                    requestForm.reset();
+                });
+            }
+
+            // Month Navigation Arrows
+            const prevBtn = document.getElementById('prev-month-btn');
+            const nextBtn = document.getElementById('next-month-btn');
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    // Do not allow going before current month
+                    if (currYear === today.getFullYear() && currMonth <= today.getMonth()) {
+                        return;
+                    }
+                    currMonth--;
+                    if (currMonth < 0) {
+                        currMonth = 11;
+                        currYear--;
+                    }
+                    renderCalendar();
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    currMonth++;
+                    if (currMonth > 11) {
+                        currMonth = 0;
+                        currYear++;
+                    }
+                    renderCalendar();
+                });
+            }
+
+            // Time Slots Selection
+            document.querySelectorAll('.time-slot').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.time-slot').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    selectedTimeSlot = btn.getAttribute('data-time');
+                    selectedHour = parseInt(btn.getAttribute('data-hour'), 10);
+                    selectedMin = parseInt(btn.getAttribute('data-min'), 10);
+                    updateSummary();
+                });
+            });
+
+            // Modal Trigger & Close
+            if (bookCallBtn && bookingModal) {
+                bookCallBtn.addEventListener('click', () => {
+                    // Reset to current month on open
+                    currYear = today.getFullYear();
+                    currMonth = today.getMonth();
+                    selectedDay = today.getDate();
+                    selectedDateStr = `${monthNames[currMonth]} ${selectedDay}, ${currYear}`;
+
+                    bookingModal.classList.add('active');
+                    bookingModal.setAttribute('aria-hidden', 'false');
+                    renderCalendar();
+                });
+            }
+
+            if (closeModalBtn && bookingModal) {
+                closeModalBtn.addEventListener('click', closeBookingModal);
+            }
+
+            if (bookingModal) {
+                bookingModal.addEventListener('click', (e) => {
+                    if (e.target === bookingModal) {
+                        closeBookingModal();
+                    }
+                });
+            }
+
+            // Submit Booking & Launch Real Google Calendar Event + Direct API Dispatch
+            const bookingForm = document.getElementById('booking-confirm-form');
+            if (bookingForm) {
+                bookingForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const name = document.getElementById('booking-name').value;
+                    const email = document.getElementById('booking-email').value;
+                    const notes = document.getElementById('booking-notes').value || "Discussion regarding project/collaboration.";
+
+                    // Direct Notification API Dispatch to Vercel
+                    const formData = new FormData();
+                    formData.append('name', name);
+                    formData.append('email', email);
+                    formData.append('message', `[BOOKING CONFIRMED] Date: ${selectedDateStr} at ${selectedTimeSlot} (PKT)\nNotes: ${notes}`);
+
+                    try {
+                        fetch('https://contact-form-plum-five.vercel.app/api/submit-contact', {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            body: formData
+                        });
+                    } catch (err) {}
+
+                    // Build Google Calendar Event URL
+                    const startDate = new Date(Date.UTC(currYear, currMonth, selectedDay, selectedHour - 5, selectedMin));
+                    const endDate = new Date(startDate.getTime() + 30 * 60000);
+
+                    function formatGCalDate(d) {
+                        return d.toISOString().replace(/-|:|\.\d\d\d/g, "");
+                    }
+
+                    const gcalStart = formatGCalDate(startDate);
+                    const gcalEnd = formatGCalDate(endDate);
+
+                    const gcalTitle = encodeURIComponent(`30-Min Call: ${name} & Muhammad Taha Nasir`);
+                    const gcalDetails = encodeURIComponent(`30-minute discussion booked via terry.site.\n\nGuest Name: ${name}\nGuest Email: ${email}\nNotes: ${notes}`);
+                    const gcalLocation = encodeURIComponent(`Google Meet / Video Call`);
+
+                    const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${gcalTitle}&dates=${gcalStart}/${gcalEnd}&details=${gcalDetails}&location=${gcalLocation}&add=m.tahanasir.cs@gmail.com,${encodeURIComponent(email)}`;
+
+                    window.open(gcalUrl, '_blank');
+
+                    closeBookingModal();
+                    bookingForm.reset();
+                });
+            }
+
+            renderCalendar();
+        });
+    </script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
 </body>
 
 </html>

@@ -4,9 +4,8 @@
 			'<div class="nav-indicator"></div>' +
 			'<a href="/index.html" class="nav-item" data-index="0"><i class="fas fa-home"></i><span>Home</span></a>' +
 			'<a href="/projects.html" class="nav-item" data-index="1"><i class="fas fa-rocket"></i><span>Projects</span></a>' +
-			'<a href="/archives.html" class="nav-item" data-index="2"><i class="fas fa-archive"></i><span>Archives</span></a>' +
-			'<a href="/resume.html" class="nav-item" data-index="3"><i class="fas fa-file-alt"></i><span>Resume</span></a>' +
-			'<a href="/search.html" class="nav-item" data-index="4"><i class="fas fa-search"></i><span>Search</span></a>' +
+			'<a href="/posts.html" class="nav-item" data-index="2"><i class="fas fa-newspaper"></i><span>Posts</span></a>' +
+			'<a href="/archives.html" class="nav-item" data-index="3"><i class="fas fa-archive"></i><span>Archives</span></a>' +
 		'</div>';
 
 	function getActiveIndex() {
@@ -18,14 +17,11 @@
 		if (currentPath.includes('/projects/') || currentPath.endsWith('projects.html') || currentPath.endsWith('projects')) {
 			return 1; // Projects
 		}
-		if (currentPath.includes('/posts/') || currentPath.includes('/tags/') || currentPath.endsWith('tags.html') || currentPath.endsWith('archives.html') || currentPath.endsWith('archives')) {
-			return 2; // Archives / Posts
+		if (currentPath.includes('/posts/') || currentPath.endsWith('posts.html') || currentPath.endsWith('posts')) {
+			return 2; // Posts
 		}
-		if (currentPath.endsWith('resume.html') || currentPath.endsWith('resume')) {
-			return 3; // Resume
-		}
-		if (currentPath.endsWith('search.html') || currentPath.endsWith('search')) {
-			return 4; // Search
+		if (currentPath.includes('/tags/') || currentPath.endsWith('tags.html') || currentPath.endsWith('archives.html') || currentPath.endsWith('archives')) {
+			return 3; // Archives
 		}
 		if (currentPath === '/' || currentPath.endsWith('/') || currentPath.endsWith('index.html') || currentPath.endsWith('index')) {
 			return 0; // Home
@@ -38,9 +34,8 @@
 		const navItems = [
 			{ href: 'index.html', base: 'index' },
 			{ href: 'projects.html', base: 'projects' },
-			{ href: 'archives.html', base: 'archives' },
-			{ href: 'resume.html', base: 'resume' },
-			{ href: 'search.html', base: 'search' }
+			{ href: 'posts.html', base: 'posts' },
+			{ href: 'archives.html', base: 'archives' }
 		];
 
 		navItems.forEach(function(item, index) {

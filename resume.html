@@ -8,12 +8,12 @@
   <meta name="apple-mobile-web-app-title" content="Terry" />
   <link rel="manifest" href="/assets/images/site.webmanifest" />
 
-  <!-- ---------- 1. Meta Tags ---------- -->
+  <!-- Meta Tags -->
   <meta charset="UTF-8"> <!-- Set character encoding to UTF-8 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensure responsive viewport -->
   <title>Resume | Muhammad Taha Nasir</title> <!-- Page title -->
 
-  <!-- ---------- 2. Stylesheets ---------- -->
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="assets/css/resume.css" />
   <link rel="stylesheet" href="assets/css/bottom-nav.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
@@ -23,7 +23,7 @@
     .loader.hidden{opacity:0;visibility:hidden}
   </style>
 
-  <!-- ---------- 3. Theme Initialization Script ---------- -->
+  <!-- Theme Initialization Script -->
   <script>
     // Apply saved theme immediately to prevent flash
     const savedTheme = localStorage.getItem('pref-theme');
@@ -34,7 +34,7 @@
 </head>
 
 <body>
-  <!-- ---------- 4. Loader Animation ---------- -->
+  <!-- Loader Animation -->
   <div class="loader" id="loader" aria-hidden="true">
     <div class="terry-animation">
       <span class="letter">t</span>
@@ -45,7 +45,7 @@
     </div>
   </div>
 
-  <!-- ---------- 5. Header Navigation ---------- -->
+  <!-- Header Navigation -->
   <header class="header" role="banner">
     <nav class="nav" role="navigation" aria-label="Main navigation">
       <!-- Left: Logo -->
@@ -89,10 +89,10 @@
     </nav>
   </header>
 
-  <!-- ---------- 6. Main Content ---------- -->
+  <!-- Main Content -->
   <main class="post-container" role="main">
     
-    <!-- ---------- 7. Resume Header ---------- -->
+    <!-- Resume Header -->
     <div class="header-bar">
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="index.html">Home</a>
@@ -103,14 +103,14 @@
       <p class="subtitle">My professional experience and skills</p>
     </div>
 
-    <!-- ---------- 8. Download Section ---------- -->
+    <!-- Download Section -->
     <div class="download-section">
       <a href="/resume/muhammadtahanasir.pdf" download class="resume-download">
         <i class="fas fa-download"></i> Curriculum Vitae
       </a>
     </div>
 
-    <!-- ---------- 9. Toggle Switch ---------- -->
+    <!-- Toggle Switch -->
     <div class="toggle-container" role="tablist" aria-label="Resume section selector">
       <button class="toggle-btn active" id="show-skills" role="tab" aria-selected="true" aria-controls="resume-content">
         <i class="fas fa-code" aria-hidden="true"></i>
@@ -130,145 +130,138 @@
       </button>
     </div>
 
-    <!-- ---------- 10. Resume Content ---------- -->
+    <!-- Resume Content -->
     <div class="resume-content" id="resume-content" role="tabpanel" aria-label="Resume content">
       <!-- Skills Section -->
       <div id="skills-section" class="content-section active">
-        <!-- ---------- 11. Technical Skills Section ---------- -->
-        <section class="resume-section"> <!-- Technical skills section -->
-          <h2><i class="fas fa-code"></i> Technical Skills</h2> <!-- Section title -->
-          <div class="skills-icon-grid"> <!-- Unified Comprehensive Skills Grid -->
-            <!-- Programming Languages -->
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"></div>
-              <p>Python</p>
+        <!-- Technical Skills Section: Raycast / macOS Style Tech Dock Bar -->
+        <section class="resume-section tech-dock-section"> 
+          <h2 class="resume-section-title"><i class="fas fa-code"></i> Technical Skills</h2> 
+          
+          <!-- Dynamic HUD Spec Preview Box -->
+          <div class="tech-spec-hud" id="tech-spec-hud">
+            <div class="tech-spec-icon-box">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" id="tech-spec-icon" alt="Python">
             </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript"></div>
-              <p>JavaScript</p>
+            <div class="tech-spec-info">
+              <div class="tech-spec-header">
+                <h3 class="tech-spec-title" id="tech-spec-title">Python</h3>
+                <span class="tech-spec-category" id="tech-spec-category">Core AI Language</span>
+              </div>
+              <p class="tech-spec-desc" id="tech-spec-desc">Primary language for AI engineering, building LLMs, agentic workflows, PyTorch models, and high-performance FastAPI backends.</p>
             </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript"></div>
-              <p>TypeScript</p>
-            </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++"></div>
-              <p>C/C++</p>
-            </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="SQL"></div>
-              <p>SQL / MySQL</p>
-            </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP"></div>
-              <p>PHP</p>
-            </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" alt="Bash"></div>
-              <p>Bash</p>
-            </div>
+          </div>
 
-            <!-- Machine Learning & Data -->
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow"></div>
-              <p>TensorFlow</p>
-            </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch"></div>
-              <p>PyTorch</p>
-            </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" alt="Scikit-learn"></div>
-              <p>Scikit-learn</p>
-            </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas"></div>
-              <p>Pandas</p>
-            </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" alt="NumPy"></div>
-              <p>NumPy</p>
-            </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" alt="OpenCV"></div>
-              <p>OpenCV</p>
-            </div>
+          <!-- Translucent Tech Dock Bar -->
+          <div class="tech-dock-wrapper">
+            <div class="tech-dock-bar" id="tech-dock-bar">
+              <!-- Languages -->
+              <div class="tech-dock-item active" data-name="Python" data-category="Core AI Language" data-desc="Primary language for AI engineering, building LLMs, agentic workflows, PyTorch models, and high-performance FastAPI backends." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+              </div>
+              <div class="tech-dock-item" data-name="TypeScript" data-category="Frontend & Backend" data-desc="Strongly-typed development for scalable frontend applications, APIs, and modern web architectures." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript">
+              </div>
+              <div class="tech-dock-item" data-name="JavaScript" data-category="Web Engineering" data-desc="Building dynamic web interfaces, asynchronous event handlers, and client-side logic." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+              </div>
+              <div class="tech-dock-item" data-name="C / C++" data-category="Systems Programming" data-desc="Low-level memory management, algorithmic efficiency, and performance-critical systems engineering." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++">
+              </div>
+              <div class="tech-dock-item" data-name="SQL / MySQL" data-category="Relational Databases" data-desc="Database architecture, relational query optimization, data indexing, and schema design." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="SQL">
+              </div>
+              <div class="tech-dock-item" data-name="PHP" data-category="Server-side Scripting" data-desc="Backend web logic, database integration, and dynamic server-side page rendering." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP">
+              </div>
+              <div class="tech-dock-item" data-name="Bash" data-category="Shell Scripting" data-desc="Automation scripts, Unix command-line execution, and system administration workflows." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" alt="Bash" class="dark-invert">
+              </div>
 
-            <!-- Full Stack & Web -->
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React.js"></div>
-              <p>React.js</p>
-            </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js"></div>
-              <p>Next.js</p>
-            </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="FastAPI"></div>
-              <p>FastAPI</p>
-            </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="Express.js" class="dark-invert"></div>
-              <p>Express.js</p>
-            </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB"></div>
-              <p>MongoDB</p>
-            </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL"></div>
-              <p>PostgreSQL</p>
-            </div>
+              <div class="tech-dock-divider"></div>
 
-            <!-- Mobile Development -->
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter"></div>
-              <p>Flutter</p>
-            </div>
+              <!-- AI & Machine Learning -->
+              <div class="tech-dock-item" data-name="PyTorch" data-category="Deep Learning" data-desc="Neural network training, computer vision models, NLP tensor computations, and custom loss functions." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch">
+              </div>
+              <div class="tech-dock-item" data-name="TensorFlow" data-category="Machine Learning" data-desc="Building production ML pipelines, deep learning architectures, and model deployment." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow">
+              </div>
+              <div class="tech-dock-item" data-name="FastAPI" data-category="Async Microservices" data-desc="High-performance async Python backend services, OpenAPI endpoints, and real-time AI API integrations." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="FastAPI">
+              </div>
+              <div class="tech-dock-item" data-name="Scikit-Learn" data-category="Data Science & ML" data-desc="Supervised & unsupervised ML models, classification, regression, clustering, and data preprocessing." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" alt="Scikit-learn">
+              </div>
+              <div class="tech-dock-item" data-name="Pandas" data-category="Data Wrangling" data-desc="DataFrame manipulation, tabular data analysis, data cleaning, and statistical processing." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas">
+              </div>
+              <div class="tech-dock-item" data-name="NumPy" data-category="Numerical Computing" data-desc="Multidimensional array operations, linear algebra, vector math, and numerical data processing." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" alt="NumPy">
+              </div>
+              <div class="tech-dock-item" data-name="OpenCV" data-category="Computer Vision" data-desc="Real-time video analysis, object tracking, visual feature processing, and image transformation." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" alt="OpenCV">
+              </div>
 
-            <!-- Big Data -->
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hadoop/hadoop-original.svg" alt="Hadoop"></div>
-              <p>Hadoop / HDFS</p>
-            </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachespark/apachespark-original.svg" alt="Apache Spark"></div>
-              <p>Spark / MLlib</p>
-            </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachekafka/apachekafka-original.svg" alt="Kafka" class="dark-invert"></div>
-              <p>Kafka</p>
-            </div>
+              <div class="tech-dock-divider"></div>
 
-            <!-- Infrastructure & Cloud -->
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker"></div>
-              <p>Docker</p>
-            </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="GCP"></div>
-              <p>Google Cloud (GCP)</p>
-            </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS Basics" class="dark-invert"></div>
-              <p>AWS Basics</p>
-            </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="Git & GitHub" class="dark-invert"></div>
-              <p>Git & GitHub</p>
-            </div>
-            <div>
-              <div class="skill-box"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux"></div>
-              <p>Linux</p>
+              <!-- Web & Databases -->
+              <div class="tech-dock-item" data-name="React.js" data-category="Frontend Architecture" data-desc="Building modern single-page applications, custom UI components, and reactive state management." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
+              </div>
+              <div class="tech-dock-item" data-name="Next.js" data-category="Fullstack Web" data-desc="Server-side rendering, static site generation, API routing, and optimized React applications." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js" class="dark-invert">
+              </div>
+              <div class="tech-dock-item" data-name="Express.js" data-category="Node Backend" data-desc="Minimalist web framework for Node.js REST APIs and server-side middleware." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="Express" class="dark-invert">
+              </div>
+              <div class="tech-dock-item" data-name="MongoDB" data-category="NoSQL Database" data-desc="Document-oriented database for flexible JSON data schemas and scalable data storage." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB">
+              </div>
+              <div class="tech-dock-item" data-name="PostgreSQL" data-category="Advanced Relational DB" data-desc="Complex relational queries, JSONB document storage, indexing, and vector similarity search." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL">
+              </div>
+              <div class="tech-dock-item" data-name="Flutter" data-category="Cross-Platform Mobile" data-desc="Building natively compiled cross-platform mobile apps for Android & iOS from a single Dart codebase." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter">
+              </div>
+
+              <div class="tech-dock-divider"></div>
+
+              <!-- Big Data & Infrastructure -->
+              <div class="tech-dock-item" data-name="Hadoop" data-category="Big Data Distributed System" data-desc="HDFS distributed file storage and MapReduce processing for large-scale data analytics." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hadoop/hadoop-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hadoop/hadoop-original.svg" alt="Hadoop">
+              </div>
+              <div class="tech-dock-item" data-name="Apache Spark" data-category="Big Data Processing" data-desc="Distributed data processing, Spark SQL queries, large-scale dataset transformations, and MLlib." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachespark/apachespark-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachespark/apachespark-original.svg" alt="Spark">
+              </div>
+              <div class="tech-dock-item" data-name="Kafka" data-category="Event Streaming" data-desc="Real-time event streaming, distributed pub/sub messaging, and high-throughput data pipelines." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachekafka/apachekafka-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachekafka/apachekafka-original.svg" alt="Kafka" class="dark-invert">
+              </div>
+              <div class="tech-dock-item" data-name="Docker" data-category="Containerization" data-desc="Creating isolated container environments, Dockerfiles, multi-container compose stacks, and microservices." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker">
+              </div>
+              <div class="tech-dock-item" data-name="GCP" data-category="Google Cloud Platform" data-desc="Cloud computing, Vertex AI, BigQuery data analytics, and cloud storage management." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="GCP">
+              </div>
+              <div class="tech-dock-item" data-name="AWS" data-category="Cloud Infrastructure" data-desc="Amazon Web Services cloud infrastructure, EC2 instances, S3 storage, Lambda, and IAM security." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS" class="dark-invert">
+              </div>
+              <div class="tech-dock-item" data-name="Git & GitHub" data-category="Version Control & CI/CD" data-desc="Distributed source control, Git branching strategies, pull requests, and automated GitHub Actions." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" class="dark-invert">
+              </div>
+              <div class="tech-dock-item" data-name="Linux" data-category="Operating System" data-desc="Linux environment administration, shell utilities, permissions, process management, and server hosting." data-icon="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux">
+              </div>
             </div>
           </div>
         </section>
 
-        <!-- ---------- 12. Additional Technologies Section ---------- -->
-        <section class="resume-section"> <!-- Additional technologies section -->
-          <h2>Additional Technologies</h2> <!-- Section title -->
-          <div class="tech-tags"> <!-- Modern Curated Tech Tags -->
-            <!-- AI & Agents -->
+        <!-- Additional Technologies Section -->
+        <section class="resume-section" style="margin-top: 30px;"> 
+          <h2 class="resume-section-title"><i class="fas fa-layer-group"></i> Additional Technologies</h2>
+          <div class="tech-tags"> 
+            <!-- AI & Voice Agents -->
+            <span>Vapi AI (Voice Telephony)</span>
             <span>Generative AI</span> 
             <span>LLMs</span> 
             <span>RAG</span> 
@@ -279,7 +272,10 @@
             <span>Hugging Face</span> 
             <span>LangChain</span> 
             
-            <!-- AI Infrastructure -->
+            <!-- AI Infrastructure & Automation -->
+            <span>n8n (Self-Hosted Workflows)</span>
+            <span>GoHighLevel (GHL)</span>
+            <span>HubSpot CRM Automation</span>
             <span>Vector DBs (Pinecone, Chroma)</span> 
             <span>Weaviate</span> 
             <span>MLflow</span> 
@@ -295,15 +291,14 @@
             <span>GitHub Actions / Jenkins</span> 
             <span>Vercel / Railway</span> 
             <span>Docker / Podman</span>
-            <span>n8n (Automation)</span>
             <span>Docker Compose</span>
           </div>
         </section>
       </div>
 
-      <!-- Experience Section -->
+        <!-- Experience Section -->
       <div id="experience-section" class="content-section">
-        <!-- ---------- 11. Work Experience Section ---------- -->
+        <!-- Work Experience Section -->
         <div class="resume-section"> <!-- Work experience section -->
           <h2><i class="fas fa-briefcase"></i> Work Experience</h2> <!-- Section title -->
           <div class="timeline"> <!-- Timeline container -->
@@ -440,7 +435,7 @@
 
       <!-- Education Section -->
       <div id="education-section" class="content-section">
-        <!-- ---------- 13. Education Section ---------- -->
+        <!-- Education Section -->
         <section class="resume-section"> <!-- Education section -->
           <h2><i class="fas fa-graduation-cap"></i> Education</h2> <!-- Section title -->
           <div class="timeline"> <!-- Timeline container -->
@@ -480,7 +475,7 @@
 
       <!-- Projects Section -->
       <div id="projects-section" class="content-section">
-        <!-- ---------- 14. Projects Section ---------- -->
+        <!-- Projects Section -->
         <div class="resume-section"> <!-- Projects section -->
           <h2><i class="fas fa-folder"></i> Top Projects</h2> <!-- Section title -->
           <div class="project-grid" id="project-grid-container">
@@ -499,7 +494,7 @@
 
   <!-- Bottom Nav injected by shared-bottom-nav.js -->
 
-  <!-- ---------- 15. Footer ---------- -->
+  <!-- Footer -->
   <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
     <div class="social-icons" style="margin-bottom:25px;">
       <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
@@ -518,12 +513,12 @@
     <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
   </footer>
 
-  <!-- ---------- 16. Scroll to Top Button ---------- -->
+  <!-- Scroll to Top Button -->
   <button id="scrollTop" aria-label="Scroll to top" title="Scroll to top" type="button">
     <i class="fas fa-chevron-up" aria-hidden="true"></i>
   </button>
 
-  <!-- ---------- 17. JavaScript Includes ---------- -->
+  <!-- JavaScript Includes -->
 
   <script src="assets/js/resume.js"></script> <!-- Resume page JavaScript -->
   <script src="assets/js/header-scroll.js"></script>

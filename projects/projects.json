@@ -10,15 +10,12 @@
     "tab": "featured",
     "subcategory": "Artificial Intelligence",
     "features": [
-      "LangGraph",
-      "Pipecat",
-      "Python",
-      "Google Calendar API",
-      "Deepgram Nova-2",
-      "Chroma DB",
+      "Voice AI",
+      "Agentic AI",
       "FastAPI",
+      "Python",
       "WebRTC",
-      "LangChain"
+      "RAG & LangChain"
     ],
     "hideWebLink": true
   },
@@ -33,16 +30,10 @@
     "tab": "academic",
     "subcategory": "Digital Image Processing",
     "features": [
-      "OpenCV",
-      "NumPy",
-      "FastAPI",
+      "Web & Full-Stack",
       "Python",
-      "HTML5",
-      "CSS3",
-      "JavaScript",
-      "Tailwind CSS",
-      "Image Processing",
-      "Filters"
+      "FastAPI",
+      "React"
     ],
     "hideWebLink": true
   },
@@ -57,12 +48,10 @@
     "tab": "side",
     "subcategory": "Machine Learning",
     "features": [
-      "Streamlit",
+      "MLOps",
       "Python",
-      "SQLite",
-      "Scikit-learn",
-      "Random Forest",
-      "Feature Engineering"
+      "PyTorch",
+      "DevSecOps"
     ],
     "hideWebLink": false
   },
@@ -77,14 +66,10 @@
     "tab": "academic",
     "subcategory": "Artificial Intelligence",
     "features": [
-      "React",
-      "FastAPI",
+      "Systems & C++",
       "Python",
-      "NSGA-II",
-      "Genetic Algorithm",
-      "NumPy",
-      "D3.js",
-      "OpenStreetMap"
+      "React",
+      "FastAPI"
     ],
     "hideWebLink": true
   },
@@ -99,14 +84,12 @@
     "tab": "featured",
     "subcategory": "Artificial Intelligence",
     "features": [
-      "React",
+      "Voice AI",
+      "Agentic AI",
       "FastAPI",
+      "React",
       "Python",
-      "Groq LLaMA",
-      "Whisper",
-      "gTTS",
-      "Tailwind CSS",
-      "RTL"
+      "Web & Full-Stack"
     ],
     "hideWebLink": false
   },
@@ -121,12 +104,11 @@
     "tab": "featured",
     "subcategory": "Artificial Intelligence",
     "features": [
-      "Python",
-      "Flask",
+      "Agentic AI",
       "PyTorch",
-      "Gymnasium",
-      "Reinforcement Learning",
-      "PPO"
+      "Multi-Agent Systems",
+      "Python",
+      "Generative AI"
     ],
     "hideWebLink": true
   },
@@ -141,14 +123,11 @@
     "tab": "side",
     "subcategory": "Deep Learning",
     "features": [
+      "PyTorch",
+      "Generative AI",
       "Python",
-      "TensorFlow",
-      "Flask",
-      "SQLite",
-      "Keras",
-      "Deep Learning",
-      "Explainable AI",
-      "SQL Optimization"
+      "FastAPI",
+      "Systems & C++"
     ],
     "hideWebLink": true
   },
@@ -163,15 +142,10 @@
     "tab": "academic",
     "subcategory": "Software Design and Analysis",
     "features": [
-      "Java 17+",
-      "HTML5",
-      "CSS3",
-      "JavaScript",
-      "TTL Scheduling",
-      "WAL Persistence",
-      "Eviction Policies",
-      "Pub/Sub",
-      "TCP Server"
+      "Systems & C++",
+      "Java",
+      "Multi-Agent Systems",
+      "DevSecOps"
     ],
     "hideWebLink": true
   },
@@ -186,18 +160,16 @@
     "tab": "side",
     "subcategory": "Data Science",
     "features": [
-      "Streamlit",
+      "Agentic AI",
       "Python",
-      "Pandas",
-      "Scikit-learn",
-      "Sentiment Analysis",
-      "KMeans Clustering"
+      "PyTorch",
+      "MLOps"
     ],
     "hideWebLink": true
   },
   {
     "title": "ThinkBoard: Data Analytics Dashboard",
-    "description": "ThinkBoard: A Flask-based web application for uploading CSV files, performing statistical analysis, and visualizing data with interactive charts, featuring a modern glassmorphism design and responsive layout.",
+    "description": "ThinkBoard: A Flask-based web application for uploading CSV files, performing statistical analysis, and visualizing data with interactive charts, featuring a modern modern layout and responsive layout.",
     "thumbnail": "/assets/images/projects/think-board/preview.png",
     "url": "/projects/side/think-board.html",
     "github": "https://github.com/MuhammadTahaNasir/ThinkBoard",
@@ -206,11 +178,10 @@
     "tab": "side",
     "subcategory": "Web Development",
     "features": [
-      "Flask",
-      "JavaScript",
-      "Pandas",
-      "Chart.js",
-      "Glassmorphism"
+      "Web & Full-Stack",
+      "Python",
+      "FastAPI",
+      "React"
     ],
     "hideWebLink": false
   },
@@ -225,11 +196,9 @@
     "tab": "academic",
     "subcategory": "Database Management Systems",
     "features": [
-      "PHP",
-      "MySQL",
-      "CSS",
-      "Recipe Management",
-      "Pantry Tracking"
+      "Web & Full-Stack",
+      "Python",
+      "FastAPI"
     ],
     "hideWebLink": true
   },
@@ -244,10 +213,10 @@
     "tab": "academic",
     "subcategory": "Operating Systems",
     "features": [
+      "Systems & C++",
       "React",
       "FastAPI",
-      "Python",
-      "File System Monitoring"
+      "Python"
     ],
     "hideWebLink": true
   }

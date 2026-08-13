@@ -185,14 +185,13 @@ function showSection(section) {
     } else if (section === 'projects') {
       // Search within projects section
       searchProjects(query);
-    } else if (section === 'about') {
-      // Redirect to search.html with about query
-      window.location.href = `search.html?search=${encodeURIComponent(query)}&section=about`;
-    } else if (section === 'skills') {
-      // Redirect to search.html with skills query
-      window.location.href = `search.html?search=${encodeURIComponent(query)}&section=skills`;
     } else {
-      window.location.href = `search.html?search=${encodeURIComponent(query)}`;
+      const headerInput = document.getElementById('header-search-input');
+      if (headerInput) {
+        headerInput.value = query;
+        headerInput.focus();
+        headerInput.dispatchEvent(new Event('input', { bubbles: true }));
+      }
     }
   }
 
@@ -207,42 +206,8 @@ function showSection(section) {
 
   if (section === 'about') {
     newSearchInput.placeholder = 'Search for projects or posts…';
-    
-    // Enter key and button click to redirect to search.html
-    newSearchInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        const query = newSearchInput.value.trim();
-        if (query) {
-          window.location.href = `search.html?search=${encodeURIComponent(query)}&section=about`;
-        }
-      }
-    });
-    
-    newSearchButton.addEventListener('click', () => {
-      const query = newSearchInput.value.trim();
-      if (query) {
-        window.location.href = `search.html?search=${encodeURIComponent(query)}&section=about`;
-      }
-    });
   } else if (section === 'skills') {
     newSearchInput.placeholder = 'Search for projects or posts…';
-    
-    // Enter key and button click to redirect to search.html
-    newSearchInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        const query = newSearchInput.value.trim();
-        if (query) {
-          window.location.href = `search.html?search=${encodeURIComponent(query)}&section=skills`;
-        }
-      }
-    });
-    
-    newSearchButton.addEventListener('click', () => {
-      const query = newSearchInput.value.trim();
-      if (query) {
-        window.location.href = `search.html?search=${encodeURIComponent(query)}&section=skills`;
-      }
-    });
   } else if (section === 'tags') {
     newSearchInput.placeholder = 'Search for tags…';
     
@@ -468,11 +433,12 @@ function showSection(section) {
             aboutContent.innerHTML = `
               <h1 style="font-size: 1.5em; font-weight: bold; margin: 0 0 10px 0; font-family: 'Roboto', sans-serif; color: var(--primary);">Muhammad Taha Nasir</h1>
               <h2 style="font-size: 1.2em; margin: 0 0 20px 0; font-family: 'Roboto', sans-serif; color: var(--secondary); text-align: left;">(aka Terry)</h2>
-              <p>Hi, I'm Muhammad Taha Nasir, a junior Computer Science student at FAST-NUCES. I'm learning and building in Artificial Intelligence and Full Stack Web Development using Python and JavaScript. I mostly work with tools like Next.js, FastAPI, PostgreSQL, and MongoDB to build web applications from scratch.</p>
-              <p>Recently, I've also started working with Generative AI, using models like GPT, vector databases, and frameworks like LangChain to create smart systems such as chatbots and automation tools. I'm exploring how AI can be part of everyday applications, not just research.</p>
-              <p>On the frontend, I use ShadCN and DaisyUI to build clean and modern interfaces that are responsive and easy to use. I like writing code that's not just functional but also feels good to interact with. Alongside that, I'm also learning about cloud deployment, CI/CD, and automation with tools like n8n and GitHub Actions.</p>
-              <p>I'm focused on building useful things, learning better ways to solve problems, and becoming a solid developer in both AI and full stack fields. I enjoy working on practical projects that mix logic and creativity.</p>
-              <p>Oh, and I'm also what you might call a vibe coder — 99% of my work is powered by AI… but hey, that's fair game when you're training to be an AI engineer yourself! 😉</p>
+              <p>Hi, I'm Muhammad Taha Nasir, a senior Computer Science student at FAST-NUCES and an AI Engineer who enjoys building things at the intersection of Artificial Intelligence and Software Engineering.</p>
+              <p>I primarily work with Python, C++, and JavaScript, building applications and intelligent systems from the ground up. I enjoy working close to the engineering side of things, understanding how software works underneath, designing reliable systems, and turning ideas into something that actually works.</p>
+              <p>My journey into AI spans Machine Learning, Deep Learning, Natural Language Processing, and Generative AI. I work with neural networks, modern model architectures, LLMs, embeddings, RAG, AI agents, and model-powered applications, with a strong interest in understanding what happens beneath the abstractions rather than simply treating AI as a collection of black-box APIs.</p>
+              <p>Alongside AI, I build the engineering layers that make these systems usable in the real world, from backend services, APIs, databases, and vector search to deployment, cloud infrastructure, Docker, CI/CD, and automation. This gives me the freedom to take an idea from concept to implementation to working system, rather than being limited to a single layer of the stack.</p>
+              <p>I'm focused on building systems that sit at the intersection of logic, performance, and AI creativity, useful systems, engineered properly, and built from the ground up.</p>
+              <p>And yes, I'm also what you might call a vibe coder, a good chunk of my workflow is powered by AI… but hey, that's fair game when you're training to be an AI engineer yourself. 😉</p>
             `;
             aboutContainer.appendChild(aboutContent);
             askBar.parentNode.insertBefore(aboutHeading, askBar);
@@ -969,11 +935,12 @@ const toggleBtn = document.getElementById('theme-toggle');
 let isToggling = false;
 if (toggleBtn) {
   toggleBtn.addEventListener('click', () => {
-    if (isToggling || loader.classList.contains('active')) return;
+    if (isToggling) return;
     isToggling = true;
     const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', newTheme);
+    document.documentElement.style.backgroundColor = newTheme === 'dark' ? '#06070d' : '#f5f5f7';
     try {
       localStorage.setItem('pref-theme', newTheme);
     } catch (e) {
@@ -998,16 +965,17 @@ window.addEventListener('DOMContentLoaded', () => {
     document.documentElement.setAttribute('data-theme', 'light');
   }
 
-  // Only show loader if it's not already active
-  if (!loader.classList.contains('active')) {
+  // Hide loader smoothly on DOMContentLoaded
+  if (loader) {
     loader.classList.add('active');
     setTimeout(() => {
       loader.classList.add('no-blur');
-    }, 600);
+    }, 700);
     setTimeout(() => {
       loader.classList.add('hidden');
       loader.classList.remove('active');
-    }, 800);
+      loader.style.display = 'none';
+    }, 1000);
   }
 });
 

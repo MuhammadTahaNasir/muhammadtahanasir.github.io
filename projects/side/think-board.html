@@ -2,9 +2,21 @@
 <html lang="en" dir="auto">
 
 <head>
-    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
-    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>');
+    })();
+  </script>
+    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png?v=5" sizes="96x96" />
+    <link rel="shortcut icon" href="/assets/images/favicon.ico?v=5" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png?v=5" />
     <meta name="apple-mobile-web-app-title" content="ThinkBoard" />
     <link rel="manifest" href="/assets/images/site.webmanifest" />
     <!-- Meta Tags -->
@@ -13,12 +25,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="robots" content="index, follow">
     <meta name="description"
-        content="ThinkBoard: A Flask-based web application for uploading CSV files, performing statistical analysis, and visualizing data with interactive charts, featuring a modern glassmorphism design and responsive layout.">
+        content="ThinkBoard: A Flask-based web application for uploading CSV files, performing statistical analysis, and visualizing data with interactive charts, featuring a modern modern layout and responsive layout.">
     <meta name="author" content="Muhammad Taha Nasir">
     <meta name="date" content="2025-07-09">
     <meta name="tab" content="side">
     <meta name="subcategory" content="Web Development">
-    <meta name="features" content="Flask, JavaScript, Pandas, Chart.js, Glassmorphism">
+    <meta name="features" content="Web & Full-Stack, Python, FastAPI, React" />
     <meta name="thumbnail" content="/assets/images/projects/think-board/preview.png">
     <meta name="github" content="https://github.com/MuhammadTahaNasir/ThinkBoard">
     <meta name="web" content="https://think-board.up.railway.app">
@@ -26,28 +38,15 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/stylesheet.css" />
     <link rel="stylesheet" href="/assets/css/each-project.css">
     <link rel="stylesheet" href="/assets/css/bottom-nav.css">
-
-    <!-- Theme Initialization Script -->
-    <script>
-        (function () {
-            const savedTheme = localStorage.getItem('pref-theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                document.documentElement.style.background = '#1a1a1a';
-                document.documentElement.style.color = '#d1d5db';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-                document.documentElement.style.background = '#f9fafc';
-                document.documentElement.style.color = '#333';
-            }
-        })();
-    </script>
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="../../assets/js/bg-canvas.js"></script>
 </head>
 
-<body class="dark" id="top">
+<body id="top">
     <!-- Loader Animation -->
     <div class="loader" id="loader" aria-hidden="true">
         <div class="terry-animation">
@@ -60,61 +59,60 @@
     </div>
 
     <!-- Header Navigation -->
-    <header class="header"> <!-- Header section -->
-        <nav class="nav"> <!-- Navigation bar -->
-            <!-- Left: Logo -->
-            <div class="nav-left">
-                <a href="/index.html" class="logo">&lt;terry/&gt;</a>
-            </div>
-
-            <!-- Center: Pills Navigation -->
-            <div class="nav-center"> <!-- Navigation links container -->
-                <div class="pill-nav"> <!-- Pill-style navigation -->
-                    <a href="/projects.html">Projects</a> <!-- Resources link -->
-                    <a href="/archives.html">Archives</a> <!-- Archives link -->
-                    <a href="/resume.html">Resume</a> <!-- Resume link -->
-                    <a href="/search.html">Search</a> <!-- Search link -->
-                </div>
-            </div>
-<!-- Right: Theme toggle -->
-            <div class="nav-right"> <!-- Theme toggle container -->
-                <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme"> <!-- Theme toggle button -->
-                    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round"> <!-- Sun icon for light mode -->
-                        <circle cx="12" cy="12" r="5" />
-                        <line x1="12" y1="1" x2="12" y2="3" />
-                        <line x1="12" y1="21" x2="12" y2="23" />
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                        <line x1="1" y1="12" x2="3" y2="12" />
-                        <line x1="21" y1="12" x2="23" y2="12" />
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                    </svg>
-                    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round"> <!-- Moon icon for dark mode -->
-                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-                    </svg>
-                </button>
-            </div>
-        </nav>
-    </header>
+        <!-- Header Navigation -->
+        <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
 
 
     <!-- Main Content -->
     <div class="container">
         <!-- Breadcrumb Navigation -->
         <nav class="breadcrumb">
-            <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a> » <a
-                href="/projects/side/think-board.html">ThinkBoard: Data Analytics Dashboard</a>
-        </nav>
+        <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a> » <span class="breadcrumb-current">ThinkBoard</span>
+      </nav>
 
         <!-- Project Content -->
         <main class="project-content">
-            <header class="project-header">
-                <h1 class="project-title">ThinkBoard: Data Analytics Dashboard</h1>
-                <div class="project-meta">Jul 9 2025 • Muhammad Taha Nasir</div>
-            </header>
+        <!-- Project Header -->
+        <header class="project-header">
+          <h1 class="project-title">ThinkBoard: <span class="accent-title">Data Analytics Dashboard</span></h1>
+          <div class="project-meta">February 15 2026 • Muhammad Taha Nasir</div>
+        </header>
+
+              
 
             <!-- Image Carousel -->
             <div class="image-carousel">
@@ -215,7 +213,7 @@
                 <p>ThinkBoard is a Flask-based web application designed for data analysis and visualization. Users can
                     upload CSV files, compute statistical metrics such as mean, median, and mode, and generate
                     interactive charts, including bar, line, and pie formats. The application features a modern
-                    glassmorphism design with a dark theme and is fully responsive for both desktop and mobile devices.
+                    modern layout with a dark theme and is fully responsive for both desktop and mobile devices.
                 </p>
             </section>
 
@@ -232,7 +230,7 @@
                 <h2>Task</h2>
                 <p>The goal was to develop a web application using Flask and JavaScript that supports CSV file uploads,
                     performs statistical analysis, and provides interactive data visualizations. The application needed
-                    a modern, user-friendly interface with glassmorphism styling and mobile responsiveness.</p>
+                    a modern, user-friendly interface with clean styling and mobile responsiveness.</p>
             </section>
 
             <!-- Actions -->
@@ -243,7 +241,7 @@
                     <li>Utilized Pandas and NumPy for statistical computations and data manipulation.</li>
                     <li>Implemented a JavaScript frontend with Chart.js to create interactive bar, line, and pie charts.
                     </li>
-                    <li>Designed a glassmorphism user interface using CSS3, featuring translucent cards, blur effects,
+                    <li>Designed a modern design user interface using CSS3, featuring translucent cards, blur effects,
                         and a dark theme.</li>
                     <li>Ensured mobile responsiveness with a hamburger menu and touch-friendly controls.</li>
                     <li>Integrated sorting, searching, and gradient computation functionalities for enhanced data
@@ -275,29 +273,32 @@
                 </ul>
                 <div class="tools-section">
                     <span class="tools-label">Tools:</span>
-                    <div id="project-tools-tags"></div>
+                    <div id="project-tools-tags">
+                        <a href="/tags/tag.html?name=Analytics%20Dashboard" class="tool-pill tag">Analytics Dashboard</a>
+                        <a href="/tags/tag.html?name=Flask" class="tool-pill tag">Flask</a>
+                        <a href="/tags/tag.html?name=Chart.js" class="tool-pill tag">Chart.js</a>
+                        <a href="/tags/tag.html?name=JavaScript" class="tool-pill tag">JavaScript</a>
+                        <a href="/tags/tag.html?name=Pandas" class="tool-pill tag">Pandas</a>
+                    </div>
                 </div>
             </section>
         </main>
     </div>
 
     <!-- Footer -->
-    <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
-        <div class="social-icons" style="margin-bottom:25px;">
-            <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
-                style="margin:0 5px; font-size:1.6em;">
-                <i class="fab fa-github" aria-hidden="true"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
-                aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
-                <i class="fab fa-linkedin" aria-hidden="true"></i>
-            </a>
-            <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
-                style="margin:0 5px; font-size:1.6em;">
-                <i class="fas fa-envelope" aria-hidden="true"></i>
-            </a>
-        </div>
-        <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
+    <footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
     </footer>
 
     <!-- Scroll to Top Button -->
@@ -309,6 +310,15 @@
     <script src="/assets/js/each-project.js"></script>
     <script src="/assets/js/shared-bottom-nav.js"></script>
     <script src="/assets/js/nav-active.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/ai-search.js"></script>
 </body>
 
 </html>

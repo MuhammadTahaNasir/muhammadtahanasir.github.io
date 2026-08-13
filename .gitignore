@@ -1,5 +1,7 @@
 # Python automation scripts (Keep backend code private)
 *.py
+tools/
+scratch/
 __pycache__/
 
 # Node.js dependencies

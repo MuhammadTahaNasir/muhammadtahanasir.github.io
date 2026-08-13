@@ -4,8 +4,7 @@ let currentPage = 1; // Current page for pagination
 const postsPerPage = 5; // Number of posts per page
 let activeTag = null; // Currently selected tag filter
 let searchQuery = ''; // Current search query
-let currentSort = 'newest'; // Current sort option
-const loader = document.getElementById('loader'); // Loader element
+let currentSort = 'newest'; // Current sort loader = document.getElementById('loader'); // Loader element
 const container = document.getElementById("post-container"); // Post container element
 const searchInput = document.getElementById("searchInput"); // Search input element
 const pagination = document.getElementById("pagination"); // Pagination container
@@ -49,10 +48,7 @@ async function loadPosts() {
             noResults.style.display = 'block';
         }
     } finally {
-        setTimeout(() => {
-            loader.classList.remove('active'); // Deactivate loader
-            loader.classList.add('hidden'); // Hide loader
-        }, 600);
+        loader.classList.remove('active'); loader.classList.add('hidden');
     }
 }
 
@@ -107,16 +103,137 @@ function initializeViewCounts() {
     });
 }
 
-// ---------- 5. Render Tag Filters ----------
+// Dynamic Reading Time Calculation
+function getCalculatedReadingTime(post) {
+    if (post.time && post.time !== '2 min') return post.time;
+    const words = (post.title + ' ' + (post.summary || '')).split(/\s+/).length;
+    const estimatedWords = words * 16;
+    const minutes = Math.max(3, Math.min(8, Math.round(estimatedWords / 200)));
+    return `${minutes} min`;
+}
+
+const categoryIcons = {
+    'AI Engineering': { icon: 'fa-brain', color: '#c084fc' },
+    'Voice AI': { icon: 'fa-microphone', color: '#38bdf8' },
+    'System Design': { icon: 'fa-diagram-project', color: '#34d399' },
+    'MLOps': { icon: 'fa-server', color: '#fbbf24' },
+    'Career Mentorship': { icon: 'fa-user-graduate', color: '#f472b6' },
+    'Computer Science': { icon: 'fa-laptop-code', color: '#60a5fa' },
+    'Generative AI': { icon: 'fa-wand-magic-sparkles', color: '#a78bfa' },
+    'Python': { icon: 'fa-code', color: '#38bdf8' },
+    'AI Architecture': { icon: 'fa-microchip', color: '#60a5fa' }
+};
+
+// ---------- 5. Render Tag Filters & Explore Drawer ----------
 function renderTags() {
-    const allTags = new Set(); // Collect unique tags
-    posts.forEach(p => p.tags.forEach(tag => allTags.add(tag))); // Add tags to set
-    const tagsArray = [...allTags]; // Convert to array
-    const maxTags = 18; // Limit displayed tags
-    const displayedTags = tagsArray.slice(0, maxTags); // Get first 18 tags
-    tagFilter.innerHTML = displayedTags.map(tag =>
-        `<a href="/tags/tag.html?name=${encodeURIComponent(tag)}" class="tag-btn${tag === activeTag ? ' active' : ''}">${tag}</a>`
-    ).join('') + (tagsArray.length > maxTags ? `<a href="tags.html" class="view-more-tags">View More</a>` : ''); // Render tag links and view more link
+    const tagCounts = {};
+    posts.forEach(p => {
+        if (p.tags) {
+            p.tags.forEach(tag => {
+                tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+            });
+        }
+    });
+
+    const sortedTags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a]);
+
+    // Render Quick Carousel Pills Row
+    let carouselHtml = `
+        <button type="button" data-tag="ALL" class="tag-btn${activeTag === null ? ' active' : ''}">
+            <i class="fas fa-layer-group"></i> All Posts (${posts.length})
+        </button>
+    `;
+
+    sortedTags.slice(0, 5).forEach(tag => {
+        const count = tagCounts[tag];
+        const isActive = tag === activeTag;
+        const meta = categoryIcons[tag] || { icon: 'fa-tag', color: 'var(--accent)' };
+        const iconHtml = `<i class="fas ${meta.icon}" style="color:${meta.color}; margin-right:2px;"></i>`;
+        carouselHtml += `
+            <button type="button" data-tag="${encodeURIComponent(tag)}" class="tag-btn${isActive ? ' active' : ''}">
+                ${iconHtml} ${tag} (${count})
+            </button>
+        `;
+    });
+
+    if (tagFilter) {
+        tagFilter.innerHTML = carouselHtml;
+        tagFilter.querySelectorAll('.tag-btn').forEach(btn => {
+            btn.onclick = (e) => {
+                e.preventDefault();
+                const raw = btn.getAttribute('data-tag');
+                const targetTag = raw === 'ALL' ? null : decodeURIComponent(raw);
+                selectPostTag(targetTag);
+            };
+        });
+    }
+
+    // Render Explore Tags Drawer Grid (Top 12 Popular Topic Tags)
+    const tagsDrawerGrid = document.getElementById('tagsDrawerGrid');
+    if (tagsDrawerGrid) {
+        let gridHtml = '';
+        const popularTags = sortedTags.filter(tag => tagCounts[tag] >= 2).slice(0, 12);
+        popularTags.forEach(tag => {
+            const count = tagCounts[tag];
+            const isActive = tag === activeTag;
+            gridHtml += `
+                <button type="button" data-tag="${encodeURIComponent(tag)}" class="drawer-tag-chip${isActive ? ' active' : ''}">
+                    <i class="fas fa-hashtag" style="color:var(--accent,#0a84ff);"></i> ${tag} <small style="opacity:0.65;">(${count})</small>
+                </button>
+            `;
+        });
+        tagsDrawerGrid.innerHTML = gridHtml;
+        tagsDrawerGrid.querySelectorAll('.drawer-tag-chip').forEach(btn => {
+            btn.onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const raw = btn.getAttribute('data-tag');
+                const targetTag = raw === 'ALL' ? null : decodeURIComponent(raw);
+                selectPostTag(targetTag);
+            };
+        });
+    }
+}
+
+// Global Tag Selector
+function selectPostTag(tag) {
+    activeTag = tag;
+    currentPage = 1;
+    updateURL();
+    renderTags();
+    renderPosts();
+}
+
+// Wire up Explore Tags Drawer Button
+function initExploreTagsDrawer() {
+    const exploreTagsBtn = document.getElementById('exploreTagsBtn');
+    const tagsDrawerSheet = document.getElementById('tagsDrawerSheet');
+    if (exploreTagsBtn && tagsDrawerSheet) {
+        exploreTagsBtn.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const isOpen = tagsDrawerSheet.classList.contains('show');
+            if (isOpen) {
+                tagsDrawerSheet.classList.remove('show');
+                exploreTagsBtn.classList.remove('active');
+            } else {
+                tagsDrawerSheet.classList.add('show');
+                exploreTagsBtn.classList.add('active');
+            }
+        };
+        document.addEventListener('click', (e) => {
+            if (!tagsDrawerSheet.contains(e.target) && !exploreTagsBtn.contains(e.target)) {
+                tagsDrawerSheet.classList.remove('show');
+                exploreTagsBtn.classList.remove('active');
+            }
+        });
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initExploreTagsDrawer);
+} else {
+    initExploreTagsDrawer();
 }
 
 // ---------- 6. Update URL with current filters ----------
@@ -222,54 +339,57 @@ function renderPosts() {
     updateURL(); // Update URL
 }
 
-// ---------- 9. Render Pagination ----------
+// ---------- 9. Render Pagination (Glass Capsule Dock) ----------
 function renderPagination(totalPages) {
     if (totalPages <= 1) {
-        pagination.innerHTML = ''; // Hide pagination if only one page
+        pagination.innerHTML = '';
         return;
     }
 
-    let paginationHTML = ''; // Initialize pagination HTML
-    const maxVisiblePages = 5; // Maximum visible page numbers
-    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2)); // Calculate start page
-    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1); // Calculate end page
+    const isFirst = currentPage === 1;
+    const isLast = currentPage === totalPages;
 
-    if (endPage - startPage + 1 < maxVisiblePages) {
-        startPage = Math.max(1, endPage - maxVisiblePages + 1); // Adjust start page
-    }
+    // DESKTOP CAPSULE HTML
+    let deskHtml = '';
+    deskHtml += `<button onclick="goToPage(${currentPage - 1})" class="opt1-btn"${isFirst ? ' disabled style="opacity:0.4; cursor:not-allowed;"' : ''}><i class="fas fa-chevron-left"></i> Prev</button>`;
 
-    // Previous button
-    if (currentPage > 1) {
-        paginationHTML += `<button onclick="goToPage(${currentPage - 1})" class="pagination-btn">Previous</button>`; // Add previous button
-    }
-
-    // First page
-    if (startPage > 1) {
-        paginationHTML += `<button onclick="goToPage(1)" class="pagination-btn">1</button>`; // Add first page
-        if (startPage > 2) {
-            paginationHTML += `<span class="pagination-ellipsis">...</span>`; // Add ellipsis
+    if (totalPages <= 7) {
+        for (let i = 1; i <= totalPages; i++) {
+            deskHtml += `<button onclick="goToPage(${i})" class="opt1-num${i === currentPage ? ' active' : ''}">${i}</button>`;
         }
-    }
+    } else {
+        deskHtml += `<button onclick="goToPage(1)" class="opt1-num${1 === currentPage ? ' active' : ''}">1</button>`;
+        if (currentPage > 3) deskHtml += `<span class="opt1-dots">...</span>`;
+        
+        let start = Math.max(2, currentPage - 1);
+        let end = Math.min(totalPages - 1, currentPage + 1);
+        
+        if (currentPage <= 3) { start = 2; end = 4; }
+        if (currentPage >= totalPages - 2) { start = totalPages - 3; end = totalPages - 1; }
 
-    // Page numbers
-    for (let i = startPage; i <= endPage; i++) {
-        paginationHTML += `<button onclick="goToPage(${i})" class="pagination-btn${i === currentPage ? ' active' : ''}">${i}</button>`; // Add page number
-    }
-
-    // Last page
-    if (endPage < totalPages) {
-        if (endPage < totalPages - 1) {
-            paginationHTML += `<span class="pagination-ellipsis">...</span>`; // Add ellipsis
+        for (let i = start; i <= end; i++) {
+            deskHtml += `<button onclick="goToPage(${i})" class="opt1-num${i === currentPage ? ' active' : ''}">${i}</button>`;
         }
-        paginationHTML += `<button onclick="goToPage(${totalPages})" class="pagination-btn">${totalPages}</button>`; // Add last page
+
+        if (currentPage < totalPages - 2) deskHtml += `<span class="opt1-dots">...</span>`;
+        deskHtml += `<button onclick="goToPage(${totalPages})" class="opt1-num${totalPages === currentPage ? ' active' : ''}">${totalPages}</button>`;
     }
 
-    // Next button
-    if (currentPage < totalPages) {
-        paginationHTML += `<button onclick="goToPage(${currentPage + 1})" class="pagination-btn">Next</button>`; // Add next button
-    }
+    deskHtml += `<button onclick="goToPage(${currentPage + 1})" class="opt1-btn"${isLast ? ' disabled style="opacity:0.4; cursor:not-allowed;"' : ''}>Next <i class="fas fa-chevron-right"></i></button>`;
 
-    pagination.innerHTML = paginationHTML; // Set pagination HTML
+    // MOBILE CAPSULE HTML
+    let mobHtml = `
+        <div class="opt1-mob-bar">
+            <button onclick="goToPage(${currentPage - 1})" class="opt1-mob-btn"${isFirst ? ' disabled style="opacity:0.4; cursor:not-allowed;"' : ''}><i class="fas fa-chevron-left"></i> Prev</button>
+            <div class="opt1-mob-indicator">Page <span>${currentPage}</span> of ${totalPages}</div>
+            <button onclick="goToPage(${currentPage + 1})" class="opt1-mob-btn"${isLast ? ' disabled style="opacity:0.4; cursor:not-allowed;"' : ''}>Next <i class="fas fa-chevron-right"></i></button>
+        </div>
+    `;
+
+    pagination.innerHTML = `
+        <div class="opt1-desk-bar">${deskHtml}</div>
+        <div class="opt1-mob-wrapper">${mobHtml}</div>
+    `;
 }
 
 // ---------- 10. Filter by Tag ----------

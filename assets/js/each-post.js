@@ -1,12 +1,22 @@
-// Immediately hide loader if coming from hash navigation
+// Snappy Loader Animation (450ms Playback)
 (function() {
-    const loader = document.getElementById("loader");
-    if (window.location.hash && document.referrer.split('#')[0] === window.location.href.split('#')[0]) {
-        // Same page hash navigation - hide loader immediately
+    function dismissLoader() {
+        const loader = document.getElementById("loader");
         if (loader) {
-            loader.style.display = "none";
             loader.classList.add("hidden");
+            setTimeout(() => {
+                if (loader.parentNode && loader.classList.contains("hidden")) {
+                    loader.style.display = "none";
+                }
+            }, 350);
         }
+    }
+    
+    // Play snappy 450ms animation on page load, then smoothly fade out
+    if (document.readyState === "complete") {
+        setTimeout(dismissLoader, 300);
+    } else {
+        setTimeout(dismissLoader, 450);
     }
 })();
 
@@ -127,6 +137,7 @@ if (themeToggle) {
     themeToggle.addEventListener("click", () => {
         const currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', currentTheme);
+        document.documentElement.style.backgroundColor = currentTheme === 'dark' ? '#06070d' : '#f5f5f7';
         localStorage.setItem("pref-theme", currentTheme);
         updateThemeIcons();
     });
@@ -221,106 +232,67 @@ async function loadRelatedPosts() {
         if (!res.ok) throw new Error("Failed to fetch posts.json");
         const allPosts = await res.json();
 
-        // Get the full current URL path and match it exactly with the post's url field
         const currentUrl = window.location.pathname.replace(/^\/|\/$/g, '');
         const currentPost = allPosts.find(p => p.url === currentUrl);
 
-        // Create a sorted list of all posts (excluding posts.html) based on date
         const sortedPosts = allPosts
             .filter(p => p.url && !p.url.endsWith("posts.html"))
             .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        // Dynamically set total posts, excluding posts.html
         const totalPosts = sortedPosts.length;
-        const currentIndex = currentPost ? sortedPosts.indexOf(currentPost) : -1;
-
-        // Prepare the custom order
+        
         let topRelated = [];
-
-        // Always add the first post (post 1)
-        if (sortedPosts[0]) {
-            topRelated.push(sortedPosts[0]);
+        
+        // Latest 5 posts
+        for (let i = 0; i < 5 && i < totalPosts; i++) {
+            topRelated.push(sortedPosts[i]);
         }
 
-        // Handle logic based on current post
-        if (currentIndex === 0) {
-            // First post: Show post 1 (active), post 2, show other, second-to-last, last
-            if (sortedPosts[1]) topRelated.push(sortedPosts[1]);
-        } else if (currentIndex === 1) {
-            // Second post: Show post 1, post 2 (active), show other, second-to-last, last
-            if (currentPost && !topRelated.includes(currentPost)) {
-                topRelated.push(currentPost); // Add post 2 (active)
-            }
-        } else if (currentIndex === totalPosts - 1) {
-            // Last post: Show post 1, second-to-last, active post, show other, last
-            if (sortedPosts[totalPosts - 2] && !topRelated.includes(sortedPosts[totalPosts - 2])) {
-                topRelated.push(sortedPosts[totalPosts - 2]);
-            }
-            if (currentPost && !topRelated.includes(currentPost)) {
-                topRelated.push(currentPost);
-            }
-        } else if (currentIndex > 1) {
-            // Other posts: Show post 1, previous post, active post, show other, second-to-last, last
-            if (sortedPosts[currentIndex - 1] && !topRelated.includes(sortedPosts[currentIndex - 1])) {
-                topRelated.push(sortedPosts[currentIndex - 1]);
-            }
-            if (currentPost && !topRelated.includes(currentPost)) {
-                topRelated.push(currentPost);
-            }
-        } else {
-            // Fallback: If no current post, show post 2
-            if (sortedPosts[1] && !topRelated.includes(sortedPosts[1])) {
-                topRelated.push(sortedPosts[1]);
-            }
-        }
-
-        // Add "Show Other" link
         topRelated.push({ isShowOther: true, total: totalPosts });
 
-        // Add second-to-last and last posts (avoid duplicates)
-        const secondLastIndex = totalPosts - 2;
-        const lastIndex = totalPosts - 1;
-        if (secondLastIndex >= 0 && !topRelated.includes(sortedPosts[secondLastIndex])) {
-            topRelated.push(sortedPosts[secondLastIndex]);
-        }
-        if (lastIndex >= 0 && !topRelated.includes(sortedPosts[lastIndex])) {
-            topRelated.push(sortedPosts[lastIndex]);
-        }
-
         const container = document.getElementById("related-posts-container");
-        
-        if (!container) {
-            console.log("Related posts container not found, skipping...");
-            return;
-        }
+        if (!container) return;
 
-        container.innerHTML = topRelated.map((post, idx) => {
+        container.innerHTML = topRelated.map((post) => {
             if (post.isShowOther) {
                 return `
-                    <div class="post-item show-other center-link">
-                        <a href="../../posts.html" class="show-all-link">Show all ${post.total} posts</a>
+                    <div class="post-item show-other">
+                        <a href="../../posts.html" class="show-all-btn">Show all ${post.total} posts &rarr;</a>
                     </div>
                 `;
             }
-            const originalIndex = sortedPosts.indexOf(post) + 1;
+            
+            // Chronological numbering: Oldest = 1, Newest = totalPosts
+            const originalIndex = totalPosts - sortedPosts.indexOf(post);
+            
+            // Resolve thumbnail
+            let thumbUrl = '../../assets/images/posts/ai-deployment.png'; // Fallback
+            if (post.thumbnail) {
+                if (post.thumbnail.startsWith('/')) {
+                    thumbUrl = '../..' + post.thumbnail;
+                } else if (post.thumbnail.startsWith('http')) {
+                    thumbUrl = post.thumbnail;
+                } else {
+                    thumbUrl = '../../assets/images/posts/' + post.thumbnail;
+                }
+            }
+            
             return `
                 <div class="post-item${post.url === currentUrl ? ' current-post' : ''}">
-                    <div class="post-number">${originalIndex}</div>
-                    <div>
-                        <a href="${post.url.startsWith('/') ? '.' : '../../'}${post.url}">
-                            ${post.title}
-                        </a>
-                        <p>${post.summary.slice(0, 120)}${post.summary.length > 120 ? "..." : ""}</p>
-                    </div>
+                    <a href="${post.url.startsWith('/') ? '.' : '../../'}${post.url}" class="post-link">
+                        <div class="thumb-box">
+                            <img src="${thumbUrl}" alt="Thumbnail" onerror="this.onerror=null; this.style.opacity=0;">
+                            <div class="badge">${originalIndex}</div>
+                        </div>
+                        <div class="info">
+                            <span class="post-title">${post.title}</span>
+                        </div>
+                    </a>
                 </div>
             `;
         }).join('');
     } catch (err) {
         console.error("Error loading related posts:", err);
-        const relatedSeries = document.getElementById("related-series");
-        if (relatedSeries) {
-            relatedSeries.style.display = "none";
-        }
     }
 }
 
@@ -668,3 +640,44 @@ function incrementPostViewCount() {
     const newViews = currentViews + 1;
     localStorage.setItem(viewKey, newViews);
 }
+
+// Copy Code Button Functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const codeBlocks = document.querySelectorAll('.code-block');
+    
+    codeBlocks.forEach(block => {
+        // Ensure block is relative for absolute positioning of the button
+        block.style.position = 'relative';
+        
+        // Remove pre-existing buttons inside block to avoid duplication
+        const existingBtns = block.querySelectorAll('.copy-code-btn');
+        existingBtns.forEach(btn => btn.remove());
+        
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'copy-code-btn';
+        copyBtn.setAttribute('aria-label', 'Copy code to clipboard');
+        copyBtn.setAttribute('title', 'Copy code');
+        copyBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+        
+        copyBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const pre = block.querySelector('pre');
+            if (!pre) return;
+            
+            const textToCopy = pre.innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                copyBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                copyBtn.classList.add('copied');
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        });
+        
+        block.appendChild(copyBtn);
+    });
+});

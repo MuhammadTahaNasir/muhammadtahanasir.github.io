@@ -1,4 +1,17 @@
-document.addEventListener("DOMContentLoaded", () => {
+function renderProjectTools() {
+    const featuresMeta = document.querySelector('meta[name="features"]');
+    const toolsTagsDiv = document.getElementById('project-tools-tags');
+    if (featuresMeta && toolsTagsDiv) {
+        const features = featuresMeta.content.split(',').map(feature => feature.trim()).filter(Boolean);
+        if (features.length > 0) {
+            toolsTagsDiv.innerHTML = features.map(feature => `
+                <a href="/tags/tag.html?name=${encodeURIComponent(feature)}" class="tool-pill tag">${feature}</a>
+            `).join(' ');
+        }
+    }
+}
+
+function initProjectPage() {
     // Show loader animation
     const loader = document.getElementById('loader');
     if (loader && !loader.classList.contains('active')) {
@@ -12,49 +25,21 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1200);
     }
 
-    // Initialize theme
-    const savedTheme = localStorage.getItem('pref-theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = savedTheme || (prefersDark ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', theme);
-    updateThemeIcons();
-
-    // Dynamically generate tool tags from meta features
-    const featuresMeta = document.querySelector('meta[name="features"]');
-    const toolsTagsDiv = document.getElementById('project-tools-tags');
-    if (featuresMeta && toolsTagsDiv) {
-        const features = featuresMeta.content.split(',').map(feature => feature.trim());
-        toolsTagsDiv.innerHTML = features.map(feature => `
-            <a href="/tags/tag.html?name=${encodeURIComponent(feature)}" class="tag">${feature}</a>
-        `).join(' ');
-    }
+    renderProjectTools();
 
     // Initialize carousel
-    initCarousel();
-});
-
-// Theme toggle functionality
-function updateThemeIcons() {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    document.getElementById("sun").style.display = isDark ? "none" : "block";
-    document.getElementById("moon").style.display = isDark ? "block" : "none";
+    if (typeof initCarousel === 'function') {
+        initCarousel();
+    }
 }
 
-document.getElementById("theme-toggle").addEventListener("click", () => {
-    const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-    const next = current === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem("pref-theme", next);
-    updateThemeIcons();
-});
+if (document.readyState === 'loading') {
+    document.addEventListener("DOMContentLoaded", initProjectPage);
+} else {
+    initProjectPage();
+}
 
-// Listen for system theme changes
-window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-    if (!localStorage.getItem("pref-theme")) {
-        document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
-        updateThemeIcons();
-    }
-});
+// Theme toggle is handled globally by bg-canvas.js
 
 window.addEventListener("scroll", () => {
     const scrollTopButton = document.getElementById("scrollTop");
@@ -187,12 +172,14 @@ function initCarousel() {
         modalImage.src = activeSlide.src;
         modalImage.alt = activeSlide.alt;
         modal.classList.add('active');
+        document.body.classList.add('modal-open');
         document.body.style.overflow = 'hidden';
         stopAutoPlay(); // Pause autoplay when modal opens
     });
 
     function closeModal() {
         modal.classList.remove('active');
+        document.body.classList.remove('modal-open');
         document.body.style.overflow = '';
         startAutoPlay(); // Resume autoplay when modal closes
     }

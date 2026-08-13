@@ -2,36 +2,40 @@
 <html lang="en" dir="auto">
 
 <head>
-  <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
-  <link rel="shortcut icon" href="/assets/images/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>');
+    })();
+  </script>
+  <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png?v=6" sizes="96x96" />
+  <link rel="shortcut icon" href="/assets/images/favicon.ico?v=6" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png?v=6" />
   <meta name="apple-mobile-web-app-title" content="Terry" />
   <link rel="manifest" href="/assets/images/site.webmanifest" />
 
-  <!-- ---------- 1. Meta Tags ---------- -->
+  <!-- Meta Tags -->
   <meta charset="UTF-8" /> <!-- Set character encoding to UTF-8 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Posts | Muhammad Taha Nasir</title> <!-- Page title -->
 
-  <!-- ---------- 2. Stylesheets ---------- -->
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/assets/css/stylesheet.css" />
   <link rel="stylesheet" href="./assets/css/posts.css" />
   <link rel="stylesheet" href="assets/css/bottom-nav.css" />
-
-  <!-- ---------- 3. Theme Initialization Script ---------- -->
-  <script>
-    (function () {
-      const savedTheme = localStorage.getItem('pref-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme', savedTheme);
-      document.documentElement.style.background = savedTheme === 'dark' ? '#1a1a1a' : '#f9fafc';
-      document.documentElement.style.color = savedTheme === 'dark' ? '#d1d5db' : '#333';
-      if (savedTheme === 'dark') document.documentElement.classList.add('dark');
-    })();
-  </script>
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <script src="/assets/js/bg-canvas.js"></script>
 </head>
 
 <body>
-  <!-- ---------- 4. Loader Animation ---------- -->
+  <!-- Loader Animation -->
   <div class="loader" id="loader"> <!-- Loader overlay -->
     <div class="terry-animation"> <!-- Animated "terry" text -->
       <span class="letter">t</span> <!-- Individual letter -->
@@ -42,102 +46,114 @@
     </div>
   </div>
 
-  <!-- ---------- 5. Header Navigation ---------- -->
-  <header class="header">
-    <nav class="nav">
+  <!-- Header Navigation -->
+      <!-- Header Navigation -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
       <div class="nav-left">
-        <a href="/index.html" class="logo">&lt;terry/&gt;</a>
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
       </div>
-
-      <!-- Center: Pills Navigation -->
-      <div class="nav-center">
-        <div class="pill-nav">
-          <a href="/projects.html">Projects</a>
-          <a href="/archives.html">Archives</a>
-          <a href="/resume.html">Resume</a>
-          <a href="/search.html">Search</a>
-        </div>
-      </div>
-
-
-
-      <!-- Right: Theme toggle -->
       <div class="nav-right">
-        <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
-          <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5" />
-            <line x1="12" y1="1" x2="12" y2="3" />
-            <line x1="12" y1="21" x2="12" y2="23" />
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-            <line x1="12" y1="1" x2="12" y2="3" />
-            <line x1="21" y1="12" x2="23" y2="12" />
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-          </svg>
-          <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-          </svg>
-        </button>
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
       </div>
     </nav>
   </header>
 
-  <!-- ---------- 6. Main Content ---------- -->
-  <div class="post-container">
+  <!-- Main Content -->
+  <main class="post-container page-fade-in" role="main">
 
-    <!-- ---------- 7. Breadcrumb Navigation ---------- -->
-    <nav class="breadcrumb">
-      <a href="index.html">Home</a> » <a href="posts.html">Posts</a>
-    </nav>
-
-    <!-- ---------- 8. Posts Header and Search ---------- -->
+    <!-- Posts Header -->
     <div class="header-bar">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span aria-hidden="true">»</span>
+        <a href="posts.html" aria-current="page">Posts</a>
+      </nav>
       <h1>Posts</h1>
       <p class="subtitle">Browse All Posts</p>
     </div>
 
-    <!-- ---------- 9. Filter Bar ---------- -->
-    <div class="filter-bar">
-      <input id="searchInput" type="text" placeholder="Search posts..." class="flex-1 min-w-[200px]" />
-      <div class="dropdowns-row">
-        <div class="dropdown-container">
-          <select id="sortSelect">
-            <option value="newest">Newest First</option>
-            <option value="oldest">Oldest First</option>
-            <option value="a-z">Title ↗</option>
-            <option value="z-a">Title ↘</option>
-            <option value="reading-time">Reading Time</option>
-          </select>
-          <div class="arrow pointer-events-none absolute inset-y-0 right-3 flex items-center">
-            <i class="fas fa-chevron-down"></i>
+    <!-- ---------- Filter & Search Hub ---------- -->
+    <div class="posts-control-hub">
+      <div class="posts-search-row">
+        <div class="posts-search-input-wrap">
+          <i class="fas fa-search"></i>
+          <input id="searchInput" type="text" placeholder="Search posts by title or keyword..." aria-label="Search posts" />
+        </div>
+
+        <div class="posts-mobile-actions">
+          <button class="explore-tags-btn" id="exploreTagsBtn" type="button" aria-expanded="false" aria-label="Explore all topic tags">
+            <i class="fas fa-tags"></i> <span>Explore Tags</span> <i class="fas fa-chevron-down caret-icon"></i>
+          </button>
+
+          <div class="posts-sort-wrap">
+            <select id="sortSelect" aria-label="Sort posts">
+              <="newest">Newest First</option>
+              <="oldest">Oldest First</option>
+              <="a-z">Title ↗</option>
+              <="z-a">Title ↘</option>
+              <="reading-time">Reading Time</option>
+            </select>
+            <i class="fas fa-chevron-down sort-arrow"></i>
           </div>
+        </div>
+      </div>
+
+      <!-- Quick Category / Tag Pills Carousel Row -->
+      <div class="tags-filter" id="tagFilter"></div>
+
+      <!-- Glass Tags Exploration Drawer Sheet -->
+      <div class="tags-drawer-sheet" id="tagsDrawerSheet">
+        <div class="tags-drawer-header">
+          <span><i class="fas fa-tags" style="color:var(--purple, #c084fc);"></i> All Topic Tags</span>
+          <a href="tags.html" class="all-tags-link">Open Full Tags Page <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="tags-drawer-grid" id="tagsDrawerGrid">
+          <!-- Dynamic Tag Chips injected here -->
         </div>
       </div>
     </div>
 
-    <!-- ---------- 10. Tags Filter ---------- -->
-    <div class="tags-filter" id="tagFilter"></div>
-
-    <!-- ---------- 11. No Results Message ---------- -->
+    <!-- No Results Message -->
     <div class="no-results" id="noResults" style="display: none;">
       <i class="fas fa-search"></i>
       <h3>No results found</h3>
       <p>Try adjusting your search terms or filters</p>
     </div>
 
-    <!-- ---------- 12. Posts Container ---------- -->
+    <!-- Posts Container -->
     <main id="post-container">
       <!-- Skeleton UI -->
       <div class="skeleton-post-card">
         <div class="skeleton-img"></div>
         <div class="skeleton-content">
           <div class="skeleton-title"></div>
-          <div class="skeleton-meta">
-            </18">
-          </div>
+          <div class="skeleton-meta"></div>
           <div class="skeleton-summary"></div>
         </div>
       </div>
@@ -151,43 +167,49 @@
       </div>
     </main>
 
-    <!-- ---------- 13. Pagination ---------- -->
+    <!-- Pagination -->
     <div class="pagination" id="pagination"></div>
   </div>
 
 
   <!-- Bottom Nav injected by shared-bottom-nav.js -->
 
-  <!-- ---------- 13. Footer ---------- -->
-  <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
-    <div class="social-icons" style="margin-bottom:25px;">
-      <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
-        style="margin:0 5px; font-size:1.6em;">
-        <i class="fab fa-github" aria-hidden="true"></i>
-      </a>
-      <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
-        aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
-        <i class="fab fa-linkedin" aria-hidden="true"></i>
-      </a>
-      <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
-        style="margin:0 5px; font-size:1.6em;">
-        <i class="fas fa-envelope" aria-hidden="true"></i>
-      </a>
-    </div>
-    <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
-  </footer>
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
 
-  <!-- ---------- 14. Scroll to Top Button ---------- -->
+  <!-- Scroll to Top Button -->
   <button id="scrollTop" aria-label="Scroll to top" title="Scroll to top" type="button">
     <i class="fas fa-chevron-up" aria-hidden="true"></i>
   </button>
 
-  <!-- ---------- 15. JavaScript Include ---------- -->
+  <!-- JavaScript Include -->
   <script src="./assets/js/posts.js"></script>
   <script src="./assets/js/header-scroll.js"></script>
   <script src="./assets/js/shared-bottom-nav.js"></script>
   <script src="./assets/js/nav-active.js"></script>
   <script src="./assets/js/instant-loader.js"></script>
+    <script src="/assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
 </body>
 
 </html>

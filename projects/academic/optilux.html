@@ -1,17 +1,29 @@
 <!doctype html>
 <html lang="en" dir="auto">
   <head>
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>');
+    })();
+  </script>
     <link
       rel="icon"
       type="image/png"
-      href="/assets/images/favicon-96x96.png"
+      href="/assets/images/favicon-96x96.png?v=5"
       sizes="96x96"
     />
-    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <link rel="shortcut icon" href="/assets/images/favicon.ico?v=5" />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="/assets/images/apple-touch-icon.png"
+      href="/assets/images/apple-touch-icon.png?v=5"
     />
     <meta name="apple-mobile-web-app-title" content="OptiLux" />
     <link rel="manifest" href="/assets/images/site.webmanifest" />
@@ -31,10 +43,7 @@
     <meta name="date" content="2026-06-17" />
     <meta name="tab" content="academic" />
     <meta name="subcategory" content="Digital Image Processing" />
-    <meta
-      name="features"
-      content="OpenCV, NumPy, FastAPI, Python, HTML5, CSS3, JavaScript, Tailwind CSS, Image Processing, Filters"
-    />
+    <meta name="features" content="Web & Full-Stack, Python, FastAPI, React" />
     <meta
       name="thumbnail"
       content="/assets/images/projects/optilux/social-preview.png"
@@ -52,30 +61,15 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
+    <link rel="stylesheet" href="/assets/css/stylesheet.css" />
     <link rel="stylesheet" href="/assets/css/each-project.css" />
     <link rel="stylesheet" href="/assets/css/bottom-nav.css" />
+    <link rel="stylesheet" href="/assets/css/bento-grid.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="../../assets/js/bg-canvas.js"></script>
+</head>
 
-    <!-- Theme Initialization Script -->
-    <script>
-      (function () {
-        const savedTheme = localStorage.getItem("pref-theme");
-        const prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)",
-        ).matches;
-        if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-          document.documentElement.setAttribute("data-theme", "dark");
-          document.documentElement.style.background = "#1a1a1a";
-          document.documentElement.style.color = "#d1d5db";
-        } else {
-          document.documentElement.setAttribute("data-theme", "light");
-          document.documentElement.style.background = "#f9fafc";
-          document.documentElement.style.color = "#333";
-        }
-      })();
-    </script>
-  </head>
-
-  <body class="dark" id="top">
+  <body id="top">
     <!-- Loader Animation -->
     <div class="loader" id="loader" aria-hidden="true">
       <div class="terry-animation">
@@ -88,34 +82,16 @@
     </div>
 
     <!-- Header Navigation -->
-    <header class="header">
-      <nav class="nav">
-        <div class="nav-left">
-          <a href="/index.html" class="logo">&lt;terry/&gt;</a>
-        </div>
-        <div class="nav-center">
-          <div class="pill-nav">
-            <a href="/projects.html">Projects</a>
-            <a href="/archives.html">Archives</a>
-            <a href="/resume.html">Resume</a>
-            <a href="/search.html">Search</a>
-          </div>
-        </div>
-        <div class="nav-right">
-          <button
-            id="theme-toggle"
-            aria-label="Toggle theme"
-            title="Toggle theme"
-          >
-            <svg
-              id="sun"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
+        <!-- Header Navigation -->
+        <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="12" cy="12" r="5" />
               <line x1="12" y1="1" x2="12" y2="3" />
               <line x1="12" y1="21" x2="12" y2="23" />
@@ -126,38 +102,39 @@
               <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
               <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
             </svg>
-            <svg
-              id="moon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
             </svg>
           </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
         </div>
-      </nav>
-    </header>
+      </div>
+    </nav>
+  </header>
 
     <!-- Main Content -->
     <div class="container">
       <!-- Breadcrumb Navigation -->
       <nav class="breadcrumb">
-        <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a> »
-        <a href="/projects/academic/optilux.html">OptiLux</a>
+        <a href="/index.html">Home</a> » <a href="/projects.html">Projects</a> » <span class="breadcrumb-current">OptiLux</span>
       </nav>
 
       <!-- Project Content -->
       <main class="project-content">
+        <!-- Project Header -->
         <header class="project-header">
-          <h1 class="project-title">
-            OptiLux: Advanced Image Restoration Workspace
-          </h1>
+          <h1 class="project-title">OptiLux: <span class="accent-title">Advanced Image Restoration Workspace</span></h1>
           <div class="project-meta">June 17 2026 • Muhammad Taha Nasir</div>
         </header>
+
+          
 
         <!-- Image Carousel -->
         <div class="image-carousel">
@@ -341,7 +318,7 @@
             Build a web-based Advanced Image Restoration Workspace that allows
             users to apply point processing, spatial filtering, and
             morphological operations. The platform required a premium,
-            Apple-inspired "glassmorphism" UI with real-time feedback and an
+            modern "modern design" UI with real-time feedback and an
             asynchronous data flow to eliminate disk-write bottlenecks.
           </p>
         </section>
@@ -354,7 +331,7 @@
               <strong>Frontend Development:</strong> Built with Vanilla HTML5,
               CSS3, and JavaScript styled with Tailwind CSS. Designed with a
               premium "dark moss and clay" color palette featuring
-              micro-animations, glassmorphism panels, and a highly responsive
+              micro-animations, translucent panels, and a highly responsive
               grid layout.
             </li>
             <li>
@@ -480,47 +457,33 @@
           </ul>
           <div class="tools-section">
             <span class="tools-label">Tools:</span>
-            <div id="project-tools-tags"></div>
+            <div id="project-tools-tags">
+                        <a href="/tags/tag.html?name=Computer%20Vision" class="tool-pill tag">Computer Vision</a>
+                        <a href="/tags/tag.html?name=OpenCV" class="tool-pill tag">OpenCV</a>
+                        <a href="/tags/tag.html?name=FastAPI" class="tool-pill tag">FastAPI</a>
+                        <a href="/tags/tag.html?name=Python" class="tool-pill tag">Python</a>
+                        <a href="/tags/tag.html?name=NumPy" class="tool-pill tag">NumPy</a>
+                        <a href="/tags/tag.html?name=Digital%20Image%20Processing" class="tool-pill tag">Digital Image Processing</a>
+                    </div>
           </div>
         </section>
       </main>
     </div>
 
     <!-- Footer -->
-    <footer
-      class="footer"
-      role="contentinfo"
-      style="padding: 20px; text-align: center"
-    >
-      <div class="social-icons" style="margin-bottom: 25px">
-        <a
-          href="https://github.com/MuhammadTahaNasir"
-          target="_blank"
-          title="GitHub"
-          aria-label="GitHub profile"
-          style="margin: 0 5px; font-size: 1.6em"
-        >
+    <footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
           <i class="fab fa-github" aria-hidden="true"></i>
         </a>
-        <a
-          href="https://www.linkedin.com/in/muhammadtahanasir/"
-          target="_blank"
-          title="LinkedIn"
-          aria-label="LinkedIn profile"
-          style="margin: 0 5px; font-size: 1.6em"
-        >
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
           <i class="fab fa-linkedin" aria-hidden="true"></i>
         </a>
-        <a
-          href="mailto:m.tahanasir.cs@gmail.com"
-          title="Email"
-          aria-label="Send email"
-          style="margin: 0 5px; font-size: 1.6em"
-        >
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
           <i class="fas fa-envelope" aria-hidden="true"></i>
         </a>
       </div>
-      <p style="font-size: 0.9em">© 2026 – Muhammad Taha Nasir</p>
+      <p>© 2026 – Muhammad Taha Nasir</p>
     </footer>
 
     <!-- Scroll to Top Button -->
@@ -532,5 +495,14 @@
     <script src="/assets/js/each-project.js"></script>
     <script src="/assets/js/shared-bottom-nav.js"></script>
     <script src="/assets/js/nav-active.js"></script>
-  </body>
+  
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+  <script src="/assets/js/ai-search.js"></script>
+</body>
 </html>

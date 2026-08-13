@@ -1,40 +1,47 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="auto">
 
 <head>
-  <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
-  <link rel="shortcut icon" href="/assets/images/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+  <!-- Instant Theme Initialization Script (Theme Initializer) -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('pref-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      var bg = theme === 'dark' ? '#06070d' : '#f8fafc';
+      document.documentElement.style.backgroundColor = bg;
+      document.write('<style>html,body{background-color:' + bg + ' !important; color-scheme:' + theme + ' !important; transition: none !important;}  .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}</style>');
+    })();
+  </script>
+  <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png?v=6" sizes="96x96" />
+  <link rel="shortcut icon" href="/assets/images/favicon.ico?v=6" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png?v=6" />
   <meta name="apple-mobile-web-app-title" content="Terry" />
   <link rel="manifest" href="/assets/images/site.webmanifest" />
 
-  <!-- ---------- 1. Meta Tags ---------- -->
+  <!-- Meta Tags -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Archives | Muhammad Taha Nasir</title>
   <meta name="description" content="Browse through all posts and projects in chronological order" />
 
-  <!-- ---------- 2. Stylesheets ---------- -->
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="/assets/css/stylesheet.css" />
   <link rel="stylesheet" href="assets/css/archives.css" />
   <link rel="stylesheet" href="assets/css/bottom-nav.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="/assets/css/bento-grid.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;opacity:1;visibility:visible}
+     .loader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:transparent !important;backdrop-filter:blur(16px) !important;-webkit-backdrop-filter:blur(16px) !important;z-index:9999;opacity:1;visibility:visible}
     .loader.hidden{opacity:0;visibility:hidden}
   </style>
-
-  <!-- ---------- 3. Theme Initialization Script ---------- -->
-  <script>
-    // Apply saved theme immediately to prevent flash
-    const savedTheme = localStorage.getItem('pref-theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = savedTheme || (prefersDark ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', theme);
-  </script>
+  <script src="/assets/js/bg-canvas.js"></script>
 </head>
 
 <body>
-  <!-- ---------- 4. Loader Animation ---------- -->
+  <!-- Loader Animation -->
   <div class="loader" id="loader" aria-hidden="true">
     <div class="terry-animation">
       <span class="letter">t</span>
@@ -45,52 +52,47 @@
     </div>
   </div>
 
-  <!-- ---------- 5. Header Navigation ---------- -->
+  <!-- Header Navigation -->
+      <!-- Header Navigation -->
   <header class="header" role="banner">
     <nav class="nav" role="navigation" aria-label="Main navigation">
-      <!-- Left: Logo -->
       <div class="nav-left">
-        <a href="index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
+        <a href="/index.html" class="logo" aria-label="Home">&lt;terry/&gt;</a>
       </div>
-
-      <!-- Center: Pills Navigation -->
-      <div class="nav-center">
-                <div class="pill-nav" role="tablist">
-          <a href="projects.html" role="tab">Projects</a>
-          <a href="archives.html" class="active" role="tab" aria-selected="true">Archives</a>
-          <a href="resume.html" role="tab">Resume</a>
-          <a href="search.html" role="tab">Search</a>
-        </div>
-      </div>
-      
-
-      <!-- Right: Theme toggle -->
       <div class="nav-right">
-        <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
-          <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="5" />
-            <line x1="12" y1="1" x2="12" y2="3" />
-            <line x1="12" y1="21" x2="12" y2="23" />
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-            <line x1="1" y1="12" x2="3" y2="12" />
-            <line x1="21" y1="12" x2="23" y2="12" />
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-          </svg>
-          <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-          </svg>
-        </button>
+        <div class="nav-right-items">
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" type="button">
+            <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+          <button id="bento-menu-btn" class="bento-menu-btn" onclick="if(window.toggleBentoMenu){window.toggleBentoMenu();}return false;" aria-label="Navigation Menu" title="Menu" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="7" cy="7" r="2.5" />
+              <circle cx="17" cy="7" r="2.5" />
+              <circle cx="7" cy="17" r="2.5" />
+              <circle cx="17" cy="17" r="2.5" />
+            </svg>
+          </button>
+        </div>
       </div>
     </nav>
   </header>
 
-  <!-- ---------- 6. Main Content ---------- -->
+  <!-- Main Content -->
   <main class="post-container" role="main">
-    <!-- ---------- 7. Archive Header ---------- -->
+    <!-- Archive Header -->
     <div class="header-bar">
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="index.html">Home</a>
@@ -101,24 +103,80 @@
       <p class="subtitle">Explore all posts and projects in chronological order</p>
     </div>
 
-    <!-- ---------- 8. Toggle Switch ---------- -->
-    <div class="toggle-container" role="tablist" aria-label="Content type selector">
-      <button class="toggle-btn active" id="show-posts" role="tab" aria-selected="true" aria-controls="archive-content">
-        <i class="fas fa-file-alt" aria-hidden="true"></i>
-        Posts
-      </button>
-      <button class="toggle-btn" id="show-projects" role="tab" aria-selected="false" aria-controls="archive-content">
-        <i class="fas fa-code" aria-hidden="true"></i>
-        Projects
-      </button>
-    </div>
+    <!-- VS Code / Warp IDE Workspace Container -->
+    <div class="ide-window">
+      <!-- Window Top Header Bar -->
+      <div class="ide-header-bar">
+        <div class="ide-header-left">
+          <div class="mac-dots">
+            <div class="mac-dot mac-red"></div>
+            <div class="mac-dot mac-yellow"></div>
+            <div class="mac-dot mac-green"></div>
+          </div>
+          <div class="ide-path-badge">
+            <i class="fas fa-folder-open" style="color:#0a84ff;"></i>
+            <span id="idePathText">~/terry/archives</span>
+            <span class="git-branch">(main*)</span>
+          </div>
+        </div>
 
-    <!-- ---------- 9. Archive List ---------- -->
-    <div class="archive-container" id="archive-content" role="tabpanel" aria-label="Archive content">
-      <!-- Content will be dynamically generated -->
-      <div class="loading-state">
-        <div class="loading-spinner"></div>
-        <p>Loading archives...</p>
+        <div class="ide-header-right">
+          <div class="ide-tab-switcher" role="tablist" aria-label="Content type selector">
+            <button class="ide-tab-btn active" id="show-all" role="tab" aria-selected="true">
+              <i class="fas fa-layer-group" aria-hidden="true"></i> All
+            </button>
+            <button class="ide-tab-btn" id="show-posts" role="tab" aria-selected="false">
+              <i class="fas fa-file-alt" aria-hidden="true"></i> Posts
+            </button>
+            <button class="ide-tab-btn" id="show-projects" role="tab" aria-selected="false">
+              <i class="fas fa-code" aria-hidden="true"></i> Projects
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- IDE Split Body -->
+      <div class="ide-body-split">
+        <!-- Sidebar Tree (Years & Month Subdirectories) -->
+        <aside class="ide-tree-sidebar" id="ideSidebarTree">
+          <div class="sidebar-header-title">
+            <i class="fas fa-sitemap"></i> DIRECTORY EXPLORER
+          </div>
+          <div id="treeFoldersContainer">
+            <!-- Dynamic Year & Month Subdirectories will be injected here -->
+          </div>
+        </aside>
+
+        <!-- Right Content Log Stream Pane -->
+        <section class="ide-content-pane">
+          <!-- Mobile Subdirectory Filter Bar (Custom Glass Month Picker) -->
+          <div class="mobile-subdir-bar" id="mobileSubdirBar">
+            <div class="mobile-subdir-title" id="mobileSubdirTitle">
+              <i class="fas fa-folder-open" style="color:#0a84ff;"></i> <span id="mobileSubdirText">All Archives</span>
+            </div>
+
+            <div class="glass-month-picker-wrap">
+              <button class="glass-month-btn" id="glassMonthBtn" type="button">
+                <i class="fas fa-calendar-alt"></i> <span id="glassMonthLabel">Filter Month</span> <i class="fas fa-chevron-down" style="font-size:0.7rem; margin-left:4px;"></i>
+              </button>
+              <div class="glass-month-dropdown" id="glassMonthDropdown">
+                <!-- Dynamic Month Chips will be rendered here -->
+              </div>
+            </div>
+          </div>
+
+          <div class="pane-header-row">
+            <h3 class="pane-title" id="paneTitle">All Archive Files</h3>
+            <span class="pane-count-badge" id="paneCountBadge">0 Items</span>
+          </div>
+
+          <div id="archive-content">
+            <div class="loading-state">
+              <div class="loading-spinner"></div>
+              <p>Loading archives...</p>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   </main>
@@ -127,36 +185,42 @@
 
   <!-- Bottom Nav injected by shared-bottom-nav.js -->
 
-  <!-- ---------- 10. Footer ---------- -->
-  <footer class="footer" role="contentinfo" style="padding:20px; text-align:center;">
-    <div class="social-icons" style="margin-bottom:25px;">
-      <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile"
-        style="margin:0 5px; font-size:1.6em;">
-        <i class="fab fa-github" aria-hidden="true"></i>
-      </a>
-      <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn"
-        aria-label="LinkedIn profile" style="margin:0 5px; font-size:1.6em;">
-        <i class="fab fa-linkedin" aria-hidden="true"></i>
-      </a>
-      <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email"
-        style="margin:0 5px; font-size:1.6em;">
-        <i class="fas fa-envelope" aria-hidden="true"></i>
-      </a>
-    </div>
-    <p style="font-size:0.9em;">© 2025 – Muhammad Taha Nasir</p>
-  </footer>
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+      <div class="social-icons">
+        <a href="https://github.com/MuhammadTahaNasir" target="_blank" title="GitHub" aria-label="GitHub profile">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadtahanasir/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:m.tahanasir.cs@gmail.com" title="Email" aria-label="Send email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p>© 2026 – Muhammad Taha Nasir</p>
+    </footer>
 
-  <!-- ---------- 11. Scroll to Top Button ---------- -->
+  <!-- Scroll to Top Button -->
   <button id="scrollTop" aria-label="Scroll to top" title="Scroll to top" type="button">
     <i class="fas fa-chevron-up" aria-hidden="true"></i>
   </button>
 
-  <!-- ---------- 12. JavaScript Include ---------- -->
+  <!-- JavaScript Include -->
   <script src="assets/js/archives.js"></script>
   <script src="assets/js/header-scroll.js"></script>
   <script src="assets/js/shared-bottom-nav.js"></script>
   <script src="assets/js/nav-active.js"></script>
   <script src="assets/js/instant-loader.js"></script>
+    <script src="/assets/js/ai-search.js"></script>
+
+  <!-- Floating Chat Widget (Opens AI Assistant Chatbot) -->
+  <div class="floating-chat-widget">
+    <a href="javascript:void(0)" onclick="if(window.openAISearchModal){window.openAISearchModal();}return false;" class="chat-widget-btn" title="Chat with AI Assistant">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
 </body>
 
 </html>
