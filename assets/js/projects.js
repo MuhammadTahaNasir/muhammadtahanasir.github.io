@@ -40,7 +40,8 @@ function debounce(func, wait) {
 function updateCategoryDropdown(categories) {
     categorySelect.innerHTML = ''; // Clear existing options
     
-    // Ensure 'all' is the first allOption = document.createElement('option');
+    // Ensure 'all' is the first option
+    const allOption = document.createElement('option');
     allOption.value = 'all';
     allOption.textContent = 'All Categories';
     categorySelect.appendChild(allOption);
