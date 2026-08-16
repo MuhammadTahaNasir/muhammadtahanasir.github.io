@@ -402,25 +402,36 @@
       return `Muhammad Taha is a **BS Computer Science Senior Student at FAST NUCES**. His certifications include:\n- **Deep Learning Specialization** (DeepLearning.AI / Coursera)\n- **AWS Certified Developer & Cloud Practitioner**\n- **LangChain & Agentic AI Systems Architect**`;
     }
 
-    // Work Experience
-    if (qLower.includes('experience') || qLower.includes('intern') || qLower.includes('job') || qLower.includes('work') || qLower.includes('verxeon') || qLower.includes('cdc')) {
-      return `Muhammad Taha's work experience includes:\n- **Voice AI Engineering Intern at Verxeon** (Voice AI agents, LangGraph, Twilio)\n- **Enterprise Security Intern at CDC Pakistan** (IAM, Cloud Security, Compliance)\n- **Teaching Assistant at FAST NUCES** (Expository Writing)\n- **IT Intern at UBL Insurers** & **Software Engineering Fellow at Headstarter AI**.`;
+    // Out-of-scope & Off-topic Guard (e.g. recipes, general trivia, weather)
+    const isOffTopic = qLower.includes('recipe') || qLower.includes('cake') || qLower.includes('weather') || qLower.includes('president') || qLower.includes('capital of') || qLower.includes('song') || qLower.includes('movie') || qLower.includes('cook') || qLower.includes('food') || qLower.includes('joke');
+    if (isOffTopic) {
+      return `I am **Terry AI**, specialized exclusively in assisting visitors with Muhammad Taha Nasir's work, AI engineering projects, technical articles, and background.\n\n` +
+             `I can't help with external trivia or tasks like cooking recipes, but feel free to ask me about Taha's **Voice AI systems**, **LangGraph workflows**, **RescueAI**, or **ApexKV**!`;
     }
 
-    // Greetings & Casual Inquiries
-    if (/^(hi|hello|hey|bro|dude|man|buddy|greetings|hola|howdy|whats up|what's up|sup|yo|hi bro|hey bro|hello bro)[\s!.]*$/i.test(qLower) || qLower.includes('how are you') || qLower.includes('do you need') || qLower.includes('can you help')) {
-      return `Hey there! I'm Terry AI, Taha's AI representative. I'm here to help you explore Muhammad Taha's AI projects, engineering stack, published articles, and background. What would you like to know?`;
+    // Spoken Languages vs Programming Languages (Handles typos: "langauage", "tah aspeak")
+    if (qLower.includes('language') || qLower.includes('langauage') || qLower.includes('speak') || qLower.includes('speek') || qLower.includes('urdu') || qLower.includes('english')) {
+      return `Muhammad Taha's languages:\n\n` +
+             `- **Spoken Languages**: **English** (Fluent / Professional) and **Urdu / Hindi** (Native).\n` +
+             `- **Programming Languages**: **Python** (Primary for AI, RAG & FastAPI), **C++** (Systems & Storage Engines), **JavaScript / TypeScript** (Full-Stack), and **SQL** (PostgreSQL, SQLite).`;
     }
 
-    // Bot Identity ("who are you", "who are u", "what are you")
-    if (qLower.includes('who are you') || qLower.includes('who are u') || qLower.includes('who r u') || qLower.includes('what are you') || qLower.includes('your name') || qLower.includes('are you ai') || qLower.includes('are you real')) {
-      return `I'm **Terry AI**, an AI representative created for Muhammad Taha Nasir's portfolio. I can answer questions about his Voice AI systems, agentic workflows (LangGraph), full-stack AI engineering, technical articles, and career background.`;
+    // Contact & Getting in Touch
+    if (qLower.includes('contact') || qLower.includes('touch') || qLower.includes('email') || qLower.includes('reach') || qLower.includes('linkedin') || qLower.includes('github') || qLower.includes('message taha') || qLower.includes('hire taha')) {
+      return `You can get in touch with Muhammad Taha directly:\n\n` +
+             `- **Email**: [m.tahanasir.cs@gmail.com](mailto:m.tahanasir.cs@gmail.com)\n` +
+             `- **LinkedIn**: [linkedin.com/in/muhammadtahanasir](https://www.linkedin.com/in/muhammadtahanasir/)\n` +
+             `- **GitHub**: [github.com/MuhammadTahaNasir](https://github.com/MuhammadTahaNasir)\n` +
+             `- **Booking & Message Form**: You can also submit a direct message or schedule a call on the [Contact Page](/contact.html)!`;
     }
 
-    // Opinion / Candidate Evaluation ("what you think about taha", "is taha a good choice", "is he good")
-    if (qLower.includes('what you think') || qLower.includes('what u think') || qLower.includes('good choice') || qLower.includes('is he good') || qLower.includes('recommend taha') || qLower.includes('should i work with')) {
-      return `Taha is a dedicated, hands-on **AI Engineer** who excels at building end-to-end production systems.\n\n` +
-             `Unlike developers who stop at basic LLM prompts, Taha designs full architectures — low-latency Voice AI (WebRTC, Deepgram, ElevenLabs), cyclic agentic state graphs (LangGraph), hybrid RAG search, and high-performance C++ storage engines (ApexKV). He is reliable, first-principles driven, and delivers real-world software.`;
+    // Capabilities / "What can you do" / "Can you do anything"
+    if (qLower.includes('what can you do') || qLower.includes('can you do anything') || qLower.includes('do anything') || qLower.includes('help me with') || qLower.includes('your features') || qLower.includes('how to use')) {
+      return `As **Terry AI**, I can assist you with:\n\n` +
+             `1. **Project Breakdowns**: Deep-dive into *AI Dental Receptionist*, *RescueAI*, *ApexKV Storage Engine*, and *Veriflow*.\n` +
+             `2. **Technical Skills**: Learn about Taha's stack across Generative AI, LangGraph, WebRTC Voice AI, and Python backends.\n` +
+             `3. **Technical Articles**: Search and explore his 40 masterlist articles on AI systems and engineering.\n` +
+             `4. **Background & Contact**: Inquire about his education at FAST-NUCES, achievements, ICPC standings, or get his contact info!`;
     }
 
     // Profanity / Casual Banter Filter
