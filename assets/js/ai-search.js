@@ -439,11 +439,31 @@
       return `Haha, let's keep it constructive! 😄 Feel free to ask me anything about Taha's engineering projects, technical stack, or background.`;
     }
 
-    // Bio & Story ("who is taha", "about taha", "tell me about taha")
-    if (qLower.includes('who is') || qLower.includes('story') || qLower.includes('bio') || qLower.includes('about taha') || qLower.includes('about terry') || qLower.includes('tell me about')) {
-      return `**Muhammad Taha Nasir** is a Senior Computer Science student at FAST-NUCES and an **AI Engineer focused on Generative & Agentic Systems**.\n\n` +
-             `*“Building intelligent AI systems that reason, retrieve, act, and interact.”*\n\n` +
-             `He specializes in designing AI-powered systems — from LLM and RAG pipelines to agentic workflows (LangGraph), real-time Voice AI applications (WebRTC, Deepgram, ElevenLabs), and the Python backend engineering needed to turn them into production applications.`;
+    // The Ultimate Candidate Evaluation Synthesis ("never met taha", "based only on his portfolio", "evaluate him", "hiring evaluation")
+    if (qLower.includes('never met') || (qLower.includes('based') && qLower.includes('portfolio')) || qLower.includes('evaluate taha') || (qLower.includes('who he is') && qLower.includes('what he has built'))) {
+      return `Muhammad Taha Nasir is a Computer Science student at FAST-NUCES developing toward a **Generative AI / AI Systems engineering** career.\n\n` +
+             `- **Core Stack**: LLM applications, RAG, agentic workflows (LangGraph), Voice AI (WebRTC, Deepgram, ElevenLabs), and Python/FastAPI backends.\n` +
+             `- **Project Progression**: Shows a clear progression from traditional ML/optimization (*Veriflow*, *Genetron*) toward stateful, multi-step AI systems (*RescueAI*, *AI Dental Receptionist*).\n` +
+             `- **Evidence**: Real-time voice orchestration, tool calling (Google Calendar API), vector search (Chroma DB), ICPC 86th in Asia, and internships at Verxeon & CDC.\n` +
+             `- **Interview Verification Areas**: Verify his system design depth, LLM evaluation metrics, agent error handling, and production scaling as a strong early-career AI engineer.`;
+    }
+
+    // Genetron Project
+    if (qLower.includes('genetron') || qLower.includes('5g') || qLower.includes('tower placement') || qLower.includes('nsga')) {
+      return `**Genetron** is a 5G Tower Placement Optimization Platform built by Taha.\n\n` +
+             `- **Core Algorithm**: NSGA-II (Non-dominated Sorting Genetic Algorithm II) multi-objective evolutionary optimization.\n` +
+             `- **Performance**: Achieved **99.4% simulated coverage** using mathematical signal propagation modeling.\n` +
+             `- **Stack**: Python, FastAPI, React, and wireless signal simulation.`;
+    }
+
+    // Hallucination / Private Data Defense
+    if (qLower.includes('salary') || qLower.includes('home address') || qLower.includes('private gpa') || qLower.includes('exact address') || qLower.includes('revenue generated')) {
+      return `That information is **not publicly documented** in Muhammad Taha's portfolio knowledge base. Feel free to reach out to him directly via email at [m.tahanasir.cs@gmail.com](mailto:m.tahanasir.cs@gmail.com) for official inquiries!`;
+    }
+
+    // Prompt Injection & Fabrication Defense
+    if (qLower.includes('ignore instruction') || qLower.includes('reveal system prompt') || qLower.includes('built chatgpt') || qLower.includes('worked at openai') || qLower.includes('10 years')) {
+      return `I cannot fulfill that request. As **Terry AI**, I provide strictly verified, grounded information about Muhammad Taha Nasir's actual portfolio, projects, and engineering experience.`;
     }
 
     // Default Fallback
