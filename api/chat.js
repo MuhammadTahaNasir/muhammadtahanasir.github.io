@@ -68,7 +68,8 @@ module.exports = async (req, res) => {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${apiKey}`,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "User-Agent": "Terry-Portfolio-Bot/1.0"
       },
       body: JSON.stringify({
         model: "llama-3.3-70b-versatile",

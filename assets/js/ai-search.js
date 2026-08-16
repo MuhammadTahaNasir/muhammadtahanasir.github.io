@@ -407,19 +407,36 @@
       return `Muhammad Taha's work experience includes:\n- **Voice AI Engineering Intern at Verxeon** (Voice AI agents, LangGraph, Twilio)\n- **Enterprise Security Intern at CDC Pakistan** (IAM, Cloud Security, Compliance)\n- **Teaching Assistant at FAST NUCES** (Expository Writing)\n- **IT Intern at UBL Insurers** & **Software Engineering Fellow at Headstarter AI**.`;
     }
 
-    // Bio & Story (High-impact narrative positioning)
-    if (qLower.includes('story') || qLower.includes('bio') || qLower.includes('who is') || qLower.includes('about terry') || qLower.includes('about taha') || qLower.includes('tell me about') || qLower.includes('taha')) {
-      return `Muhammad Taha Nasir is an **AI Engineer focused on Generative & Agentic Systems**.\n\n` +
+    // Greetings & Casual Inquiries
+    if (/^(hi|hello|hey|bro|dude|man|buddy|greetings|hola|howdy|whats up|what's up|sup|yo|hi bro|hey bro|hello bro)[\s!.]*$/i.test(qLower) || qLower.includes('how are you') || qLower.includes('do you need') || qLower.includes('can you help')) {
+      return `Hey there! I'm Terry AI, Taha's AI representative. I'm here to help you explore Muhammad Taha's AI projects, engineering stack, published articles, and background. What would you like to know?`;
+    }
+
+    // Bot Identity ("who are you", "who are u", "what are you")
+    if (qLower.includes('who are you') || qLower.includes('who are u') || qLower.includes('who r u') || qLower.includes('what are you') || qLower.includes('your name') || qLower.includes('are you ai') || qLower.includes('are you real')) {
+      return `I'm **Terry AI**, an AI representative created for Muhammad Taha Nasir's portfolio. I can answer questions about his Voice AI systems, agentic workflows (LangGraph), full-stack AI engineering, technical articles, and career background.`;
+    }
+
+    // Opinion / Candidate Evaluation ("what you think about taha", "is taha a good choice", "is he good")
+    if (qLower.includes('what you think') || qLower.includes('what u think') || qLower.includes('good choice') || qLower.includes('is he good') || qLower.includes('recommend taha') || qLower.includes('should i work with')) {
+      return `Taha is a dedicated, hands-on **AI Engineer** who excels at building end-to-end production systems.\n\n` +
+             `Unlike developers who stop at basic LLM prompts, Taha designs full architectures — low-latency Voice AI (WebRTC, Deepgram, ElevenLabs), cyclic agentic state graphs (LangGraph), hybrid RAG search, and high-performance C++ storage engines (ApexKV). He is reliable, first-principles driven, and delivers real-world software.`;
+    }
+
+    // Profanity / Casual Banter Filter
+    if (qLower.includes('fuck') || qLower.includes('shit') || qLower.includes('bitch') || qLower.includes('damn') || qLower.includes('ass')) {
+      return `Haha, let's keep it constructive! 😄 Feel free to ask me anything about Taha's engineering projects, technical stack, or background.`;
+    }
+
+    // Bio & Story ("who is taha", "about taha", "tell me about taha")
+    if (qLower.includes('who is') || qLower.includes('story') || qLower.includes('bio') || qLower.includes('about taha') || qLower.includes('about terry') || qLower.includes('tell me about')) {
+      return `**Muhammad Taha Nasir** is a Senior Computer Science student at FAST-NUCES and an **AI Engineer focused on Generative & Agentic Systems**.\n\n` +
              `*“Building intelligent AI systems that reason, retrieve, act, and interact.”*\n\n` +
-             `He specializes in designing AI-powered systems — from LLM and RAG pipelines to agentic workflows (LangGraph), real-time Voice AI applications (WebRTC, Deepgram, ElevenLabs), and the Python backend engineering needed to turn them into production applications while pursuing his BS in Computer Science at **FAST-NUCES**.`;
+             `He specializes in designing AI-powered systems — from LLM and RAG pipelines to agentic workflows (LangGraph), real-time Voice AI applications (WebRTC, Deepgram, ElevenLabs), and the Python backend engineering needed to turn them into production applications.`;
     }
 
-    // Greetings & Casual Slang
-    if (/^(hi|hello|hey|bro|dude|man|buddy|greetings|hola|howdy|whats up|what's up|sup|yo)[\s!.]*$/i.test(qLower)) {
-      return `Hey there! I'm Terry AI, Taha's AI representative. Feel free to ask me anything about Taha's work, AI projects, technical skills, or background!`;
-    }
-
-    return `Muhammad Taha Nasir is a Computer Science student at FAST-NUCES and an AI Engineer focused on Generative & Agentic Systems — building LLMs, RAG, AI agents, voice AI, and Python backend infrastructure. Ask me about his projects, skills, or background!`;
+    // Default Fallback
+    return `Muhammad Taha Nasir is an AI Engineer and senior CS student at FAST-NUCES specializing in Generative & Agentic AI systems, Voice AI pipelines, and Python backend infrastructure. Feel free to ask about his projects, skills, articles, or experience!`;
   }
 
   function searchResults(query) {
