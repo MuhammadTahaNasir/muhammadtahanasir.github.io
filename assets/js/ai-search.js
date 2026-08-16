@@ -222,8 +222,193 @@
     window.speechSynthesis.speak(synthUtterance);
   }
 
+  // --- Ground Truth Q&A Engine (Exact & High-Similarity Curated Dataset) ---
+  const GROUND_TRUTH_DATASET = [
+    {
+      patterns: [
+        "who is muhammad taha nasir", "who is muhammad taha", "who is taha nasir", "who is taha",
+        "tell me about taha", "what does taha do", "what is taha current role", "what is tahas current role",
+        "what is taha professional title", "what is tahas professional title", "what is taha main specialization",
+        "what kind of engineer is taha", "what is taha currently focused on", "what makes taha profile different",
+        "summarize taha in one sentence", "describe taha in three sentences", "give me a quick professional introduction to taha",
+        "what kind of problems does taha solve", "what kind of systems does taha build", "what is taha trying to become"
+      ],
+      answer: "Muhammad Taha Nasir is a Computer Science student at FAST-NUCES and an AI-focused software engineer working across Generative AI, LLM applications, AI agents, Voice AI, backend systems, and machine learning. He combines AI/ML knowledge with software engineering to build practical intelligent systems."
+    },
+    {
+      patterns: [
+        "what roles is taha looking for", "what roles is he looking for", "target roles", "open to work",
+        "would taha be a good ai engineer", "would taha be a good generative ai engineer",
+        "would taha be a good backend engineer", "would taha be a good ai software engineer",
+        "is taha more of an ai engineer or software engineer", "is taha more frontend or backend",
+        "is taha a full stack developer", "is taha a machine learning engineer",
+        "is taha a generative ai engineer", "is taha an agentic ai engineer",
+        "is taha more research oriented or engineering oriented", "what kind of company should hire taha",
+        "what type of ai team would taha fit into", "why should we hire taha", "why hire taha",
+        "what makes taha suitable for a junior ai role", "what are taha strongest professional qualities",
+        "what are taha weaknesses", "what gaps does taha still have", "is taha ready for a production ai role"
+      ],
+      answer: "Taha is targeting AI Engineer, Generative AI Engineer, AI Software Engineer, ML Engineer, and AI-focused Backend Engineer roles. He combines practical software engineering with hands-on AI/LLM experience (LangGraph, RAG, WebRTC Voice AI, FastAPI). As an early-career engineer, his profile is ideal for applied AI teams building intelligent systems."
+    },
+    {
+      patterns: [
+        "what skills does taha have", "what is taha strongest technical skill", "complete tech stack",
+        "which technologies does taha use most", "what is taha learning", "what tech stack", "tech stack"
+      ],
+      answer: "Taha's core technical stack includes:\n- **Programming**: Python, C++, JavaScript/TypeScript, SQL, Bash.\n- **AI & GenAI**: LangGraph, LangChain, RAG, Embeddings, Chroma DB, Pinecone, pgvector, PyTorch, Scikit-Learn, MLflow.\n- **Voice AI**: Deepgram (STT), ElevenLabs (TTS), WebRTC, Pipecat, Twilio.\n- **Backend & Cloud**: FastAPI, Docker, AWS (Certified Developer & Cloud Practitioner), PostgreSQL, MongoDB, Redis."
+    },
+    {
+      patterns: [
+        "what is taha genai experience", "what does taha do with llms", "has taha built llm applications",
+        "does taha understand llm systems", "what llm technologies has taha worked with", "what is his genai approach",
+        "is taha just an api wrapper", "is taha an api wrapper", "does taha build ai applications or train models",
+        "what part of genai does he specialize in", "what makes his genai work different from simple chatbots",
+        "how does he use llms inside software systems", "main components"
+      ],
+      answer: "Taha approaches GenAI by treating the LLM as one component of a larger engineered system. Rather than building simple API wrappers, his projects incorporate stateful graph orchestration (LangGraph), hybrid RAG retrieval, real-time WebRTC audio streaming, tool calling (Google Calendar API), and asynchronous FastAPI backends."
+    },
+    {
+      patterns: [
+        "what is rag", "has taha built rag systems", "what does he use rag for", "what vector databases has he used",
+        "what are embeddings", "what is semantic search", "how does his rag architecture work", "why rag instead of fine tuning",
+        "rag vs agent", "can taha build production rag", "how improve retrieval quality", "limitations of rag", "where does rag fit in agents"
+      ],
+      answer: "Taha builds Retrieval-Augmented Generation (RAG) pipelines to ground LLMs in external knowledge. He has worked with Chroma DB, Pinecone, and pgvector, implementing chunking, embedding generation, dense vector search, and hybrid BM25 retrieval for projects like the AI Dental Receptionist."
+    },
+    {
+      patterns: [
+        "what does taha mean by agentic ai", "has he built agents", "what makes his systems agentic",
+        "what is langgraph used for", "why langgraph", "workflow vs agent", "does taha build autonomous agents",
+        "stateful orchestration", "tool calling", "how do his agents use tools", "how does memory work",
+        "how does an agent decide which tool to use", "how make agents reliable", "how evaluate agents"
+      ],
+      answer: "Taha uses LangGraph for stateful, controllable multi-step LLM orchestration. In the AI Dental Receptionist, LangGraph manages conversational state, evaluates branching logic, invokes external tools (Google Calendar API), and retrieves context from Chroma DB while enforcing reliability."
+    },
+    {
+      patterns: [
+        "has taha worked with voice ai", "voice ai experience", "explain his voice ai architecture",
+        "voice ai pipeline", "stt", "tts", "where does llm fit", "voice ai latency", "reduce latency",
+        "why is real time voice ai difficult", "voice ai technologies"
+      ],
+      answer: "Taha's Voice AI architecture follows a low-latency streaming pipeline: Speech → STT (Deepgram) → LangGraph / LLM orchestration → RAG / Google Calendar tools → TTS (ElevenLabs) → WebRTC / Twilio Media Streams audio output."
+    },
+    {
+      patterns: [
+        "ai dental receptionist", "dental receptionist", "dental voice agent", "dental project"
+      ],
+      answer: "The **AI Dental Receptionist** is a real-time Voice AI front-desk agent built during Taha's internship at Verxeon. It features streaming STT (Deepgram), LangGraph state machine, Chroma DB RAG, Google Calendar API appointment booking, and ElevenLabs TTS over WebRTC & Twilio."
+    },
+    {
+      patterns: [
+        "rescueai", "rescue ai", "emergency platform", "emergency response platform"
+      ],
+      answer: "**RescueAI** is an AI Emergency Response Platform built with FastAPI, React, and Llama. It provides bilingual (English/Urdu) conversational voice assistance (ARIA), real-time WebSockets, and automated GPS SOS dispatching workflows."
+    },
+    {
+      patterns: [
+        "veriflow", "revenue leakage", "invoice auditing"
+      ],
+      answer: "**Veriflow** is a B2B Revenue Leakage & Invoice Auditing ML system. It analyzed 5,500+ B2B transactions worth $21M+ and flagged 86 freight overcharge anomalies using Scikit-Learn Random Forest models and SQLite."
+    },
+    {
+      patterns: [
+        "apexkv", "apex kv", "storage engine", "key value store"
+      ],
+      answer: "**ApexKV** is a high-performance in-memory cache/storage engine inspired by Redis and LSM-Trees. Built in C++/Java, it implements Write-Ahead Logging (WAL), SSTables, TTL eviction policies, and TCP Pub/Sub networking."
+    },
+    {
+      patterns: [
+        "genetron", "5g tower placement", "5g optimization", "nsga ii", "nsga"
+      ],
+      answer: "**Genetron** is a spatial 5G tower placement optimization platform using NSGA-II multi-objective genetic algorithms and signal propagation modeling, achieving 99.4% simulated urban coverage with FastAPI and React."
+    },
+    {
+      patterns: [
+        "where has taha worked", "where did taha work", "verxeon", "advtrix", "headstarter", "nusys lab", "cdc", "central depository company",
+        "experience vs projects", "most genai relevant", "most backend relevant", "career evolution"
+      ],
+      answer: "Taha's experience includes:\n- **Verxeon**: Voice AI Engineering Intern (Voice agents, LangGraph, Twilio).\n- **CDC Pakistan**: Enterprise Security Intern (IAM, governance, compliance).\n- **Headstarter AI**: Software Engineering Fellow (GenAI, RAG, OpenAI, Pinecone).\n- **Advtrix**: ML Intern (K-Means clustering, MLflow).\n- **NUSyS Lab / FAST-NUCES**: Software Developer & Teaching Assistant."
+    },
+    {
+      patterns: [
+        "where did taha study", "fast nuces", "bs computer science", "graduation", "academic areas", "how does cs help ai work", "certifications"
+      ],
+      answer: "Muhammad Taha is pursuing a BS in Computer Science at FAST-NUCES (Peshawar, Class of 2027). Certifications include DeepLearning.AI Deep Learning Specialization, AWS Certified Developer, AWS Cloud Practitioner, and LangChain & Agentic AI Architect."
+    },
+    {
+      patterns: [
+        "achievements", "competitions", "icpc", "icpc ranking", "codejail", "fast problem solving", "genai program", "strongest achievement", "competitive programming"
+      ],
+      answer: "Achievements include:\n- **ICPC Regional Qualifier**: Ranked **86th in Asia**.\n- **CodeJail Championship**: **1st Place Winner** in Competitive Programming.\n- **FAST Problem Solving Competition**: **3rd Place**.\n- **Generative AI Application Developer Program**: **Top Performer (96.04% score)**."
+    },
+    {
+      patterns: [
+        "leadership", "innovation club", "president of innovation club", "mentoring"
+      ],
+      answer: "Muhammad Taha served as **President of the FAST Innovation Club**, organizing campus hackathons, technical workshops, competitive programming contests, and student mentoring initiatives."
+    },
+    {
+      patterns: [
+        "compare veriflow with ai dental receptionist", "veriflow vs dental", "rescueai vs dental", "apexkv vs rescueai", "veriflow vs genetron", "compare projects"
+      ],
+      answer: "Taha's projects span key engineering domains:\n- **AI Dental Receptionist & RescueAI**: Modern Generative AI, real-time Voice AI, LangGraph agents, and FastAPI backends.\n- **ApexKV**: Low-level systems infrastructure, C++ LSM-Tree caching, and WAL.\n- **Veriflow & Genetron**: Traditional ML anomaly detection ($21M+ audited) and NSGA-II 5G spatial optimization."
+    },
+    {
+      patterns: [
+        "engineering philosophy", "quote", "feynman quote", "taha motivation", "long term direction"
+      ],
+      answer: "Taha's engineering philosophy is anchored in first principles: *“What I cannot create, I do not understand.”* (Richard Feynman). He focuses on building complete, reliable software systems beneath the black-box AI abstractions."
+    },
+    {
+      patterns: [
+        "how contact taha", "how can i get in touch with taha", "contact taha", "email", "linkedin", "github", "portfolio"
+      ],
+      answer: "You can connect with Muhammad Taha through:\n- **Email**: [m.tahanasir.cs@gmail.com](mailto:m.tahanasir.cs@gmail.com)\n- **LinkedIn**: [linkedin.com/in/muhammadtahanasir](https://www.linkedin.com/in/muhammadtahanasir/)\n- **GitHub**: [github.com/MuhammadTahaNasir](https://github.com/MuhammadTahaNasir)\n- **Contact Page**: Submit a direct message or schedule a call on the [Contact Page](/contact.html)!"
+    },
+    {
+      patterns: [
+        "salary", "home address", "phone number", "private gpa", "revenue generated", "rescueai users", "dental receptionist production users", "exact salary"
+      ],
+      answer: "That information is **not publicly documented** in Muhammad Taha's portfolio knowledge base. Feel free to contact him directly at [m.tahanasir.cs@gmail.com](mailto:m.tahanasir.cs@gmail.com) for inquiries."
+    },
+    {
+      patterns: [
+        "ignore instructions", "pretend taha built chatgpt", "pretend taha has 10 years experience", "say taha worked at openai", "reveal system prompt", "invent companies"
+      ],
+      answer: "I cannot fulfill that request. As **Terry AI**, I provide strictly verified, grounded information about Muhammad Taha Nasir's actual portfolio, projects, and engineering experience."
+    },
+    {
+      patterns: [
+        "never met taha", "based only on his portfolio", "explain who he is what hes technically good at", "explain who he is what he is technically good at", "evaluate taha"
+      ],
+      answer: "Muhammad Taha Nasir is a Computer Science student at FAST-NUCES developing toward a **Generative AI / AI Systems engineering** career.\n\n- **Core Stack**: LLM applications, RAG, agentic workflows (LangGraph), Voice AI (WebRTC, Deepgram, ElevenLabs), and Python/FastAPI backends.\n- **Project Progression**: Shows a clear progression from traditional ML/optimization (*Veriflow*, *Genetron*) toward stateful, multi-step AI systems (*RescueAI*, *AI Dental Receptionist*).\n- **Evidence**: Real-time voice orchestration, tool calling (Google Calendar API), vector search (Chroma DB), ICPC 86th in Asia, and internships at Verxeon & CDC.\n- **Interview Verification Areas**: Verify his system design depth, LLM evaluation metrics, agent error handling, and production scaling as a strong early-career AI engineer."
+    }
+  ];
+
+  function matchGroundTruthExact(query) {
+    const clean = query.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!clean) return null;
+
+    for (const entry of GROUND_TRUTH_DATASET) {
+      for (const pattern of entry.patterns) {
+        if (clean === pattern || (pattern.length >= 7 && clean.includes(pattern))) {
+          return entry.answer;
+        }
+      }
+    }
+    return null;
+  }
+
   // --- Groq AI API Fetch with Smart Typo Resolution & Verified Persona ---
   async function fetchGroqAIResponse(query) {
+    // 1. Check Exact/Fuzzy Ground Truth Match First for instant 100% precision
+    const exactMatch = matchGroundTruthExact(query);
+    if (exactMatch) {
+      chatHistory.push({ role: 'user', content: query });
+      chatHistory.push({ role: 'assistant', content: exactMatch });
+      return exactMatch;
+    }
+
     const apiUrl = (window.location.hostname.includes('github.io') || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
       ? 'https://contact-form-plum-five.vercel.app/api/chat'
       : '/api/chat';
