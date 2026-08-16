@@ -253,45 +253,139 @@
   function generateFallbackAnswer(query) {
     const qLower = query.toLowerCase().trim();
 
-    // Article Count Query / Follow-up ("only 5?", "no more?", "how many posts?")
-    if (qLower.includes('only 5') || qLower.includes('no more') || qLower.includes('how many') || qLower.includes('total article') || qLower.includes('total post')) {
-      return `Muhammad Taha has written **40 masterlist technical articles** in total! The titles listed above are just a few recent highlights. You can explore all 40 articles on the posts archive page ([posts.html](/posts.html)) or by clicking "View All Posts" below!`;
+    // 1. Prompt Injection & Fabrication Defense (HIGHEST PRIORITY)
+    if (qLower.includes('pretend') || qLower.includes('ignore instruction') || qLower.includes('reveal system prompt') || qLower.includes('built chatgpt') || qLower.includes('worked at openai') || qLower.includes('10 years') || qLower.includes('make up') || qLower.includes('invent')) {
+      return `I cannot fulfill that request. As **Terry AI**, I provide strictly verified, grounded information about Muhammad Taha Nasir's actual portfolio, projects, and engineering experience.`;
     }
 
-    // Technical Articles & Posts (Real titles from posts.json)
-    if (qLower.includes('post') || qLower.includes('article') || qLower.includes('blog') || qLower.includes('notes') || qLower.includes('writing') || qLower.includes('read')) {
-      let titlesList = "";
-      if (postsData && postsData.length > 0) {
-        titlesList = postsData.slice(0, 5).map(p => `- **${p.title}**`).join('\n');
-      } else {
-        titlesList = `- **What I'd Tell a New CS Grad Entering AI in 2026**\n- **Twilio + LLMs: Building Conversational Voice Workflows for Enterprise**\n- **Four Years Later: What Building AI Products Actually Looks Like**\n- **Cutting AI Latency in Half: Semantic Caching, Request Batching, & vLLM**\n- **Training LLMs Without Going Broke: LoRA & PEFT Fine-Tuning on AWS**`;
+    // 2. Hallucination & Private Data Defense (HIGHEST PRIORITY)
+    if (qLower.includes('salary') || qLower.includes('home address') || qLower.includes('private gpa') || qLower.includes('exact address') || qLower.includes('revenue generated') || qLower.includes('phone number')) {
+      return `That information is **not publicly documented** in Muhammad Taha's portfolio knowledge base. Feel free to reach out to him directly via email at [m.tahanasir.cs@gmail.com](mailto:m.tahanasir.cs@gmail.com) for official inquiries!`;
+    }
+
+    // 3. Out-of-scope & Off-topic Guard (e.g. recipes, general trivia, weather)
+    const isOffTopic = qLower.includes('recipe') || qLower.includes('cake') || qLower.includes('weather') || qLower.includes('president') || qLower.includes('capital of') || qLower.includes('song') || qLower.includes('movie') || qLower.includes('cook') || qLower.includes('food') || qLower.includes('joke');
+    if (isOffTopic) {
+      return `I am **Terry AI**, specialized exclusively in assisting visitors with Muhammad Taha Nasir's work, AI engineering projects, technical articles, and background.\n\n` +
+             `I can't help with external trivia or tasks like cooking recipes, but feel free to ask me about Taha's **Voice AI systems**, **LangGraph workflows**, **RescueAI**, or **ApexKV**!`;
+    }
+
+    // 4. The Ultimate Candidate Evaluation Synthesis ("never met taha", "based only on his portfolio", "evaluate him", "hiring evaluation")
+    if (qLower.includes('never met') || (qLower.includes('based') && qLower.includes('portfolio')) || qLower.includes('evaluate taha') || (qLower.includes('who he is') && qLower.includes('what he has built')) || (qLower.includes('who he is') && qLower.includes('technically good'))) {
+      return `Muhammad Taha Nasir is a Computer Science student at FAST-NUCES developing toward a **Generative AI / AI Systems engineering** career.\n\n` +
+             `- **Core Stack**: LLM applications, RAG, agentic workflows (LangGraph), Voice AI (WebRTC, Deepgram, ElevenLabs), and Python/FastAPI backends.\n` +
+             `- **Project Progression**: Shows a clear progression from traditional ML/optimization (*Veriflow*, *Genetron*) toward stateful, multi-step AI systems (*RescueAI*, *AI Dental Receptionist*).\n` +
+             `- **Evidence**: Real-time voice orchestration, tool calling (Google Calendar API), vector search (Chroma DB), ICPC 86th in Asia, and internships at Verxeon & CDC.\n` +
+             `- **Interview Verification Areas**: Verify his system design depth, LLM evaluation metrics, agent error handling, and production scaling as a strong early-career AI engineer.`;
+    }
+
+    // 5. Project Comparisons & Project Pairs
+    if (qLower.includes('compare') || qLower.includes('versus') || qLower.includes(' vs ') || qLower.includes('difference between') || qLower.includes('best project')) {
+      if ((qLower.includes('veriflow') && qLower.includes('dental')) || (qLower.includes('veriflow') && qLower.includes('receptionist'))) {
+        return `**Comparison: Veriflow vs. AI Dental Receptionist**\n\n` +
+               `- **Veriflow (Traditional ML & Data Engineering)**: B2B revenue leakage and freight auditing system. Analyzed 5,500+ transactions ($21M+) using Scikit-Learn Random Forest models and SQLite to detect price anomalies.\n` +
+               `- **AI Dental Receptionist (Generative & Voice AI)**: Real-time front-desk agent built at Verxeon. Combines streaming STT (Deepgram), LangGraph stateful orchestration, Chroma DB RAG, Google Calendar API tool calling, and ElevenLabs TTS over WebRTC & Twilio.\n\n` +
+               `*Key Difference*: Veriflow demonstrates classical ML anomaly detection and tabular data rigor, while AI Dental Receptionist proves end-to-end modern Generative/Agentic AI systems engineering.`;
       }
-      return `Muhammad Taha has written **40 masterlist technical articles** in total! Here are a few recent highlights:\n\n${titlesList}\n\nExplore all 40 articles below or visit posts.html!`;
+      if (qLower.includes('rescueai') && (qLower.includes('dental') || qLower.includes('receptionist'))) {
+        return `**Comparison: RescueAI vs. AI Dental Receptionist**\n\n` +
+               `- **AI Dental Receptionist**: Focuses on real-time conversational Voice AI, LangGraph state machines, Chroma DB RAG, and automated calendar tool execution.\n` +
+               `- **RescueAI**: Focuses on bilingual emergency response (English/Urdu), real-time WebSockets, ARIA AI assistant, and GPS SOS dispatching.\n\n` +
+               `Both showcase modern AI application engineering with FastAPI backends.`;
+      }
+      if (qLower.includes('apexkv') && qLower.includes('rescueai')) {
+        return `**Comparison: ApexKV vs. RescueAI**\n\n` +
+               `- **ApexKV**: Low-level infrastructure and systems project (C++/Java LSM-Tree storage engine with WAL, SSTables, and Pub/Sub).\n` +
+               `- **RescueAI**: Full-stack intelligent emergency response platform combining AI voice interactions, WebSockets, and GPS SOS workflows.`;
+      }
+      return `Taha's strongest projects excel in different engineering dimensions:\n\n` +
+             `- **Generative & Agentic AI**: **AI Dental Receptionist** & **RescueAI** (Voice AI, LangGraph, RAG, WebRTC, FastAPI).\n` +
+             `- **Systems & Infrastructure**: **ApexKV Storage Engine** (C++ LSM-Tree storage engine with SSTables & WAL).\n` +
+             `- **Machine Learning & Anomaly Detection**: **Veriflow** (B2B ML revenue leakage auditing analyzing $21M+ transactions).\n` +
+             `- **Spatial AI & Optimization**: **Genetron** (NSGA-II genetic algorithms for 5G tower placement).`;
     }
 
-    // API Wrapper Skepticism / Genuine Understanding
+    // 6. Specific Projects
+    if (qLower.includes('dental') || qLower.includes('receptionist')) {
+      return `**AI Dental Receptionist** is a front-desk Voice AI agent built by Taha at Verxeon.\n\n` +
+             `- **Architecture**: Low-latency STT (Deepgram) → LangGraph state machine → TTS (ElevenLabs) over WebRTC and Twilio Media Streams.\n` +
+             `- **Capabilities**: Autonomous appointment scheduling, tool calling via Google Calendar API, and Chroma DB semantic RAG lookup for clinic queries.`;
+    }
+
+    if (qLower.includes('rescueai') || qLower.includes('rescue ai')) {
+      return `**RescueAI** is an AI Emergency Response Platform built by Taha.\n\n` +
+             `- **Architecture**: FastAPI async backend, React frontend, Llama-based AI assistant (ARIA), real-time WebSockets, and GPS SOS alerts.\n` +
+             `- **Capabilities**: Bilingual (English & Urdu) voice interaction, location-aware emergency dispatching, and automated SOS notification workflows.`;
+    }
+
+    if (qLower.includes('apexkv') || qLower.includes('apex')) {
+      return `**ApexKV** is a high-performance C++ Key-Value Storage Engine built by Taha.\n\n` +
+             `- **Architecture**: Custom Log-Structured Merge-Tree (LSM-Tree), Sorted String Tables (SSTables), Write-Ahead Logging (WAL), concurrent memtable flushing, and Sparse Indexing for O(1) lookups.`;
+    }
+
+    if (qLower.includes('veriflow')) {
+      return `**Veriflow** is a B2B Revenue Leakage & Invoice Auditing System built by Taha.\n\n` +
+             `- **Impact**: Analyzed 5,500+ B2B transactions worth $21M+ and flagged 86 freight overcharge anomalies.\n` +
+             `- **Stack**: Python, Scikit-learn Random Forest, Pandas, SQLite transaction auditing.`;
+    }
+
+    if (qLower.includes('genetron') || qLower.includes('5g') || qLower.includes('tower placement') || qLower.includes('nsga')) {
+      return `**Genetron** is a 5G Tower Placement Optimization Platform built by Taha.\n\n` +
+             `- **Core Algorithm**: NSGA-II (Non-dominated Sorting Genetic Algorithm II) multi-objective evolutionary optimization.\n` +
+             `- **Performance**: Achieved **99.4% simulated coverage** using mathematical signal propagation modeling.\n` +
+             `- **Stack**: Python, FastAPI, React, and wireless signal simulation.`;
+    }
+
+    // 7. Spoken Languages vs Programming Languages (Handles typos: "langauage", "tah aspeak")
+    if (qLower.includes('language') || qLower.includes('langauage') || qLower.includes('speak') || qLower.includes('speek') || qLower.includes('urdu') || qLower.includes('english')) {
+      return `Muhammad Taha's languages:\n\n` +
+             `- **Spoken Languages**: **English** (Fluent / Professional) and **Urdu / Hindi** (Native).\n` +
+             `- **Programming Languages**: **Python** (Primary for AI, RAG & FastAPI), **C++** (Systems & Storage Engines), **JavaScript / TypeScript** (Full-Stack), and **SQL** (PostgreSQL, SQLite).`;
+    }
+
+    // 8. Contact & Getting in Touch
+    if (qLower.includes('contact') || qLower.includes('touch') || qLower.includes('email') || qLower.includes('reach') || qLower.includes('linkedin') || qLower.includes('github') || qLower.includes('message taha') || qLower.includes('hire taha')) {
+      return `You can get in touch with Muhammad Taha directly:\n\n` +
+             `- **Email**: [m.tahanasir.cs@gmail.com](mailto:m.tahanasir.cs@gmail.com)\n` +
+             `- **LinkedIn**: [linkedin.com/in/muhammadtahanasir](https://www.linkedin.com/in/muhammadtahanasir/)\n` +
+             `- **GitHub**: [github.com/MuhammadTahaNasir](https://github.com/MuhammadTahaNasir)\n` +
+             `- **Booking & Message Form**: You can also submit a direct message or schedule a call on the [Contact Page](/contact.html)!`;
+    }
+
+    // 9. Capabilities / "What can you do"
+    if (qLower.includes('what can you do') || qLower.includes('can you do anything') || qLower.includes('do anything') || qLower.includes('help me with') || qLower.includes('your features') || qLower.includes('how to use')) {
+      return `As **Terry AI**, I can assist you with:\n\n` +
+             `1. **Project Breakdowns**: Deep-dive into *AI Dental Receptionist*, *RescueAI*, *ApexKV Storage Engine*, and *Veriflow*.\n` +
+             `2. **Technical Skills**: Learn about Taha's stack across Generative AI, LangGraph, WebRTC Voice AI, and Python backends.\n` +
+             `3. **Technical Articles**: Search and explore his 40 masterlist articles on AI systems and engineering.\n` +
+             `4. **Background & Contact**: Inquire about his education at FAST-NUCES, achievements, ICPC standings, or get his contact info!`;
+    }
+
+    // 10. API Wrapper Skepticism / Genuine Understanding
     if (qLower.includes('wrapper') || qLower.includes('just api') || qLower.includes('only api') || qLower.includes('understand ai')) {
       return `No. Taha's work goes well beyond simple API wrappers.\n\n` +
              `His background combines traditional Machine Learning and Deep Learning (PyTorch, Scikit-learn, Computer Vision, NLP) with modern AI systems engineering.\n\n` +
              `Instead of relying on basic prompt templates, he builds complex stateful graph execution (LangGraph), custom hybrid RAG pipelines (pgvector, Chroma DB, sparse BM25), real-time WebRTC audio streaming, and high-performance C++ storage engines like **ApexKV**.`;
     }
 
-    // Why Hire / Recruiter Pitch
-    if (qLower.includes('hire') || qLower.includes('why should') || qLower.includes('role fit') || qLower.includes('recruit')) {
+    // 11. Why Hire / Recruiter Pitch
+    if (qLower.includes('hire') || qLower.includes('why should') || qLower.includes('role fit') || qLower.includes('recruit') || qLower.includes('good choice') || qLower.includes('what you think') || qLower.includes('what u think') || qLower.includes('is he good')) {
       return `Why hire Taha?\n\n` +
              `Because he combines practical software engineering with hands-on AI/LLM experience. He builds complete systems — stateful agentic workflows (LangGraph), hybrid RAG search, real-time voice streaming (WebRTC, STT/TTS), and production Python backends (FastAPI, Docker, PostgreSQL) — rather than limiting himself to notebooks or simple API wrappers.`;
     }
 
-    // Best Project / Project Comparisons
-    if (qLower.includes('best project') || qLower.includes('compare project') || qLower.includes('impressive project') || qLower.includes('which project')) {
-      return `Taha's strongest projects excel in different dimensions:\n\n` +
-             `- **Generative & Agentic AI**: **AI Dental Receptionist** & **RescueAI** (Voice AI, LangGraph, RAG, real-time WebRTC, FastAPI backend).\n` +
-             `- **Systems & Infrastructure**: **ApexKV Storage Engine** (C++ LSM-Tree storage engine with SSTables & WAL).\n` +
-             `- **Machine Learning & Anomaly Detection**: **Veriflow** (B2B ML revenue leakage auditing analyzing $21M+ transactions).\n\n` +
-             `For AI Engineering roles, **AI Dental Receptionist** and **RescueAI** best demonstrate his current direction!`;
+    // 12. Technical Articles & Posts
+    if (qLower.includes('only 5') || qLower.includes('no more') || qLower.includes('how many') || qLower.includes('total article') || qLower.includes('total post') || qLower.includes('post') || qLower.includes('article') || qLower.includes('blog') || qLower.includes('writing') || qLower.includes('read')) {
+      let titlesList = "";
+      if (postsData && postsData.length > 0) {
+        titlesList = postsData.slice(0, 5).map(p => `- **${p.title}**`).join('\n');
+      } else {
+        titlesList = `- **What I'd Tell a New CS Grad Entering AI in 2026**\n- **Twilio + LLMs: Building Conversational Voice Workflows for Enterprise**\n- **Four Years Later: What Building AI Products Actually Looks Like**\n- **Cutting AI Latency in Half: Semantic Caching, Request Batching, & vLLM**\n- **Training LLMs Without Going Broke: LoRA & PEFT Fine-Tuning on AWS**`;
+      }
+      return `Muhammad Taha has written **40 masterlist technical articles** in total! Here are a few recent highlights:\n\n${titlesList}\n\nExplore all 40 articles on the [posts archive page](/posts.html) or below!`;
     }
 
-    // Achievements & Competitions
+    // 13. Achievements & Competitions
     if (qLower.includes('achievement') || qLower.includes('icpc') || qLower.includes('codejail') || qLower.includes('competition') || qLower.includes('contest')) {
       return `Muhammad Taha's competitive programming and technical achievements include:\n\n` +
              `- **ICPC Regional Qualifier**: Ranked **86th in Asia**.\n` +
@@ -300,79 +394,25 @@
              `- **Generative AI Application Developer Program**: **Top Performer (96.04% score)**.`;
     }
 
-    // Leadership & Student Community
+    // 14. Leadership & Student Community
     if (qLower.includes('leadership') || qLower.includes('president') || qLower.includes('innovation club') || qLower.includes('mentor')) {
       return `Muhammad Taha served as **President of the FAST Innovation Club**, leading technical workshops, hackathons, competitive programming contests, and student mentoring initiatives across campus.`;
     }
 
-    // Engineering Philosophy & Favorite Quote
+    // 15. Engineering Philosophy & Quote
     if (qLower.includes('philosophy') || qLower.includes('quote') || qLower.includes('feynman') || qLower.includes('motto')) {
       return `Taha's engineering philosophy is anchored in first principles:\n\n` +
              `*“What I cannot create, I do not understand.”* — Richard Feynman\n\n` +
              `He believes in understanding software beneath black-box API abstractions, engineering reliable systems, and turning complex ideas into functional products from the ground up.`;
     }
 
-    // Weakness / Growth Areas (Honest & Grounded)
-    if (qLower.includes('weakness') || qLower.includes('growth area') || qLower.includes('limitation')) {
+    // 16. Weakness / Growth Areas
+    if (qLower.includes('weakness') || qLower.includes('growth area') || qLower.includes('limitation') || qLower.includes('gap')) {
       return `From his documented portfolio, Taha's current growth areas focus on scaling production-grade AI infrastructure, deep Kubernetes/MLOps observability, and increasingly sophisticated multi-agent orchestration.\n\n` +
              `He is grounded in honest engineering and continues expanding his systems depth as an early-career AI Engineer.`;
     }
 
-    // Project Specific - RescueAI
-    if (qLower.includes('rescueai') || qLower.includes('rescue')) {
-      return `**RescueAI** is an AI Emergency Response Platform built by Taha.\n\n` +
-             `- **Architecture**: FastAPI async backend, React frontend, Llama-based AI assistant (ARIA), real-time WebSockets, and GPS SOS alerts.\n` +
-             `- **Capabilities**: Bilingual (English & Urdu) voice interaction, location-aware emergency dispatching, and automated SOS notification workflows.\n` +
-             `Check out the project card below!`;
-    }
-
-    // Project Specific - AI Dental Receptionist
-    if (qLower.includes('dental') || qLower.includes('receptionist')) {
-      return `**AI Dental Receptionist** is a front-desk Voice AI agent built by Taha at Verxeon.\n\n` +
-             `- **Architecture**: Low-latency STT (Deepgram) → LangGraph state machine → TTS (ElevenLabs) over WebRTC and Twilio Media Streams.\n` +
-             `- **Capabilities**: Autonomous appointment scheduling, tool calling via Google Calendar API, and Chroma DB semantic RAG lookup for clinic queries.`;
-    }
-
-    // Project Specific - ApexKV
-    if (qLower.includes('apexkv') || qLower.includes('apex')) {
-      return `**ApexKV** is a high-performance C++ Key-Value Storage Engine built by Taha.\n\n` +
-             `- **Architecture**: Custom Log-Structured Merge-Tree (LSM-Tree), Sorted String Tables (SSTables), Write-Ahead Logging (WAL), concurrent memtable flushing, and Sparse Indexing for O(1) lookups.`;
-    }
-
-    // Project Specific - Veriflow
-    if (qLower.includes('veriflow')) {
-      return `**Veriflow** is a B2B Revenue Leakage & Invoice Auditing System built by Taha.\n\n` +
-             `- **Impact**: Analyzed 5,500+ B2B transactions worth $21M+ and flagged 86 freight overcharge anomalies.\n` +
-             `- **Stack**: Python, Scikit-learn Random Forest, Pandas, SQLite transaction auditing.`;
-    }
-
-    // Job Availability & Target Roles
-    if (qLower.includes('role') || qLower.includes('available') || qLower.includes('remote') || qLower.includes('looking for') || qLower.includes('job')) {
-      return `Taha is actively targetting **AI Engineer**, **Generative & Agentic AI Engineer**, and **AI Software Engineer** roles.\n\n` +
-             `- **Availability**: Open for full-time positions, contracts, and remote opportunities worldwide.\n` +
-             `- **Ideal Fit**: Engineering teams building LLM products, RAG search engines, Voice AI, and stateful agentic backend infrastructure.`;
-    }
-
-    // Why Hire / Recruiter Pitch
-    if (qLower.includes('hire') || qLower.includes('why should') || qLower.includes('role fit') || qLower.includes('recruit')) {
-      return `Taha's strongest combination is **AI Systems + Backend Engineering**.\n\n` +
-             `Unlike developers who treat LLMs as simple API endpoints, Taha builds the complete system around the model — stateful agentic workflows (LangGraph), hybrid RAG search, real-time voice streaming (WebRTC, STT/TTS), and production Python backends (FastAPI, Docker, PostgreSQL).\n\n` +
-             `His production experience as a Voice AI Engineering Intern at **Verxeon** and projects like **AI Dental Receptionist**, **RescueAI**, and **ApexKV** prove he delivers end-to-end engineered software.`;
-    }
-
-    // Agentic AI & LangGraph
-    if (qLower.includes('agentic') || qLower.includes('agent') || qLower.includes('langgraph')) {
-      return `Taha's work with **Agentic AI** centers around stateful multi-step execution, cyclic graph state machines (LangGraph), tool calling, and contextual retrieval.\n\n` +
-             `He designs autonomous workflows where an LLM retrieves context, evaluates dynamic conditions, executes external tools (e.g. Google Calendar API, databases), and manages memory state. Check out his **AI Dental Receptionist** and LangGraph masterlist articles below!`;
-    }
-
-    // Voice AI & Realtime Pipelines
-    if (qLower.includes('voice') || qLower.includes('webrtc') || qLower.includes('pipecat') || qLower.includes('deepgram')) {
-      return `Taha specializes in low-latency **Conversational Voice AI** pipelines combining speech-to-text (Deepgram), LLM streaming, and text-to-speech (ElevenLabs) over WebSockets and WebRTC.\n\n` +
-             `At **Verxeon**, he developed front-desk Voice AI agents integrated with Pipecat and Twilio Media Streams. Explore his Voice AI projects below!`;
-    }
-
-    // Skills & Tech Stack (Layered positioning)
+    // 17. Skills & Tech Stack
     if (qLower.includes('skill') || qLower.includes('stack') || qLower.includes('tool') || qLower.includes('technology') || qLower.includes('technologies')) {
       return `Muhammad Taha's technical skills are structured across core engineering layers:\n\n` +
              `- **Generative & Agentic AI**: LLM Applications, RAG Pipelines, Vector DBs (ChromaDB, pgvector, Qdrant), AI Agents, LangGraph, Tool Calling, Stateful Workflows\n` +
@@ -382,88 +422,28 @@
              `- **Cloud & MLOps**: AWS (Certified Developer & Cloud Practitioner), Docker, CI/CD, MLflow, Linux, Git`;
     }
 
-    // RAG & Knowledge Retrieval
-    if (qLower.includes('rag') || qLower.includes('retrieval') || qLower.includes('vector') || qLower.includes('pgvector') || qLower.includes('chroma') || qLower.includes('embedding')) {
-      return `Muhammad Taha specializes in **Retrieval-Augmented Generation (RAG)** and Enterprise Knowledge Systems. He builds hybrid search pipelines combining dense vector embeddings (Chroma DB/pgvector/Qdrant) with sparse BM25 retrieval. Check out his **AI Dental Receptionist** (Chroma DB) and masterlist articles on Advanced RAG below!`;
+    // 18. Work Experience
+    if (qLower.includes('experience') || qLower.includes('intern') || qLower.includes('verxeon') || qLower.includes('cdc') || qLower.includes('headstarter') || qLower.includes('advtrix')) {
+      return `Muhammad Taha's work experience includes:\n- **Voice AI Engineering Intern at Verxeon** (Voice AI agents, LangGraph, Twilio)\n- **Enterprise Security Intern at CDC Pakistan** (IAM, Cloud Security, Compliance)\n- **Teaching Assistant at FAST NUCES** (Expository Writing)\n- **IT Intern at UBL Insurers** & **Software Engineering Fellow at Headstarter AI**.`;
     }
 
-    // Technical Articles & Posts
-    if (qLower.includes('post') || qLower.includes('article') || qLower.includes('blog') || qLower.includes('notes') || qLower.includes('writing') || qLower.includes('read')) {
-      return `Muhammad Taha has authored in-depth technical posts covering Model Context Protocol (MCP), WebRTC Audio Streaming, Local LLMs with Ollama/vLLM, RAG Architectures, and C++ LSM-Tree Storage Engines. Explore his latest posts below!`;
-    }
-
-    // Projects Catalog
-    if (qLower.includes('project') || qLower.includes('built') || qLower.includes('code') || qLower.includes('repo') || qLower.includes('saas') || qLower.includes('app')) {
-      return `Muhammad Taha's engineering projects from his catalog include:\n- **AI Dental Receptionist**: Production Voice AI front-desk agent built at Verxeon with LangGraph, Pipecat, WebRTC, and Chroma RAG.\n- **RescueAI**: Bilingual AI emergency response platform with real-time ARIA assistant and instant GPS-SOS alerts.\n- **ApexKV Storage Engine**: High-performance C++ storage engine with LSM-Tree architecture.\n- **Veriflow**: B2B ML revenue leakage auditing system.\n\nExplore the project cards below!`;
-    }
-
-    // Education & Certifications
+    // 19. Education & Certifications
     if (qLower.includes('education') || qLower.includes('degree') || qLower.includes('university') || qLower.includes('cert') || qLower.includes('aws') || qLower.includes('fast')) {
       return `Muhammad Taha is a **BS Computer Science Senior Student at FAST NUCES**. His certifications include:\n- **Deep Learning Specialization** (DeepLearning.AI / Coursera)\n- **AWS Certified Developer & Cloud Practitioner**\n- **LangChain & Agentic AI Systems Architect**`;
     }
 
-    // Out-of-scope & Off-topic Guard (e.g. recipes, general trivia, weather)
-    const isOffTopic = qLower.includes('recipe') || qLower.includes('cake') || qLower.includes('weather') || qLower.includes('president') || qLower.includes('capital of') || qLower.includes('song') || qLower.includes('movie') || qLower.includes('cook') || qLower.includes('food') || qLower.includes('joke');
-    if (isOffTopic) {
-      return `I am **Terry AI**, specialized exclusively in assisting visitors with Muhammad Taha Nasir's work, AI engineering projects, technical articles, and background.\n\n` +
-             `I can't help with external trivia or tasks like cooking recipes, but feel free to ask me about Taha's **Voice AI systems**, **LangGraph workflows**, **RescueAI**, or **ApexKV**!`;
+    // 20. General Projects Catalog Intent
+    if (qLower.includes('show projects') || qLower.includes('all projects') || qLower.includes('list projects') || qLower.includes('repos') || qLower.includes('project catalog')) {
+      return `Muhammad Taha's engineering projects from his catalog include:\n- **AI Dental Receptionist**: Production Voice AI front-desk agent built at Verxeon with LangGraph, Pipecat, WebRTC, and Chroma RAG.\n- **RescueAI**: Bilingual AI emergency response platform with real-time ARIA assistant and instant GPS-SOS alerts.\n- **ApexKV Storage Engine**: High-performance C++ storage engine with LSM-Tree architecture.\n- **Veriflow**: B2B ML revenue leakage auditing system.\n\nExplore the project cards below!`;
     }
 
-    // Spoken Languages vs Programming Languages (Handles typos: "langauage", "tah aspeak")
-    if (qLower.includes('language') || qLower.includes('langauage') || qLower.includes('speak') || qLower.includes('speek') || qLower.includes('urdu') || qLower.includes('english')) {
-      return `Muhammad Taha's languages:\n\n` +
-             `- **Spoken Languages**: **English** (Fluent / Professional) and **Urdu / Hindi** (Native).\n` +
-             `- **Programming Languages**: **Python** (Primary for AI, RAG & FastAPI), **C++** (Systems & Storage Engines), **JavaScript / TypeScript** (Full-Stack), and **SQL** (PostgreSQL, SQLite).`;
+    // 21. Greetings & Casual Banter
+    if (/^(hi|hello|hey|bro|dude|man|buddy|greetings|hola|howdy|whats up|what's up|sup|yo|hi bro|hey bro|hello bro)[\s!.]*$/i.test(qLower) || qLower.includes('how are you')) {
+      return `Hey there! I'm Terry AI, Taha's AI representative. I'm here to help you explore Muhammad Taha's AI projects, engineering stack, published articles, and background. What would you like to know?`;
     }
 
-    // Contact & Getting in Touch
-    if (qLower.includes('contact') || qLower.includes('touch') || qLower.includes('email') || qLower.includes('reach') || qLower.includes('linkedin') || qLower.includes('github') || qLower.includes('message taha') || qLower.includes('hire taha')) {
-      return `You can get in touch with Muhammad Taha directly:\n\n` +
-             `- **Email**: [m.tahanasir.cs@gmail.com](mailto:m.tahanasir.cs@gmail.com)\n` +
-             `- **LinkedIn**: [linkedin.com/in/muhammadtahanasir](https://www.linkedin.com/in/muhammadtahanasir/)\n` +
-             `- **GitHub**: [github.com/MuhammadTahaNasir](https://github.com/MuhammadTahaNasir)\n` +
-             `- **Booking & Message Form**: You can also submit a direct message or schedule a call on the [Contact Page](/contact.html)!`;
-    }
-
-    // Capabilities / "What can you do" / "Can you do anything"
-    if (qLower.includes('what can you do') || qLower.includes('can you do anything') || qLower.includes('do anything') || qLower.includes('help me with') || qLower.includes('your features') || qLower.includes('how to use')) {
-      return `As **Terry AI**, I can assist you with:\n\n` +
-             `1. **Project Breakdowns**: Deep-dive into *AI Dental Receptionist*, *RescueAI*, *ApexKV Storage Engine*, and *Veriflow*.\n` +
-             `2. **Technical Skills**: Learn about Taha's stack across Generative AI, LangGraph, WebRTC Voice AI, and Python backends.\n` +
-             `3. **Technical Articles**: Search and explore his 40 masterlist articles on AI systems and engineering.\n` +
-             `4. **Background & Contact**: Inquire about his education at FAST-NUCES, achievements, ICPC standings, or get his contact info!`;
-    }
-
-    // Profanity / Casual Banter Filter
     if (qLower.includes('fuck') || qLower.includes('shit') || qLower.includes('bitch') || qLower.includes('damn') || qLower.includes('ass')) {
       return `Haha, let's keep it constructive! 😄 Feel free to ask me anything about Taha's engineering projects, technical stack, or background.`;
-    }
-
-    // The Ultimate Candidate Evaluation Synthesis ("never met taha", "based only on his portfolio", "evaluate him", "hiring evaluation")
-    if (qLower.includes('never met') || (qLower.includes('based') && qLower.includes('portfolio')) || qLower.includes('evaluate taha') || (qLower.includes('who he is') && qLower.includes('what he has built'))) {
-      return `Muhammad Taha Nasir is a Computer Science student at FAST-NUCES developing toward a **Generative AI / AI Systems engineering** career.\n\n` +
-             `- **Core Stack**: LLM applications, RAG, agentic workflows (LangGraph), Voice AI (WebRTC, Deepgram, ElevenLabs), and Python/FastAPI backends.\n` +
-             `- **Project Progression**: Shows a clear progression from traditional ML/optimization (*Veriflow*, *Genetron*) toward stateful, multi-step AI systems (*RescueAI*, *AI Dental Receptionist*).\n` +
-             `- **Evidence**: Real-time voice orchestration, tool calling (Google Calendar API), vector search (Chroma DB), ICPC 86th in Asia, and internships at Verxeon & CDC.\n` +
-             `- **Interview Verification Areas**: Verify his system design depth, LLM evaluation metrics, agent error handling, and production scaling as a strong early-career AI engineer.`;
-    }
-
-    // Genetron Project
-    if (qLower.includes('genetron') || qLower.includes('5g') || qLower.includes('tower placement') || qLower.includes('nsga')) {
-      return `**Genetron** is a 5G Tower Placement Optimization Platform built by Taha.\n\n` +
-             `- **Core Algorithm**: NSGA-II (Non-dominated Sorting Genetic Algorithm II) multi-objective evolutionary optimization.\n` +
-             `- **Performance**: Achieved **99.4% simulated coverage** using mathematical signal propagation modeling.\n` +
-             `- **Stack**: Python, FastAPI, React, and wireless signal simulation.`;
-    }
-
-    // Hallucination / Private Data Defense
-    if (qLower.includes('salary') || qLower.includes('home address') || qLower.includes('private gpa') || qLower.includes('exact address') || qLower.includes('revenue generated')) {
-      return `That information is **not publicly documented** in Muhammad Taha's portfolio knowledge base. Feel free to reach out to him directly via email at [m.tahanasir.cs@gmail.com](mailto:m.tahanasir.cs@gmail.com) for official inquiries!`;
-    }
-
-    // Prompt Injection & Fabrication Defense
-    if (qLower.includes('ignore instruction') || qLower.includes('reveal system prompt') || qLower.includes('built chatgpt') || qLower.includes('worked at openai') || qLower.includes('10 years')) {
-      return `I cannot fulfill that request. As **Terry AI**, I provide strictly verified, grounded information about Muhammad Taha Nasir's actual portfolio, projects, and engineering experience.`;
     }
 
     // Default Fallback
@@ -473,7 +453,12 @@
   function searchResults(query) {
     let qLower = query.toLowerCase().trim();
     if (!qLower || qLower.length <= 2) {
-      // Prevent 2-letter substrings like "hi", "in", "it", "to" from matching random text
+      return { posts: [], projects: [] };
+    }
+
+    // Prevent Prompt Injection, Private Data, and Out-of-Scope queries from attaching cards
+    const isSpecialDefense = qLower.includes('pretend') || qLower.includes('salary') || qLower.includes('recipe') || qLower.includes('address') || qLower.includes('cake') || qLower.includes('weather');
+    if (isSpecialDefense) {
       return { posts: [], projects: [] };
     }
 
@@ -483,9 +468,9 @@
       return { posts: [], projects: [] };
     }
 
-    const isExplicitPostQuery = qLower.includes('post') || qLower.includes('article') || qLower.includes('blog') || qLower.includes('archive') || qLower.includes('note');
-    const isExplicitProjectQuery = qLower.includes('project') || qLower.includes('proj') || qLower.includes('built') || qLower.includes('repo') || qLower.includes('apexkv') || qLower.includes('saas');
-    const isGeneralInfoQuery = qLower.includes('who is') || qLower.includes('about') || qLower.includes('skill') || qLower.includes('stack') || qLower.includes('education') || qLower.includes('degree') || qLower.includes('experience') || qLower.includes('contact');
+    const isExplicitPostQuery = qLower.includes('how many articles') || qLower.includes('how many posts') || qLower.includes('all articles') || qLower.includes('all posts') || qLower.includes('show posts') || qLower.includes('list articles');
+    const isExplicitProjectQuery = qLower.includes('all projects') || qLower.includes('show projects') || qLower.includes('list projects') || qLower.includes('view projects') || qLower.includes('repos');
+    const isGeneralInfoQuery = qLower.includes('who is') || qLower.includes('about') || qLower.includes('skill') || qLower.includes('stack') || qLower.includes('education') || qLower.includes('degree') || qLower.includes('experience') || qLower.includes('contact') || qLower.includes('never met') || qLower.includes('compare');
 
     // 1. Dedicated Post/Article Query -> Show ONLY Articles
     if (isExplicitPostQuery && !isExplicitProjectQuery) {
@@ -497,8 +482,8 @@
       return { posts: [], projects: TERRY_KNOWLEDGE_BASE.projects.slice(0, 4) };
     }
 
-    // 3. General Bio / Skills / Education / Contact -> Show ONLY text response (no heavy cards)
-    if (isGeneralInfoQuery && !isExplicitProjectQuery && !isExplicitPostQuery) {
+    // 3. General Queries / Synthesis -> Do not dump heavy cards
+    if (isGeneralInfoQuery) {
       return { posts: [], projects: [] };
     }
 
