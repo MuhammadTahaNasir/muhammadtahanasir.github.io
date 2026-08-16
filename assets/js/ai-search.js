@@ -224,8 +224,12 @@
 
   // --- Groq AI API Fetch with Smart Typo Resolution & Verified Persona ---
   async function fetchGroqAIResponse(query) {
+    const apiUrl = (window.location.hostname.includes('github.io') || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+      ? 'https://contact-form-plum-five.vercel.app/api/chat'
+      : '/api/chat';
+
     try {
-      const res = await fetch('/api/chat', {
+      const res = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: query, history: chatHistory })
