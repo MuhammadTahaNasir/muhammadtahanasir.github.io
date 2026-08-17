@@ -84,7 +84,7 @@ module.exports = async (req, res) => {
   ];
 
   try {
-    const groqResponse = await fetch(GROQ_API_URL, {
+    let groqResponse = await fetch(GROQ_API_URL, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${apiKey}`,
@@ -92,12 +92,30 @@ module.exports = async (req, res) => {
         "User-Agent": "Terry-Portfolio-Bot/1.0"
       },
       body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
+        model: "openai/gpt-oss-120b",
         messages: messages,
         temperature: 0.35,
         max_tokens: 600
       })
     });
+
+    if (!groqResponse.ok) {
+      // Automatic fallback to openai/gpt-oss-20b if 120b experiences temporary rate limits
+      groqResponse = await fetch(GROQ_API_URL, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+          "User-Agent": "Terry-Portfolio-Bot/1.0"
+        },
+        body: JSON.stringify({
+          model: "openai/gpt-oss-20b",
+          messages: messages,
+          temperature: 0.35,
+          max_tokens: 600
+        })
+      });
+    }
 
     if (!groqResponse.ok) {
       const errText = await groqResponse.text();
@@ -109,7 +127,7 @@ module.exports = async (req, res) => {
     const reply = data.choices && data.choices[0] && data.choices[0].message ? data.choices[0].message.content : "No response generated.";
 
     res.setHeader('Access-Control-Allow-Origin', '*');
-    return res.status(200).json({ reply: reply, model: "llama-3.3-70b-versatile" });
+    return res.status(200).json({ reply: reply, model: data.model || "openai/gpt-oss-120b" });
 
   } catch (error) {
     console.error("Serverless Handler Error:", error);
